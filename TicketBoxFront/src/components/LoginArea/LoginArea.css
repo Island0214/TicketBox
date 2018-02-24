@@ -1,0 +1,52 @@
+.home-page-wrapper {
+  position: relative;
+}
+
+.home-page-wrapper img {
+  position: relative;
+  width: 100%;
+}
+
+.home-page-wrapper .login-wrapper {
+  width: 30%;
+  position: absolute;
+  /*display: inline-block;*/
+  right: 0;
+  /*min-height: 200px;*/
+  /*padding-bottom: 40%;*/
+  /*background: black;*/
+  /*top: 100px;*/
+  /*bottom: 100px;*/
+  /*margin-top: 5%;*/
+  top: 0;
+  /*border: 5px solid #fff;*/
+  background-color: #fce84e;
+  height: 100%;
+  /*background: url('../../assets/loginbg.jpg');*/
+}
+
+.home-page-wrapper .login-wrapper h1 {
+  position: absolute;
+  display: inline-block;
+  color: #333;
+  margin: 20px 00px 0px 20px;
+  letter-spacing: 2px;
+}
+
+.home-page-wrapper .login-wrapper h3 {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 10%;
+}
+
+.home-page-wrapper .login-wrapper .el-input {
+  width: 60%;
+  margin-left: 20%;
+  border-radius: 0;
+}
+
+.home-page-wrapper .login-wrapper .el-button {
+  width: 40%;
+  margin-top: 30%;
+  margin-left: 30%;
+}

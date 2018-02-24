@@ -1,14 +1,16 @@
 <template>
   <div>
+    <login-area></login-area>
+    <!--<img style="width: 100%" src="../assets/bg.png">-->
   </div>
 </template>
 
 <script>
-import MyNavBar from '../components/MyNavBar/MyNavBar.vue'
+import LoginArea from '../components/LoginArea/LoginArea.vue'
 
 export default {
   components: {
-    MyNavBar
+    LoginArea
   },
   name: 'HelloWorld',
   data () {

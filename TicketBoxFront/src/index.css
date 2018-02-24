@@ -16,6 +16,8 @@ html {
   color: #333;
   background: #fff;
   text-rendering: optimizelegibility;
+  min-width: 800px;
+  width: 100%;
 }
 
 *, *:before, *:after {
@@ -46,8 +48,10 @@ p {
 h1, h2, h3, h4, h5, h6 {
   line-height: 1;
   font-family: Arial, sans-serif;
-  margin: 1.4em 0 0.8em;
+  /*margin: 1.4em 0 0.8em;*/
   font-weight: 600;
+  margin: 0;
+  padding: 0;
 }
 
 h1 {
@@ -90,30 +94,30 @@ h5, h6 {
   /*outline: none;*/
 /*}*/
 
-/*/deep/ .el-input {*/
-  /*border-radius: 0;*/
-  /*border: none;*/
-  /*outline: none;*/
-  /*padding-bottom: 2px;*/
-  /*!*border-bottom: 2px solid #999;*!*/
-  /*z-index: 0;*/
-  /*font-family:  Menlo, "Songti SC", PingFang SC, Verdana, Helvetica Neue, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif;*/
-/*}*/
-
-/*/deep/ .el-input input {*/
-  /*border: none;*/
-  /*font-size: 1.2em;*/
-  /*height: auto;*/
-  /*background: none;*/
+/deep/ .el-input {
+  border-radius: 0;
+  border: none;
+  outline: none;
+  padding-bottom: 2px;
   /*border-bottom: 2px solid #999;*/
-  /*border-radius: 0;*/
-  /*z-index: 0;*/
-  /*padding: 2px;*/
-/*}*/
+  z-index: 0;
+  /*font-family:  Menlo, "Songti SC", PingFang SC, Verdana, Helvetica Neue, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif;*/
+}
 
-/*/deep/ .el-input input:focus {*/
-  /*border-bottom: 2px solid #a7d7d6;*/
-/*}*/
+/deep/ .el-input input {
+  border: none;
+  font-size: 1.2em;
+  height: auto;
+  background: none;
+  border-bottom: 2px solid #333;
+  border-radius: 0;
+  z-index: 0;
+  padding: 2px;
+}
+
+/deep/ .el-input input:focus {
+  border-bottom: 2px solid #333;
+}
 
 /*/deep/ .el-select /deep/ .el-input.is-focus /deep/ .el-input__inner {*/
   /*border-bottom: 2px solid #a7d7d6;*/
@@ -122,3 +126,17 @@ h5, h6 {
 /*/deep/ .el-select-dropdown__item.selected {*/
   /*color: #111111;*/
 /*}*/
+
+/deep/ .el-button {
+  background: none;
+  border-radius: 0;
+  border: 2px solid #333;
+  color: #333;
+  width: 80px;
+}
+
+/deep/ .el-button:hover {
+  color: #fce84e;
+  border: 2px solid #333;
+  background-color: #333;
+}
