@@ -39,11 +39,11 @@ export default {
           price: '¥180 - ¥980'
         },
         {
-          pic: require('../../assets/poster2.jpg'),
-          title: '徐佳莹 日全蚀',
-          place: '[北京] 北京展览馆剧场',
-          time: '2017-12-12 19:30',
-          price: '¥180 - ¥980'
+          pic: require('../../assets/poster3.jpg'),
+          title: '田馥甄 如果If',
+          place: '[广州] 广州体育馆',
+          time: '2017-8-22 19:30',
+          price: '¥380 - 1290'
         }
       ]
     }

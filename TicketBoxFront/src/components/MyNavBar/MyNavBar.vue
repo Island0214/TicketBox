@@ -7,7 +7,7 @@
 
       <div class="register-buttons-wrapper">
         <router-link to="/">
-          <p>用户注册</p>
+          <p>会员注册</p>
         </router-link>
 
         <router-link to="/">
