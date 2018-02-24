@@ -1,0 +1,49 @@
+.single-brief-concert-wrapper {
+  /*width: 100%;*/
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  border: 1px solid #eee;
+  width: 250px;
+  padding: 10px;
+}
+
+.single-brief-concert-wrapper .img-wrapper {
+  position: relative;
+  display: inline-block;
+  max-height: 200px;
+  /*max-width: 200px;*/
+  width: auto;
+}
+
+.single-brief-concert-wrapper .img-wrapper img {
+  /*width: 100%;*/
+  max-height: 300px;
+  max-width: 300px;
+
+  /*position: relative;*/
+  /*width: 60%;*/
+}
+
+.single-brief-concert-wrapper .title-p {
+  color: #333;
+  font-weight: 500;
+  font-size: 20px;
+  margin-bottom: 2px;
+}
+
+.single-brief-concert-wrapper .place-p {
+  color: #999;
+  font-size: 12px;
+}
+
+.single-brief-concert-wrapper .time-p {
+  color: #999;
+  font-size: 12px;
+}
+
+.single-brief-concert-wrapper .price-p {
+  margin-top: 2px;
+  color: #ffdb15;
+  font-weight: 600;
+}
