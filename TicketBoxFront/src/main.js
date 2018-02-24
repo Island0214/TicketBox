@@ -8,7 +8,10 @@ import './index.css'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import './element-variables.scss'
+import Vuex from 'vuex'
+import store from './store'
 
+Vue.use(Vuex)
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 
@@ -16,6 +19,7 @@ Vue.use(ElementUI)
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

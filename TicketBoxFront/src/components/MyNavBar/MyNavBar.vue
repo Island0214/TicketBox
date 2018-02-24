@@ -17,25 +17,30 @@
     </div>
     <div class="catalog-wrapper">
       <img src="../../assets/logo.png">
-      <router-link to="/">
-        <p>场馆入口</p>
-      </router-link>
-      <router-link to="/">
-        <p>会员入口</p>
-      </router-link>
-      <router-link to="/">
-        <p>经理入口</p>
-      </router-link>
+        <a @click="showLoginFrame('场馆')">场馆入口</a>
+        <a @click="showLoginFrame('会员')">会员入口</a>
+        <a @click="showLoginFrame('经理')">经理入口</a>
     </div>
   </div>
 </template>
 
 <script>
+import {mapMutations} from 'vuex'
 export default {
   name: 'HelloWorld',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
+    }
+  },
+  methods: {
+    ...mapMutations({
+      showLogin: 'showLogin',
+      setLoginType: 'setLoginType'
+    }),
+    showLoginFrame: function (type) {
+      this.showLogin()
+      this.setLoginType(type)
     }
   }
 }
