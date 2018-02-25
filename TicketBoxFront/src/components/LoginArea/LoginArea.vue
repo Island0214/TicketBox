@@ -12,7 +12,7 @@
         <h3 style="margin-top: 20%;">密 码</h3>
         <el-input type="password" v-model="password"></el-input>
 
-        <el-button>登 录</el-button>
+        <el-button @click="logIn">登 录</el-button>
       </div>
     </el-collapse-transition>
 
@@ -81,7 +81,7 @@
 </template>
 
 <script>
-import {mapGetters, mapMutations} from 'vuex'
+import {mapGetters, mapMutations, mapActions} from 'vuex'
 
 export default {
   components: {
@@ -112,7 +112,28 @@ export default {
     ...mapMutations({
       hideLogin: 'hideLogin',
       hideSignin: 'hideSignin'
-    })
+    }),
+    ...mapActions({
+      logInAction: 'logInAction'
+    }),
+    logIn: function () {
+      this.logInAction({
+        onSuccess: () => {
+        },
+        onError: (error) => {
+//          this.$message({
+//            showClose: true,
+//            message: error,
+//            type: 'error'
+//          })
+        },
+        body: {
+          type: this.loginType,
+          username: this.username,
+          password: this.password
+        }
+      })
+    }
   },
   watch: {
     showLogin: function () {

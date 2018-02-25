@@ -1,15 +1,15 @@
 <template>
   <div class="footer-wrapper">
     <div class="buttons-wrapper">
-      <a>会员注册</a>
-      <a>场馆注册</a>
+      <a>帮助</a>
+      <!--<a>关于</a>-->
       <a> </a>
     </div>
 
     <div class="buttons-wrapper" style="margin-bottom: 30px;">
-      <a>场馆入口</a>
-      <a>会员入口</a>
-      <a>经理入口</a>
+      <a>关于</a>
+      <!--<a>会员入口</a>-->
+      <!--<a>经理入口</a>-->
     </div>
     <p>Ticket Box @ 2018 Island All Rights Reserved</p>
   </div>

@@ -5,23 +5,52 @@
         <p>TicketBox</p>
       </router-link>
 
-      <div class="register-buttons-wrapper">
+      <div class="register-buttons-wrapper" v-if="!logStatus">
           <!--<p @click="openPage('/vipSign')">会员注册</p>-->
         <p @click="showSignin('会员')">会员注册</p>
         <p @click="showSignin('场馆')">场馆注册</p>
       </div>
+
+      <div class="register-buttons-wrapper" v-else>
+        <p>{{ name }}</p>
+        <p @click="quitLog">退出</p>
+        <!--<p @click="openPage('/vipSign')">会员注册</p>-->
+        <!--<p @click="showSignin('会员')">会员注册</p>-->
+        <!--<p @click="showSignin('场馆')">场馆注册</p>-->
+      </div>
     </div>
     <div class="catalog-wrapper">
       <img src="../../assets/logo.png">
+      <div v-if="!logStatus">
         <a @click="showLoginFrame('场馆')">场馆入口</a>
         <a @click="showLoginFrame('会员')">会员入口</a>
         <a @click="showLoginFrame('经理')">经理入口</a>
+      </div>
+
+      <div v-else>
+        <div v-if="logType === '场馆'">
+          <a>场馆信息</a>
+          <a>计划发布</a>
+          <a>票务信息</a>
+        </div>
+        <div v-if="logType === '会员'">
+          <a>会员天地</a>
+          <a>所有演出</a>
+          <a>我的订单</a>
+          <a>我的信息</a>
+        </div>
+        <div v-if="logType === '经理'">
+          <a>场馆审批</a>
+          <a>支付结算</a>
+          <a>统计信息</a>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import {mapMutations} from 'vuex'
+import {mapMutations, mapGetters} from 'vuex'
 export default {
   name: 'HelloWorld',
   data () {
@@ -33,7 +62,8 @@ export default {
     ...mapMutations({
       showLogin: 'showLogin',
       showSignin: 'showSignin',
-      setLoginType: 'setLoginType'
+      setLoginType: 'setLoginType',
+      quitLog: 'quitLog'
     }),
     showLoginFrame: function (type) {
       this.showLogin()
@@ -42,6 +72,13 @@ export default {
     openPage: function (router) {
       window.open(window.location. origin + router)
     }
+  },
+  computed: {
+    ...mapGetters({
+      logStatus: 'logStatus',
+      name: 'name',
+      logType: 'logType'
+    })
   }
 }
 </script>
