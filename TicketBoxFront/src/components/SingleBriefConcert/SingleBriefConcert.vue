@@ -3,30 +3,29 @@
 
     <div class="single-brief-concert-wrapper">
       <div class="img-wrapper">
-       <img :src="info.pic">
+        <img :src="info.pic">
       </div>
       <p class="title-p">{{ info.title }}</p>
       <p class="place-p">{{ info.place }}</p>
       <p class="time-p">{{ info.time }}</p>
       <p class="price-p">{{ info.price }}</p>
 
-  </div>
+    </div>
 
   </el-col>
 </template>
 
 <script>
-export default {
-  props: ['info'],
-  name: 'HelloWorld',
-  data () {
-    return {
-      recent: true
-    }
-  },
-  methods: {
+  export default {
+    props: ['info'],
+    name: 'HelloWorld',
+    data () {
+      return {
+        recent: true
+      }
+    },
+    methods: {}
   }
-}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

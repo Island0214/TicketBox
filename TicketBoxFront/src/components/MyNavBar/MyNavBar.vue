@@ -6,13 +6,9 @@
       </router-link>
 
       <div class="register-buttons-wrapper">
-        <router-link to="/">
-          <p>会员注册</p>
-        </router-link>
-
-        <router-link to="/">
-          <p>场馆注册</p>
-        </router-link>
+          <!--<p @click="openPage('/vipSign')">会员注册</p>-->
+        <p @click="showSignin('会员')">会员注册</p>
+        <p @click="showSignin('场馆')">场馆注册</p>
       </div>
     </div>
     <div class="catalog-wrapper">
@@ -36,11 +32,15 @@ export default {
   methods: {
     ...mapMutations({
       showLogin: 'showLogin',
+      showSignin: 'showSignin',
       setLoginType: 'setLoginType'
     }),
     showLoginFrame: function (type) {
       this.showLogin()
       this.setLoginType(type)
+    },
+    openPage: function (router) {
+      window.open(window.location. origin + router)
     }
   }
 }
