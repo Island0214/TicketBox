@@ -1,6 +1,6 @@
 <template>
   <div class="home-page-wrapper">
-    <img src="../../assets/bg.png">
+    <img src="../../assets/bg1.png">
     <el-collapse-transition>
       <div class="login-wrapper" v-show="showLogin">
         <h1>{{ this.loginType }}登录</h1>

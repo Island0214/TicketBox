@@ -20,8 +20,10 @@
   /*margin-top: 5%;*/
   top: 0;
   /*border: 5px solid #fff;*/
-  background-color: #fce84e;
-  height: 100%;
+  background-color: #fff;
+  border-bottom: 8px solid #871FCA;
+  /*height: 100%;*/
+  bottom: 8px;
   /*background: url('../../assets/footerbg.jpg');*/
 }
 
