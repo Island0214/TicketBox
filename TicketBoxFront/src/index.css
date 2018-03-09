@@ -151,3 +151,31 @@ h5, h6 {
   /*background-color: #871FCA;*/
 }
 
+/deep/ .el-row {
+  margin-bottom: 30px;
+}
+
+i {
+  color: #999;
+  cursor: pointer;
+  outline: none;
+}
+
+a {
+  color: #871FCA;
+  cursor: pointer;
+}
+
+.tabs-wrapper .select-tab {
+  color: #333;
+  border-bottom: 3px solid #871FCA;
+}
+
+.tabs-wrapper a {
+  font-size: 1.4em;
+  margin-right: 20px;
+  color: #999;
+  padding-bottom: 4px;
+  text-decoration: none;
+  cursor: pointer;
+}
