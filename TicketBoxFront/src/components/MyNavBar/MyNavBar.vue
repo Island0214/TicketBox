@@ -29,20 +29,38 @@
 
       <div v-else>
         <div v-if="logType === '场馆'">
-          <a>场馆信息</a>
-          <a>计划发布</a>
-          <a>票务信息</a>
+          <router-link to="/">
+            <a>场馆信息</a>
+          </router-link>
+          <router-link to="/">
+            <a>计划发布</a>
+          </router-link>
+          <router-link to="/">
+            <a>票务信息</a>
+          </router-link>
         </div>
         <div v-if="logType === '会员'">
-          <a>会员天地</a>
-          <a>所有演出</a>
-          <a>我的订单</a>
-          <a>我的信息</a>
+          <!--<a>会员天地</a>-->
+          <router-link to="/">
+            <a>所有演出</a>
+          </router-link>
+          <router-link to="/">
+            <a>我的订单</a>
+          </router-link>
+          <router-link to="/info">
+            <a>我的信息</a>
+          </router-link>
         </div>
         <div v-if="logType === '经理'">
-          <a>场馆审批</a>
-          <a>支付结算</a>
-          <a>统计信息</a>
+          <router-link to="/">
+            <a>场馆审批</a>
+          </router-link>
+          <router-link to="/">
+            <a>支付结算</a>
+          </router-link>
+          <router-link to="/">
+            <a>统计信息</a>
+          </router-link>
         </div>
       </div>
     </div>

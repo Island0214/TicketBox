@@ -1,0 +1,44 @@
+<template>
+  <div style="width: 100%">
+    <div class="part-title-wrapper">
+      <h2>{{ title }}</h2>
+    </div>
+  </div>
+
+</template>
+
+<script>
+  export default {
+    props: {
+      title: {
+        type: String,
+        default: ''
+      }
+    },
+    data () {
+      return {
+      }
+    }
+  }
+</script>
+
+<style scoped>
+  .part-title-wrapper {
+    position: relative;
+    display: inline-block;
+    width: auto;
+    white-space: nowrap;
+    height: 40px;
+    padding-left: 10px;
+  }
+
+  .part-title-wrapper h2 {
+    position: absolute;
+    float: bottom;
+    font-weight: 500;
+    color: #666;
+    bottom: 0;
+    border-bottom: 3px solid #871FCA;
+    padding: 10px;
+  }
+</style>

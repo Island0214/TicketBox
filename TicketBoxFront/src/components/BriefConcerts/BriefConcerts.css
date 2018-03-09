@@ -9,20 +9,6 @@
   margin-bottom: 30px;
 }
 
-.brief-concerts-wrapper .tabs-wrapper a {
-  font-size: 1.4em;
-  margin-right: 20px;
-  color: #999;
-  padding-bottom: 4px;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.brief-concerts-wrapper .tabs-wrapper .select-tab {
-  color: #333;
-  border-bottom: 3px solid #fce84e;
-}
-
 .brief-concerts-wrapper .concerts-wrapper {
   text-align: center;
   position: relative;

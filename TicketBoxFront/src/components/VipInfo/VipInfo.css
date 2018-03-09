@@ -1,0 +1,40 @@
+.vip-info-wrapper .info-wrapper {
+  padding: 30px 60px 30px 60px;
+}
+
+.dialog-wrapper /deep/ div{
+  min-width: 600px;
+}
+
+.dialog-wrapper .content-wrapper {
+  padding: 30px;
+}
+
+.dialog-wrapper h3 {
+  width: 100%;
+  text-align: right;
+  /*padding: 30px;*/
+  margin-bottom: 20px;
+}
+
+.dialog-wrapper h3 span {
+  color: #871FCA;
+}
+
+.dialog-wrapper .coupons-wrapper {
+  min-height: 400px;
+  position: relative;
+  padding: 30px;
+}
+
+.dialog-wrapper .coupons-wrapper h4 {
+  position: absolute;
+  margin-top: 20%;
+  width: 100%;
+  text-align: center;
+  letter-spacing: 10px;
+}
+
+.dialog-wrapper .coupons-wrapper .fisrt-child {
+  border-top: 1px solid #999;
+}
