@@ -1,9 +1,9 @@
 <template>
   <div class="brief-concerts-wrapper">
     <div class="tabs-wrapper">
-      <a :class="{'select-tab' : recent}" @click="showRecents">最近演出</a>
+      <a :class="{'select-tab' : recent}" @click="showRecents">最 近 演 出</a>
       <!--<a>最新演出</a>-->
-      <a :class="{'select-tab' : !recent}" @click="showHots">热门演出</a>
+      <a :class="{'select-tab' : !recent}" @click="showHots">热 门 演 出</a>
     </div>
 
     <el-row :gutter="20" style="margin: 0" slot="concerts-wrapper">

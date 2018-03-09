@@ -44,7 +44,7 @@
           <router-link to="/">
             <a>所有演出</a>
           </router-link>
-          <router-link to="/">
+          <router-link to="/order">
             <a>我的订单</a>
           </router-link>
           <router-link to="/info">
