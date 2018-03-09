@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import HomePage from '../pages/HomePage.vue'
 import UserInfoPage from '../pages/UserInfoPage.vue'
 import UserOrderPage from '../pages/UserOrderPage.vue'
+import UserConcertsPage from '../pages/UserConcertsPage.vue'
 
 Vue.use(Router)
 
@@ -22,6 +23,11 @@ export default new Router({
       path: '/order',
       name: 'UserInfoPage',
       component: UserOrderPage
+    },
+    {
+      path: '/concerts',
+      name: 'UserConcertsPage',
+      component: UserConcertsPage
     }
   ]
 })

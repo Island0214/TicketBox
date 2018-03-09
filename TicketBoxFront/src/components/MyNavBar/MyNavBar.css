@@ -54,10 +54,11 @@
 .catalog-wrapper img {
   /*width: 40px;*/
   position: absolute;
-  height: 40px;
+  height: 36px;
   margin-top: 10px;
   margin-bottom: 10px;
   left: 50px;
+  cursor: pointer;
 }
 
 .catalog-wrapper a {

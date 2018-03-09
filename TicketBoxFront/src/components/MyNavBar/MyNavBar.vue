@@ -20,7 +20,9 @@
       </div>
     </div>
     <div class="catalog-wrapper">
-      <img src="../../assets/logo.png">
+      <!--<router-link to="/">-->
+      <img src="../../assets/logo.png" @click="$router.push('/')">
+      <!--</router-link>-->
       <div v-if="!logStatus">
         <a @click="showLoginFrame('场馆')">场馆入口</a>
         <a @click="showLoginFrame('会员')">会员入口</a>
@@ -41,7 +43,7 @@
         </div>
         <div v-if="logType === '会员'">
           <!--<a>会员天地</a>-->
-          <router-link to="/">
+          <router-link to="/concerts">
             <a>所有演出</a>
           </router-link>
           <router-link to="/order">
