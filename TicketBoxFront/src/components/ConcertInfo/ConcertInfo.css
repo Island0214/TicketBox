@@ -1,0 +1,139 @@
+.concert-info-wrapper {
+  padding: 30px;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.concert-info-wrapper .concert-image-wrapper {
+  width: 402px;
+  height: 402px;
+  border: 1px solid #999;
+  position: relative;
+  display: inline-block;
+  margin-bottom: 30px;
+  margin-left: 60px;
+}
+
+.concert-info-wrapper .concert-image-wrapper img {
+  max-width: 400px;
+  max-height: 400px;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+}
+
+.concert-info-wrapper .info-wrapper {
+  width: 700px;
+  position: relative;
+  display: inline-block;
+  float: right;
+}
+
+
+.concert-info-wrapper .info-wrapper p{
+  margin-top: 30px;
+  font-size: 20px;
+}
+
+.concert-info-wrapper .info-wrapper .prices-wrapper {
+  margin-top: 30px;
+}
+
+.concert-info-wrapper .info-wrapper .prices-wrapper button {
+  width: 120px;
+  padding: 10px;
+  margin-right: 20px;
+  background: none;
+  border: 2px solid #999;
+  font-size: 16px;
+  font-weight: 400;
+  color: #333;
+  cursor: pointer;
+}
+
+.concert-info-wrapper .info-wrapper .prices-wrapper button:hover {
+  color: #871FCA;
+}
+
+.concert-info-wrapper .info-wrapper .prices-wrapper .select-price {
+  border: 3px solid #871FCA;
+}
+
+.concert-info-wrapper .info-wrapper .buy-wrapper {
+  margin-top: 30px;
+}
+
+.concert-info-wrapper .info-wrapper .buy-wrapper .el-button {
+  width: 200px;
+  height: 50px;
+  border-color: #871FCA;
+  color: #871FCA;
+  margin-top: 30px;
+}
+
+.concert-info-wrapper .info-wrapper .buy-wrapper .el-button:hover {
+  background-color: #871FCA;
+  color: #fff;
+}
+
+
+.concert-info-wrapper .info-wrapper .buy-wrapper .el-input-number /deep/ span {
+  background: none;
+  border: none;
+}
+
+.concert-info-wrapper .info-wrapper .buy-wrapper .el-input-number /deep/ span i {
+  color: #871FCA;
+  font-weight: 600;
+}
+
+.concert-info-wrapper .info-wrapper .buy-wrapper .seat-select-wrapper {
+  margin-top: 30px;
+  /*padding: 30px;*/
+  border: 1px solid #999;
+  padding-bottom: 20px;
+}
+
+.concert-info-wrapper .info-wrapper .buy-wrapper .seat-select-wrapper p {
+  font-size: 16px;
+  margin: 0;
+  width: 100%;
+  padding-bottom: 20px;
+}
+
+.concert-info-wrapper .info-wrapper .buy-wrapper .seat-select-wrapper .seats-wrapper {
+  width: 100%;
+  text-align: center;
+}
+
+.concert-info-wrapper .info-wrapper .buy-wrapper .seat-select-wrapper .selected-seats-wrapper {
+  margin-top: 20px;
+  /*padding: 20px;*/
+  width: 90%;
+  margin-left: 5%;
+  border-top: 1px solid #eee;
+}
+
+.concert-info-wrapper .info-wrapper .buy-wrapper .seat-select-wrapper .selected-seats-wrapper /deep/ .el-tag {
+  margin-left: 5px;
+  border-radius: 0;
+  background: none;
+  margin-top: 20px;
+}
+
+.concert-info-wrapper .intro-wrapper {
+  position: relative;
+  display: inline-block;
+  border-top: 1px solid #999;
+  margin-top: 60px;
+  padding: 60px;
+  width: 100%;
+}
+
+.concert-info-wrapper .intro-wrapper pre {
+  margin-top: 30px;
+  width: 90%;
+  margin-left: 5%;
+}

@@ -181,3 +181,8 @@ a {
   font-weight: 800;
   white-space: nowrap;
 }
+
+/deep/ .el-input-number /deep/ span {
+  background: none;
+  border: none;
+}

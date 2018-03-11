@@ -1,7 +1,7 @@
 <template>
   <el-col :xs="8" :sm="8" :md="8" :lg="8" style="text-align: center">
 
-    <div class="single-brief-concert-wrapper">
+    <div class="single-brief-concert-wrapper" @click="$router.push('/concert/' + info.concert_id)">
       <div class="img-wrapper">
         <img :src="info.pic">
       </div>

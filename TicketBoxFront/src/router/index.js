@@ -4,6 +4,7 @@ import HomePage from '../pages/HomePage.vue'
 import UserInfoPage from '../pages/UserInfoPage.vue'
 import UserOrderPage from '../pages/UserOrderPage.vue'
 import UserConcertsPage from '../pages/UserConcertsPage.vue'
+import ConcertInfoPage from '../pages/ConcertInfoPage.vue'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/concerts',
       name: 'UserConcertsPage',
       component: UserConcertsPage
+    },
+    {
+      path: '/concert/:id',
+      name: 'ConcertInfoPage',
+      component: ConcertInfoPage
     }
   ]
 })
