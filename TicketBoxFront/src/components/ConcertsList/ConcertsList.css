@@ -27,3 +27,12 @@
 .concerts-wrapper .params-wrapper i:hover {
   color: #871FCA;
 }
+
+.concerts-wrapper .pagination-wrapper {
+  margin-top: 60px;
+  position: relative;
+  display: inline-block;
+  padding: 30px;
+  text-align: center;
+  width: 100%;
+}
