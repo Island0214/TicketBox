@@ -11,7 +11,7 @@
       <p>演出时间：<span>{{ start_time }}</span></p>
       <p>演出地点：<span>{{ location }}</span></p>
 
-      <seat-selection></seat-selection>
+      <seat-selection :showButton="true"></seat-selection>
 
     </div>
 

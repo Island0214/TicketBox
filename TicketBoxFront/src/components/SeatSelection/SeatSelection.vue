@@ -1,6 +1,9 @@
 <template>
-  <div>
+  <div class="seat-selection-wrapper">
     <div class="prices-wrapper">
+      价位选择：
+      <br>
+      <br>
       <button v-for="(price, index) in price_types" @click="selectPrice(index)"
               :class="[index === select_price ? 'select-price' : '']">{{ price }}
       </button>
@@ -27,14 +30,14 @@
           <el-tag v-for="(seat, index) in selectedSeats" :key="index">{{ seat }}</el-tag>
         </div>
       </div>
-      <el-button @click="selectSeatBuy">选座购买</el-button>
+      <el-button @click="selectSeatBuy" v-if="showButton">选座购买</el-button>
     </div>
 
     <div class="buy-wrapper" v-if="!canSelectSeat">
       购买张数：
       <el-input-number v-model="ticket_num" :min="1" :max="20"></el-input-number>
       <br>
-      <el-button @click="immediateBuy">立即购买</el-button>
+      <el-button @click="immediateBuy" v-if="showButton">立即购买</el-button>
     </div>
 
   </div>
@@ -42,17 +45,18 @@
 
 <script>
   export default {
+    props: ['showButton'],
     data () {
       return {
         price_types: [100, 120, 200, 400, 600],
-        select_price: -1,
+        select_price: 0,
         canSelectSeat: true,
         rows: 10,
         seats: 30,
         seatArray: [],
         selectedSeats: [],
         selectedSeatsCount: [],
-        area: '',
+        area: '内场1区',
         areas: [
           {
             value: '内场1区',
@@ -72,6 +76,13 @@
     methods: {
       selectPrice: function (index) {
         this.select_price = index
+      },
+      initSeatArray: function () {
+        // todo 取row 和 col
+        this.seatArray = []
+        for (let i = 0; i < this.rows * this.seats; i++) {
+          this.seatArray.push(false)
+        }
       },
       selectSeatBuy: function () {
         if (this.select_price === -1) {
@@ -112,6 +123,12 @@
       }
     },
     watch: {
+      select_price: function () {
+        this.initSeatArray()
+      },
+      area: function () {
+        this.initSeatArray()
+      },
       seatArray: {
         handler: function () {
           let oldValue = this.selectedSeats
@@ -144,6 +161,8 @@
             })
           } else {
             this.selectedSeatsCount = selectCounts
+
+            this.$emit('seatChange', this.price_types[this.select_price] * this.selectedSeats.length)
           }
 //          console.log(this.selectedSeats)
         },
@@ -159,9 +178,7 @@
       }
     },
     mounted () {
-      for (let i = 0; i < this.rows * this.seats; i++) {
-        this.seatArray.push(false)
-      }
+      this.initSeatArray()
 //      console.log(this.seatArray)
     }
   }

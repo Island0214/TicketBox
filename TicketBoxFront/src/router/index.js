@@ -8,6 +8,7 @@ import ConcertInfoPage from '../pages/ConcertInfoPage.vue'
 import PayPage from '../pages/PayPage.vue'
 import VenueInfoPage from '../pages/VenueInfoPage.vue'
 import VenueSchedulePage from '../pages/VenueSchedulePage.vue'
+import VenueLivePage from '../pages/VenueLivePage.vue'
 
 Vue.use(Router)
 
@@ -52,6 +53,11 @@ export default new Router({
       path: '/venue/schedule',
       name: 'VenueSchedulePage',
       component: VenueSchedulePage
+    },
+    {
+      path: '/venue/live',
+      name: 'VenueLivePage',
+      component: VenueLivePage
     }
   ]
 })

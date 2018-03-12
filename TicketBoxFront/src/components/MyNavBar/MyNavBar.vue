@@ -37,6 +37,9 @@
           <router-link to="/venue/schedule">
             <a>计划发布</a>
           </router-link>
+          <router-link to="/venue/live">
+            <a>现场事务</a>
+          </router-link>
           <router-link to="/venue/tickets">
             <a>票务信息</a>
           </router-link>
