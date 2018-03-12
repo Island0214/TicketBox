@@ -51,6 +51,7 @@
   font-weight: 400;
   color: #333;
   cursor: pointer;
+  outline: none;
 }
 
 .concert-info-wrapper .info-wrapper .prices-wrapper button:hover {

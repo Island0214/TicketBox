@@ -35,13 +35,13 @@
             <el-tag v-for="(seat, index) in selectedSeats" :key="index">{{ seat }}</el-tag>
           </div>
         </div>
-        <el-button>选座购买</el-button>
+        <el-button @click="selectSeatBuy">选座购买</el-button>
       </div>
 
       <div class="buy-wrapper" v-if="!canSelectSeat">
         购买张数：<el-input-number v-model="ticket_num" :min="1" :max="20"></el-input-number>
         <br>
-        <el-button>立即购买</el-button>
+        <el-button @click="immediateBuy">立即购买</el-button>
       </div>
     </div>
 
@@ -116,6 +116,43 @@
       },
       selectSeat: function (row, col) {
         alert(row + ';' + col)
+      },
+      selectSeatBuy: function () {
+        if (this.select_price === -1) {
+          this.$message({
+            showClose: true,
+            type: 'error',
+            message: '请选择一种票面价格！'
+          })
+          return
+        }
+
+        if (this.area === '') {
+          this.$message({
+            showClose: true,
+            type: 'error',
+            message: '请选择您想购买的区域！'
+          })
+          return
+        }
+
+        if (this.selectedSeats.length === 0) {
+          this.$message({
+            showClose: true,
+            type: 'error',
+            message: '请选择至少一个座位！'
+          })
+          return
+        }
+
+        // todo buy
+        let order_id = 1
+        this.$router.push('/pay/' + order_id)
+      },
+      immediateBuy: function () {
+        // todo buy
+        let order_id = 1
+        this.$router.push('/pay/' + order_id)
       }
     },
     computed:{
@@ -158,6 +195,14 @@
 //          console.log(this.selectedSeats)
         },
         deep: true
+      },
+      area: function () {
+        this.seatArray = []
+        this.selectedSeats = []
+        this.selectedSeatsCount = []
+        for (let i = 0; i < this.rows * this.seats; i++) {
+          this.seatArray.push(false)
+        }
       }
     },
     mounted () {

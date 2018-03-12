@@ -143,6 +143,11 @@ h5, h6 {
   /*color: #871FCA;*/
   /*border: 2px solid #871FCA;*/
   width: 80px;
+  outline: none;
+}
+
+/deep/ .el-button:focus {
+  outline: none;
 }
 
 /deep/ .el-button:hover {
