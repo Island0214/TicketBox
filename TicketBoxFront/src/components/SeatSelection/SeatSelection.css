@@ -1,0 +1,86 @@
+
+.prices-wrapper button:hover {
+  color: #871FCA;
+}
+
+.prices-wrapper .select-price {
+  border: 3px solid #871FCA;
+}
+
+.prices-wrapper {
+  margin-top: 30px;
+}
+
+.prices-wrapper button {
+  width: 120px;
+  padding: 10px;
+  margin-right: 20px;
+  background: none;
+  border: 2px solid #999;
+  font-size: 16px;
+  font-weight: 400;
+  color: #333;
+  cursor: pointer;
+  outline: none;
+}
+
+.buy-wrapper {
+  margin-top: 30px;
+}
+
+.buy-wrapper .el-button {
+  width: 200px;
+  height: 50px;
+  border-color: #871FCA;
+  color: #871FCA;
+  margin-top: 30px;
+}
+
+.buy-wrapper .el-button:hover {
+  background-color: #871FCA;
+  color: #fff;
+}
+
+.buy-wrapper .el-input-number /deep/ span {
+  background: none;
+  border: none;
+}
+
+.buy-wrapper .el-input-number /deep/ span i {
+  color: #871FCA;
+  font-weight: 600;
+}
+
+.buy-wrapper .seat-select-wrapper {
+  margin-top: 30px;
+  /*padding: 30px;*/
+  border: 1px solid #999;
+  padding-bottom: 20px;
+}
+
+.buy-wrapper .seat-select-wrapper p {
+  font-size: 16px;
+  margin: 0;
+  width: 100%;
+  padding-bottom: 20px;
+}
+
+.buy-wrapper .seat-select-wrapper .seats-wrapper {
+  width: 100%;
+  text-align: center;
+}
+
+.buy-wrapper .seat-select-wrapper .selected-seats-wrapper {
+  margin-top: 20px;
+  /*padding: 20px;*/
+  width: 90%;
+  margin-left: 5%;
+  border-top: 1px solid #eee;
+}
+
+.buy-wrapper .seat-select-wrapper .selected-seats-wrapper /deep/ .el-tag {
+  margin-left: 5px;
+  border-radius: 0;
+  background: none;
+  margin-top: 20px;
+}
