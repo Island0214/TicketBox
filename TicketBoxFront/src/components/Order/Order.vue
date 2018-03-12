@@ -23,7 +23,7 @@
     </div>
     <div class="order-footer-wrapper">
       <h6>订单价格：<span>¥{{ order.price }}</span></h6>
-      <div class="buttons-wrapper">
+      <div class="buttons-wrapper" v-if="showButtons">
         <el-button v-if="order.type === '已付款订单'">退款</el-button>
         <el-button v-if="order.type === '待付款订单'">付款</el-button>
         <el-button v-if="order.type === '待付款订单'">取消</el-button>
@@ -37,12 +37,10 @@
 
 <script>
   export default {
-    props: ['order'],
+    props: ['order', 'showButtons'],
     data () {
       return {
-        url: require('../../assets/poster1.jpg')
-//        url: require(this.order.poster)
-//        poster: require(this.url)
+        url: require('../../assets/poster4.jpg')
       }
     },
     watch: {

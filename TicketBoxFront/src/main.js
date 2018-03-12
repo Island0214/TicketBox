@@ -14,6 +14,14 @@ import store from './store'
 Vue.use(Vuex)
 Vue.config.productionTip = false
 Vue.use(ElementUI)
+//
+// const name = 'App.vue'
+//
+// const App = (resolve) => {
+//   require.ensure([], (require) => {
+//     resolve(require.context('./component', false, /\.vue$/)(`./${name}`));
+//   }, 'app');
+// };
 
 /* eslint-disable no-new */
 new Vue({

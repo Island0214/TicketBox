@@ -25,7 +25,7 @@
       <el-col :xs="18" :sm="18" :md="18" :lg="18">
         <div class="orders-wrapper">
           <order v-for="order in orders" :order="order" :key="order.order_id"
-                 v-if="order.type === orderType || orderType === '全部订单'"></order>
+                 v-if="order.type === orderType || orderType === '全部订单'" :showButtons="true"></order>
         </div>
       </el-col>
     </el-row>

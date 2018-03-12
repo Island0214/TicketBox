@@ -1,0 +1,33 @@
+.pay-area-wrapper {
+  width: 100%;
+  padding: 30px;
+  text-align: center;
+}
+
+.pay-area-wrapper span {
+  color: #871FCA;
+}
+
+.pay-area-wrapper .pay-wrapper {
+  width: 90%;
+  text-align: left;
+  margin-left: 5%;
+  position: relative;
+}
+
+.pay-area-wrapper .pay-wrapper p {
+  margin: 30px;
+}
+
+.pay-area-wrapper .pay-wrapper .el-radio {
+  width: 80%;
+  margin: 0;
+  margin-left: 30px;
+  margin-bottom: 20px;
+}
+
+.pay-area-wrapper .pay-wrapper .el-button {
+  width: 200px;
+  margin: 30px;
+  float: right;
+}
