@@ -6,6 +6,7 @@ import UserOrderPage from '../pages/UserOrderPage.vue'
 import UserConcertsPage from '../pages/UserConcertsPage.vue'
 import ConcertInfoPage from '../pages/ConcertInfoPage.vue'
 import PayPage from '../pages/PayPage.vue'
+import VenueInfoPage from '../pages/VenueInfoPage.vue'
 
 Vue.use(Router)
 
@@ -40,6 +41,11 @@ export default new Router({
       path: '/pay/:id',
       name: 'PayPage',
       component: PayPage
+    },
+    {
+      path: '/venue/info',
+      name: 'venue',
+      component: VenueInfoPage
     }
   ]
 })

@@ -7,13 +7,13 @@
 
       <div class="register-buttons-wrapper" v-if="!logStatus">
           <!--<p @click="openPage('/vipSign')">会员注册</p>-->
-        <p @click="showSignin('会员')">会员注册</p>
-        <p @click="showSignin('场馆')">场馆注册</p>
+        <p @click="showSigninFrame('会员')">会员注册</p>
+        <p @click="showSigninFrame('场馆')">场馆注册</p>
       </div>
 
       <div class="register-buttons-wrapper" v-else>
         <p>{{ name }}</p>
-        <p @click="quitLog">退出</p>
+        <p @click="quitLogin">退出</p>
         <!--<p @click="openPage('/vipSign')">会员注册</p>-->
         <!--<p @click="showSignin('会员')">会员注册</p>-->
         <!--<p @click="showSignin('场馆')">场馆注册</p>-->
@@ -31,13 +31,13 @@
 
       <div v-else>
         <div v-if="logType === '场馆'">
-          <router-link to="/">
+          <router-link to="/venue/info">
             <a>场馆信息</a>
           </router-link>
-          <router-link to="/">
+          <router-link to="/venue/schedule">
             <a>计划发布</a>
           </router-link>
-          <router-link to="/">
+          <router-link to="/venue/tickets">
             <a>票务信息</a>
           </router-link>
         </div>
@@ -88,9 +88,18 @@ export default {
     showLoginFrame: function (type) {
       this.showLogin()
       this.setLoginType(type)
+      this.$router.push('/')
+    },
+    showSigninFrame: function (type) {
+      this.showSignin(type)
+      this.$router.push('/')
     },
     openPage: function (router) {
       window.open(window.location. origin + router)
+    },
+    quitLogin: function () {
+      this.quitLog()
+      this.$router.push('/')
     }
   },
   computed: {

@@ -1,0 +1,54 @@
+.venue-info-wrapper {
+  padding: 30px;
+}
+
+.venue-info-wrapper .info-wrapper {
+  padding: 30px;
+}
+
+.venue-info-wrapper .info-wrapper .el-row {
+  width: 90%;
+  margin-left: 5%;
+}
+
+.venue-info-wrapper .info-wrapper .table-wrapper .el-row {
+  width: 100%;
+  margin: 0;
+  margin-top: 30px;
+}
+
+.venue-info-wrapper .info-wrapper .table-wrapper .el-row /deep/ .el-col {
+  /*padding: 0;*/
+  padding-left: 10px;
+}
+
+.venue-info-wrapper .info-wrapper .table-wrapper .el-row .el-input {
+  margin-top: 30px;
+  width: 80%;
+}
+
+.venue-info-wrapper .info-wrapper .table-wrapper .el-row .el-input-number {
+  margin-top: 25px;
+  width: 80%;
+}
+
+.venue-info-wrapper .info-wrapper .table-wrapper .el-row .el-input-number /deep/ span {
+  background: none;
+  border: none;
+}
+
+.venue-info-wrapper .info-wrapper .table-wrapper .el-row .el-input-number /deep/ span i {
+  color: #871FCA;
+  font-weight: 600;
+}
+
+.venue-info-wrapper .info-wrapper .table-wrapper .el-button {
+  float: none;
+}
+
+.venue-info-wrapper  .el-button {
+  width: 200px;
+  float: right;
+  /*margin-bottom: 30px;*/
+  margin: 15px;
+}
