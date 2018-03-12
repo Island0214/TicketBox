@@ -1,0 +1,107 @@
+.schedule-dispatch-wrapper {
+  padding: 30px;
+  width: 100%;
+  /*width: 10px;*/
+  /*height: 10px;*/
+  /*background-color: #871FCA;*/
+}
+
+.schedule-dispatch-wrapper .upload-pic-wrapper {
+  margin-top: 30px;
+  margin-left: 30px;
+  position: relative;
+  display: inline-block;
+  width: 402px;
+  height: 402px;
+  border: 1px dashed #999;
+  margin-bottom: 60px;
+}
+
+.schedule-dispatch-wrapper .upload-pic-wrapper:hover {
+  border-color: #871FCA;
+}
+
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.avatar-uploader .el-upload:hover {
+  border-color: #871FCA;
+}
+
+.avatar-uploader-icon {
+  position: absolute;
+  left: 0;
+  /*display: inline-block;*/
+  top: 0;
+  font-size: 28px;
+  color: #333;
+  width: 400px;
+  height: 400px;
+  line-height: 400px;
+  text-align: center;
+}
+
+.avatar {
+  max-width: 400px;
+  max-height: 400px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: block;
+}
+
+.schedule-dispatch-wrapper .info-wrapper {
+  margin-top: 30px;
+  width: 700px;
+  float: right;
+  margin-bottom: 60px;
+}
+
+.schedule-dispatch-wrapper .info-wrapper h4 {
+  line-height: 26px;
+}
+
+.schedule-dispatch-wrapper .info-wrapper .el-date-editor {
+  width: 100%;
+}
+
+.schedule-dispatch-wrapper .info-wrapper .el-date-editor /deep/ input {
+  padding-left: 30px;
+}
+
+.schedule-dispatch-wrapper .info-wrapper .el-date-editor /deep/ i {
+  margin-top: -7px;
+}
+
+.schedule-dispatch-wrapper .info-wrapper .el-textarea {
+  height: 220px;
+}
+
+.schedule-dispatch-wrapper .info-wrapper .el-textarea /deep/ textarea {
+  height: 100%;
+  border: 2px solid #333;
+  border-radius: 0;
+}
+
+.schedule-dispatch-wrapper .price-info-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.schedule-dispatch-wrapper .price-info-wrapper .el-table {
+  width: 90%;
+  margin-left: 5%;
+}
+
+.schedule-dispatch-wrapper .dispatch-button {
+  float: right;
+  width: 200px;
+  margin: 40px;
+}
