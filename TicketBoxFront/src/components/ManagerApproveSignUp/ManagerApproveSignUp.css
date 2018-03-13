@@ -1,0 +1,16 @@
+.manager-info-page {
+  padding: 30px;
+  margin-top: 30px;
+  width: 90%;
+  margin-left: 5%;
+  min-height: 700px;
+  text-align: center;
+}
+
+.manager-info-page /deep/ .el-table__header thead tr /deep/ th {
+  text-align: center;
+}
+
+.cell {
+  text-align: center;
+}
