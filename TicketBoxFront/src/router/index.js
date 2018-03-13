@@ -11,6 +11,7 @@ import VenueSchedulePage from '../pages/VenueSchedulePage.vue'
 import VenueLivePage from '../pages/VenueLivePage.vue'
 import VenueStatisticsPage from '../pages/VenueStatisticsPage.vue'
 import ManagerApprovalPage from '../pages/ManagerApprovalPage.vue'
+import ManagerStatisticsPage from '../pages/ManagerStatisticsPage.vue'
 import ManagerBalancePage from '../pages/ManagerBalancePage.vue'
 
 Vue.use(Router)
@@ -76,6 +77,11 @@ export default new Router({
       path: '/manager/balance',
       name: 'ManagerBalancePage',
       component: ManagerBalancePage
+    },
+    {
+      path: '/manager/statistics',
+      name: 'ManagerStatisticsPage',
+      component: ManagerStatisticsPage
     }
   ]
 })

@@ -1,0 +1,12 @@
+.manager-statistics-wrapper {
+  padding: 30px;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.manager-statistics-wrapper h4 {
+  border-left: 3px solid #871FCA;
+  padding: 3px;
+  margin-bottom: 30px;
+}
