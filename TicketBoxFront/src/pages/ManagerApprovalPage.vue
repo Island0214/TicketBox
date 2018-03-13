@@ -34,6 +34,6 @@
 
 <style>
   .page-wrapper {
-    padding: 30px;
+    padding: 60px;
   }
 </style>
