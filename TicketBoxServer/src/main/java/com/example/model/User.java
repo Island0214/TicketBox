@@ -85,6 +85,13 @@ public class User {
     public User() {
     }
 
+    public User(String username, String email, String password, int grade) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.grade = grade;
+    }
+
     public User(int user_id, String username, String email, int grade, double consumption, double integration, int status, String password) {
         this.user_id = user_id;
         this.username = username;

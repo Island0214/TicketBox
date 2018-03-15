@@ -5,10 +5,8 @@ import com.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.HashMap;
 import java.util.Map;
 import net.sf.json.JSONObject;
@@ -28,8 +26,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    Map<String, String> login (@RequestParam String username,
-                  @RequestParam String password) {
+    Map<String, String> login (@RequestParam String username, @RequestParam String password) {
         System.out.println("===============");
         System.out.println("/login");
         System.out.println(username);
@@ -64,9 +61,22 @@ public class UserController {
 //        return userService.logIn("island", "123456");
     }
 
-    @RequestMapping("/register")
-    boolean signIn() {
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    Map<String, String> signIn(@RequestParam String username, @RequestParam String password, @RequestParam String email) {
 //        return userService.logIn(",", ",");
-        return false;
+        Map<String, String> result = new HashMap<>();
+
+        if (userService.register(username, email, password)) {
+            result.put("success", "注册成功");
+        } else {
+            result.put("error", "用户名已存在或邮箱已注册！");
+        }
+        return result;
+    }
+
+    @RequestMapping(value = "/authenticate/{username}", method = RequestMethod.GET)
+    String authenticate(@PathVariable String username) {
+        userService.authenticate(username);
+        return username;
     }
 }

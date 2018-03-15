@@ -11,4 +11,8 @@ import java.util.Map;
 @Service
 public interface UserService {
     Map<Integer, User> logIn(String username, String password);
+
+    boolean register(String username, String email, String password);
+
+    boolean authenticate(String username);
 }
