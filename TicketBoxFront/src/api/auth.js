@@ -37,3 +37,21 @@ export function userRegister (callback, body) {
     .catch(function (error) {
     })
 }
+
+export function userAuthenticate (callback, username) {
+  console.log('userAuthenticate')
+  // console.log('login')
+  axios.get('/user/authenticate/' + username,
+    {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+  )
+    .then(function (response) {
+      console.log(response.data)
+      callback(response.data)
+    })
+    .catch(function (error) {
+    })
+}

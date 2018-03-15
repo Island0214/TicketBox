@@ -13,6 +13,7 @@ import VenueStatisticsPage from '../pages/VenueStatisticsPage.vue'
 import ManagerApprovalPage from '../pages/ManagerApprovalPage.vue'
 import ManagerStatisticsPage from '../pages/ManagerStatisticsPage.vue'
 import ManagerBalancePage from '../pages/ManagerBalancePage.vue'
+import UserAuthenticationPage from '../pages/UserAuthenticationPage.vue'
 
 Vue.use(Router)
 
@@ -82,6 +83,11 @@ export default new Router({
       path: '/manager/statistics',
       name: 'ManagerStatisticsPage',
       component: ManagerStatisticsPage
+    },
+    {
+      path: '/user/authenticate/:name',
+      name: 'UserAuthenticationPage',
+      component: UserAuthenticationPage
     }
   ]
 })

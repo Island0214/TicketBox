@@ -56,6 +56,18 @@ const actions = {
         onSuccess()
       }
     }, body)
+  },
+  'userAuthenticate' ({state, commit}, {onSuccess, onError, username}) {
+    authApi.userAuthenticate((data) => {
+      // console.log(data)
+      if (data.error !== undefined) {
+        // console.log('error')
+        onError(data.error)
+      } else {
+        // console.log('success')
+        onSuccess()
+      }
+    }, username)
   }
 }
 
