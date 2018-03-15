@@ -1,3 +1,4 @@
+import * as authApi from '../../api/auth'
 // initial state
 const state = {
   showLogin: false,
@@ -22,10 +23,39 @@ const getters = {
 
 // actions
 const actions = {
-  'logInAction' ({state, commit}, {onSuccess, onError, body}) {
-    commit('setLogType', body.type)
-    commit('hideLogin')
+  'logInAction' ({state, commit}, {onSuccess, onError, body, type}) {
+    console.log(body)
+    if (type === '会员') {
+      authApi.userLogin((data) => {
+        // console.log(data)
+        // console.log(data.error)
+        if (data.error !== undefined) {
+          // console.log('error')
+          onError(data.error)
+        } else {
+          // console.log('success')
+          onSuccess(data.success)
+          localStorage.setItem('username', body.username)
+          localStorage.setItem('type', type)
+          commit('setLogType', type)
+          commit('setUsername', body.username)
+          commit('hideLogin')
+        }
+      }, body)
+    }
     // alert(state.logType)
+  },
+  'userRegisterAction' ({state, commit}, {onSuccess, onError, body}) {
+    authApi.userRegister((data) => {
+      // console.log(data)
+      if (data.error !== undefined) {
+        // console.log('error')
+        onError(data.error)
+      } else {
+        // console.log('success')
+        onSuccess()
+      }
+    }, body)
   }
 }
 
@@ -55,6 +85,10 @@ const mutations = {
   },
   'quitLog'(state, type) {
     state.logStatus = false
+    localStorage.clear()
+  },
+  'setUsername' (state, username) {
+    state.name = username
   }
 }
 

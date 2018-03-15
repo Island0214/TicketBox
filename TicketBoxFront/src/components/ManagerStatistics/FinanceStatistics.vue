@@ -2,6 +2,7 @@
   <div class="manager-statistics-wrapper">
     <h4>Tickets总收入</h4>
     <h4>会员等级分布</h4>
+    <!--<a href=""></a>-->
   </div>
 </template>
 

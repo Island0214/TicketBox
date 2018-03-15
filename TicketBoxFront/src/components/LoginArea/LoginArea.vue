@@ -34,7 +34,7 @@
              v-model="password"
           ></i>
 
-          <el-button @click="vipSignSuccess=true">注 册</el-button>
+          <el-button @click="userRegister">注 册</el-button>
         </div>
 
         <div v-else>
@@ -114,25 +114,51 @@ export default {
       hideSignin: 'hideSignin'
     }),
     ...mapActions({
-      logInAction: 'logInAction'
+      logInAction: 'logInAction',
+      userRegisterAction: 'userRegisterAction'
     }),
     logIn: function () {
       this.logInAction({
-        onSuccess: () => {
+        onSuccess: (success) => {
+          this.$message({
+            showClose: true,
+            message: '登录成功',
+            type: 'success'
+          })
         },
         onError: (error) => {
-//          this.$message({
-//            showClose: true,
-//            message: error,
-//            type: 'error'
-//          })
+          this.$message({
+            showClose: true,
+            message: error,
+            type: 'error'
+          })
         },
         body: {
-          type: this.loginType,
           username: this.username,
+          password: this.password
+        },
+        type: this.loginType
+      })
+    },
+    userRegister: function () {
+      this.userRegisterAction({
+        onSuccess: () => {
+          this.vipSignSuccess=true
+        },
+        onError: (error) => {
+          this.$message({
+            showClose: true,
+            type: 'error',
+            message: error
+          })
+        },
+        body: {
+          username: this.username,
+          email: this.email,
           password: this.password
         }
       })
+//      this.vipSignSuccess=true
     }
   },
   watch: {
