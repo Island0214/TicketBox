@@ -82,6 +82,9 @@ public class User {
         this.password = password;
     }
 
+    public User() {
+    }
+
     public User(int user_id, String username, String email, int grade, double consumption, double integration, int status, String password) {
         this.user_id = user_id;
         this.username = username;
