@@ -1,15 +1,17 @@
 package com.example;
 
+import com.example.model.PasswordBean;
+import com.example.model.RegisterBean;
 import com.example.model.User;
 import com.example.service.UserService;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
-import net.sf.json.JSONObject;
+
 /**
  * Created by island on 2018/3/14.
  */
@@ -26,9 +28,11 @@ public class UserController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    Map<String, String> login (@RequestParam String username, @RequestParam String password) {
+    Map<String, String> login(@RequestBody PasswordBean passwordBean) {
         System.out.println("===============");
         System.out.println("/login");
+        String username = passwordBean.getUsername();
+        String password = passwordBean.getPassword();
         System.out.println(username);
         System.out.println(password);
 
@@ -38,7 +42,7 @@ public class UserController {
 
 //        Map<String, User>
 
-        for (Integer key: map.keySet()) {
+        for (Integer key : map.keySet()) {
             if (key == 0) {
                 result.put("error", "请验证邮箱后登录！");
             }
@@ -62,9 +66,17 @@ public class UserController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    Map<String, String> signIn(@RequestParam String username, @RequestParam String password, @RequestParam String email) {
+    Map<String, String> signIn(@RequestBody RegisterBean registerBean) {
 //        return userService.logIn(",", ",");
         Map<String, String> result = new HashMap<>();
+        System.out.println("===============");
+        System.out.println("/register");
+        String username = registerBean.getUsername();
+        String password = registerBean.getPassword();
+        String email = registerBean.getEmail();
+        System.out.println(username);
+        System.out.println(password);
+        System.out.println(email);
 
         if (userService.register(username, email, password)) {
             result.put("success", "注册成功");
