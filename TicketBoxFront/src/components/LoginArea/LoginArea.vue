@@ -123,14 +123,16 @@ export default {
           this.$message({
             showClose: true,
             message: '登录成功',
-            type: 'success'
+            type: 'success',
+            customClass: 'message-wrapper'
           })
         },
         onError: (error) => {
           this.$message({
             showClose: true,
             message: error,
-            type: 'error'
+            type: 'error',
+            customClass: 'message-wrapper'
           })
         },
         body: {
@@ -149,7 +151,8 @@ export default {
           this.$message({
             showClose: true,
             type: 'error',
-            message: error
+            message: error,
+            customClass: 'message-wrapper'
           })
         },
         body: {

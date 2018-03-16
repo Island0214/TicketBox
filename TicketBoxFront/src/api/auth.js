@@ -18,6 +18,42 @@ export function userLogin (callback, body) {
     })
 }
 
+export function managerLogin (callback, body) {
+  console.log('managerLogin')
+  // console.log('login')
+  axios.post('/manager/login/',
+    JSON.parse(JSON.stringify(body)),
+    {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+  )
+    .then(function (response) {
+      callback(response.data)
+    })
+    .catch(function (error) {
+    })
+}
+
+export function venueLogin (callback, body) {
+  console.log('venueLogin')
+  // console.log('login')
+  axios.post('/venue/login/',
+    JSON.parse(JSON.stringify(body)),
+    {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+  )
+    .then(function (response) {
+      callback(response.data)
+    })
+    .catch(function (error) {
+    })
+}
+
 export function userRegister (callback, body) {
   console.log('userRegister')
   // console.log('login')

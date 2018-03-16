@@ -65,3 +65,7 @@
 .home-page-wrapper .login-wrapper div {
   position: relative; display: inline-block; width: 100%;
 }
+
+.message-wrapper {
+  border-radius: 0;
+}

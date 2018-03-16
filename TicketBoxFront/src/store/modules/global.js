@@ -43,6 +43,37 @@ const actions = {
         }
       }, body)
     }
+
+    if (type === '经理') {
+      authApi.managerLogin((data) => {
+        console.log(data)
+        if (data.error !== undefined) {
+          onError(data.error)
+        } else {
+          onSuccess(data.success)
+          localStorage.setItem('username', body.username)
+          localStorage.setItem('type', type)
+          commit('setLogType', type)
+          commit('setUsername', body.username)
+          commit('hideLogin')
+        }
+      }, body)
+    }
+
+    if (type === '场馆') {
+      authApi.venueLogin((data) => {
+        if (data.error !== undefined) {
+          onError(data.error)
+        } else {
+          onSuccess(data.success)
+          localStorage.setItem('username', body.username)
+          localStorage.setItem('type', type)
+          commit('setLogType', type)
+          commit('setUsername', body.username)
+          commit('hideLogin')
+        }
+      }, body)
+    }
     // alert(state.logType)
   },
   'userRegisterAction' ({state, commit}, {onSuccess, onError, body}) {

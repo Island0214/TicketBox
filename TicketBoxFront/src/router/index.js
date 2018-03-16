@@ -31,7 +31,7 @@ export default new Router({
     },
     {
       path: '/order',
-      name: 'UserInfoPage',
+      name: 'UserOrderPage',
       component: UserOrderPage
     },
     {
