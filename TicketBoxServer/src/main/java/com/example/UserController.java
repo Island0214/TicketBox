@@ -24,7 +24,7 @@ public class UserController {
 
     @RequestMapping("/")
     String hello() {
-        return "asd";
+        return "user";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
