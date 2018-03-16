@@ -99,6 +99,18 @@ const actions = {
         onSuccess()
       }
     }, username)
+  },
+  'venueRegisterAction' ({state, commit}, {onSuccess, onError, body}) {
+    authApi.venueRegister((data) => {
+      console.log(data)
+      if (data.error !== undefined) {
+        // console.log('error')
+        onError(data.error)
+      } else {
+        // console.log('success')
+        onSuccess(JSON.parse(data.venue))
+      }
+    }, body)
   }
 }
 

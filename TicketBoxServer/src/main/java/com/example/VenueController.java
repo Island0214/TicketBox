@@ -2,7 +2,9 @@ package com.example;
 
 import com.example.model.PasswordBean;
 import com.example.model.Venue;
+import com.example.model.VenueRegisterBean;
 import com.example.service.VenueService;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -54,6 +56,29 @@ public class VenueController {
                 result.put("success", "登录成功！");
             }
         }
+        return result;
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    Map<String, String> login(@RequestBody VenueRegisterBean venueRegisterBean) {
+        System.out.println("===============");
+        System.out.println("/login");
+        String name = venueRegisterBean.getName();
+        String password = venueRegisterBean.getPassword();
+        String address = venueRegisterBean.getAddress();
+        System.out.println(name);
+        System.out.println(password);
+        System.out.println(address);
+//
+        Map<String, String> result = new HashMap<>();
+
+        if (name.equals("") || password.equals("") || address.equals("")) {
+            result.put("error", "信息不能为空！");
+            return result;
+        }
+
+        Venue venue = venueService.register(name, address, password);
+        result.put("venue", JSONObject.fromObject(venue).toString());
         return result;
     }
 

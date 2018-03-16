@@ -11,4 +11,6 @@ import java.util.Map;
 @Service
 public interface VenueService {
     Map<Integer, Venue> login(int code, String password);
+
+    Venue register(String name, String address, String password);
 }

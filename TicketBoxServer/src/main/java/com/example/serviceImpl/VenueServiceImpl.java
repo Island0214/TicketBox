@@ -29,4 +29,20 @@ public class VenueServiceImpl implements VenueService {
         }
         return result;
     }
+
+    @Override
+    public Venue register(String name, String address, String password) {
+        Venue venue = venueRepository.findByName(name);
+        if (venue != null) {
+            return null;
+        } else {
+            venue = new Venue();
+            venue.setStatus(0);
+            venue.setAddress(address);
+            venue.setName(name);
+            venue.setPassword(password);
+            venueRepository.save(venue);
+            return venueRepository.findByName(name);
+        }
+    }
 }

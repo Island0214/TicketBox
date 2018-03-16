@@ -11,4 +11,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface VenueRepository extends JpaSpecificationExecutor<Venue>, JpaRepository<Venue, Long> {
     Venue findByCodeAndPassword(int code, String password);
+
+    Venue findByName(String name);
 }

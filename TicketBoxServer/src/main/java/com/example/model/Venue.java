@@ -9,8 +9,6 @@ import javax.persistence.Id;
 @Entity
 public class Venue {
     @Id
-    private int venue_id;
-
     private int code;
 
     private String name;
@@ -19,15 +17,9 @@ public class Venue {
 
     private int status;
 
+    private String address;
+
     public Venue() {
-    }
-
-    public int getVenue_id() {
-        return venue_id;
-    }
-
-    public void setVenue_id(int venue_id) {
-        this.venue_id = venue_id;
     }
 
     public int getCode() {
@@ -60,5 +52,13 @@ public class Venue {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

@@ -91,3 +91,23 @@ export function userAuthenticate (callback, username) {
     .catch(function (error) {
     })
 }
+
+export function venueRegister (callback, body) {
+  console.log('venueRegister')
+  // console.log('login')
+  console.log(body)
+  axios.post('/venue/register/',
+    JSON.parse(JSON.stringify(body)),
+    {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+  )
+    .then(function (response) {
+      console.log(response.data)
+      callback(response.data)
+    })
+    .catch(function (error) {
+    })
+}

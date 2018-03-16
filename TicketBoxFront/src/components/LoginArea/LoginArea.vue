@@ -65,7 +65,7 @@
              v-model="password"
           ></i>
 
-          <el-button @click="arenaSignSuccess=true">注 册</el-button>
+          <el-button @click="venueRegister">注 册</el-button>
         </div>
 
         <div v-else>
@@ -81,114 +81,134 @@
 </template>
 
 <script>
-import {mapGetters, mapMutations, mapActions} from 'vuex'
+  import { mapGetters, mapMutations, mapActions } from 'vuex'
 
-export default {
-  components: {
-  },
-  name: 'HelloWorld',
-  data () {
-    return {
-      showPassword: false,
-      password: '',
-      email: '',
-      username: '',
-      vipSignSuccess: false,
-      arenaSignSuccess: false,
-      placeName: '',
-      address: '',
-      code: 1111111
-    }
-  },
-  computed: {
-    ...mapGetters({
-      showLogin: 'showLogin',
-      loginType: 'loginType',
-      showSignin: 'showSignin',
-      signinType: 'signinType'
-    })
-  },
-  methods: {
-    ...mapMutations({
-      hideLogin: 'hideLogin',
-      hideSignin: 'hideSignin'
-    }),
-    ...mapActions({
-      logInAction: 'logInAction',
-      userRegisterAction: 'userRegisterAction'
-    }),
-    logIn: function () {
-      this.logInAction({
-        onSuccess: (success) => {
-          this.$message({
-            showClose: true,
-            message: '登录成功',
-            type: 'success',
-            customClass: 'message-wrapper'
-          })
-        },
-        onError: (error) => {
-          this.$message({
-            showClose: true,
-            message: error,
-            type: 'error',
-            customClass: 'message-wrapper'
-          })
-        },
-        body: {
-          username: this.username,
-          password: this.password
-        },
-        type: this.loginType
-      })
-    },
-    userRegister: function () {
-      this.userRegisterAction({
-        onSuccess: () => {
-          this.vipSignSuccess=true
-        },
-        onError: (error) => {
-          this.$message({
-            showClose: true,
-            type: 'error',
-            message: error,
-            customClass: 'message-wrapper'
-          })
-        },
-        body: {
-          username: this.username,
-          email: this.email,
-          password: this.password
-        }
-      })
-//      this.vipSignSuccess=true
-    }
-  },
-  watch: {
-    showLogin: function () {
-      if (this.showLogin) {
-        this.password = ''
-        this.email = ''
-        this.username = ''
-        this.vipSignSuccess = false
-        this.arenaSignSuccess = false
-        this.hideSignin()
+  export default {
+    components: {},
+    name: 'HelloWorld',
+    data () {
+      return {
+        showPassword: false,
+        password: '',
+        email: '',
+        username: '',
+        vipSignSuccess: false,
+        arenaSignSuccess: false,
+        placeName: '',
+        address: '',
+        code: 1111111
       }
     },
-    showSignin: function () {
-      if (this.showSignin) {
-        this.password = ''
-        this.email = ''
-        this.username = ''
-        this.address = ''
-        this.placeName = ''
-        this.vipSignSuccess = false
-        this.arenaSignSuccess = false
-        this.hideLogin()
+    computed: {
+      ...mapGetters({
+        showLogin: 'showLogin',
+        loginType: 'loginType',
+        showSignin: 'showSignin',
+        signinType: 'signinType'
+      })
+    },
+    methods: {
+      ...mapMutations({
+        hideLogin: 'hideLogin',
+        hideSignin: 'hideSignin'
+      }),
+      ...mapActions({
+        logInAction: 'logInAction',
+        userRegisterAction: 'userRegisterAction',
+        venueRegisterAction: 'venueRegisterAction'
+      }),
+      logIn: function () {
+        this.logInAction({
+          onSuccess: (success) => {
+            this.$message({
+              showClose: true,
+              message: '登录成功',
+              type: 'success',
+              customClass: 'message-wrapper'
+            })
+          },
+          onError: (error) => {
+            this.$message({
+              showClose: true,
+              message: error,
+              type: 'error',
+              customClass: 'message-wrapper'
+            })
+          },
+          body: {
+            username: this.username,
+            password: this.password
+          },
+          type: this.loginType
+        })
+      },
+      userRegister: function () {
+        this.userRegisterAction({
+          onSuccess: () => {
+            this.vipSignSuccess = true
+          },
+          onError: (error) => {
+            this.$message({
+              showClose: true,
+              type: 'error',
+              message: error,
+              customClass: 'message-wrapper'
+            })
+          },
+          body: {
+            username: this.username,
+            email: this.email,
+            password: this.password
+          }
+        })
+//      this.vipSignSuccess=true
+      },
+      venueRegister: function () {
+        this.venueRegisterAction({
+          onSuccess: (venue) => {
+            this.arenaSignSuccess = true
+            this.code = venue.code
+          },
+          onError: (error) => {
+            this.$message({
+              showClose: true,
+              type: 'error',
+              message: error
+            })
+          },
+          body: {
+            name: this.placeName,
+            address: this.address,
+            password: this.password
+          }
+        })
+      }
+    },
+    watch: {
+      showLogin: function () {
+        if (this.showLogin) {
+          this.password = ''
+          this.email = ''
+          this.username = ''
+          this.vipSignSuccess = false
+          this.arenaSignSuccess = false
+          this.hideSignin()
+        }
+      },
+      showSignin: function () {
+        if (this.showSignin) {
+          this.password = ''
+          this.email = ''
+          this.username = ''
+          this.address = ''
+          this.placeName = ''
+          this.vipSignSuccess = false
+          this.arenaSignSuccess = false
+          this.hideLogin()
+        }
       }
     }
   }
-}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
