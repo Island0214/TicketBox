@@ -87,8 +87,15 @@ public class UserController {
     }
 
     @RequestMapping(value = "/authenticate/{username}", method = RequestMethod.GET)
-    String authenticate(@PathVariable String username) {
-        userService.authenticate(username);
-        return username;
+    Map<String, String> authenticate(@PathVariable String username) {
+        Map<String, String> result = new HashMap<>();
+
+        if (userService.authenticate(username)) {
+            result.put("success", "验证成功");
+        } else {
+            result.put("error", "验证失败");
+
+        }
+        return result;
     }
 }

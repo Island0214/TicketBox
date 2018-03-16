@@ -97,7 +97,7 @@ public class UserServiceImpl implements UserService {
                 message.setSubject("TicketBox 注册邮箱验证!");
 
                 // 设置消息体
-                message.setContent("<a href='http://localhost:8080/user/authenticate/"+ username + "/'>click to authenticate!</a>", "text/html" );
+                message.setContent("<a href='http://localhost:8089/#/user/authenticate/"+ username + "/'>click to authenticate!</a>", "text/html" );
 
                 // 发送消息
                 Transport.send(message);
@@ -112,9 +112,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean authenticate(String username) {
         User user = userRepository.findByUsername(username);
+        System.out.println(user);
         if (user != null && user.getStatus() == 0) {
             user.setStatus(1);
             userRepository.save(user);
+            return true;
         }
         return false;
     }
