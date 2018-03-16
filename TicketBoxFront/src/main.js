@@ -10,6 +10,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import './element-variables.scss'
 import Vuex from 'vuex'
 import store from './store'
+import {mapMutations} from 'vuex'
 // import axios from 'axios'
 
 // axios.defaults.baseURL = 'http://127.0.0.1:8080/'
@@ -31,5 +32,18 @@ new Vue({
   router,
   store,
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
+  methods: {
+    ...mapMutations({
+      setLogType: 'setLogType',
+      setUsername: 'setUsername'
+    })
+  },
+  mounted () {
+//    console.log(localStorage.getItem('username'))
+    if (localStorage.getItem('username') !== null) {
+      this.setUsername(localStorage.getItem('username'))
+      this.setLogType(localStorage.getItem('type'))
+    }
+  }
 })

@@ -7,7 +7,7 @@ const state = {
   signinType: '',
   logStatus: false,
   logType: '',
-  name: 'ISLAND'
+  name: 0
 }
 
 // getters
@@ -143,6 +143,7 @@ const mutations = {
     localStorage.clear()
   },
   'setUsername' (state, username) {
+    console.log(username)
     state.name = username
   }
 }

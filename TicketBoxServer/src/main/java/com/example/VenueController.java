@@ -60,7 +60,7 @@ public class VenueController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    Map<String, String> login(@RequestBody VenueRegisterBean venueRegisterBean) {
+    Map<String, String> resgiter(@RequestBody VenueRegisterBean venueRegisterBean) {
         System.out.println("===============");
         System.out.println("/login");
         String name = venueRegisterBean.getName();
@@ -80,6 +80,20 @@ public class VenueController {
         Venue venue = venueService.register(name, address, password);
         result.put("venue", JSONObject.fromObject(venue).toString());
         return result;
+    }
+
+    @RequestMapping(value = "/info", method = RequestMethod.POST)
+    Venue getInfo(@RequestBody Venue venue) {
+        System.out.println("===============");
+        System.out.println("/info");
+        int code = venue.getCode();
+        System.out.println(code);
+
+        Venue venueInfo = venueService.getVenueInfo(code);
+//        venueInfo.setPassword("");
+//        Venue result = new
+//        result.put("venue", JSONObject.fromObject(venue).toString());
+        return venueInfo;
     }
 
 }

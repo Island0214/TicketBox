@@ -13,4 +13,6 @@ public interface VenueRepository extends JpaSpecificationExecutor<Venue>, JpaRep
     Venue findByCodeAndPassword(int code, String password);
 
     Venue findByName(String name);
+
+    Venue findByCode(int code);
 }

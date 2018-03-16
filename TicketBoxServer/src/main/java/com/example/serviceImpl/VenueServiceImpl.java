@@ -45,4 +45,10 @@ public class VenueServiceImpl implements VenueService {
             return venueRepository.findByName(name);
         }
     }
+
+    @Override
+    public Venue getVenueInfo(int code) {
+        Venue venue = venueRepository.findByCode(code);
+        return new Venue(venue.getCode(), venue.getName(), venue.getStatus(), venue.getAddress());
+    }
 }

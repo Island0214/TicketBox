@@ -97,6 +97,7 @@
 
 <script>
   import PartTitle from '../Basic/PartTitle/PartTitle.vue'
+  import {mapGetters, mapActions} from 'vuex'
 
   export default {
     components: {
@@ -104,9 +105,8 @@
     },
     data () {
       return {
-        venue_name: '南京欧拉艺术空间',
-        address: '阳光路3号(太阳宫演艺广场B1层)',
-        code: 111111,
+        venue_name: '',
+        address: '',
         tableData: [{
           name: '内场1区',
           row: '10',
@@ -130,7 +130,15 @@
         name: ''
       }
     },
+    computed: {
+      ...mapGetters({
+        code: 'name'
+      })
+    },
     methods: {
+      ...mapActions({
+        getVenueInfo: 'getVenueInfo'
+      }),
       handleDelete(index, row) {
         console.log(index, row);
         this.tableData.splice(index, 1)
@@ -162,6 +170,33 @@
           col: this.cols
         })
       }
+    },
+    mounted () {
+      this.getVenueInfo({
+        onSuccess: (data) => {
+          console.log(data.name)
+
+          this.venue_name = data.name
+          this.address = data.address
+
+          if (data.status === 0) {
+            this.validInfo = false
+          } else if (data.status === 1) {
+            this.validInfo = true
+          }
+        },
+        onError: () => {
+          this.$router.push('/')
+          this.$message(({
+            showClose: true,
+            message: '获取信息失败...请重试',
+            type: 'error'
+          }))
+        },
+        body: {
+          code: this.code
+        }
+      })
     }
   }
 </script>

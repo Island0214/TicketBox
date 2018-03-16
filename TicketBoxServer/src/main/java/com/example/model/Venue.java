@@ -22,6 +22,13 @@ public class Venue {
     public Venue() {
     }
 
+    public Venue(int code, String name, int status, String address) {
+        this.code = code;
+        this.name = name;
+        this.status = status;
+        this.address = address;
+    }
+
     public int getCode() {
         return code;
     }
