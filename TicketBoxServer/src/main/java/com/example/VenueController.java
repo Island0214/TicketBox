@@ -1,5 +1,6 @@
 package com.example;
 
+import com.example.model.Area;
 import com.example.model.PasswordBean;
 import com.example.model.Venue;
 import com.example.model.VenueRegisterBean;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -90,10 +92,39 @@ public class VenueController {
         System.out.println(code);
 
         Venue venueInfo = venueService.getVenueInfo(code);
-//        venueInfo.setPassword("");
-//        Venue result = new
-//        result.put("venue", JSONObject.fromObject(venue).toString());
         return venueInfo;
+    }
+
+    @RequestMapping(value = "/area", method = RequestMethod.POST)
+    List<Area> getAreaInfo(@RequestBody Venue venue) {
+        System.out.println("===============");
+        System.out.println("/area");
+        int code = venue.getCode();
+        System.out.println(code);
+
+        List<Area> areaList = venueService.getAreaInfo(code);
+
+//        Venue venueInfo = venueService.getVenueInfo(code);
+        return areaList;
+    }
+
+    @RequestMapping(value = "/area/save", method = RequestMethod.POST)
+    boolean saveArea(@RequestBody Area[] areas) {
+        System.out.println("===============");
+        System.out.println("/info");
+        for (int i = 0; i < areas.length; i++) {
+            Area area = areas[i];
+            int venue = area.getVenue();
+            String name = area.getName();
+            int row = area.getRow();
+            int col = area.getCol();
+            System.out.println(venue);
+            System.out.println(name);
+            System.out.println(row);
+            System.out.println(col);
+        }
+
+        return venueService.saveAreaInfo(areas);
     }
 
 }

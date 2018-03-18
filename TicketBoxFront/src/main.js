@@ -39,7 +39,7 @@ new Vue({
       setUsername: 'setUsername'
     })
   },
-  mounted () {
+  created () {
 //    console.log(localStorage.getItem('username'))
     if (localStorage.getItem('username') !== null) {
       this.setUsername(localStorage.getItem('username'))

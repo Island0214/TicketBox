@@ -21,6 +21,30 @@ const actions = {
         onSuccess(data)
       }
     }, body)
+  },
+  'getAreaInfo' ({state, commit}, {onSuccess, onError, body}) {
+    authApi.getAreaInfo((data) => {
+      console.log(data)
+      if (data.error !== undefined) {
+        // console.log('error')
+        onError(data.error)
+      } else {
+        // console.log('success')
+        onSuccess(data)
+      }
+    }, body)
+  },
+  'saveAreaInfo' ({state, commit}, {onSuccess, onError, body}) {
+    authApi.saveAreaInfo((data) => {
+      console.log(data)
+      if (!data) {
+        // console.log('error')
+        onError()
+      } else {
+        // console.log('success')
+        onSuccess()
+      }
+    }, body)
   }
 }
 

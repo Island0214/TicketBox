@@ -28,8 +28,7 @@
           <h4>状态：</h4>
         </el-col>
         <el-col :xs="16" :sm="16" :md="16" :lg="16">
-          <h5 v-if="validInfo">信息已通过审核</h5>
-          <h5 v-else>信息审核中...</h5>
+          <h5>{{ validInfo }}</h5>
         </el-col>
       </el-row>
     </div>
@@ -91,7 +90,7 @@
       </div>
     </div>
 
-    <el-button>保存修改</el-button>
+    <el-button @click="saveArea">保存修改</el-button>
   </div>
 </template>
 
@@ -110,19 +109,23 @@
         tableData: [{
           name: '内场1区',
           row: '10',
-          col: '30'
+          col: '30',
+          venue: '1111111'
         }, {
           name: '内场2区',
           row: '10',
-          col: '30'
+          col: '30',
+          venue: '1111111'
         }, {
           name: '内场3区',
           row: '10',
-          col: '30'
+          col: '30',
+          venue: '1111111'
         }, {
           name: '内场4区',
           row: '10',
-          col: '30'
+          col: '30',
+          venue: '1111111'
         }],
         validInfo: true,
         rows: 1,
@@ -137,7 +140,9 @@
     },
     methods: {
       ...mapActions({
-        getVenueInfo: 'getVenueInfo'
+        getVenueInfo: 'getVenueInfo',
+        saveAreaInfoAction: 'saveAreaInfo',
+        getAreaInfoAction: 'getAreaInfo'
       }),
       handleDelete(index, row) {
         console.log(index, row);
@@ -167,7 +172,30 @@
         this.tableData.push({
           name: this.name,
           row: this.rows,
-          col: this.cols
+          col: this.cols,
+          venue: this.code
+        })
+      },
+      saveArea: function () {
+//        alert('sa')
+        this.saveAreaInfoAction({
+          onSuccess: () => {
+            this.$message(({
+              showClose: true,
+              message: '修改信息已提交，请等待Ticket经理审核！',
+              type: 'success'
+            }))
+            this.validInfo = '场馆信息审核中...'
+
+          },
+          onError: () => {
+            this.$message({
+              showClose: true,
+              type: 'error',
+              message: '信息修改失败，请重试！'
+            })
+          },
+          body: this.tableData
         })
       }
     },
@@ -179,11 +207,16 @@
           this.venue_name = data.name
           this.address = data.address
 
-          if (data.status === 0) {
-            this.validInfo = false
-          } else if (data.status === 1) {
-            this.validInfo = true
+          if (data.status === 1) {
+            this.validInfo = '场馆信息已通过审核'
+          } else if (data.status === 0) {
+            this.validInfo = '请完善场馆座位信息！'
+          } else if (data.status === -1) {
+            this.validInfo = '场馆信息审核中...'
+          } else if (data.status === -2) {
+            this.validInfo = '场馆信息未通过，请修改后重新提交！'
           }
+
         },
         onError: () => {
           this.$router.push('/')
@@ -192,6 +225,23 @@
             message: '获取信息失败...请重试',
             type: 'error'
           }))
+        },
+        body: {
+          code: this.code
+        }
+      })
+
+      this.getAreaInfoAction({
+        onSuccess: (data) => {
+//          console.log(data)
+          this.tableData = JSON.parse(JSON.stringify(data))
+        },
+        onError: () => {
+          this.$message({
+            showClose: true,
+            type: 'error',
+            message: '信息获取失败，请重试！'
+          })
         },
         body: {
           code: this.code
