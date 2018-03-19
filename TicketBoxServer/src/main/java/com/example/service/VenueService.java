@@ -1,6 +1,7 @@
 package com.example.service;
 
 import com.example.model.Area;
+import com.example.model.Seat;
 import com.example.model.Venue;
 import org.springframework.stereotype.Service;
 
@@ -21,4 +22,6 @@ public interface VenueService {
     List<Area> getAreaInfo(int code);
 
     boolean saveAreaInfo(Area[] areas);
+
+    Map<String, String> checkTicket(Seat seat);
 }

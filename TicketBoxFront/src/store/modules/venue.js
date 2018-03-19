@@ -45,6 +45,18 @@ const actions = {
         onSuccess()
       }
     }, body)
+  },
+  'checkTicket' ({state, commit}, {onSuccess, onError, body}) {
+    venueApi.checkTicket((data) => {
+      console.log(data)
+      if (data.error !== undefined) {
+        // console.log('error')
+        onError(data.error)
+      } else {
+        // console.log('success')
+        onSuccess()
+      }
+    }, body)
   }
 }
 

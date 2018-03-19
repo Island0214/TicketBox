@@ -53,3 +53,21 @@ export function saveAreaInfo (callback, body) {
     .catch(function (error) {
     })
 }
+
+export function checkTicket (callback, body) {
+  console.log('checkTicket')
+  // console.log('login')
+  axios.post('/venue/seat/check/',
+    JSON.parse(JSON.stringify(body)),
+    {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+  )
+    .then(function (response) {
+      callback(response.data)
+    })
+    .catch(function (error) {
+    })
+}

@@ -1,8 +1,10 @@
 package com.example.serviceImpl;
 
 import com.example.dao.AreaRepository;
+import com.example.dao.SeatRepository;
 import com.example.dao.VenueRepository;
 import com.example.model.Area;
+import com.example.model.Seat;
 import com.example.model.Venue;
 import com.example.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ public class VenueServiceImpl implements VenueService {
 
     @Autowired
     private AreaRepository areaRepository;
+
+    @Autowired
+    private SeatRepository seatRepository;
 
     @Override
     public Map<Integer, Venue> login(int code, String password) {
@@ -85,5 +90,23 @@ public class VenueServiceImpl implements VenueService {
     @Override
     public List<Area> getAreaInfo(int code) {
         return areaRepository.findByVenue(code);
+    }
+
+    @Override
+    public Map<String, String> checkTicket(Seat seat) {
+        Seat seat1 = seatRepository.findByScheduleAndAreaAndRowAndCol(seat.getSchedule(), seat.getArea(), seat.getRow(), seat.getCol());
+        System.out.println(seat1.toString());
+        Map<String, String> map = new HashMap<>();
+        String seatString = seat.getRow() + "排" + seat.getCol() + "座";
+        if (seat1.getStatus() == 2) {
+            seat1.setStatus(3);
+            seatRepository.save(seat1);
+            map.put("success", seatString + "检票成功！");
+        } else if (seat1.getStatus() == 3) {
+            map.put("error", seatString + "已检过票！");
+        } else {
+            map.put("error", seatString + "尚未卖出！");
+        }
+        return map;
     }
 }

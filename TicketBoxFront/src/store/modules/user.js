@@ -39,7 +39,7 @@ const actions = {
       console.log(data)
       if (!data) {
         // console.log('error')
-        onError(data.error)
+        onError()
       } else {
         // console.log('success')
         onSuccess()

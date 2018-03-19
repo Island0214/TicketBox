@@ -92,7 +92,7 @@
           </el-option>
         </el-select>
 
-        <el-button style="margin-top: 120px">检票登记</el-button>
+        <el-button style="margin-top: 120px" @click="checkTicket">检票登记</el-button>
       </div>
     </div>
 
@@ -148,10 +148,10 @@
         discount: 1,
         area: '',
         areas: [],
-        rows: 30,
-        row: 1,
-        cols: 30,
-        col: 1,
+        rows: 0,
+        row: '',
+        cols: 0,
+        col: '',
         isVip: false,
         seats: [],
         dialogVisible: false,
@@ -159,7 +159,8 @@
         seatInfo: '',
         discountInfo: '无折扣',
         areaInfo: '',
-        username: ''
+        username: '',
+        data: ''
       }
     },
     computed: {
@@ -171,11 +172,36 @@
       }
     },
     watch: {
+      buyTicket: function () {
+        this.concert = ''
+      },
       concert: function () {
         console.log(this.concert)
+        this.rows = 0
+        this.cols = 0
+        this.row = ''
+        this.col = ''
+        this.getScheduleInfo()
       },
       isVip: function () {
         this.username = ''
+      },
+      area: function () {
+//        console.log(this.area)
+        this.getAreaInfoAction({
+          onSuccess: (data) => {
+//            console.log(data)
+            let seat = eval('(' + data.seat + ')')
+            this.rows = seat.row
+            this.cols = seat.col
+
+          },
+          onError: () => {
+
+          },
+          schedule: this.concert,
+          area: this.area
+        })
       }
     },
     methods: {
@@ -183,7 +209,10 @@
         getVenueSchedules: 'getVenueSchedules',
         getUserInfoAction: 'getUserInfo',
         getVipDiscountAction: 'getVipDiscount',
-        buyTicketOfflineAction: 'buyTicketOffline'
+        buyTicketOfflineAction: 'buyTicketOffline',
+        getScheduleInfoAction: 'getScheduleInfo',
+        getAreaInfoAction: 'getAreaInfoOfSchedule',
+        checkTicketAction: 'checkTicket'
       }),
       seatChange: function (totalPrice) {
         this.totalPrice = totalPrice
@@ -273,6 +302,67 @@
             area: this.areaInfo
           }
         })
+      },
+      getScheduleInfo: function () {
+        this.getScheduleInfoAction({
+          onSuccess: (data) => {
+            this.data = data
+            let prices = eval('(' + data.prices + ')').reverse()
+            for (let i = 0; i < prices.length; i++) {
+//              this.price_types.push(prices[i])
+              this.areas = []
+              let areas =  eval('(' + this.data['price' + prices[i]] + ')')
+//              console.log(areas)
+
+              for (let j = 0; j < areas.length; j++) {
+                this.areas.push({
+                  label: areas[j],
+                  value: areas[j]
+                })
+              }
+            }
+            console.log(this.areas)
+//            this.setAreas()
+
+          },
+          onError: () => {
+
+          },
+          schedule: this.concert
+        })
+      },
+      checkTicket: function () {
+        let body = {
+          schedule: this.concert,
+          area: this.area,
+          row: this.row,
+          col: this.col
+        }
+
+        this.checkTicketAction({
+          onSuccess: () => {
+            this.$message({
+              showClose: true,
+              customClass: 'message-wrapper',
+              type: 'success',
+              message: this.row + '排' + this.col + '座' + '检票成功！'
+            })
+
+            this.area = ''
+            this.row = ''
+            this.col = ''
+          },
+          onError: (error) => {
+            this.$message({
+              showClose: true,
+              customClass: 'message-wrapper',
+              type: 'error',
+              message: error
+            })
+          },
+          body: body
+        })
+//        console.log(body)
       }
     },
     mounted () {

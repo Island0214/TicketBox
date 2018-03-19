@@ -250,4 +250,20 @@ public class VenueController {
         return result;
     }
 
+    /**
+     * 场馆现场检票
+     *
+     * @param seat
+     * @return
+     */
+    @RequestMapping(value = "/seat/check", method = RequestMethod.POST)
+    Map<String, String> setScheduleSeat(@RequestBody Seat seat) {
+        System.out.println("===============");
+        System.out.println("/seat/check");
+        System.out.println(seat.toString());
+
+//        return scheduleService.saveSeatInfo(seatListBean);
+        return venueService.checkTicket(seat);
+    }
+
 }
