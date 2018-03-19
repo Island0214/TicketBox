@@ -24,7 +24,7 @@
         <p>位置选择区域</p>
         <div class="seats-wrapper" v-for="row in rows" :key="row">
           <el-checkbox v-for="col in seats" style="margin-left: 2px;" :key="col"
-                       v-model="seatArray[(row - 1) * seats + col - 1]"></el-checkbox>
+                       v-model="seatArray[(row - 1) * seats + col - 1]" :disabled="disableArray[(row - 1) * seats + col - 1]"></el-checkbox>
         </div>
         <div class="selected-seats-wrapper" v-if="selectedSeats.length !== 0">
           <el-tag v-for="(seat, index) in selectedSeats" :key="index">{{ seat }}</el-tag>
@@ -44,11 +44,13 @@
 </template>
 
 <script>
+  import {mapActions} from 'vuex'
+
   export default {
-    props: ['showButton'],
+    props: ['showButton', 'schedule'],
     data () {
       return {
-        price_types: [100, 120, 200, 400, 600],
+        price_types: [],
         select_price: 0,
         canSelectSeat: true,
         rows: 10,
@@ -56,33 +58,45 @@
         seatArray: [],
         selectedSeats: [],
         selectedSeatsCount: [],
-        area: '内场1区',
-        areas: [
-          {
-            value: '内场1区',
-            label: '内场1区'
-          },
-          {
-            value: '内场2区',
-            label: '内场2区'
-          },
-          {
-            value: '内场3区',
-            label: '内场3区'
-          }
-        ]
+        area: '',
+        areas: [],
+        data: [],
+        disableArray: []
       }
     },
     methods: {
+      ...mapActions({
+        getScheduleInfoAction: 'getScheduleInfo',
+        getAreaInfoAction: 'getAreaInfoOfSchedule'
+      }),
       selectPrice: function (index) {
         this.select_price = index
       },
       initSeatArray: function () {
-        // todo 取row 和 col
-        this.seatArray = []
-        for (let i = 0; i < this.rows * this.seats; i++) {
-          this.seatArray.push(false)
+        if (this.area !== '') {
+          this.getAreaInfoAction({
+            onSuccess: (data) => {
+              console.log(data)
+              let seats = eval('(' + data.seats + ')')
+              let seat = eval('(' + data.seat + ')')
+              this.rows = seat.row
+              this.seats = seat.col
+              this.disableArray = seats
+
+              this.seatArray = []
+              for (let i = 0; i < this.rows * this.seats; i++) {
+                this.seatArray.push(false)
+              }
+
+            },
+            onError: () => {
+
+            },
+            schedule: this.schedule,
+            area: this.area
+          })
         }
+//        // todo 取row 和 col
       },
       selectSeatBuy: function () {
         if (this.select_price === -1) {
@@ -120,14 +134,41 @@
         // todo buy
         let order_id = 1
         this.$router.push('/pay/' + order_id)
+      },
+      getScheduleInfo: function () {
+        this.getScheduleInfoAction({
+          onSuccess: (data) => {
+            this.data = data
+            let prices = eval('(' + data.prices + ')')
+            for (let i = 0; i < prices.length; i++) {
+              this.price_types.push(prices[i])
+            }
+            this.setAreas()
+
+          },
+          onError: () => {
+
+          },
+          schedule: this.schedule
+        })
+      },
+      setAreas: function () {
+        let areas =  eval('(' + this.data['price' + this.price_types[this.select_price]] + ')')
+//        console.log(areas)
+        this.areas = []
+        for (let i = 0; i < areas.length; i++) {
+          this.areas.push({
+            value: areas[i],
+            label: areas[i]
+          })
+        }
       }
     },
     watch: {
       select_price: function () {
+        this.area = ''
         this.initSeatArray()
-      },
-      area: function () {
-        this.initSeatArray()
+        this.setAreas()
       },
       seatArray: {
         handler: function () {
@@ -161,14 +202,20 @@
             })
           } else {
             this.selectedSeatsCount = selectCounts
+            if (this.price_types.length === 0) {
+              this.$emit('seatChange', 0)
+            } else {
+              this.$emit('seatChange', this.price_types[this.select_price] * this.selectedSeats.length)
+            }
+//            if (price === NaN) {
 
-            this.$emit('seatChange', this.price_types[this.select_price] * this.selectedSeats.length)
           }
 //          console.log(this.selectedSeats)
         },
         deep: true
       },
       area: function () {
+        this.initSeatArray()
         this.seatArray = []
         this.selectedSeats = []
         this.selectedSeatsCount = []
@@ -179,6 +226,7 @@
     },
     mounted () {
       this.initSeatArray()
+      this.getScheduleInfo()
 //      console.log(this.seatArray)
     }
   }

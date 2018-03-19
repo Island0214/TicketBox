@@ -209,6 +209,7 @@
               var artist = this.artist
               var time = this.start_time
               var type = this.type
+              var venue = this.code
 
               var that = this
 
@@ -221,7 +222,8 @@
                   time: time,
 //                prices: this.areaData,
                   poster: e.target.result,
-                  type: type
+                  type: type,
+                  venue: venue
                 }
                 console.log(body)
 

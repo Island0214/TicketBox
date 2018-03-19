@@ -24,18 +24,24 @@ public class Seat {
 
     private int price;
 
-    private boolean sold;
+    /**
+     * status == 0 未卖出
+     * status == 1 等待付款
+     * status == 2 已出售
+     * status == 3 已检票
+     */
+    private int status;
 
     public Seat() {
     }
 
-    public Seat(int schedule, String area, int row, int col, int price, boolean sold) {
+    public Seat(int schedule, String area, int row, int col, int price, int status) {
         this.schedule = schedule;
         this.area = area;
         this.row = row;
         this.col = col;
         this.price = price;
-        this.sold = sold;
+        this.status = status;
     }
 
     public int getSeat_id() {
@@ -86,12 +92,12 @@ public class Seat {
         this.price = price;
     }
 
-    public boolean isSold() {
-        return sold;
+    public int getStatus() {
+        return status;
     }
 
-    public void setSold(boolean sold) {
-        this.sold = sold;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     @Override
@@ -103,7 +109,7 @@ public class Seat {
                 ", row=" + row +
                 ", col=" + col +
                 ", price=" + price +
-                ", sold=" + sold +
+                ", status=" + status +
                 '}';
     }
 }

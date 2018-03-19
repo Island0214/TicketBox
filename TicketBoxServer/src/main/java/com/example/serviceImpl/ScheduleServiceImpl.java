@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -41,12 +42,52 @@ public class ScheduleServiceImpl implements ScheduleService{
             System.out.println(area.getCol());
             for (int j = 0; j < area.getRow(); j++) {
                 for (int k = 0; k < area.getCol(); k++) {
-                    seatList.add(new Seat(seatListBean.getSchedule(), area.getArea(), j + 1, k + 1, area.getPrice(), false));
+                    seatList.add(new Seat(seatListBean.getSchedule(), area.getArea(), j + 1, k + 1, area.getPrice(), 0));
                 }
             }
         }
 
         seatRepository.save(seatList);
         return true;
+    }
+
+    @Override
+    public List<Schedule> getScheduleByVenue(int venue) {
+//        scheduleRepository.findByVenueBefore(int venue)
+        return scheduleRepository.findByVenueBefore(venue, new Date());
+    }
+
+    @Override
+    public List<Integer> getAllPricesOfSchedule(int schedule) {
+        return seatRepository.findPricesBySchedule(schedule);
+    }
+
+    @Override
+    public List<String> getAreasByScheduleAndString(int schedule, int price) {
+        return seatRepository.findAreasByScheduleAndPrice(schedule, price);
+    }
+
+    @Override
+    public Seat getSeatByScheduleAndArea(int schedule, String area) {
+        List<Seat> seatList = seatRepository.findRowAndCodeByScheduleAndArea(schedule, area);
+        if (seatList.size() > 0) {
+            return seatList.get(0);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public List<Boolean> getSeatsInArea(int schedule, String area) {
+        List<Seat> seatList = seatRepository.findSeatsByScheduleAndArea(schedule, area);
+        List<Boolean> result = new ArrayList<>();
+        for (int i = 0; i < seatList.size(); i++) {
+            if (seatList.get(i).getStatus() == 0) {
+                result.add(false);
+            } else {
+                result.add(true);
+            }
+        }
+        return result;
     }
 }

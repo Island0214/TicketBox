@@ -27,6 +27,8 @@ public class Schedule {
 
     private String type;
 
+    private int venue;
+
     public Schedule() {
     }
 
@@ -84,6 +86,14 @@ public class Schedule {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public int getVenue() {
+        return venue;
+    }
+
+    public void setVenue(int venue) {
+        this.venue = venue;
     }
 
     @Override
