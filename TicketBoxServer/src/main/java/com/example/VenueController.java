@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,15 +48,13 @@ public class VenueController {
 //
         Map<Integer, Venue> map = venueService.login(Integer.parseInt(username), password);
 
-        for (int key: map.keySet()) {
+        for (int key : map.keySet()) {
             System.out.println(key);
             if (key == -1) {
                 result.put("error", "登录失败");
-            }
-            else if (key == 0) {
+            } else if (key == 0) {
                 result.put("error", "请等待Tickets经理通过场馆申请！");
-            }
-            else {
+            } else {
                 result.put("success", "登录成功！");
             }
         }
@@ -136,6 +135,15 @@ public class VenueController {
 
         return scheduleService.saveSchedule(schedule);
 //        return venueService.saveAreaInfo(areas);
+    }
+
+    @RequestMapping(value = "/schedule/seats", method = RequestMethod.POST)
+    boolean setScheduleSeat(@RequestBody SeatListBean seatListBean) {
+        System.out.println("===============");
+        System.out.println("/schedule/seats");
+        System.out.println(seatListBean.toString());
+
+        return scheduleService.saveSeatInfo(seatListBean);
     }
 
 }

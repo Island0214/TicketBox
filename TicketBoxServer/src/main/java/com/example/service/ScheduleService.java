@@ -1,6 +1,7 @@
 package com.example.service;
 
 import com.example.model.Schedule;
+import com.example.model.SeatListBean;
 import org.springframework.stereotype.Service;
 
 /**
@@ -9,4 +10,6 @@ import org.springframework.stereotype.Service;
 @Service
 public interface ScheduleService {
     Schedule saveSchedule(Schedule schedule);
+
+    boolean saveSeatInfo(SeatListBean seatListBean);
 }

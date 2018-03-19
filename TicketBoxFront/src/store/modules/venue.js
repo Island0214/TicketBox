@@ -57,6 +57,18 @@ const actions = {
         onSuccess()
       }
     }, body)
+  },
+  'setScheduleSeat' ({state, commit}, {onSuccess, onError, body}) {
+    authApi.setScheduleSeat((data) => {
+      console.log(data)
+      if (!data) {
+        // console.log('error')
+        onError()
+      } else {
+        // console.log('success')
+        onSuccess()
+      }
+    }, body)
   }
 }
 

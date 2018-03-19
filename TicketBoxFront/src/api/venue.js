@@ -71,3 +71,21 @@ export function dispatchSchedule (callback, body) {
     .catch(function (error) {
     })
 }
+
+export function setScheduleSeat (callback, body) {
+  console.log('setScheduleSeat')
+  // console.log('login')
+  axios.post('/venue/schedule/seats/',
+    JSON.parse(JSON.stringify(body)),
+    {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+  )
+    .then(function (response) {
+      callback(response.data)
+    })
+    .catch(function (error) {
+    })
+}

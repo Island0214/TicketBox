@@ -66,7 +66,7 @@
         >
           <template slot-scope="scope">
             <!--<i class="el-icon-time"></i>-->
-            <span style="margin-left: 10px">{{ scope.row.name }}</span>
+            <span style="margin-left: 10px">{{ scope.row.area }}</span>
           </template>
         </el-table-column>
         <el-table-column
@@ -97,19 +97,7 @@
         concert_name: '',
         artist: '',
         concert_intro: '',
-        areaData: [{
-          name: '内场1区',
-          price: 0
-        }, {
-          name: '内场2区',
-          price: 0
-        }, {
-          name: '内场3区',
-          price: 0
-        }, {
-          name: '内场4区',
-          price: 0
-        }],
+        areaData: [],
         schedule_id: ''
       }
     },
@@ -121,7 +109,9 @@
     methods: {
       ...mapActions({
         getVenueInfo: 'getVenueInfo',
-        dispatchScheduleAction: 'dispatchSchedule'
+        dispatchScheduleAction: 'dispatchSchedule',
+        setScheduleSeatAction: 'setScheduleSeat',
+        getAreaInfoAction: 'getAreaInfo'
       }),
       changePic (file) {
         this.imageUrl = URL.createObjectURL(file.raw);
@@ -173,6 +163,12 @@
         return dataURL
       },
       dispatchSchedule: function (file) {
+        var loadingInstance = this.$loading({
+          body: true,
+          lock: true,
+          text: '计划发布中...'
+        })
+
         this.getVenueInfo({
           onSuccess: (data) => {
             if (data.status === 1) {
@@ -204,6 +200,33 @@
                   onSuccess: (data) => {
 //                    console.log(data)
                     this.schedule_id = data.schedule_id
+                    console.log(that.areaData)
+
+                    that.setScheduleSeatAction({
+                      onSuccess: () => {
+                        that.$router.push('/')
+                        that.$message({
+                          showClose: true,
+                          type: 'success',
+                          message: '计划发布成功！',
+                          customClass: 'message-wrapper'
+                        })
+                        loadingInstance.close()
+                      },
+                      onError: () => {
+                        that.$router.push('/')
+                        v.$message({
+                          showClose: true,
+                          type: 'error',
+                          message: '计划发布失败！请重试...',
+                          customClass: 'message-wrapper'
+                        })
+                      },
+                      body: {
+                        schedule: this.schedule_id,
+                        seatList: that.areaData
+                      }
+                    })
 
                   },
                   onError: () => {
@@ -242,6 +265,32 @@
         })
         return false
       }
+    },
+    mounted () {
+      this.getAreaInfoAction({
+        onSuccess: (data) => {
+          console.log(data)
+          for (let i = 0; i < data.length; i++) {
+            this.areaData.push({
+              area: data[i].name,
+              price: 1,
+              row: data[i].row,
+              col: data[i].col
+            })
+          }
+//          this.tableData = JSON.parse(JSON.stringify(data))
+        },
+        onError: () => {
+          this.$message({
+            showClose: true,
+            type: 'error',
+            message: '信息获取失败，请重试！'
+          })
+        },
+        body: {
+          code: this.code
+        }
+      })
     }
   }
 </script>
