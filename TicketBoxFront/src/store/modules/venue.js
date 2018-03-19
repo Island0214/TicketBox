@@ -34,6 +34,18 @@ const actions = {
       }
     }, body)
   },
+  'dispatchSchedule' ({state, commit}, {onSuccess, onError, body}) {
+    authApi.dispatchSchedule((data) => {
+      console.log(data)
+      if (data.error !== undefined) {
+        // console.log('error')
+        onError()
+      } else {
+        // console.log('success')
+        onSuccess(data)
+      }
+    }, body)
+  },
   'saveAreaInfo' ({state, commit}, {onSuccess, onError, body}) {
     authApi.saveAreaInfo((data) => {
       console.log(data)

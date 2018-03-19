@@ -6,10 +6,12 @@
     <div class="upload-pic-wrapper">
       <el-upload
         class="avatar-uploader"
-        action="https://jsonplaceholder.typicode.com/posts/"
+        action=""
+        ref="picUpload"
         :show-file-list="false"
-        :on-success="handleAvatarSuccess"
-        :before-upload="beforeAvatarUpload">
+        :before-upload="dispatchSchedule"
+        :on-change="changePic"
+        :auto-upload="false">
         <img v-if="imageUrl" :src="imageUrl" class="avatar">
         <i class="el-icon-plus avatar-uploader-icon"></i>
       </el-upload>
@@ -76,12 +78,13 @@
       </el-table>
     </div>
 
-    <el-button class="dispatch-button" @click="dispatchSchedule">发布新计划</el-button>
+    <el-button class="dispatch-button" @click="uploadImg">发布新计划</el-button>
   </div>
 </template>
 
 <script>
   import PartTitle from '../Basic/PartTitle/PartTitle.vue'
+  import { mapGetters, mapActions } from 'vuex'
 
   export default {
     components: {
@@ -89,7 +92,7 @@
     },
     data () {
       return {
-        imageUrl: require('../../assets/poster4.jpg'),
+        imageUrl: '',
         start_time: '',
         concert_name: '',
         artist: '',
@@ -107,30 +110,41 @@
           name: '内场4区',
           price: 0
         }],
+        schedule_id: ''
       }
     },
+    computed: {
+      ...mapGetters({
+        code: 'name'
+      })
+    },
     methods: {
-      handleAvatarSuccess(res, file) {
+      ...mapActions({
+        getVenueInfo: 'getVenueInfo',
+        dispatchScheduleAction: 'dispatchSchedule'
+      }),
+      changePic (file) {
         this.imageUrl = URL.createObjectURL(file.raw);
       },
-      beforeAvatarUpload(file) {
-        const isJPG = file.type === 'image/jpeg';
-        const isLt2M = file.size / 1024 / 1024 < 2;
+      uploadImg () {
+//        this.imageUrl = URL.createObjectURL(file.raw)
+        console.log(this.$refs.picUpload)
+        if (this.$refs.picUpload.uploadFiles.length === 0) {
+          this.$message({
+            showClose: true,
+            type: 'error',
+            message: '请选择一张图片作为海报！',
+            customClass: 'message-wrapper'
+          })
+          return
+        }
 
-        if (!isJPG) {
-          this.$message.error('上传头像图片只能是 JPG 格式!');
-        }
-        if (!isLt2M) {
-          this.$message.error('上传头像图片大小不能超过 2MB!');
-        }
-        return isJPG && isLt2M;
-      },
-      dispatchSchedule: function () {
         if (this.start_time === '' || this.artist === '' || this.concert_name === '' || this.concert_intro === '') {
           this.$message({
             showClose: true,
             type: 'error',
-            message: '信息不能为空！'
+            message: '信息不能为空！',
+            customClass: 'message-wrapper'
           })
           return
         }
@@ -144,14 +158,89 @@
             return
           }
         }
-        let body = {
-          concert_name: this.concert_name,
-          concert_intro: this.concert_intro,
-          artist: this.artist,
-          start_time: this.start_time,
-          prices: this.areaData
-        }
-        console.log(body)
+
+        this.$refs.picUpload.submit()
+
+      },
+      getBase64Image: function (img) {
+        var canvas = document.createElement("canvas")
+        canvas.width = img.width
+        canvas.height = img.height
+        var ctx = canvas.getContext("2d")
+        ctx.drawImage(img, 0, 0, img.width, img.height)
+        var ext = img.src.substring(img.src.lastIndexOf(".")+1).toLowerCase()
+        var dataURL = canvas.toDataURL("image/"+ext)
+        return dataURL
+      },
+      dispatchSchedule: function (file) {
+        this.getVenueInfo({
+          onSuccess: (data) => {
+            if (data.status === 1) {
+              let reader = new FileReader()
+
+              var poster = ''
+              var schedule = this.concert_name
+              var intro = this.concert_intro
+              var artist = this.artist
+              var time = this.start_time
+
+              var that = this
+
+              reader.onload = function(e) {
+
+                let body = {
+                  schedule: schedule,
+                  intro: intro,
+                  artist: artist,
+                  time: time,
+//                prices: this.areaData,
+                  poster: e.target.result
+                }
+                console.log(body)
+
+
+                // todo
+                that.dispatchScheduleAction({
+                  onSuccess: (data) => {
+//                    console.log(data)
+                    this.schedule_id = data.schedule_id
+
+                  },
+                  onError: () => {
+
+                  },
+                  body: body
+                })
+
+              }
+
+              reader.readAsDataURL(file)
+
+
+            } else {
+              this.$message({
+                showClose: true,
+                type: 'error',
+                message: '场馆信息通过Ticket经理审核后可发布新计划！',
+                customClass: 'message-wrapper'
+              })
+            }
+
+          },
+          onError: () => {
+            this.$router.push('/')
+            this.$message(({
+              showClose: true,
+              message: '获取信息失败...请重试',
+              type: 'error',
+              customClass: 'message-wrapper'
+            }))
+          },
+          body: {
+            code: this.code
+          }
+        })
+        return false
       }
     }
   }

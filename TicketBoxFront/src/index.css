@@ -204,3 +204,7 @@ a {
 /deep/ .message-wrapper {
   border-radius: 0;
 }
+
+/deep/ .el-notification {
+  border-radius: 0;
+}

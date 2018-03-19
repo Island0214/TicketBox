@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
  * Created by island on 2018/3/16.
  */
 @Repository
-public interface ManagerRepository  extends JpaSpecificationExecutor<Manager>, JpaRepository<Manager, Long> {
+public interface ManagerRepository extends JpaSpecificationExecutor<Manager>, JpaRepository<Manager, Long> {
     Manager findByUsernameAndPassword(String username, String password);
 }

@@ -1,9 +1,7 @@
 package com.example;
 
-import com.example.model.Area;
-import com.example.model.PasswordBean;
-import com.example.model.Venue;
-import com.example.model.VenueRegisterBean;
+import com.example.model.*;
+import com.example.service.ScheduleService;
 import com.example.service.VenueService;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +25,9 @@ public class VenueController {
 
     @Autowired
     private VenueService venueService;
+
+    @Autowired
+    private ScheduleService scheduleService;
 
     @RequestMapping("/")
     String hello() {
@@ -111,7 +112,7 @@ public class VenueController {
     @RequestMapping(value = "/area/save", method = RequestMethod.POST)
     boolean saveArea(@RequestBody Area[] areas) {
         System.out.println("===============");
-        System.out.println("/info");
+        System.out.println("/area/save");
         for (int i = 0; i < areas.length; i++) {
             Area area = areas[i];
             int venue = area.getVenue();
@@ -125,6 +126,16 @@ public class VenueController {
         }
 
         return venueService.saveAreaInfo(areas);
+    }
+
+    @RequestMapping(value = "/schedule/dispatch", method = RequestMethod.POST)
+    Schedule saveSchedule(@RequestBody Schedule schedule) {
+        System.out.println("===============");
+        System.out.println("/schedule/dispatch");
+        System.out.println(schedule.toString());
+
+        return scheduleService.saveSchedule(schedule);
+//        return venueService.saveAreaInfo(areas);
     }
 
 }

@@ -1,6 +1,7 @@
 .schedule-dispatch-wrapper {
   /*padding: 30px;*/
   width: 100%;
+  padding-right: 30px;
   /*width: 10px;*/
   /*height: 10px;*/
   /*background-color: #871FCA;*/
@@ -61,6 +62,7 @@
   width: 700px;
   float: right;
   margin-bottom: 60px;
+  /*right: 60px;*/
 }
 
 .schedule-dispatch-wrapper .info-wrapper h4 {
@@ -104,4 +106,22 @@
   float: right;
   width: 200px;
   margin: 40px;
+}
+
+.schedule-dispatch-wrapper .price-info-wrapper .el-input-number /deep/ span {
+  background: none;
+  border: none;
+}
+
+.schedule-dispatch-wrapper .price-info-wrapper .el-input-number /deep/ span i {
+  color: #871FCA;
+  font-weight: 600;
+}
+
+.message-wrapper {
+  border-radius: 0;
+}
+
+.notify-wrapper {
+  border-radius: 0;
 }
