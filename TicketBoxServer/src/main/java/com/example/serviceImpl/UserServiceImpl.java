@@ -1,26 +1,23 @@
 package com.example.serviceImpl;
 
 import com.example.dao.DiscountRepository;
+import com.example.dao.SeatRepository;
 import com.example.dao.UserRepository;
+import com.example.model.Order;
+import com.example.model.Seat;
 import com.example.model.User;
 import com.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import java.security.Security;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import java.util.Properties;
-import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 
 /**
  * Created by island on 2018/3/14.
@@ -32,6 +29,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private DiscountRepository discountRepository;
+
+    @Autowired
+    private SeatRepository seatRepository;
 
     @Override
     public Map<Integer, User> logIn(String username, String password) {
@@ -77,16 +77,15 @@ public class UserServiceImpl implements UserService {
 
             properties.put("mail.smtp.auth", "true");
             // 获取默认session对象
-            Session session = Session.getInstance(properties,new Authenticator(){
-                public PasswordAuthentication getPasswordAuthentication()
-                {
+            Session session = Session.getInstance(properties, new Authenticator() {
+                public PasswordAuthentication getPasswordAuthentication() {
                     return new PasswordAuthentication("549378813@qq.com", "pjskqhsgfjyzbeff"); //发件人邮件用户名、密码
                 }
             });
             session.setDebug(true);
 
 
-            try{
+            try {
                 // 创建默认的 MimeMessage 对象
                 MimeMessage message = new MimeMessage(session);
 
@@ -101,12 +100,12 @@ public class UserServiceImpl implements UserService {
                 message.setSubject("TicketBox 注册邮箱验证!");
 
                 // 设置消息体
-                message.setContent("<a href='http://localhost:8089/#/user/authenticate/"+ username + "/'>click to authenticate!</a>", "text/html" );
+                message.setContent("<a href='http://localhost:8089/#/user/authenticate/" + username + "/'>click to authenticate!</a>", "text/html");
 
                 // 发送消息
                 Transport.send(message);
                 System.out.println("Sent message successfully....from runoob.com");
-            }catch (MessagingException mex) {
+            } catch (MessagingException mex) {
                 mex.printStackTrace();
             }
             return true;
@@ -139,5 +138,37 @@ public class UserServiceImpl implements UserService {
     @Override
     public int getVipDiscount(int grade) {
         return discountRepository.findByGrade(grade).getDiscount();
+    }
+
+    @Override
+    public boolean buyTicketOffline(Order order) {
+        if (!order.getUsername().equals("")) {
+            User user = userRepository.findByUsername(order.getUsername());
+            user.setConsumption(user.getConsumption() + order.getPrice());
+            int grade = discountRepository.findGradeByConsumption((int)user.getConsumption()).get(0).getGrade();
+            user.setGrade(grade);
+            user.setIntegration(user.getIntegration() + order.getPrice());
+            userRepository.save(user);
+        }
+        String seatString = order.getSeat();
+
+        for(int i = 0; i < seatString.split(", ").length; i++) {
+            String seat = seatString.split(", ")[i];
+            System.out.println(seat);
+            int row = Integer.parseInt(seat.split("排")[0]);
+            int col = Integer.parseInt(seat.split("排")[1].split("座")[0]);
+
+            Seat seatObject = seatRepository.findByScheduleAndAreaAndRowAndCol(order.getSchedule(), order.getArea(), row, col);
+            seatObject.setStatus(2);
+            seatRepository.save(seatObject);
+            System.out.println(seatObject.toString());
+
+        }
+        return true;
+    }
+
+    @Override
+    public Order buyTicketOnline() {
+        return null;
     }
 }

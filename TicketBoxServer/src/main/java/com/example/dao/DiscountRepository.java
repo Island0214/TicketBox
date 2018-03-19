@@ -14,8 +14,8 @@ import java.util.List;
  */
 @Repository
 public interface DiscountRepository extends JpaSpecificationExecutor<Discount>, JpaRepository<Discount, Long> {
-    @Query(value = "select d from Discount d where d.consumption < :consumption order by d.grade desc", nativeQuery=true)
-    List<Discount> findGradeByConsumption(@Param("consumption") double consumption);
+    @Query(value = "select d from Discount d where d.consumption <= :consumption order by d.grade desc")
+    List<Discount> findGradeByConsumption(@Param("consumption") int consumption);
 
     Discount findByGrade(int grade);
 }

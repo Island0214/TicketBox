@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.model.Order;
 import com.example.model.User;
 import org.springframework.stereotype.Service;
 
@@ -19,4 +20,8 @@ public interface UserService {
     User getUserInfo(String username);
 
     int getVipDiscount(int grade);
+
+    boolean buyTicketOffline(Order order);
+
+    Order buyTicketOnline();
 }

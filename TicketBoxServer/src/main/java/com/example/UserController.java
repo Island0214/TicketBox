@@ -1,5 +1,6 @@
 package com.example;
 
+import com.example.model.Order;
 import com.example.model.PasswordBean;
 import com.example.model.RegisterBean;
 import com.example.model.User;
@@ -107,7 +108,13 @@ public class UserController {
     @RequestMapping(value = "/vip/{grade}", method = RequestMethod.GET)
     int getVipDiscount(@PathVariable int grade) {
         return userService.getVipDiscount(grade);
+    }
 
-//        return userService.getUserInfo(username);
+    @RequestMapping(value = "/buyTicket/offline", method = RequestMethod.POST)
+    boolean buyTicketOffline(@RequestBody Order order) {
+        System.out.println("===============");
+        System.out.println("/buyTicket/offline");
+        System.out.println(order.toString());
+        return userService.buyTicketOffline(order);
     }
 }

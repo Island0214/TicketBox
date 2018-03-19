@@ -108,6 +108,9 @@
       折扣: <span>{{ discountInfo }}</span>
       <br>
       <br>
+      区域: <span>{{ areaInfo }}</span>
+      <br>
+      <br>
       座位: <span>{{ seatInfo }}</span>
       <br>
       <br>
@@ -116,7 +119,7 @@
       <br>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button @click="dialogVisible = false">确 定</el-button>
+        <el-button @click="buyTicketOffline">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -155,6 +158,7 @@
         vipInfo: '非会员',
         seatInfo: '',
         discountInfo: '无折扣',
+        areaInfo: '',
         username: ''
       }
     },
@@ -169,13 +173,17 @@
     watch: {
       concert: function () {
         console.log(this.concert)
+      },
+      isVip: function () {
+        this.username = ''
       }
     },
     methods: {
       ...mapActions({
         getVenueSchedules: 'getVenueSchedules',
         getUserInfoAction: 'getUserInfo',
-        getVipDiscountAction: 'getVipDiscount'
+        getVipDiscountAction: 'getVipDiscount',
+        buyTicketOfflineAction: 'buyTicketOffline'
       }),
       seatChange: function (totalPrice) {
         this.totalPrice = totalPrice
@@ -188,6 +196,10 @@
         }
         this.seats = seats
         this.seatInfo = seatInfo.substr(0, seatInfo.length - 2)
+
+        if (seats.length > 0) {
+          this.areaInfo = seats[0].area
+        }
       },
       confirmTicketInfo: function () {
         if (this.seats.length === 0) {
@@ -215,6 +227,7 @@
                       } else {
                         this.discountInfo = data + '折'
                       }
+                      this.dialogVisible = true
                     },
                     onError: () => {
 
@@ -234,9 +247,32 @@
             })
 
           }
-          this.dialogVisible = true
 
         }
+      },
+      buyTicketOffline: function () {
+        this.buyTicketOfflineAction({
+          onSuccess: (data) => {
+            this.$message({
+              showClose: true,
+              message: '购买成功！',
+              type: 'success',
+              customCLass: 'message-wrapper'
+            })
+            this.dialogVisible = false
+            this.$router.push('/')
+          },
+          onError: () => {
+
+          },
+          body: {
+            price: this.discountPrice,
+            username: this.username,
+            schedule: this.concert,
+            seat: this.seatInfo,
+            area: this.areaInfo
+          }
+        })
       }
     },
     mounted () {

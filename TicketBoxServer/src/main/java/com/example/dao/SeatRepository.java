@@ -23,4 +23,6 @@ public interface SeatRepository extends JpaSpecificationExecutor<Seat>, JpaRepos
 
     @Query("select distinct s from Seat s where s.schedule = :schedule and s.area = :area order by s.row, s.col")
     List<Seat> findSeatsByScheduleAndArea(@Param("schedule") int schedule, @Param("area") String area);
+
+    Seat findByScheduleAndAreaAndRowAndCol(int schedule, String area, int row, int col);
 }

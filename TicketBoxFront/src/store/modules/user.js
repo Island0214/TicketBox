@@ -33,6 +33,18 @@ const actions = {
         onSuccess(data)
       }
     }, grade)
+  },
+  'buyTicketOffline' ({state, commit}, {onSuccess, onError, body}) {
+    userApi.buyTicketOffline((data) => {
+      console.log(data)
+      if (!data) {
+        // console.log('error')
+        onError(data.error)
+      } else {
+        // console.log('success')
+        onSuccess()
+      }
+    }, body)
   }
 }
 
