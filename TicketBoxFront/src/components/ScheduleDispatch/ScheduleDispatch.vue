@@ -48,6 +48,21 @@
       </el-row>
       <el-row :gutter="20">
         <el-col :xs="6" :sm="6" :md="6" :lg="6">
+          <h4>演出类型:</h4>
+        </el-col>
+        <el-col :xs="18" :sm="18" :md="18" :lg="18">
+          <el-select v-model="type" placeholder="请选择" style="width: 100%;">
+            <el-option
+              v-for="item in types"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+        </el-col>
+      </el-row>
+      <el-row :gutter="20">
+        <el-col :xs="6" :sm="6" :md="6" :lg="6">
           <h4>演出简介:</h4>
         </el-col>
         <el-col :xs="18" :sm="18" :md="18" :lg="18">
@@ -98,7 +113,21 @@
         artist: '',
         concert_intro: '',
         areaData: [],
-        schedule_id: ''
+        schedule_id: '',
+        types: [{
+          value: '演唱会',
+          label: '演唱会'
+        }, {
+          value: '舞蹈',
+          label: '舞蹈'
+        }, {
+          value: '话剧',
+          label: '话剧'
+        }, {
+          value: '体育赛事',
+          label: '体育赛事'
+        }],
+        type: ''
       }
     },
     computed: {
@@ -179,6 +208,7 @@
               var intro = this.concert_intro
               var artist = this.artist
               var time = this.start_time
+              var type = this.type
 
               var that = this
 
@@ -190,7 +220,8 @@
                   artist: artist,
                   time: time,
 //                prices: this.areaData,
-                  poster: e.target.result
+                  poster: e.target.result,
+                  type: type
                 }
                 console.log(body)
 

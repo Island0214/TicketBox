@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.Date;
 
 /**
  * Created by island on 2018/3/18.
@@ -20,20 +21,13 @@ public class Schedule {
 
     private String artist;
 
-    private String time;
+    private Date time;
 
     private String poster;
 
-    public Schedule() {
-    }
+    private String type;
 
-    public Schedule(int schedule_id, String intro, String schedule, String artist, String time, String poster) {
-        this.schedule_id = schedule_id;
-        this.intro = intro;
-        this.schedule = schedule;
-        this.artist = artist;
-        this.time = time;
-        this.poster = poster;
+    public Schedule() {
     }
 
     public int getSchedule_id() {
@@ -68,11 +62,11 @@ public class Schedule {
         this.artist = artist;
     }
 
-    public String getTime() {
+    public Date getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Date time) {
         this.time = time;
     }
 
@@ -82,6 +76,14 @@ public class Schedule {
 
     public void setPoster(String poster) {
         this.poster = poster;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     @Override
