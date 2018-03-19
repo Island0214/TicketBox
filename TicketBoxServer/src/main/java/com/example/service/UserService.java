@@ -15,4 +15,8 @@ public interface UserService {
     boolean register(String username, String email, String password);
 
     boolean authenticate(String username);
+
+    User getUserInfo(String username);
+
+    int getVipDiscount(int grade);
 }

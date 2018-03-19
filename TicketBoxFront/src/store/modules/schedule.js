@@ -60,7 +60,6 @@ const actions = {
   },
   'getAreaInfoOfSchedule' ({state, commit}, {onSuccess, onError, schedule, area}) {
     scheduleApi.getAreaInfoOfSchedule((data) => {
-      console.log(data)
       if (data.error !== undefined) {
         // console.log('error')
         onError()

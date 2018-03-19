@@ -1,5 +1,6 @@
 package com.example.serviceImpl;
 
+import com.example.dao.DiscountRepository;
 import com.example.dao.UserRepository;
 import com.example.model.User;
 import com.example.service.UserService;
@@ -28,6 +29,9 @@ import javax.mail.internet.MimeMessage;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private DiscountRepository discountRepository;
 
     @Override
     public Map<Integer, User> logIn(String username, String password) {
@@ -119,5 +123,21 @@ public class UserServiceImpl implements UserService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public User getUserInfo(String username) {
+        User user = userRepository.findByUsername(username);
+        if (user != null) {
+            user.setPassword("");
+            return user;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public int getVipDiscount(int grade) {
+        return discountRepository.findByGrade(grade).getDiscount();
     }
 }

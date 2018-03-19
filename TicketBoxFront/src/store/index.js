@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import global from './modules/global'
 import venue from './modules/venue'
 import schedule from './modules/schedule'
+import user from './modules/user'
 
 Vue.use(Vuex)
 
@@ -12,7 +13,8 @@ export default new Vuex.Store({
   modules: {
     global,
     venue,
-    schedule
+    schedule,
+    user
   },
   strict: debug
   // plugins: debug ? [createLogger()] : []

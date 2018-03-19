@@ -207,8 +207,19 @@
             } else {
               this.$emit('seatChange', this.price_types[this.select_price] * this.selectedSeats.length)
             }
-//            if (price === NaN) {
 
+            let selectedSeats = []
+
+            for (let i = 0; i < this.selectedSeats.length; i++) {
+              selectedSeats.push({
+                schedule: this.schedule,
+                area: this.area,
+                row: parseInt(this.selectedSeats[i].split('排')[0]),
+                col: parseInt(this.selectedSeats[i].split('排')[1].split('座')[0])
+              })
+            }
+            this.$emit('setSelectedSeats', selectedSeats)
+//            if (price === NaN) {
           }
 //          console.log(this.selectedSeats)
         },

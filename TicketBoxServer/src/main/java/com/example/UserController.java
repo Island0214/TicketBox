@@ -98,4 +98,16 @@ public class UserController {
         }
         return result;
     }
+
+    @RequestMapping(value = "/info/{username}", method = RequestMethod.GET)
+    User getUserInfo(@PathVariable String username) {
+        return userService.getUserInfo(username);
+    }
+
+    @RequestMapping(value = "/vip/{grade}", method = RequestMethod.GET)
+    int getVipDiscount(@PathVariable int grade) {
+        return userService.getVipDiscount(grade);
+
+//        return userService.getUserInfo(username);
+    }
 }

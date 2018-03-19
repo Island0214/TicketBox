@@ -24,21 +24,21 @@
       </div>
 
       <div v-if="this.concert !== ''">
-        <seat-selection :showButton="false" @seatChange="seatChange" :schedule="concert"></seat-selection>
+        <seat-selection :showButton="false" @seatChange="seatChange" @setSelectedSeats="setSelectedSeats" :schedule="concert"></seat-selection>
         <div class="buttons-wrapper">
           <el-checkbox v-model="isVip">购买者是否为会员</el-checkbox>
           <div v-if="isVip">
             <br>
             <br>
             购买者会员账号：
-            <el-input style="width: 250px;"></el-input>
+            <el-input style="width: 250px;" v-model="username"></el-input>
           </div>
 
           <br>
           <br>
-          总价：<h4><span>{{ discountPrice }}</span></h4>
+          总价：<h4><span>{{ totalPrice }}</span></h4>
 
-          <el-button>购买</el-button>
+          <el-button @click="confirmTicketInfo">购买</el-button>
         </div>
       </div>
     </div>
@@ -95,6 +95,30 @@
         <el-button style="margin-top: 120px">检票登记</el-button>
       </div>
     </div>
+
+    <el-dialog
+      title="结算"
+      :visible.sync="dialogVisible"
+      width="60%"
+      :showClose="false"
+      >
+      会员: <span>{{ vipInfo }}</span>
+      <br>
+      <br>
+      折扣: <span>{{ discountInfo }}</span>
+      <br>
+      <br>
+      座位: <span>{{ seatInfo }}</span>
+      <br>
+      <br>
+      价格: <span>{{ discountPrice }}</span>
+      <br>
+      <br>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button @click="dialogVisible = false">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -117,7 +141,7 @@
           value: 0.95,
           label: '2级',
         }],
-        totalPrice: 1,
+        totalPrice: 0,
         discount: 1,
         area: '',
         areas: [],
@@ -125,7 +149,13 @@
         row: 1,
         cols: 30,
         col: 1,
-        isVip: false
+        isVip: false,
+        seats: [],
+        dialogVisible: false,
+        vipInfo: '非会员',
+        seatInfo: '',
+        discountInfo: '无折扣',
+        username: ''
       }
     },
     computed: {
@@ -143,10 +173,70 @@
     },
     methods: {
       ...mapActions({
-        getVenueSchedules: 'getVenueSchedules'
+        getVenueSchedules: 'getVenueSchedules',
+        getUserInfoAction: 'getUserInfo',
+        getVipDiscountAction: 'getVipDiscount'
       }),
       seatChange: function (totalPrice) {
         this.totalPrice = totalPrice
+      },
+      setSelectedSeats: function (seats) {
+        console.log(seats)
+        let seatInfo = ''
+        for (let i = 0; i < seats.length; i++) {
+          seatInfo = seatInfo + seats[i].row + '排' + seats[i].col + '座' + ', '
+        }
+        this.seats = seats
+        this.seatInfo = seatInfo.substr(0, seatInfo.length - 2)
+      },
+      confirmTicketInfo: function () {
+        if (this.seats.length === 0) {
+          this.$message({
+            showClose: true,
+            type: 'error',
+            message: '请至少选择一张票！',
+            customClass: 'message-wrapper'
+          })
+        } else {
+          if (this.isVip) {
+            this.getUserInfoAction({
+              onSuccess: (data) => {
+                if (data !== null) {
+                  this.vipInfo = data.username
+//                  this.discountInfo = data.grade
+//                  this.discount = data.grade / 100
+                  var that = this
+                  this.getVipDiscountAction({
+                    onSuccess: (data) => {
+                      console.log(data)
+                      that.discount = data / 100
+                      if (data === 100) {
+                        this.discountInfo = '无折扣'
+                      } else {
+                        this.discountInfo = data + '折'
+                      }
+                    },
+                    onError: () => {
+
+                    },
+                    grade: data.grade
+                  })
+                } else {
+                  this.vipInfo = '会员账号不存在'
+                  this.discountInfo = '无折扣'
+                  this.discount = 1
+                }
+              },
+              onError: () => {
+
+              },
+              username: this.username
+            })
+
+          }
+          this.dialogVisible = true
+
+        }
       }
     },
     mounted () {
@@ -213,4 +303,10 @@
     float: right;
     margin-top: 60px;
   }
+
+  .page-wrapper .el-dialog .el-dialog__body /deep/ span {
+    color: #871FCA;
+    margin-left: 30px;
+  }
+
 </style>
