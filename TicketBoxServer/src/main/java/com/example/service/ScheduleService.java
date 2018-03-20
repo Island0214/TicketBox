@@ -25,4 +25,6 @@ public interface ScheduleService {
     Seat getSeatByScheduleAndArea(int schedule, String area);
 
     List<Boolean> getSeatsInArea(int schedule, String area);
+
+    List<Schedule> getUnpaidSchedules();
 }

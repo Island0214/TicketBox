@@ -90,4 +90,10 @@ public class ScheduleServiceImpl implements ScheduleService{
         }
         return result;
     }
+
+    @Override
+    public List<Schedule> getUnpaidSchedules() {
+
+        return null;
+    }
 }

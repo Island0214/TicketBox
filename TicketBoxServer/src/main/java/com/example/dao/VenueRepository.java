@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * Created by island on 2018/3/16.
  */
@@ -15,4 +17,6 @@ public interface VenueRepository extends JpaSpecificationExecutor<Venue>, JpaRep
     Venue findByName(String name);
 
     Venue findByCode(int code);
+
+    List<Venue> findByStatus(int status);
 }

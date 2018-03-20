@@ -29,6 +29,12 @@ public class Schedule {
 
     private int venue;
 
+    /**
+     * status == 0 未结算
+     * status == 1 已结算
+     */
+    private int status;
+
     public Schedule() {
     }
 
@@ -86,6 +92,14 @@ public class Schedule {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public int getVenue() {

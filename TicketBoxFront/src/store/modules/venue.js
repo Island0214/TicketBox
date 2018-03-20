@@ -12,7 +12,7 @@ const getters = {
 const actions = {
   'getVenueInfo' ({state, commit}, {onSuccess, onError, body}) {
     venueApi.getVenueInfo((data) => {
-      console.log(data)
+      // console.log(data)
       if (data.error !== undefined) {
         // console.log('error')
         onError(data.error)
@@ -24,7 +24,7 @@ const actions = {
   },
   'getAreaInfo' ({state, commit}, {onSuccess, onError, body}) {
     venueApi.getAreaInfo((data) => {
-      console.log(data)
+      // console.log(data)
       if (data.error !== undefined) {
         // console.log('error')
         onError(data.error)
@@ -36,7 +36,7 @@ const actions = {
   },
   'saveAreaInfo' ({state, commit}, {onSuccess, onError, body}) {
     venueApi.saveAreaInfo((data) => {
-      console.log(data)
+      // console.log(data)
       if (!data) {
         // console.log('error')
         onError()
@@ -48,10 +48,34 @@ const actions = {
   },
   'checkTicket' ({state, commit}, {onSuccess, onError, body}) {
     venueApi.checkTicket((data) => {
-      console.log(data)
+      // console.log(data)
       if (data.error !== undefined) {
         // console.log('error')
         onError(data.error)
+      } else {
+        // console.log('success')
+        onSuccess()
+      }
+    }, body)
+  },
+  'getVenuesByStatus' ({state, commit}, {onSuccess, onError, status}) {
+    venueApi.getVenuesByStatus((data) => {
+      // console.log(data)
+      if (data.error !== undefined) {
+        // console.log('error')
+        onError(data.error)
+      } else {
+        // console.log('success')
+        onSuccess(data)
+      }
+    }, status)
+  },
+  'setVenueStatus' ({state, commit}, {onSuccess, onError, body}) {
+    venueApi.setVenueStatus((data) => {
+      console.log(data)
+      if (!data) {
+        // console.log('error')
+        onError()
       } else {
         // console.log('success')
         onSuccess()

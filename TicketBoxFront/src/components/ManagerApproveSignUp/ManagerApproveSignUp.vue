@@ -31,12 +31,14 @@
           <el-button
             size="mini"
             type="danger"
+            @click="setVenueStatus(scope.row.index, scope.row.code, 1)"
           >允许
           </el-button>
 
           <el-button
             size="mini"
             type="danger"
+            @click="setVenueStatus(scope.row.index, scope.row.code, -3)"
           >拒绝
           </el-button>
 
@@ -48,27 +50,64 @@
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
+
   export default {
     data () {
       return {
-        tableData: [{
-          code: '1111111',
-          name: '萨法撒上发生的风格',
-          address: '的水果都富含高但是'
-        }, {
-          code: '1111112',
-          name: '阿斯顿高的水果风味',
-          address: '阿斯顿高完全是萨芬日上'
-        }, {
-          code: '1111113',
-          name: '官方大风吹的是',
-          address: '个而过分的让我反对德国'
-        }, {
-          code: '1111114',
-          name: '嘎多噶三分大赛',
-          address: '认为韩国删掉收费的'
-        }]
+        tableData: []
       }
+    },
+    methods: {
+      ...mapActions({
+        getVenuesByStatusAction: 'getVenuesByStatus',
+        setVenueStatusAction: 'setVenueStatus'
+      }),
+      getVenuesByStatus: function (status) {
+        this.getVenuesByStatusAction({
+          onSuccess: (data) => {
+//            console.log(data)
+            this.tableData = JSON.parse(JSON.stringify(data))
+          },
+          onError: () => {
+
+          },
+          status: status
+        })
+      },
+      setVenueStatus: function (index, code, status) {
+        this.setVenueStatusAction({
+          onSuccess: () => {
+            this.tableData.splice(index, 1)
+            if (status === -3) {
+              this.$message({
+                showClose: true,
+                type: 'success',
+                message: '已拒绝场馆' + code + '注册！',
+                customClass: 'message-wrapper'
+              })
+            }
+            if (status === 1) {
+              this.$message({
+                showClose: true,
+                type: 'success',
+                message: '已通过场馆' + code + '注册！',
+                customClass: 'message-wrapper'
+              })
+            }
+          },
+          onError: () => {
+
+          },
+          body: {
+            code: code,
+             status: status
+          }
+        })
+      }
+    },
+    mounted () {
+      this.getVenuesByStatus(0)
     }
   }
 </script>

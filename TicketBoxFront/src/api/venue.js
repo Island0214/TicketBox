@@ -71,3 +71,40 @@ export function checkTicket (callback, body) {
     .catch(function (error) {
     })
 }
+
+export function getVenuesByStatus (callback, status) {
+  console.log('getVenuesByStatus')
+  // console.log('login')
+  axios.get('/manager/venues/' + status,
+    {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+  )
+    .then(function (response) {
+      callback(response.data)
+    })
+    .catch(function (error) {
+    })
+}
+
+export function setVenueStatus (callback, body) {
+  console.log('setVenueStatus')
+  // console.log('login')
+  axios.post('/manager/venue/status',
+    JSON.parse(JSON.stringify(body)),
+    {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+  )
+    .then(function (response) {
+      callback(response.data)
+    })
+    .catch(function (error) {
+    })
+}
+
+

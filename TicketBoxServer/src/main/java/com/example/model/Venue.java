@@ -21,6 +21,7 @@ public class Venue {
      * status == 2 注册通过且信息通过
      * status == -1 注册通过且信息修改后等待审核
      * status == -2 注册通过且信息未通过审核
+     * status == -3 注册失败
      */
     private int status;
 
@@ -74,5 +75,16 @@ public class Venue {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return "Venue{" +
+                "code=" + code +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", status=" + status +
+                ", address='" + address + '\'' +
+                '}';
     }
 }
