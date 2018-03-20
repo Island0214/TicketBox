@@ -15,6 +15,13 @@ public class Venue {
 
     private String password;
 
+    /**
+     * status == 0 注册未通过
+     * status == 1 注册通过待添加座位信息
+     * status == 2 注册通过且信息通过
+     * status == -1 注册通过且信息修改后等待审核
+     * status == -2 注册通过且信息未通过审核
+     */
     private int status;
 
     private String address;

@@ -35,7 +35,7 @@ public class VenueServiceImpl implements VenueService {
         Map<Integer, Venue> result = new HashMap<>();
 
         if (venue == null) {
-            result.put(-1, null);
+            result.put(-3, null);
         } else {
             result.put(venue.getStatus(), venue);
         }

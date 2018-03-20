@@ -53,10 +53,10 @@ public class VenueController {
 
         for (int key : map.keySet()) {
             System.out.println(key);
-            if (key == -1) {
-                result.put("error", "登录失败");
+            if (key == -3) {
+                result.put("error", "场馆编号或密码错误");
             } else if (key == 0) {
-                result.put("error", "请等待Tickets经理通过场馆申请！");
+                result.put("error", "请等待Tickets经理通过场馆注册申请！");
             } else {
                 result.put("success", "登录成功！");
             }

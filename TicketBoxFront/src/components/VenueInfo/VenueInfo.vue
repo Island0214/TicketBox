@@ -207,9 +207,9 @@
           this.venue_name = data.name
           this.address = data.address
 
-          if (data.status === 1) {
+          if (data.status === 2) {
             this.validInfo = '场馆信息已通过审核'
-          } else if (data.status === 0) {
+          } else if (data.status === 1) {
             this.validInfo = '请完善场馆座位信息！'
           } else if (data.status === -1) {
             this.validInfo = '场馆信息审核中...'

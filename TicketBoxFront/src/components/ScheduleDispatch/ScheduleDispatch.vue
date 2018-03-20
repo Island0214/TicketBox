@@ -200,7 +200,7 @@
 
         this.getVenueInfo({
           onSuccess: (data) => {
-            if (data.status === 1) {
+            if (data.status === 2) {
               let reader = new FileReader()
 
               var poster = ''
@@ -280,6 +280,7 @@
                 message: '场馆信息通过Ticket经理审核后可发布新计划！',
                 customClass: 'message-wrapper'
               })
+              loadingInstance.close()
             }
 
           },
