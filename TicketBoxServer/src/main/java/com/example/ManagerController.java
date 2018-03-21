@@ -109,6 +109,11 @@ public class ManagerController {
         return balanceService.getPaidSchedules();
     }
 
+    /**
+     *  经理结算演出
+     * @param balance
+     * @return
+     */
     @RequestMapping(value = "/balance/pay", method = RequestMethod.POST)
     boolean paySchedule(@RequestBody Balance balance) {
         System.out.println("===============");
@@ -132,5 +137,14 @@ public class ManagerController {
 
 //        return managerService.approveVenue(venue);
     }
+
+    @RequestMapping(value = "/user/ban", method = RequestMethod.POST)
+    boolean banUser(@RequestBody User user) {
+        System.out.println("===============");
+        System.out.println("/user/ban");
+        System.out.println(user.toString());
+        return managerService.banUser(user);
+    }
+
 
 }

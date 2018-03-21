@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.model.User;
 import com.example.model.Venue;
 import org.springframework.stereotype.Service;
 
@@ -15,4 +16,6 @@ public interface ManagerService {
     List<Venue> getVenuesByStatus(int status);
 
     boolean approveVenue(Venue venue);
+
+    boolean banUser(User user);
 }

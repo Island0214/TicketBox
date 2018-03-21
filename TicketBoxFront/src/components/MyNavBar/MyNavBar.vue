@@ -60,6 +60,9 @@
           <router-link to="/manager/approval">
             <a>场馆审批</a>
           </router-link>
+          <router-link to="/manager/ban">
+            <a>会员封禁</a>
+          </router-link>
           <router-link to="/manager/balance">
             <a>支付结算</a>
           </router-link>

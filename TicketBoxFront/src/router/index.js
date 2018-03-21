@@ -14,6 +14,7 @@ import ManagerApprovalPage from '../pages/ManagerApprovalPage.vue'
 import ManagerStatisticsPage from '../pages/ManagerStatisticsPage.vue'
 import ManagerBalancePage from '../pages/ManagerBalancePage.vue'
 import UserAuthenticationPage from '../pages/UserAuthenticationPage.vue'
+import ManagerBanPage from '../pages/ManagerBanPage.vue'
 
 Vue.use(Router)
 
@@ -88,6 +89,11 @@ export default new Router({
       path: '/user/authenticate/:name',
       name: 'UserAuthenticationPage',
       component: UserAuthenticationPage
+    },
+    {
+      path: '/manager/ban',
+      name: 'ManagerBanPage',
+      component: ManagerBanPage
     }
   ]
 })

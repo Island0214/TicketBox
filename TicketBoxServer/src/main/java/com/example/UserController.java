@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -53,7 +54,7 @@ public class UserController {
 
                 result.put("success", jsonStu.toString());
             }
-            if (key == 2) {
+            if (key == -1) {
                 result.put("error", "您的账号已被封禁！");
             }
             if (key == 3) {
@@ -117,4 +118,10 @@ public class UserController {
         System.out.println(order.toString());
         return userService.buyTicketOffline(order);
     }
+
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    List<User> getAllUsers() {
+        return userService.getAllUsers();
+    }
+
 }

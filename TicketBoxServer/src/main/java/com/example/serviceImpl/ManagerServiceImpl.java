@@ -1,8 +1,10 @@
 package com.example.serviceImpl;
 
 import com.example.dao.ManagerRepository;
+import com.example.dao.UserRepository;
 import com.example.dao.VenueRepository;
 import com.example.model.Manager;
+import com.example.model.User;
 import com.example.model.Venue;
 import com.example.service.ManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,9 @@ public class ManagerServiceImpl implements ManagerService{
 
     @Autowired
     private VenueRepository venueRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public boolean login(String username, String password) {
@@ -51,5 +56,13 @@ public class ManagerServiceImpl implements ManagerService{
             venueRepository.save(targetVenue);
             return true;
         }
+    }
+
+    @Override
+    public boolean banUser(User user) {
+        User targetUser = userRepository.findByUsername(user.getUsername());
+        targetUser.setStatus(-1);
+        userRepository.save(targetUser);
+        return true;
     }
 }

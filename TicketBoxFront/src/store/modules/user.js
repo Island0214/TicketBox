@@ -34,8 +34,32 @@ const actions = {
       }
     }, grade)
   },
+  'getAllUsers' ({state, commit}, {onSuccess, onError}) {
+    userApi.getAllUsers((data) => {
+      console.log(data)
+      if (data.error !== undefined) {
+        // console.log('error')
+        onError(data.error)
+      } else {
+        // console.log('success')
+        onSuccess(data)
+      }
+    })
+  },
   'buyTicketOffline' ({state, commit}, {onSuccess, onError, body}) {
     userApi.buyTicketOffline((data) => {
+      console.log(data)
+      if (!data) {
+        // console.log('error')
+        onError()
+      } else {
+        // console.log('success')
+        onSuccess()
+      }
+    }, body)
+  },
+  'banUser' ({state, commit}, {onSuccess, onError, body}) {
+    userApi.banUser((data) => {
       console.log(data)
       if (!data) {
         // console.log('error')

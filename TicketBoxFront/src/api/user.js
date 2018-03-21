@@ -53,3 +53,39 @@ export function buyTicketOffline (callback, body) {
     .catch(function (error) {
     })
 }
+
+export function getAllUsers (callback) {
+  console.log('getAllUsers')
+  // console.log('login')
+  axios.get('/user/all/',
+    {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+  )
+    .then(function (response) {
+      console.log(response.data)
+      callback(response.data)
+    })
+    .catch(function (error) {
+    })
+}
+
+export function banUser (callback, body) {
+  console.log('banUser')
+  // console.log('login')
+  axios.post('/manager/user/ban/', body,
+    {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+  )
+    .then(function (response) {
+      console.log(response.data)
+      callback(response.data)
+    })
+    .catch(function (error) {
+    })
+}

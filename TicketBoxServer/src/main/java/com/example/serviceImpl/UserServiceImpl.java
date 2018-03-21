@@ -171,4 +171,13 @@ public class UserServiceImpl implements UserService {
     public Order buyTicketOnline() {
         return null;
     }
+
+    @Override
+    public List<User> getAllUsers() {
+        List<User> users = userRepository.findAll();
+        for (int i = 0; i < users.size(); i++) {
+            users.get(i).setPassword("");
+        }
+        return users;
+    }
 }
