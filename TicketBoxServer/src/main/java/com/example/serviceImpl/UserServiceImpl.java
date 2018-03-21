@@ -1,13 +1,8 @@
 package com.example.serviceImpl;
 
 import com.example.bean.ChangePasswordBean;
-import com.example.dao.DiscountRepository;
-import com.example.dao.SeatRepository;
-import com.example.dao.UserRepository;
-import com.example.model.Discount;
-import com.example.model.Order;
-import com.example.model.Seat;
-import com.example.model.User;
+import com.example.dao.*;
+import com.example.model.*;
 import com.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,10 +11,7 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.security.Security;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * Created by island on 2018/3/14.
@@ -34,6 +26,12 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private SeatRepository seatRepository;
+
+    @Autowired
+    private CouponRepository couponRepository;
+
+    @Autowired
+    private MyCouponRepository myCouponRepository;
 
     @Override
     public Map<Integer, User> logIn(String username, String password) {
@@ -147,14 +145,14 @@ public class UserServiceImpl implements UserService {
         if (!order.getUsername().equals("")) {
             User user = userRepository.findByUsername(order.getUsername());
             user.setConsumption(user.getConsumption() + order.getPrice());
-            int grade = discountRepository.findGradeByConsumption((int)user.getConsumption()).get(0).getGrade();
+            int grade = discountRepository.findGradeByConsumption((int) user.getConsumption()).get(0).getGrade();
             user.setGrade(grade);
             user.setIntegration(user.getIntegration() + order.getPrice());
             userRepository.save(user);
         }
         String seatString = order.getSeat();
 
-        for(int i = 0; i < seatString.split(", ").length; i++) {
+        for (int i = 0; i < seatString.split(", ").length; i++) {
             String seat = seatString.split(", ")[i];
             System.out.println(seat);
             int row = Integer.parseInt(seat.split("排")[0]);
@@ -204,5 +202,37 @@ public class UserServiceImpl implements UserService {
             }
         }
         return result;
+    }
+
+    @Override
+    public List<Coupon> getAllCoupons() {
+        return couponRepository.findAll();
+    }
+
+    @Override
+    public List<Coupon> getMyCoupons(String username) {
+        List<MyCoupon> myCoupons = myCouponRepository.findByUsernameAndUsed(username, false);
+        List<Coupon> coupons = new ArrayList<>();
+        for (int i = 0; i < myCoupons.size(); i++) {
+            coupons.add(couponRepository.findById(myCoupons.get(i).getCoupon()));
+        }
+        return coupons;
+    }
+
+    @Override
+    public boolean exchangeCoupon(MyCoupon myCoupon) {
+        User user = userRepository.findByUsername(myCoupon.getUsername());
+        Coupon coupon = couponRepository.findById(myCoupon.getCoupon());
+        System.out.println(coupon);
+
+        if (user != null && coupon != null && user.getIntegration() >= coupon.getIntegration()) {
+            myCoupon.setUsed(false);
+            myCouponRepository.save(myCoupon);
+            user.setIntegration(user.getIntegration() - coupon.getIntegration());
+            userRepository.save(user);
+            return true;
+        } else {
+            return false;
+        }
     }
 }

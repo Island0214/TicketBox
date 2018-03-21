@@ -68,7 +68,7 @@
       </el-row>
     </div>
 
-    <CouponExchange :showExchange="showExchange" @closeExchange="closeExchange"></CouponExchange>
+    <CouponExchange :showExchange="showExchange" @closeExchange="closeExchange" :integration="info.integration"></CouponExchange>
 
   </div>
 </template>
@@ -113,8 +113,9 @@
         getUserInfo: 'getUserInfo',
         getAllDiscounts: 'getAllDiscounts'
       }),
-      closeExchange: function () {
+      closeExchange: function (integration) {
         this.showExchange = false
+        this.info.integration = integration
       }
     },
     computed: {

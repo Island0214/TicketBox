@@ -26,7 +26,7 @@
 
         <div class="coupons-wrapper">
           <h4 v-if="coupons.length === 0">暂无优惠券...</h4>
-          <coupon v-for="(coupon, index) in coupons" :key="index" :coupon="coupon" :class="[index===0 ? 'fisrt-child' : '']"></coupon>
+          <coupon v-for="(coupon, index) in coupons" :key="index" :coupon="coupon" :class="[index===0 ? 'fisrt-child' : '']" :isMine="myCoupon" @minusIntegration="minusIntegration"></coupon>
         </div>
       </div>
 
@@ -48,37 +48,78 @@
 <script>
   import PartTitle from '../Basic/PartTitle/PartTitle.vue'
   import Coupon from './Coupon.vue'
+  import {mapActions, mapGetters} from 'vuex'
 
   export default {
     components: {
       PartTitle,
       Coupon
     },
-    props: ['showExchange'],
+    props: ['showExchange', 'integration'],
     data () {
       return {
         curScore: 888,
         myCoupon: false,
-        coupons: [{
-          name: '新学期特惠',
-          discount: '满500减50',
-          isMine: false,
-          score: 300
-        }, {
-          name: '新学期特惠',
-          discount: '满500减50',
-          isMine: false,
-          score: 300
-        }]
+        coupons: []
       }
     },
+    computed: {
+      ...mapGetters({
+        username: 'name'
+      })
+    },
     methods: {
+      ...mapActions({
+        getAllCouponsAction: 'getAllCoupons',
+        getMyCouponsAction: 'getMyCoupons'
+      }),
       showCoupons (isMyCoupon) {
         this.myCoupon = isMyCoupon
       },
       closeExchange: function () {
-        this.$emit('closeExchange')
+        this.$emit('closeExchange', this.curScore)
+      },
+      getAllCoupons: function () {
+        this.getAllCouponsAction({
+          onSuccess: (data) => {
+//          console.log(data)
+            this.coupons = data
+          },
+          onError: () => {
+
+          }
+        })
+      },
+      getMyCoupons: function () {
+        this.getMyCouponsAction({
+          onSuccess: (data) => {
+//          console.log(data)
+            this.coupons = data
+          },
+          onError: () => {
+
+          },
+          username: this.username
+        })
+      },
+      minusIntegration: function (integration) {
+        this.curScore = this.curScore - integration
       }
+    },
+    watch: {
+      showExchange: function () {
+        this.curScore = this.integration
+      },
+      myCoupon: function () {
+        if (!this.myCoupon) {
+          this.getAllCoupons()
+        } else {
+          this.getMyCoupons()
+        }
+      }
+    },
+    mounted () {
+      this.getAllCoupons()
     }
   }
 </script>

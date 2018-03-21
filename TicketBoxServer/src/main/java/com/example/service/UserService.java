@@ -1,9 +1,7 @@
 package com.example.service;
 
 import com.example.bean.ChangePasswordBean;
-import com.example.model.Discount;
-import com.example.model.Order;
-import com.example.model.User;
+import com.example.model.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,4 +31,10 @@ public interface UserService {
     List<Discount> getAllDiscounts();
 
     Map<String, String> changePassword(ChangePasswordBean changePasswordBean);
+
+    List<Coupon> getAllCoupons();
+
+    List<Coupon> getMyCoupons(String username);
+
+    boolean exchangeCoupon(MyCoupon myCoupon);
 }

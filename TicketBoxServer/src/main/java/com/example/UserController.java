@@ -160,4 +160,34 @@ public class UserController {
         return userService.changePassword(changePasswordBean);
     }
 
+    /**
+     * 获得所有优惠券
+     * @return
+     */
+    @RequestMapping(value = "/coupon/all", method = RequestMethod.GET)
+    List<Coupon> getAllCoupons() {
+        return userService.getAllCoupons();
+    }
+
+    /**
+     * 获得用户所有优惠券
+     * @return
+     */
+    @RequestMapping(value = "/coupon/my/{username}", method = RequestMethod.GET)
+    List<Coupon> getMyCoupons(@PathVariable String username) {
+        return userService.getMyCoupons(username);
+    }
+
+    /**
+     * 修改密码
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "/coupon/exchange", method = RequestMethod.POST)
+    boolean exchangeCoupon(@RequestBody MyCoupon myCoupon) {
+        System.out.println("===============");
+        System.out.println("/coupon/exchange");
+        System.out.println(myCoupon.toString());
+        return userService.exchangeCoupon(myCoupon);
+    }
 }
