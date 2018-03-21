@@ -1,9 +1,9 @@
 package com.example;
 
-import com.example.model.PasswordBean;
-import com.example.model.User;
-import com.example.model.Venue;
+import com.example.model.*;
+import com.example.service.BalanceService;
 import com.example.service.ManagerService;
+import com.example.service.ScheduleService;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -23,6 +23,13 @@ public class ManagerController {
 
     @Autowired
     private ManagerService managerService;
+
+
+    @Autowired
+    private ScheduleService scheduleService;
+
+    @Autowired
+    private BalanceService balanceService;
 
     @RequestMapping("/")
     String hello() {
@@ -64,6 +71,11 @@ public class ManagerController {
         return managerService.getVenuesByStatus(status);
     }
 
+    /**
+     * 经理批准场馆注册/修改信息时修改场馆的状态
+     * @param venue
+     * @return
+     */
     @RequestMapping(value = "/venue/status", method = RequestMethod.POST)
     boolean setVenueStatus(@RequestBody Venue venue) {
         System.out.println("===============");
@@ -73,5 +85,52 @@ public class ManagerController {
         return managerService.approveVenue(venue);
     }
 
+    /**
+     * 经理获得所有已结束但未结算演出
+     * @return
+     */
+    @RequestMapping(value = "/schedules/unpaid", method = RequestMethod.GET)
+    List<Balance> getUnpaidSchedules() {
+        System.out.println("===============");
+        System.out.println("/schedules/unpaid");
+
+        return balanceService.getUnpaidSchedules();
+    }
+
+    /**
+     * 经理获得所有已结算演出
+     * @return
+     */
+    @RequestMapping(value = "/schedules/paid", method = RequestMethod.GET)
+    List<Balance> getPaidSchedules() {
+        System.out.println("===============");
+        System.out.println("/schedules/paid");
+
+        return balanceService.getPaidSchedules();
+    }
+
+    @RequestMapping(value = "/balance/pay", method = RequestMethod.POST)
+    boolean paySchedule(@RequestBody Balance balance) {
+        System.out.println("===============");
+        System.out.println("/balance/pay");
+        System.out.println(balance.toString());
+        return balanceService.payBalance(balance);
+    }
+
+
+    /**
+     * 经理结算场馆收入
+     * @param schedule
+     * @return
+     */
+    @RequestMapping(value = "/schedule/balance", method = RequestMethod.POST)
+    boolean setVenueStatus(@RequestBody Schedule schedule) {
+        System.out.println("===============");
+        System.out.println("/schedule/balance");
+        System.out.println(schedule.toString());
+        return false;
+
+//        return managerService.approveVenue(venue);
+    }
 
 }

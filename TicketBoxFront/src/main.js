@@ -47,3 +47,15 @@ new Vue({
     }
   }
 })
+
+function format (num) {
+  if (num < 10) {
+    return '0' + num
+  } else {
+    return num
+  }
+}
+
+Date.prototype.toLocaleString = function() {
+  return this.getFullYear() + "-" + format(this.getMonth() + 1) + "-" + format(parseInt(this.getDate())) + " " + format(this.getHours()) + ":" + format(this.getMinutes()) + ":" + format(this.getSeconds());
+};

@@ -2,6 +2,7 @@ package com.example.serviceImpl;
 
 import com.example.dao.ScheduleRepository;
 import com.example.dao.SeatRepository;
+import com.example.model.Balance;
 import com.example.model.Schedule;
 import com.example.model.Seat;
 import com.example.model.SeatListBean;
@@ -9,9 +10,7 @@ import com.example.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by island on 2018/3/19.
@@ -91,9 +90,4 @@ public class ScheduleServiceImpl implements ScheduleService{
         return result;
     }
 
-    @Override
-    public List<Schedule> getUnpaidSchedules() {
-
-        return null;
-    }
 }

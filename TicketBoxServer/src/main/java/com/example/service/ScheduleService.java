@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.model.Balance;
 import com.example.model.Schedule;
 import com.example.model.Seat;
 import com.example.model.SeatListBean;
@@ -25,6 +26,4 @@ public interface ScheduleService {
     Seat getSeatByScheduleAndArea(int schedule, String area);
 
     List<Boolean> getSeatsInArea(int schedule, String area);
-
-    List<Schedule> getUnpaidSchedules();
 }
