@@ -1,4 +1,6 @@
-package com.example.model;
+package com.example.bean;
+
+import com.example.model.Seat;
 
 import java.util.List;
 

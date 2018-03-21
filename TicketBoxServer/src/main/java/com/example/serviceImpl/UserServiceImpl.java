@@ -1,8 +1,10 @@
 package com.example.serviceImpl;
 
+import com.example.bean.ChangePasswordBean;
 import com.example.dao.DiscountRepository;
 import com.example.dao.SeatRepository;
 import com.example.dao.UserRepository;
+import com.example.model.Discount;
 import com.example.model.Order;
 import com.example.model.Seat;
 import com.example.model.User;
@@ -179,5 +181,28 @@ public class UserServiceImpl implements UserService {
             users.get(i).setPassword("");
         }
         return users;
+    }
+
+    @Override
+    public List<Discount> getAllDiscounts() {
+        return discountRepository.findAll();
+    }
+
+    @Override
+    public Map<String, String> changePassword(ChangePasswordBean changePasswordBean) {
+        Map<String, String> result = new HashMap<>();
+        User user = userRepository.findByUsernameAndPassword(changePasswordBean.getUsername(), changePasswordBean.getOldPassword());
+        if (user == null) {
+            result.put("error", "原密码错误！");
+        } else {
+            if (!changePasswordBean.getNewPassword1().equals(changePasswordBean.getNewPassword2())) {
+                result.put("error", "两次密码输入不一致！！");
+            } else {
+                user.setPassword(changePasswordBean.getNewPassword1());
+                userRepository.save(user);
+                result.put("success", "成功修改密码！");
+            }
+        }
+        return result;
     }
 }

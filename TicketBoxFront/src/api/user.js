@@ -89,3 +89,39 @@ export function banUser (callback, body) {
     .catch(function (error) {
     })
 }
+
+export function getAllDiscounts (callback) {
+  console.log('getAllDiscounts')
+  // console.log('login')
+  axios.get('/user/discounts/',
+    {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+  )
+    .then(function (response) {
+      console.log(response.data)
+      callback(response.data)
+    })
+    .catch(function (error) {
+    })
+}
+
+export function changePassword (callback, body) {
+  console.log('changePassword')
+  // console.log('login')
+  axios.post('/user/password/change/', body,
+    {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+  )
+    .then(function (response) {
+      console.log(response.data)
+      callback(response.data)
+    })
+    .catch(function (error) {
+    })
+}

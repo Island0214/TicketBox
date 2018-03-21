@@ -9,7 +9,7 @@
           <h4>邮箱</h4>
         </el-col>
         <el-col :xs="16" :sm="16" :md="16" :lg="16">
-          <h5>{{ email }}</h5>
+          <h5>{{ info.email }}</h5>
         </el-col>
       </el-row>
       <el-row :gutte="20">
@@ -77,7 +77,7 @@
 
 <script>
   import PartTitle from '../Basic/PartTitle/PartTitle.vue'
-  import {mapGetters} from 'vuex'
+  import {mapGetters, mapActions} from 'vuex'
 
   export default {
     components: {
@@ -85,15 +85,43 @@
     },
     data () {
       return {
-        email: '111@qq.com',
         showChangePassword: false,
         showChangeUsername: false,
         passwords: ['', '', ''],
-        newUsername: ''
+        info: {}
       }
     },
     methods: {
+      ...mapActions({
+        getUserInfo: 'getUserInfo',
+        changePasswordAction: 'changePassword'
+      }),
       changePassword: function () {
+        this.changePasswordAction({
+          onSuccess: (success) => {
+            this.$message({
+              showClose: true,
+              message: success,
+              type: 'success',
+              customClass: 'message-wrapper'
+            })
+            this.showChangePassword = false
+          },
+          onError: (error) => {
+            this.$message({
+              showClose: true,
+              message: error,
+              type: 'error',
+              customClass: 'message-wrapper'
+            })
+          },
+          body: {
+            username: this.name,
+            oldPassword: this.passwords[0],
+            newPassword1: this.passwords[1],
+            newPassword2: this.passwords[2]
+          }
+        })
       }
     },
     computed: {
@@ -104,10 +132,20 @@
     watch: {
       showChangePassword: function () {
         this.passwords = ['', '', '']
-      },
-      showChangeUsername: function () {
-        this.newUsername = ''
+
       }
+    },
+    mounted () {
+      this.getUserInfo({
+        onSuccess: (data) => {
+//          console.log(data)
+          this.info = data
+        },
+        onError: () => {
+
+        },
+        username: this.name
+      })
     }
   }
 </script>

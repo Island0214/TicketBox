@@ -1,4 +1,4 @@
-package com.example.model;
+package com.example.bean;
 
 /**
  * Created by island on 2018/3/15.

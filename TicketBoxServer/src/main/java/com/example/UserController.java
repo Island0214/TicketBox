@@ -1,9 +1,9 @@
 package com.example;
 
-import com.example.model.Order;
-import com.example.model.PasswordBean;
-import com.example.model.RegisterBean;
-import com.example.model.User;
+import com.example.bean.ChangePasswordBean;
+import com.example.bean.PasswordBean;
+import com.example.bean.RegisterBean;
+import com.example.model.*;
 import com.example.service.UserService;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,11 +106,21 @@ public class UserController {
         return userService.getUserInfo(username);
     }
 
+    /**
+     * 获得用户对应折扣
+     * @param grade
+     * @return
+     */
     @RequestMapping(value = "/vip/{grade}", method = RequestMethod.GET)
     int getVipDiscount(@PathVariable int grade) {
         return userService.getVipDiscount(grade);
     }
 
+    /**
+     * 线下购票
+     * @param order
+     * @return
+     */
     @RequestMapping(value = "/buyTicket/offline", method = RequestMethod.POST)
     boolean buyTicketOffline(@RequestBody Order order) {
         System.out.println("===============");
@@ -119,9 +129,35 @@ public class UserController {
         return userService.buyTicketOffline(order);
     }
 
+    /**
+     * 获得所有用户
+     * @return
+     */
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     List<User> getAllUsers() {
         return userService.getAllUsers();
+    }
+
+    /**
+     * 获得所有等级折扣
+     * @return
+     */
+    @RequestMapping(value = "/discounts", method = RequestMethod.GET)
+    List<Discount> getAllDiscounts() {
+        return userService.getAllDiscounts();
+    }
+
+    /**
+     * 修改密码
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "/password/change", method = RequestMethod.POST)
+    Map<String, String> changePassword(@RequestBody ChangePasswordBean changePasswordBean) {
+        System.out.println("===============");
+        System.out.println("/password/change");
+        System.out.println(changePasswordBean.toString());
+        return userService.changePassword(changePasswordBean);
     }
 
 }

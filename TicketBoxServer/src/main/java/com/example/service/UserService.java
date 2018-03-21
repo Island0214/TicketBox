@@ -1,5 +1,7 @@
 package com.example.service;
 
+import com.example.bean.ChangePasswordBean;
+import com.example.model.Discount;
 import com.example.model.Order;
 import com.example.model.User;
 import org.springframework.stereotype.Service;
@@ -27,4 +29,8 @@ public interface UserService {
     Order buyTicketOnline();
 
     List<User> getAllUsers();
+
+    List<Discount> getAllDiscounts();
+
+    Map<String, String> changePassword(ChangePasswordBean changePasswordBean);
 }

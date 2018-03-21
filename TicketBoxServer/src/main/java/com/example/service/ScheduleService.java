@@ -1,9 +1,8 @@
 package com.example.service;
 
-import com.example.model.Balance;
 import com.example.model.Schedule;
 import com.example.model.Seat;
-import com.example.model.SeatListBean;
+import com.example.bean.SeatListBean;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

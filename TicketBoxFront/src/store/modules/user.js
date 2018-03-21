@@ -46,6 +46,18 @@ const actions = {
       }
     })
   },
+  'getAllDiscounts' ({state, commit}, {onSuccess, onError}) {
+    userApi.getAllDiscounts((data) => {
+      console.log(data)
+      if (data.error !== undefined) {
+        // console.log('error')
+        onError(data.error)
+      } else {
+        // console.log('success')
+        onSuccess(data)
+      }
+    })
+  },
   'buyTicketOffline' ({state, commit}, {onSuccess, onError, body}) {
     userApi.buyTicketOffline((data) => {
       console.log(data)
@@ -67,6 +79,18 @@ const actions = {
       } else {
         // console.log('success')
         onSuccess()
+      }
+    }, body)
+  },
+  'changePassword' ({state, commit}, {onSuccess, onError, body}) {
+    userApi.changePassword((data) => {
+      console.log(data)
+      if (data.error !== undefined) {
+        // console.log('error')
+        onError(data.error)
+      } else {
+        // console.log('success')
+        onSuccess(data.success)
       }
     }, body)
   }

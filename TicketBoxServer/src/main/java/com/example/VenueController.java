@@ -1,5 +1,8 @@
 package com.example;
 
+import com.example.bean.PasswordBean;
+import com.example.bean.SeatListBean;
+import com.example.bean.VenueRegisterBean;
 import com.example.model.*;
 import com.example.service.ScheduleService;
 import com.example.service.VenueService;

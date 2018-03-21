@@ -2,10 +2,9 @@ package com.example.serviceImpl;
 
 import com.example.dao.ScheduleRepository;
 import com.example.dao.SeatRepository;
-import com.example.model.Balance;
 import com.example.model.Schedule;
 import com.example.model.Seat;
-import com.example.model.SeatListBean;
+import com.example.bean.SeatListBean;
 import com.example.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
