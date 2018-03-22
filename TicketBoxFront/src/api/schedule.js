@@ -107,3 +107,57 @@ export function getUnpaidSchedules (callback, schedule, area) {
     .catch(function (error) {
     })
 }
+
+export function getNewestThreeSchedules (callback, schedule, area) {
+  console.log('getNewestThreeSchedules')
+  // console.log('login')
+  axios.get('/user/schedule/new',
+    {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+  )
+    .then(function (response) {
+      console.log(response.data)
+      callback(response.data)
+    })
+    .catch(function (error) {
+    })
+}
+
+export function getClosestThreeSchedules (callback, schedule, area) {
+  console.log('getClosestThreeSchedules')
+  // console.log('login')
+  axios.get('/user/schedule/close',
+    {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+  )
+    .then(function (response) {
+      console.log(response.data)
+      callback(response.data)
+    })
+    .catch(function (error) {
+    })
+}
+
+export function getSchedulePriceInfo (callback, schedule) {
+  console.log('getSchedulePriceInfo')
+  // console.log('login')
+  axios.get('/user/schedule/info/' + schedule,
+    {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+  )
+    .then(function (response) {
+      console.log(response.data)
+      callback(response.data)
+    })
+    .catch(function (error) {
+    })
+}

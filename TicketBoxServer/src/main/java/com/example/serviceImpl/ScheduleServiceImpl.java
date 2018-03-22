@@ -1,14 +1,19 @@
 package com.example.serviceImpl;
 
+import com.example.bean.ScheduleInfoBean;
 import com.example.dao.ScheduleRepository;
 import com.example.dao.SeatRepository;
+import com.example.dao.VenueRepository;
 import com.example.model.Schedule;
 import com.example.model.Seat;
 import com.example.bean.SeatListBean;
+import com.example.model.Venue;
 import com.example.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.util.*;
 
 /**
@@ -22,6 +27,9 @@ public class ScheduleServiceImpl implements ScheduleService{
 
     @Autowired
     private SeatRepository seatRepository;
+
+    @Autowired
+    private VenueRepository venueRepository;
 
     @Override
     public Schedule saveSchedule(Schedule schedule) {
@@ -89,4 +97,42 @@ public class ScheduleServiceImpl implements ScheduleService{
         return result;
     }
 
+    @Override
+    public List<Schedule> getThreeClosestSchedule() {
+        Date date = new Date();
+        List<Schedule> allSchedules = scheduleRepository.findClosetThree(date);
+        List<Schedule> result = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+
+            result.add(allSchedules.get(i));
+        }
+        return result;
+    }
+
+    @Override
+    public List<Schedule> getThreeNewestSchedule() {
+        List<Schedule> allSchedules = scheduleRepository.findNewestThree();
+        List<Schedule> result = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            result.add(allSchedules.get(i));
+        }
+        return result;
+    }
+
+    @Override
+    public ScheduleInfoBean getScheduleInfo(int scheduleId) {
+        System.out.println(scheduleId);
+        ScheduleInfoBean scheduleInfoBean = new ScheduleInfoBean();
+        scheduleInfoBean.setScheduleId(scheduleId);
+
+        Schedule schedule = scheduleRepository.findById(scheduleId);
+        Venue venue = venueRepository.findByCode(schedule.getVenue());
+        scheduleInfoBean.setVenueName(venue.getName());
+
+        List<Integer> prices = seatRepository.findPricesBySchedule(scheduleId);
+        scheduleInfoBean.setMaxPrice(Collections.max(prices));
+        scheduleInfoBean.setMaxPrice(Collections.min(prices));
+
+        return scheduleInfoBean;
+    }
 }

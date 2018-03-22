@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.bean.ScheduleInfoBean;
 import com.example.model.Schedule;
 import com.example.model.Seat;
 import com.example.bean.SeatListBean;
@@ -25,4 +26,10 @@ public interface ScheduleService {
     Seat getSeatByScheduleAndArea(int schedule, String area);
 
     List<Boolean> getSeatsInArea(int schedule, String area);
+
+    List<Schedule> getThreeClosestSchedule();
+
+    List<Schedule> getThreeNewestSchedule();
+
+    ScheduleInfoBean getScheduleInfo(int scheduleId);
 }

@@ -3,7 +3,9 @@ package com.example;
 import com.example.bean.ChangePasswordBean;
 import com.example.bean.PasswordBean;
 import com.example.bean.RegisterBean;
+import com.example.bean.ScheduleInfoBean;
 import com.example.model.*;
+import com.example.service.ScheduleService;
 import com.example.service.UserService;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ import java.util.Map;
 public class UserController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ScheduleService scheduleService;
 
     @RequestMapping("/")
     String hello() {
@@ -180,7 +185,7 @@ public class UserController {
 
     /**
      * 修改密码
-     * @param
+     * @param myCoupon
      * @return
      */
     @RequestMapping(value = "/coupon/exchange", method = RequestMethod.POST)
@@ -190,4 +195,33 @@ public class UserController {
         System.out.println(myCoupon.toString());
         return userService.exchangeCoupon(myCoupon);
     }
+
+    /**
+     * 获得最近三个演出
+     * @return
+     */
+    @RequestMapping(value = "/schedule/close", method = RequestMethod.GET)
+    List<Schedule> getThreeClosestSchedule() {
+        return scheduleService.getThreeClosestSchedule();
+    }
+
+    /**
+     * 获得最新三个演出
+     * @return
+     */
+    @RequestMapping(value = "/schedule/new", method = RequestMethod.GET)
+    List<Schedule> getThreeNewestSchedule() {
+        return scheduleService.getThreeNewestSchedule();
+    }
+
+    /**
+     * 获得计划相应信息
+     * @param schedule
+     * @return
+     */
+    @RequestMapping(value = "/schedule/info/{schedule}", method = RequestMethod.GET)
+    ScheduleInfoBean get(@PathVariable int schedule) {
+        return scheduleService.getScheduleInfo(schedule);
+    }
+
 }

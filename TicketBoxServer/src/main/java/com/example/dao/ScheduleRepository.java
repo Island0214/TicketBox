@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.awt.print.Pageable;
 import java.util.Date;
 import java.util.List;
 
@@ -22,6 +23,9 @@ public interface ScheduleRepository extends JpaSpecificationExecutor<Schedule>, 
     @Query("select s from Schedule s where s.schedule_id = :id")
     Schedule findById(@Param("id") int id);
 
-//    @Query("select s from Schedule s where s.status = :status")
-//    List<Schedule> findFinishedByStatus(@Param("status") int status);
+    @Query(value = "select s from Schedule s where s.time > :date order by s.time")
+    List<Schedule> findClosetThree(@Param("date") Date date);
+
+    @Query(value = "select s from Schedule s order by s.schedule_id desc")
+    List<Schedule> findNewestThree();
 }

@@ -3,11 +3,11 @@
 
     <div class="single-brief-concert-wrapper" @click="$router.push('/concert/' + info.concert_id)">
       <div class="img-wrapper">
-        <img :src="info.pic">
+        <img :src="info.poster">
       </div>
-      <p class="title-p">{{ info.title }}</p>
-      <p class="place-p">{{ info.place }}</p>
-      <p class="time-p">{{ info.time }}</p>
+      <p class="title-p">{{ info.schedule }}</p>
+      <p class="place-p">{{ info.venue }}</p>
+      <p class="time-p">{{ new Date(info.time).toLocaleString() }}</p>
       <p class="price-p">{{ info.price }}</p>
 
     </div>
@@ -16,6 +16,7 @@
 </template>
 
 <script>
+  import {mapActions} from 'vuex'
   export default {
     props: ['info'],
     name: 'HelloWorld',
@@ -24,7 +25,24 @@
         recent: true
       }
     },
-    methods: {}
+    methods: {
+      ...mapActions({
+        getSchedulePriceInfo: 'getSchedulePriceInfo'
+      })
+    },
+    mounted () {
+      console.log(this.info)
+      this.getSchedulePriceInfo({
+        onSuccess: (data) => {
+          console.log(data)
+        },
+        onError: () => {
+
+        },
+        schedule: this.info.venue
+      })
+
+    }
   }
 </script>
 

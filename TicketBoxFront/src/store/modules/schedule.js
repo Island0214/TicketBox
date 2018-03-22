@@ -79,6 +79,39 @@ const actions = {
         onSuccess(data)
       }
     })
+  },
+  'getNewestThreeSchedules' ({state, commit}, {onSuccess, onError}) {
+    scheduleApi.getNewestThreeSchedules((data) => {
+      if (data.error !== undefined) {
+        // console.log('error')
+        onError()
+      } else {
+        // console.log('success')
+        onSuccess(data)
+      }
+    })
+  },
+  'getClosestThreeSchedules' ({state, commit}, {onSuccess, onError}) {
+    scheduleApi.getClosestThreeSchedules((data) => {
+      if (data.error !== undefined) {
+        // console.log('error')
+        onError()
+      } else {
+        // console.log('success')
+        onSuccess(data)
+      }
+    })
+  },
+  'getSchedulePriceInfo' ({state, commit}, {onSuccess, onError, schedule}) {
+    scheduleApi.getSchedulePriceInfo((data) => {
+      if (data.error !== undefined) {
+        // console.log('error')
+        onError()
+      } else {
+        // console.log('success')
+        onSuccess(data)
+      }
+    }, schedule)
   }
 }
 

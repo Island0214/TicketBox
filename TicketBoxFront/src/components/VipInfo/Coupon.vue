@@ -54,7 +54,7 @@
           },
           body: {
             username: this.username,
-            coupon: this.coupon.coupon_id
+            coupon: this.coupon.id
           }
         })
       }
