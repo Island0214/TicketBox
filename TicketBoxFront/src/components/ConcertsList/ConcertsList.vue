@@ -1,8 +1,8 @@
 <template>
   <div class="concerts-wrapper">
     <div class="params-wrapper">
-      <el-input></el-input>
-      <i class="el-icon-search"></i>
+      <el-input v-model="searchInput"></el-input>
+      <i class="el-icon-search" @click="trySearch"></i>
     </div>
 
     <div class="params-wrapper">
@@ -30,13 +30,15 @@
     </div>
 
     <el-row :gutter="20" style="margin: 0">
-      <single-brief-concert v-for="(concert, index) in concerts" :key="index" :info="concert" style="margin-top: 40px;"></single-brief-concert>
+      <single-brief-concert v-for="(concert, index) in concerts" :key="index" :info="concert" :size="6" style="margin-top: 40px;"></single-brief-concert>
     </el-row>
 
     <div class="pagination-wrapper">
       <el-pagination
         layout="prev, pager, next"
-        :total="1000">
+        :page-count="totalPage"
+        :current-page.sync="curPage"
+      >
       </el-pagination>
     </div>
   </div>
@@ -44,7 +46,7 @@
 
 <script>
   import SingleBriefConcert from '../../components/SingleBriefConcert/SingleBriefConcert.vue'
-
+  import {mapActions} from 'vuex'
   export default {
     components: {
       SingleBriefConcert
@@ -71,57 +73,9 @@
             label: '体育赛事'
           }
         ],
+        searchInput: '',
         type: '全部',
-        concerts: [
-          {
-            pic: require('../../assets/poster1.jpg'),
-            title: '郭顶 落地之约',
-            place: '[南京] 欧拉艺术空间',
-            time: '2017-11-12 21:00',
-            price: '¥180 - ¥200',
-            concert_id: 1
-          },
-          {
-            pic: require('../../assets/poster2.jpg'),
-            title: '徐佳莹 日全蚀',
-            place: '[北京] 北京展览馆剧场',
-            time: '2017-12-12 19:30',
-            price: '¥180 - ¥980',
-            concert_id: 2
-          },
-          {
-            pic: require('../../assets/poster3.jpg'),
-            title: '田馥甄 如果If',
-            place: '[广州] 广州体育馆',
-            time: '2017-8-22 19:30',
-            price: '¥380 - 1290',
-            concert_id: 3
-          },
-          {
-            pic: require('../../assets/poster1.jpg'),
-            title: '郭顶 落地之约',
-            place: '[南京] 欧拉艺术空间',
-            time: '2017-11-12 21:00',
-            price: '¥180 - ¥200',
-            concert_id: 4
-          },
-          {
-            pic: require('../../assets/poster2.jpg'),
-            title: '徐佳莹 日全蚀',
-            place: '[北京] 北京展览馆剧场',
-            time: '2017-12-12 19:30',
-            price: '¥180 - ¥980',
-            concert_id: 5
-          },
-          {
-            pic: require('../../assets/poster3.jpg'),
-            title: '田馥甄 如果If',
-            place: '[广州] 广州体育馆',
-            time: '2017-8-22 19:30',
-            price: '¥380 - 1290',
-            concert_id: 6
-          }
-        ],
+        concerts: [],
         pickerOptions2: {
           shortcuts: [{
             text: '最近一周',
@@ -149,10 +103,72 @@
             }
           }]
         },
-        time: ''
+        time: [],
+        totalPage: 1,
+        curPage: 1,
+        searchBody: {
+          name: '',
+          type: '',
+          start: '',
+          end: '',
+          page: 0
+        }
+      }
+    },
+    watch: {
+      curPage: function () {
+        this.searchBody.page = this.curPage - 1
+        this.findScheduleByPage(this.curPage - 1)
+      },
+      time: function () {
+//        console.log(this.time)
+        this.searchBody.start = this.time[0]
+        this.searchBody.end = this.time[1]
+      },
+      type: function () {
+        if (this.type === '全部') {
+          this.searchBody.type = ''
+        } else {
+          this.searchBody.type = this.type
+        }
+      },
+      searchBody: {
+        handler: function () {
+          console.log(this.searchBody)
+          this.findScheduleByPage()
+        },
+        deep: true
       }
     },
     methods: {
+      ...mapActions({
+        findScheduleByPageAction: 'findScheduleByPage'
+      }),
+      findScheduleByPage: function () {
+        this.findScheduleByPageAction({
+          onSuccess: (data) => {
+//            console.log(data)
+            this.concerts = data.content
+            this.totalPage = data.totalPages
+          },
+          onError: () => {
+
+          },
+          body: this.searchBody
+        })
+      },
+      trySearch: function () {
+        this.searchBody.name = this.searchInput
+      }
+    },
+    mounted () {
+      this.findScheduleByPage(0)
+      let now = new Date()
+      this.time.push(now)
+      let monthLayer = new Date()
+      monthLayer.setMonth(monthLayer.getMonth()+1)
+      this.time.push(monthLayer)
+      console.log(this.time)
     }
   }
 </script>

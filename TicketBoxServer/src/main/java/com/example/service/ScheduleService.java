@@ -1,9 +1,11 @@
 package com.example.service;
 
 import com.example.bean.ScheduleInfoBean;
+import com.example.bean.ScheduleSearchBean;
 import com.example.model.Schedule;
 import com.example.model.Seat;
 import com.example.bean.SeatListBean;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,4 +34,6 @@ public interface ScheduleService {
     List<Schedule> getThreeNewestSchedule();
 
     ScheduleInfoBean getScheduleInfo(int scheduleId);
+
+    Page<Schedule> findScheduleByPage(ScheduleSearchBean scheduleSearchBean);
 }

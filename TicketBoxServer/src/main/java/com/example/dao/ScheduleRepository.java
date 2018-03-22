@@ -1,12 +1,13 @@
 package com.example.dao;
 
 import com.example.model.Schedule;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.awt.print.Pageable;
 import java.util.Date;
 import java.util.List;
 
@@ -28,4 +29,7 @@ public interface ScheduleRepository extends JpaSpecificationExecutor<Schedule>, 
 
     @Query(value = "select s from Schedule s order by s.schedule_id desc")
     List<Schedule> findNewestThree();
+
+    @Query("select s from Schedule s where s.type like %:stype% and s.time >= :start and s.time <= :end and (s.schedule like %:name% or s.artist like %:name% )")
+    Page<Schedule> findByParams(Pageable pageable, @Param("name") String name, @Param("stype") String stype, @Param("start") Date start, @Param("end") Date end);
 }

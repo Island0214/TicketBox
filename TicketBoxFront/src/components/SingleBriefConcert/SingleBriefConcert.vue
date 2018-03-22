@@ -1,5 +1,5 @@
 <template>
-  <el-col :xs="8" :sm="8" :md="8" :lg="8" style="text-align: center">
+  <el-col :xs="size" :sm="size" :md="size" :lg="size" style="text-align: center">
 
     <div class="single-brief-concert-wrapper" @click="pushToInfo">
       <div class="img-wrapper">
@@ -18,7 +18,7 @@
 <script>
   import {mapGetters, mapActions} from 'vuex'
   export default {
-    props: ['info'],
+    props: ['info', 'size'],
     name: 'HelloWorld',
     data () {
       return {

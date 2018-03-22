@@ -1,14 +1,12 @@
 package com.example;
 
-import com.example.bean.ChangePasswordBean;
-import com.example.bean.PasswordBean;
-import com.example.bean.RegisterBean;
-import com.example.bean.ScheduleInfoBean;
+import com.example.bean.*;
 import com.example.model.*;
 import com.example.service.ScheduleService;
 import com.example.service.UserService;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.bind.annotation.*;
 
@@ -225,6 +223,18 @@ public class UserController {
         System.out.println("/schedule/info/");
         System.out.println(schedule);
         return scheduleService.getScheduleInfo(schedule);
+    }
+
+    /**
+     * 获得最新三个演出
+     * @return
+     */
+    @RequestMapping(value = "/schedule/all/", method = RequestMethod.POST)
+    Page<Schedule> findScheduleByPage(@RequestBody ScheduleSearchBean scheduleSearchBean) {
+        System.out.println("===============");
+        System.out.println("/schedule/all/");
+        System.out.println(scheduleSearchBean.toString());
+        return scheduleService.findScheduleByPage(scheduleSearchBean);
     }
 
 }

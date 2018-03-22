@@ -1,6 +1,7 @@
 package com.example.serviceImpl;
 
 import com.example.bean.ScheduleInfoBean;
+import com.example.bean.ScheduleSearchBean;
 import com.example.dao.ScheduleRepository;
 import com.example.dao.SeatRepository;
 import com.example.dao.VenueRepository;
@@ -10,10 +11,11 @@ import com.example.bean.SeatListBean;
 import com.example.model.Venue;
 import com.example.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Pageable;
 import java.util.*;
 
 /**
@@ -136,5 +138,20 @@ public class ScheduleServiceImpl implements ScheduleService{
         scheduleInfoBean.setMinPrice(Collections.min(prices));
 
         return scheduleInfoBean;
+    }
+
+    @Override
+    public Page<Schedule> findScheduleByPage(ScheduleSearchBean scheduleSearchBean) {
+        Pageable pageable = new PageRequest(scheduleSearchBean.getPage(), 9);
+        Date now = new Date();
+        if (scheduleSearchBean.getStart().before(now)) {
+            scheduleSearchBean.setStart(now);
+        }
+
+        if (scheduleSearchBean.getEnd().before(now)) {
+            scheduleSearchBean.setEnd(now);
+        }
+        Page<Schedule> schedulePage = scheduleRepository.findByParams(pageable, scheduleSearchBean.getName(), scheduleSearchBean.getType(), scheduleSearchBean.getStart(), scheduleSearchBean.getEnd());
+        return schedulePage;
     }
 }

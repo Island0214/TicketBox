@@ -7,7 +7,7 @@
     </div>
 
     <el-row :gutter="20" style="margin: 0" slot="concerts-wrapper">
-      <single-brief-concert v-for="(concert, index) in concerts" :key="index" :info="concert"></single-brief-concert>
+      <single-brief-concert v-for="(concert, index) in concerts" :key="index" :info="concert" :size="8"></single-brief-concert>
     </el-row>
   </div>
 </template>

@@ -161,3 +161,22 @@ export function getSchedulePriceInfo (callback, schedule) {
     .catch(function (error) {
     })
 }
+
+export function findScheduleByPage (callback, body) {
+  console.log('findScheduleByPage')
+  // console.log('login')
+  axios.post('/user/schedule/all/',
+    body,
+    {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+  )
+    .then(function (response) {
+      console.log(response.data)
+      callback(response.data)
+    })
+    .catch(function (error) {
+    })
+}
