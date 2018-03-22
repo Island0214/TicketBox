@@ -4,7 +4,7 @@
       :data="tableData"
       style="width: 100%; font-size: 18px; font-weight: 600;">
       <el-table-column type="expand">
-        <template slot-scope="props">
+        <template slot-scope="scope">
           <!--<el-form label-position="left" inline class="demo-table-expand">-->
             <!--<el-form-item label="场馆编号">-->
               <!--<span>{{ props.row.code }}</span>-->
@@ -21,7 +21,7 @@
           <!--</el-form>-->
           <!--<p>sad</p>-->
           <el-table
-            :data="seatInfo"
+            :data="scope.row.seats"
             style="width: 80%; margin-left: 10%; font-size: 16px; font-weight: 300;">
             <el-table-column
               label="区域名"
@@ -131,13 +131,35 @@
     methods: {
       ...mapActions({
         getVenuesByStatusAction: 'getVenuesByStatus',
-        setVenueStatusAction: 'setVenueStatus'
+        setVenueStatusAction: 'setVenueStatus',
+        getAreaInfoAction: 'getAreaInfo'
       }),
       getVenuesByStatus: function (status) {
         this.getVenuesByStatusAction({
           onSuccess: (data) => {
-//            console.log(data)
+            console.log(data)
             this.tableData = JSON.parse(JSON.stringify(data))
+            let that = this
+
+            for (let i = 0; i < this.tableData.length; i++) {
+              this.getAreaInfoAction({
+                onSuccess: (data) => {
+                  console.log(data)
+                  this.tableData[i].seats = data
+//                  this.tableData = JSON.parse(JSON.stringify(data))
+                },
+                onError: () => {
+                  this.$message({
+                    showClose: true,
+                    type: 'error',
+                    message: '信息获取失败，请重试！'
+                  })
+                },
+                body: {
+                  code: that.tableData[i].code
+                }
+              })
+            }
           },
           onError: () => {
 
