@@ -126,12 +126,14 @@ public class ScheduleServiceImpl implements ScheduleService{
         scheduleInfoBean.setScheduleId(scheduleId);
 
         Schedule schedule = scheduleRepository.findById(scheduleId);
+        System.out.println(schedule);
         Venue venue = venueRepository.findByCode(schedule.getVenue());
         scheduleInfoBean.setVenueName(venue.getName());
 
         List<Integer> prices = seatRepository.findPricesBySchedule(scheduleId);
+        System.out.println(prices.size());
         scheduleInfoBean.setMaxPrice(Collections.max(prices));
-        scheduleInfoBean.setMaxPrice(Collections.min(prices));
+        scheduleInfoBean.setMinPrice(Collections.min(prices));
 
         return scheduleInfoBean;
     }

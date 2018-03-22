@@ -220,7 +220,10 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/schedule/info/{schedule}", method = RequestMethod.GET)
-    ScheduleInfoBean get(@PathVariable int schedule) {
+    ScheduleInfoBean getScheduleInfo(@PathVariable int schedule) {
+        System.out.println("===============");
+        System.out.println("/schedule/info/");
+        System.out.println(schedule);
         return scheduleService.getScheduleInfo(schedule);
     }
 

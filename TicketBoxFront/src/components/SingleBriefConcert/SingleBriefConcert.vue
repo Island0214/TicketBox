@@ -1,14 +1,14 @@
 <template>
   <el-col :xs="8" :sm="8" :md="8" :lg="8" style="text-align: center">
 
-    <div class="single-brief-concert-wrapper" @click="$router.push('/concert/' + info.concert_id)">
+    <div class="single-brief-concert-wrapper" @click="pushToInfo">
       <div class="img-wrapper">
         <img :src="info.poster">
       </div>
       <p class="title-p">{{ info.schedule }}</p>
-      <p class="place-p">{{ info.venue }}</p>
+      <p class="place-p">{{ scheduleInfo.venueName }}</p>
       <p class="time-p">{{ new Date(info.time).toLocaleString() }}</p>
-      <p class="price-p">{{ info.price }}</p>
+      <p class="price-p">¥ {{ scheduleInfo.minPrice }} - ¥ {{ scheduleInfo.maxPrice }}</p>
 
     </div>
 
@@ -16,30 +16,49 @@
 </template>
 
 <script>
-  import {mapActions} from 'vuex'
+  import {mapGetters, mapActions} from 'vuex'
   export default {
     props: ['info'],
     name: 'HelloWorld',
     data () {
       return {
-        recent: true
+        recent: true,
+        scheduleInfo: {}
       }
+    },
+    computed: {
+      ...mapGetters({
+        logType: 'logType'
+      })
     },
     methods: {
       ...mapActions({
         getSchedulePriceInfo: 'getSchedulePriceInfo'
-      })
+      }),
+      pushToInfo: function () {
+        if (this.logType === '会员') {
+          this.$router.push('/concert/' + this.info.schedule_id)
+        } else {
+          this.$message({
+            showClose: true,
+            customClass: 'message-wrapper',
+            type: 'error',
+            message: '请使用会员帐号登陆Ticket进行查看！'
+          })
+        }
+      }
     },
     mounted () {
-      console.log(this.info)
+//      console.log(this.info)
       this.getSchedulePriceInfo({
         onSuccess: (data) => {
-          console.log(data)
+          this.scheduleInfo = data
+//          console.log(data)
         },
         onError: () => {
 
         },
-        schedule: this.info.venue
+        schedule: this.info.schedule_id
       })
 
     }
