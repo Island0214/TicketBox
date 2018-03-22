@@ -113,6 +113,17 @@ const actions = {
       }
     }, schedule)
   },
+  'getScheduleBasicInfo' ({state, commit}, {onSuccess, onError, schedule}) {
+    scheduleApi.getScheduleBasicInfo((data) => {
+      if (data.error !== undefined) {
+        // console.log('error')
+        onError()
+      } else {
+        // console.log('success')
+        onSuccess(data)
+      }
+    }, schedule)
+  },
   'findScheduleByPage' ({state, commit}, {onSuccess, onError, body}) {
     scheduleApi.findScheduleByPage((data) => {
       if (data.error !== undefined) {

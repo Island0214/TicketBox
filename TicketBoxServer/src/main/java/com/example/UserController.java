@@ -226,6 +226,19 @@ public class UserController {
     }
 
     /**
+     * 获得计划基础相应信息
+     * @param schedule
+     * @return
+     */
+    @RequestMapping(value = "/schedule/basic/{schedule}", method = RequestMethod.GET)
+    Schedule getScheduleBasicInfo(@PathVariable int schedule) {
+        System.out.println("===============");
+        System.out.println("/schedule/info/");
+        System.out.println(schedule);
+        return scheduleService.getScheduleById(schedule);
+    }
+
+    /**
      * 获得最新三个演出
      * @return
      */
@@ -235,6 +248,18 @@ public class UserController {
         System.out.println("/schedule/all/");
         System.out.println(scheduleSearchBean.toString());
         return scheduleService.findScheduleByPage(scheduleSearchBean);
+    }
+
+    /**
+     * 获得最新三个演出
+     * @return
+     */
+    @RequestMapping(value = "/coupon/usable/", method = RequestMethod.POST)
+    List<Coupon> getUsableCoupons(@RequestBody UsableCouponBean usableCouponBean) {
+        System.out.println("===============");
+        System.out.println("/schedule/all/");
+        System.out.println(usableCouponBean.toString());
+        return userService.getUsableCoupons(usableCouponBean);
     }
 
 }

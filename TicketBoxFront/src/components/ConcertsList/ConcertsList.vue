@@ -29,6 +29,11 @@
       </el-date-picker>
     </div>
 
+    <div class="text-wrapper" v-if="concerts.length === 0">
+      <h4>没有相关演出...<br>请修改筛选条件后再次尝试！</h4>
+    </div>
+
+
     <el-row :gutter="20" style="margin: 0">
       <single-brief-concert v-for="(concert, index) in concerts" :key="index" :info="concert" :size="6" style="margin-top: 40px;"></single-brief-concert>
     </el-row>

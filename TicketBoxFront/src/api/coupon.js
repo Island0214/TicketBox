@@ -54,3 +54,22 @@ export function exchangeCoupon (callback, body) {
     .catch(function (error) {
     })
 }
+
+export function getUsableCoupons (callback, body) {
+  console.log('getUsableCoupons')
+  // console.log('login')
+  axios.post('/user/coupon/usable/',
+    JSON.parse(JSON.stringify(body)),
+    {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+  )
+    .then(function (response) {
+      console.log(response.data)
+      callback(response.data)
+    })
+    .catch(function (error) {
+    })
+}

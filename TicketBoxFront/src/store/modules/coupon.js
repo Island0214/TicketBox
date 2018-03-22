@@ -45,6 +45,18 @@ const actions = {
         onSuccess(data)
       }
     }, username)
+  },
+  'getUsableCoupons' ({state, commit}, {onSuccess, onError, body}) {
+    couponApi.getUsableCoupons((data) => {
+      console.log(data)
+      if (data.error !== undefined) {
+        // console.log('error')
+        onError(data.error)
+      } else {
+        // console.log('success')
+        onSuccess(data)
+      }
+    }, body)
   }
 }
 

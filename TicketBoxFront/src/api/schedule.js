@@ -162,6 +162,24 @@ export function getSchedulePriceInfo (callback, schedule) {
     })
 }
 
+export function getScheduleBasicInfo (callback, schedule) {
+  console.log('getSchedulePriceInfo')
+  // console.log('login')
+  axios.get('/user/schedule/basic/' + schedule,
+    {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+  )
+    .then(function (response) {
+      console.log(response.data)
+      callback(response.data)
+    })
+    .catch(function (error) {
+    })
+}
+
 export function findScheduleByPage (callback, body) {
   console.log('findScheduleByPage')
   // console.log('login')

@@ -154,4 +154,9 @@ public class ScheduleServiceImpl implements ScheduleService{
         Page<Schedule> schedulePage = scheduleRepository.findByParams(pageable, scheduleSearchBean.getName(), scheduleSearchBean.getType(), scheduleSearchBean.getStart(), scheduleSearchBean.getEnd());
         return schedulePage;
     }
+
+    @Override
+    public Schedule getScheduleById(int schedule) {
+        return scheduleRepository.findById(schedule);
+    }
 }

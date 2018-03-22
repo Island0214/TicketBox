@@ -1,6 +1,7 @@
 package com.example.serviceImpl;
 
 import com.example.bean.ChangePasswordBean;
+import com.example.bean.UsableCouponBean;
 import com.example.dao.*;
 import com.example.model.*;
 import com.example.service.UserService;
@@ -234,5 +235,20 @@ public class UserServiceImpl implements UserService {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public List<Coupon> getUsableCoupons(UsableCouponBean usableCouponBean) {
+        List<Integer> myCoupons = myCouponRepository.findDistinctByUsernameAndUsed(usableCouponBean.getUsername());
+        List<Coupon> coupons = new ArrayList<>();
+
+        for (int i = 0; i < myCoupons.size(); i++) {
+            Coupon coupon = couponRepository.findById(myCoupons.get(i));
+            if (coupon.getConsumption() <= usableCouponBean.getPrice()) {
+                coupons.add(coupon);
+            }
+        }
+
+        return coupons;
     }
 }

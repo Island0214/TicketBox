@@ -36,4 +36,6 @@ public interface ScheduleService {
     ScheduleInfoBean getScheduleInfo(int scheduleId);
 
     Page<Schedule> findScheduleByPage(ScheduleSearchBean scheduleSearchBean);
+
+    Schedule getScheduleById(int schedule);
 }

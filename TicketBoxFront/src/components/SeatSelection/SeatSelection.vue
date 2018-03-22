@@ -30,7 +30,37 @@
           <el-tag v-for="(seat, index) in selectedSeats" :key="index">{{ seat }}</el-tag>
         </div>
       </div>
-      <el-button @click="selectSeatBuy" v-if="showButton">选座购买</el-button>
+      <div v-if="showButton">
+        <div  v-if="area !== ''" style="margin-top: 30px">
+          总价：
+          <h4 style="position: relative; display: inline-block;">
+            {{ totalPrice }}
+            <el-tooltip class="item" effect="light" :content="curDiscount" placement="right">
+              <i class="el-icon-question"></i>
+            </el-tooltip>
+          </h4>
+          <br>
+          <br>
+          <br>
+          可用优惠券：
+          <el-select v-model="coupon" placeholder="请选择" no-data-text="无可用优惠券">
+            <el-option
+              v-for="(item, index) in coupons"
+              :key="item.value"
+              :label="item.name"
+              :value="index">
+            </el-option>
+          </el-select>
+          <br>
+          <br>
+          <br>
+          折后价格:
+          <h3 style="position: relative; display: inline-block; color: #871FCA;">{{ discountPrice }}</h3>
+        </div>
+
+
+        <el-button @click="selectSeatBuy" style="float: right; margin-top: -50px;">选座购买</el-button>
+      </div>
     </div>
 
     <div class="buy-wrapper" v-if="!canSelectSeat">
@@ -44,7 +74,7 @@
 </template>
 
 <script>
-  import {mapActions} from 'vuex'
+  import {mapGetters, mapActions} from 'vuex'
 
   export default {
     props: ['showButton', 'schedule'],
@@ -61,13 +91,23 @@
         area: '',
         areas: [],
         data: [],
-        disableArray: []
+        disableArray: [],
+        totalPrice: 0,
+        coupon: '',
+        discount: 1,
+        coupons: [],
+        ticket_num: 0,
+        userGrade: 1,
+        minusDiscount: 0
       }
     },
     methods: {
       ...mapActions({
         getScheduleInfoAction: 'getScheduleInfo',
-        getAreaInfoAction: 'getAreaInfoOfSchedule'
+        getAreaInfoAction: 'getAreaInfoOfSchedule',
+        getUserInfo: 'getUserInfo',
+        getVipDiscount: 'getVipDiscount',
+        getUsableCoupons: 'getUsableCoupons'
       }),
       selectPrice: function (index) {
         this.select_price = index
@@ -186,7 +226,7 @@
             }
           }
 
-          if (this.selectedSeats.length > 20) {
+          if (this.selectedSeats.length > 6) {
             this.selectedSeats = oldValue
             for (let i = 0; i < this.seatArray.length; i++) {
               if (this.selectedSeatsCount.indexOf(i) !== -1) {
@@ -198,15 +238,16 @@
             this.$message({
               showClose: true,
               type: 'error',
-              message: '最多选择20个座位！'
+              message: '最多选择6个座位！'
             })
           } else {
             this.selectedSeatsCount = selectCounts
             if (this.price_types.length === 0) {
-              this.$emit('seatChange', 0)
+              this.totalPrice = 0
             } else {
-              this.$emit('seatChange', this.price_types[this.select_price] * this.selectedSeats.length)
+              this.totalPrice = this.price_types[this.select_price] * this.selectedSeats.length
             }
+            this.$emit('seatChange', this.totalPrice)
 
             let selectedSeats = []
 
@@ -233,11 +274,68 @@
         for (let i = 0; i < this.rows * this.seats; i++) {
           this.seatArray.push(false)
         }
+      },
+      totalPrice: function () {
+        this.getUsableCoupons({
+          onSuccess: (data) => {
+            this.coupons = data
+            for (let i = 0; i < this.coupons.length; i++) {
+              this.coupons[i].name = '满' + this.coupons[i].consumption + '减' + this.coupons[i].discount
+            }
+          },
+          onError: () => {
+
+          },
+          body: {
+            username: this.name,
+            price: this.totalPrice
+          }
+        })
+      },
+      coupon: function () {
+//        console.log(this.coupon)
+        this.minusDiscount = this.coupons[this.coupon].discount
+      }
+    },
+    computed: {
+      ...mapGetters({
+        name: 'name'
+      }),
+      discountPrice: function () {
+        return (this.totalPrice - this.minusDiscount) * this.discount
+      },
+      curDiscount: function () {
+        if (this.grade === 1) {
+          return '当前会员等级无折扣'
+        } else {
+          return '当前会员等级享受' + this.discount * 10 + '折优惠'
+        }
       }
     },
     mounted () {
       this.initSeatArray()
       this.getScheduleInfo()
+      this.getUserInfo({
+        onSuccess: (data) => {
+          this.grade = data.grade
+
+          this.getVipDiscount({
+            onSuccess: (data) => {
+              this.discount = data / 100
+            },
+            onError: () => {
+
+            },
+            grade: this.grade
+          })
+        },
+        onError: () => {
+
+        },
+        username: this.name
+      })
+
+//      this.
 //      console.log(this.seatArray)
     }
   }

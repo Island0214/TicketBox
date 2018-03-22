@@ -37,3 +37,15 @@
   text-align: center;
   width: 100%;
 }
+
+.concerts-wrapper .text-wrapper {
+  width: 100%;
+  min-height: 300px;
+  text-align: center;
+}
+
+.concerts-wrapper .text-wrapper h4 {
+  color: #871FCA;
+  margin-top: 200px;
+  line-height: 30px;
+}

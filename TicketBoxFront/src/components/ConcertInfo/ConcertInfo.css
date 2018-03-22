@@ -44,10 +44,14 @@
   margin-top: 60px;
   padding: 60px;
   width: 100%;
+  word-break: break-all;
 }
 
 .concert-info-wrapper .intro-wrapper pre {
   margin-top: 30px;
   width: 90%;
   margin-left: 5%;
+  /*word-break: break-all;*/
+  overflow: auto;
+  white-space: pre-wrap;
 }
