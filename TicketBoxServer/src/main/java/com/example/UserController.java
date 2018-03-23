@@ -2,6 +2,7 @@ package com.example;
 
 import com.example.bean.*;
 import com.example.model.*;
+import com.example.service.OrderService;
 import com.example.service.ScheduleService;
 import com.example.service.UserService;
 import net.sf.json.JSONObject;
@@ -26,6 +27,9 @@ public class UserController {
 
     @Autowired
     private ScheduleService scheduleService;
+
+    @Autowired
+    private OrderService orderService;
 
     @RequestMapping("/")
     String hello() {
@@ -260,6 +264,18 @@ public class UserController {
         System.out.println("/schedule/all/");
         System.out.println(usableCouponBean.toString());
         return userService.getUsableCoupons(usableCouponBean);
+    }
+
+    /**
+     * 获得最新三个演出
+     * @return
+     */
+    @RequestMapping(value = "/order/create/", method = RequestMethod.POST)
+    MyOrder createOrder(@RequestBody OrderCreateBean orderCreateBean) {
+        System.out.println("===============");
+        System.out.println("/order/create/");
+        System.out.println(orderCreateBean.toString());
+        return orderService.createOrder(orderCreateBean);
     }
 
 }

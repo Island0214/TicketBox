@@ -107,7 +107,8 @@
         getAreaInfoAction: 'getAreaInfoOfSchedule',
         getUserInfo: 'getUserInfo',
         getVipDiscount: 'getVipDiscount',
-        getUsableCoupons: 'getUsableCoupons'
+        getUsableCoupons: 'getUsableCoupons',
+        createOrder: 'createOrder'
       }),
       selectPrice: function (index) {
         this.select_price = index
@@ -166,9 +167,31 @@
           return
         }
 
+        let body = {
+          username: this.name,
+          price: this.discountPrice,
+          coupon: this.coupons[this.coupon].id,
+          schedule: this.schedule,
+          area: this.area,
+          seats: this.selectedSeats
+        }
+
+        this.createOrder({
+          onSuccess: (data) => {
+//            console.log(data)
+            this.$router.push('/pay/' + data.order_id)
+          },
+          onError: () => {
+
+          },
+          body: body
+        })
+
+        console.log(body)
+
         // todo buy
-        let order_id = 1
-        this.$router.push('/pay/' + order_id)
+//        let order_id = 1
+//        this.$router.push('/pay/' + order_id)
       },
       immediateBuy: function () {
         // todo buy
@@ -279,6 +302,9 @@
         this.getUsableCoupons({
           onSuccess: (data) => {
             this.coupons = data
+            this.coupon = ''
+            this.minusDiscount = 0
+
             for (let i = 0; i < this.coupons.length; i++) {
               this.coupons[i].name = '满' + this.coupons[i].consumption + '减' + this.coupons[i].discount
             }

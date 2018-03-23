@@ -75,7 +75,7 @@ export function getScheduleInfo (callback, schedule) {
 export function getAreaInfoOfSchedule (callback, schedule, area) {
   console.log('getAreaInfo')
   // console.log('login')
-  axios.get('/venue/seats/' + schedule + '/' + area,
+  axios.get(encodeURI('/venue/seats/' + schedule + '/' + area),
     {
       headers: {
         'Content-Type': 'application/json'

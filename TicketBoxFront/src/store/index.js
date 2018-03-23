@@ -6,6 +6,7 @@ import schedule from './modules/schedule'
 import user from './modules/user'
 import balance from './modules/balance'
 import coupon from './modules/coupon'
+import order from './modules/order'
 
 Vue.use(Vuex)
 
@@ -18,7 +19,8 @@ export default new Vuex.Store({
     schedule,
     user,
     balance,
-    coupon
+    coupon,
+    order
   },
   strict: debug
   // plugins: debug ? [createLogger()] : []

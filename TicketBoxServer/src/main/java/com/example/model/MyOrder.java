@@ -9,7 +9,10 @@ import java.util.Date;
 /**
  * Created by island on 2018/3/23.
  */
-public class Order {
+@Entity
+public class MyOrder {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int order_id;
 
     private String type;
@@ -26,10 +29,10 @@ public class Order {
 
     private Date time;
 
-    public Order() {
+    public MyOrder() {
     }
 
-    public Order(String type, double price, String username, int schedule, String area, String seat, Date time) {
+    public MyOrder(String type, double price, String username, int schedule, String area, String seat, Date time) {
         this.type = type;
         this.price = price;
         this.username = username;

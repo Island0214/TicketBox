@@ -237,6 +237,22 @@ public class VenueController {
         return result;
     }
 
+    @RequestMapping(value = "/seats/{id}/{area}", method = RequestMethod.GET)
+    Map<String, String> getSeatsByArea(@PathVariable int id, @PathVariable String area) {
+        System.out.println("===============");
+        System.out.println("/seats");
+        System.out.println(id);
+        System.out.println(area);
+        Map<String, String> result = new HashMap<>();
+        Seat seat = scheduleService.getSeatByScheduleAndArea(id, area);
+        result.put("seat", JSONObject.fromObject(seat).toString());
+
+        List<Boolean> booleans = scheduleService.getSeatsInArea(id, area);
+        result.put("seats", JSONArray.fromObject(booleans).toString());
+
+        return result;
+    }
+
 
     /**
      * 场馆现场检票
