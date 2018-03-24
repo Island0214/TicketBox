@@ -12,13 +12,15 @@
     </div>
     <div class="order-info-wrapper">
       <div class="img-box">
-        <img :src="url"/>
+        <img :src="schedule.poster"/>
       </div>
       <div class="info-wrapper">
-        <h3>{{ order.concert_name }}</h3>
-        <p>时间：<span>{{ order.start_time }}</span></p>
-        <p>地点：<span>{{ order.location }}</span></p>
+        <h3>{{ schedule.schedule }}</h3>
+        <p>时间：<span>{{ new Date(schedule.time).toLocaleString() }}</span></p>
+        <p>地点：<span>{{ venue.name }}</span></p>
+        <p>区域：<span>{{ order.area }}</span></p>
         <p>座位：<span>{{ order.seat }}</span></p>
+        <p style="float: right; font-size: 12px; margin-bottom: 0; position: absolute; bottom: -25px; right: 0; color: #999;">创建时间：{{ new Date(order.time).toLocaleString() }}</p>
       </div>
     </div>
     <div class="order-footer-wrapper">
@@ -36,17 +38,56 @@
 </template>
 
 <script>
+  import {mapActions} from 'vuex'
+
   export default {
     props: ['order', 'showButtons'],
     data () {
       return {
-        url: require('../../assets/poster4.jpg')
+        url: require('../../assets/poster4.jpg'),
+        schedule: {},
+        venue:  {}
       }
+    },
+    methods: {
+      ...mapActions({
+        getScheduleBasicInfo: 'getScheduleBasicInfo',
+        getVenueInfo: 'getVenueInfo'
+      })
     },
     watch: {
       orderType: function () {
-//        alert(this.orderType)
+      },
+      order: function () {
+//        console.log(this.order.schedule)
+        this.getScheduleBasicInfo({
+          onSuccess: (data) => {
+//          console.log(data)
+            this.schedule = data
+
+            this.getVenueInfo({
+              onSuccess: (data) => {
+//              console.log(data)
+                this.venue = data
+              },
+              onError: () => {
+
+              },
+              body: {
+                code: data.venue
+              }
+            })
+
+          },
+          onError: () => {
+
+          },
+          schedule: parseInt(this.order.schedule)
+        })
       }
+    },
+    mounted () {
+
     }
   }
 </script>

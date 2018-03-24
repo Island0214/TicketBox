@@ -31,3 +31,20 @@
   margin: 30px;
   float: right;
 }
+
+.pay-area-wrapper .pay-wrapper .pay-info-wrapper {
+  width: 60%;
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  margin: 30px;
+  border-top: 1px solid #999;
+  border-bottom: 1px solid #999;
+  margin-left: 20%;
+  padding: 30px;
+}
+
+.pay-area-wrapper .pay-wrapper .pay-info-wrapper .el-input {
+  width: 300px;
+  margin-left: 30px;
+}

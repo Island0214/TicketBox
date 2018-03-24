@@ -39,8 +39,8 @@
 }
 
 .order-wrapper .order-info-wrapper .img-box {
-  width: 102px;
-  height: 102px;
+  width: 152px;
+  height: 152px;
   border: 1px solid #eee;
   text-align: center;
   position: relative;
@@ -51,8 +51,8 @@
 .order-wrapper .order-info-wrapper .img-box img {
   position: absolute;
   /*display: inline-block;*/
-  max-width: 100px;
-  max-height: 100px;
+  max-width: 150px;
+  max-height: 150px;
   top: -50%;
   transform: translate(-50%, 50%);
 }

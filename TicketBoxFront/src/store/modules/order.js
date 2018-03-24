@@ -21,6 +21,30 @@ const actions = {
         onSuccess(data)
       }
     }, body)
+  },
+  'getOrderById' ({state, commit}, {onSuccess, onError, body}) {
+    orderApi.getOrderById((data) => {
+      // console.log(data)
+      if (data.error !== undefined) {
+        // console.log('error')
+        onError(data.error)
+      } else {
+        // console.log('success')
+        onSuccess(data)
+      }
+    }, body)
+  },
+  'payOrder' ({state, commit}, {onSuccess, onError, body}) {
+    orderApi.payOrder((data) => {
+      // console.log(data)
+      if (data.error !== undefined) {
+        // console.log('error')
+        onError(data.error)
+      } else {
+        // console.log('success')
+        onSuccess(data)
+      }
+    }, body)
   }
 }
 

@@ -267,7 +267,7 @@ public class UserController {
     }
 
     /**
-     * 获得最新三个演出
+     * 创建订单
      * @return
      */
     @RequestMapping(value = "/order/create/", method = RequestMethod.POST)
@@ -278,4 +278,28 @@ public class UserController {
         return orderService.createOrder(orderCreateBean);
     }
 
+    /**
+     * 根据订单id获得id
+     * @return
+     */
+    @RequestMapping(value = "/order/info/", method = RequestMethod.POST)
+    MyOrder getOrderById(@RequestBody MyOrder myOrder) {
+        System.out.println("===============");
+        System.out.println("/order/create/");
+        System.out.println(myOrder.toString());
+        return orderService.getOrderById(myOrder);
+    }
+
+
+    /**
+     * 付款
+     * @return
+     */
+    @RequestMapping(value = "/order/pay/", method = RequestMethod.POST)
+    Map<String, String> payOrder(@RequestBody OrderPayBean orderPayBean) {
+        System.out.println("===============");
+        System.out.println("/order/pay/");
+        System.out.println(orderPayBean.toString());
+        return orderService.payOrder(orderPayBean);
+    }
 }
