@@ -302,4 +302,52 @@ public class UserController {
         System.out.println(orderPayBean.toString());
         return orderService.payOrder(orderPayBean);
     }
+
+    /**
+     * 退款
+     * @return
+     */
+    @RequestMapping(value = "/order/refund/", method = RequestMethod.POST)
+    Map<String, String> refundOrder(@RequestBody OrderPayBean orderPayBean) {
+        System.out.println("===============");
+        System.out.println("/order/refund/");
+        System.out.println(orderPayBean.toString());
+        return orderService.refundOrder(orderPayBean);
+    }
+
+    /**
+     * 取消订单
+     * @return
+     */
+    @RequestMapping(value = "/order/cancel/", method = RequestMethod.POST)
+    Map<String, String> cancelOrder(@RequestBody OrderPayBean orderPayBean) {
+        System.out.println("===============");
+        System.out.println("/order/cancel/");
+        System.out.println(orderPayBean.toString());
+        return orderService.cancelOrder(orderPayBean);
+    }
+
+    /**
+     * 获得所有订单
+     * @return
+     */
+    @RequestMapping(value = "/order/all/", method = RequestMethod.POST)
+    List<MyOrder> getAllOrders(@RequestBody MyOrder myOrder) {
+        System.out.println("===============");
+        System.out.println("/order/all/");
+        System.out.println(myOrder.toString());
+        return orderService.getAllOrders(myOrder.getUsername());
+    }
+
+    /**
+     * 根据状态获得订单
+     * @return
+     */
+    @RequestMapping(value = "/order/status/", method = RequestMethod.POST)
+    List<MyOrder> getOrdersByType(@RequestBody MyOrder myOrder) {
+        System.out.println("===============");
+        System.out.println("/order/status/");
+        System.out.println(myOrder.toString());
+        return orderService.getOrdersByType(myOrder.getUsername(), myOrder.getType());
+    }
 }

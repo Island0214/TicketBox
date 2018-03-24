@@ -35,6 +35,7 @@
 
 <script>
   import Order from '../Order/Order.vue'
+  import {mapGetters, mapActions} from 'vuex'
   //  import Order from '../../assets'
 
   export default {
@@ -43,7 +44,7 @@
     },
     data () {
       return {
-        orderType: '全部订单',
+        orderType: '',
         orders: [{
           order_id: '1',
           created_at: '2018-03-03 11:23:12',
@@ -92,9 +93,37 @@
       }
     },
     methods: {
+      ...mapActions({
+        getAllOrders: 'getAllOrders'
+      }),
       selectOrderType: function (type) {
         this.orderType = type
       }
+    },
+    computed: {
+      ...mapGetters({
+        username: 'name'
+      })
+    },
+    watch: {
+      orderType: function () {
+        console.log(this.orderType)
+      }
+    },
+    mounted () {
+      this.orderType = '全部订单'
+      this.getAllOrders({
+        onSuccess: (data) => {
+          this.orders = data.reverse()
+        },
+        onError: () => {
+
+        },
+        body: {
+          username: this.username
+        }
+      })
+//      console.log(this.orderType)
     }
   }
 </script>

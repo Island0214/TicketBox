@@ -6,6 +6,7 @@ import com.example.model.MyOrder;
 import com.example.model.Order;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,4 +19,12 @@ public interface OrderService {
     MyOrder getOrderById(MyOrder myOrder);
 
     Map<String, String> payOrder(OrderPayBean orderPayBean);
+
+    Map<String, String> cancelOrder(OrderPayBean orderPayBean);
+
+    Map<String, String> refundOrder(OrderPayBean orderPayBean);
+
+    List<MyOrder> getAllOrders(String username);
+
+    List<MyOrder> getOrdersByType(String username, String type);
 }

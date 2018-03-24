@@ -45,6 +45,42 @@ const actions = {
         onSuccess(data)
       }
     }, body)
+  },
+  'cancelOrder' ({state, commit}, {onSuccess, onError, body}) {
+    orderApi.cancelOrder((data) => {
+      // console.log(data)
+      if (data.error !== undefined) {
+        // console.log('error')
+        onError(data.error)
+      } else {
+        // console.log('success')
+        onSuccess(data)
+      }
+    }, body)
+  },
+  'refundOrder' ({state, commit}, {onSuccess, onError, body}) {
+    orderApi.refundOrder((data) => {
+      // console.log(data)
+      if (data.error !== undefined) {
+        // console.log('error')
+        onError(data.error)
+      } else {
+        // console.log('success')
+        onSuccess(data)
+      }
+    }, body)
+  },
+  'getAllOrders' ({state, commit}, {onSuccess, onError, body}) {
+    orderApi.getAllOrders((data) => {
+      // console.log(data)
+      if (data.error !== undefined) {
+        // console.log('error')
+        onError(data.error)
+      } else {
+        // console.log('success')
+        onSuccess(data)
+      }
+    }, body)
   }
 }
 

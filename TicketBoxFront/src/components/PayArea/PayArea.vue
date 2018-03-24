@@ -65,7 +65,7 @@
             time = parseInt(60 - ((parseFloat(time / 60.0) -
               parseInt(time / 60.0))) * 60) + '秒'
           } else {
-//            this.$router.push('/')
+            this.$router.push('/')
             this.$message({
               showClose: true,
               type: 'error',
@@ -129,7 +129,7 @@
 //      console.log(new Date().getTime())
 
       if (new Date().getTime() - this.order.time > 15 * 60 * 1000) {
-//        this.$router.push('/')
+        this.$router.push('/')
       } else {
         this.countInterval = setInterval(() => {
           this.countDown = (this.MillisecondToDate(new Date().getTime() - this.order.time))

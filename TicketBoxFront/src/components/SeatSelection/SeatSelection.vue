@@ -188,10 +188,6 @@
         })
 
         console.log(body)
-
-        // todo buy
-//        let order_id = 1
-//        this.$router.push('/pay/' + order_id)
       },
       immediateBuy: function () {
         // todo buy
