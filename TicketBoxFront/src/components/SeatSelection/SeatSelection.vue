@@ -170,10 +170,13 @@
         let body = {
           username: this.name,
           price: this.discountPrice,
-          coupon: this.coupons[this.coupon].id,
           schedule: this.schedule,
           area: this.area,
           seats: this.selectedSeats
+        }
+
+        if (this.coupons[this.coupon] !== undefined) {
+          body.coupon = this.coupons[this.coupon].id
         }
 
         this.createOrder({

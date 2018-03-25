@@ -11,4 +11,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BankAccountRepository extends JpaSpecificationExecutor<BankAccount>, JpaRepository<BankAccount, Long> {
     BankAccount findByAccountAndPassword(String account, String password);
+
+    BankAccount findByAccount(String account);
 }

@@ -10,4 +10,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 public interface AliPayRepository extends JpaSpecificationExecutor<AliPay>, JpaRepository<AliPay, Long> {
     AliPay findByAccountAndPassword(String account, String password);
 
+    AliPay findByAccount(String account);
 }

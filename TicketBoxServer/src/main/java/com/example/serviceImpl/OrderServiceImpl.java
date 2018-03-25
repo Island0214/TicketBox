@@ -8,10 +8,7 @@ import com.example.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by island on 2018/3/23.
@@ -59,9 +56,18 @@ public class OrderServiceImpl implements OrderService {
         System.out.println(order.toString());
         order = orderRepository.saveAndFlush(order);
 
-        MyCoupon myCoupon = myCouponRepository.findByCouponAndUsernameAndUsed(orderCreateBean.getCoupon(), orderCreateBean.getUsername(), false).get(0);
-        myCoupon.setUsed(true);
-        myCouponRepository.save(myCoupon);
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            public void run() {
+                System.out.println("-------设定要指定任务--------");
+            }
+        }, 15000);// 设定指定的时间time,此处为2000毫秒
+
+        if (orderCreateBean.getCoupon() != 0) {
+            MyCoupon myCoupon = myCouponRepository.findByCouponAndUsernameAndUsed(orderCreateBean.getCoupon(), orderCreateBean.getUsername(), false).get(0);
+            myCoupon.setUsed(true);
+            myCouponRepository.save(myCoupon);
+        }
 
         return order;
     }
@@ -133,7 +139,7 @@ public class OrderServiceImpl implements OrderService {
     public Map<String, String> refundOrder(OrderPayBean orderPayBean) {
         Map<String, String> result = new HashMap<>();
         MyOrder order = orderRepository.findById(orderPayBean.getOrder_id());
-        if (order != null && order.getType().equals("已付款订单"))  {
+        if (order != null && order.getType().equals("已付款订单")) {
             MyPay myPay = payRepository.findByOrderid(orderPayBean.getOrder_id());
             if (myPay != null) {
                 if (myPay.getType().equals("网上银行")) {

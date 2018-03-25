@@ -17,4 +17,6 @@ public interface MyCouponRepository extends JpaSpecificationExecutor<MyCoupon>, 
 
     @Query(value = "select distinct coupon.coupon from MyCoupon coupon where coupon.username = :username and coupon.used = false order by coupon.coupon")
     List<Integer> findDistinctByUsernameAndUsed(@Param("username") String username);
+
+    List<MyCoupon> findByCouponAndUsernameAndUsed(int coupon, String username, boolean used);
 }
