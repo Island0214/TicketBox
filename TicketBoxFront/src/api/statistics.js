@@ -1,10 +1,9 @@
 import axios from 'axios'
 
-export function createOrder (callback, body) {
-  console.log('exchangeCoupon')
+export function getOrderStatistics (callback, username) {
+  console.log('getOrderStatistics')
   // console.log('login')
-  axios.post('/user/order/create/',
-    JSON.parse(JSON.stringify(body)),
+  axios.get('/user/order/statistic/' + username + '/',
     {
       headers: {
         'Content-Type': 'application/json'
@@ -19,11 +18,10 @@ export function createOrder (callback, body) {
     })
 }
 
-export function getOrderById (callback, body) {
-  console.log('getOrderById')
+export function getUserStatistics (callback, username) {
+  console.log('getUserStatistics')
   // console.log('login')
-  axios.post('/user/order/info/',
-    JSON.parse(JSON.stringify(body)),
+  axios.get('/user/consumption/statistic/' + username + '/',
     {
       headers: {
         'Content-Type': 'application/json'
@@ -38,11 +36,11 @@ export function getOrderById (callback, body) {
     })
 }
 
-export function payOrder (callback, body) {
-  console.log('payOrder')
+
+export function getVenueOrderStatistic (callback, code) {
+  console.log('getVenueOrderStatistic')
   // console.log('login')
-  axios.post('/user/order/pay/',
-    JSON.parse(JSON.stringify(body)),
+  axios.get('/venue/order/statistic/' + code + '/',
     {
       headers: {
         'Content-Type': 'application/json'
@@ -57,11 +55,10 @@ export function payOrder (callback, body) {
     })
 }
 
-export function cancelOrder (callback, body) {
-  console.log('cancelOrder')
+export function getDayOrderStatistic (callback, code) {
+  console.log('getDayOrderStatistic')
   // console.log('login')
-  axios.post('/user/order/cancel/',
-    JSON.parse(JSON.stringify(body)),
+  axios.get('/venue/day/statistic/' + code + '/',
     {
       headers: {
         'Content-Type': 'application/json'
@@ -76,11 +73,10 @@ export function cancelOrder (callback, body) {
     })
 }
 
-export function refundOrder (callback, body) {
-  console.log('refundOrder')
+export function getVenueRefundOrder (callback, code) {
+  console.log('getVenueRefundOrder')
   // console.log('login')
-  axios.post('/user/order/refund/',
-    JSON.parse(JSON.stringify(body)),
+  axios.get('/venue/order/refund/' + code + '/',
     {
       headers: {
         'Content-Type': 'application/json'
@@ -95,11 +91,10 @@ export function refundOrder (callback, body) {
     })
 }
 
-export function getAllOrders (callback, body) {
-  console.log('getAllOrders')
+export function getFinanceStatistic (callback, code) {
+  console.log('getFinanceStatistic')
   // console.log('login')
-  axios.post('/user/order/all/',
-    JSON.parse(JSON.stringify(body)),
+  axios.get('/venue/finance/statistic/' + code + '/',
     {
       headers: {
         'Content-Type': 'application/json'
@@ -113,4 +108,3 @@ export function getAllOrders (callback, body) {
     .catch(function (error) {
     })
 }
-

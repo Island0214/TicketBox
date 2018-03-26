@@ -38,4 +38,5 @@ public interface OrderService {
 
     boolean closeOrder(int id);
 
+    List<MyOrder> findByVenueAndType(int code);
 }

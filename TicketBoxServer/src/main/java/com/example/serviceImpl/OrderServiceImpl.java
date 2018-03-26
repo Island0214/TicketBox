@@ -8,6 +8,7 @@ import com.example.dao.*;
 import com.example.model.*;
 import com.example.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -35,6 +36,9 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private MyCouponRepository myCouponRepository;
 
+    @Autowired
+    private ScheduleRepository scheduleRepository;
+
     @Override
     public MyOrder createOrder(OrderCreateBean orderCreateBean) {
         String type = "待付款订单";
@@ -53,8 +57,9 @@ public class OrderServiceImpl implements OrderService {
             seatRepository.save(seat);
             seatString += orderCreateBean.getSeats().get(i) + ", ";
         }
+        int venue = scheduleRepository.findById(orderCreateBean.getSchedule()).getVenue();
         seatString = seatString.substring(0, seatString.length() - 2);
-        MyOrder order = new MyOrder(type, orderCreateBean.getPrice(), orderCreateBean.getUsername(), orderCreateBean.getSchedule(), orderCreateBean.getArea(), seatString, new Date());
+        MyOrder order = new MyOrder(type, orderCreateBean.getPrice(), orderCreateBean.getUsername(), orderCreateBean.getSchedule(), orderCreateBean.getArea(), seatString, new Date(), venue);
         System.out.println(order.toString());
         order = orderRepository.saveAndFlush(order);
 
@@ -196,10 +201,21 @@ public class OrderServiceImpl implements OrderService {
         MyOrder order = orderRepository.findById(id);
         if (order != null && order.getType().equals("待付款订单")) {
             order.setType("已取消订单");
+            String[] seats = order.getSeat().split(", ");
+            for (int i = 0; i < seats.length; i++) {
+                Seat seat = seatRepository.findByScheduleAndAreaAndRowAndCol(order.getSchedule(), order.getArea(), Integer.parseInt(seats[i].split("排")[0]), Integer.parseInt(seats[i].split("排")[1].split("座")[0]));
+                seat.setStatus(0);
+                seatRepository.save(seat);
+            }
             orderRepository.save(order);
             return true;
         } else {
             return false;
         }
+    }
+
+    @Override
+    public List<MyOrder> findByVenueAndType(int code) {
+        return orderRepository.findByVenueAndType(code, "已退订订单");
     }
 }

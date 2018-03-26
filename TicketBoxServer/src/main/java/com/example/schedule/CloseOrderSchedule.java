@@ -18,7 +18,7 @@ public class CloseOrderSchedule {
     @Autowired
     private OrderService orderService;
 
-    @Scheduled(fixedDelay = 1000)
+    @Scheduled(fixedDelay = 1000 * 60)
     public void check() {
         List<MyOrder> orderList = orderService.findAllUnpaidOrders();
         for (int i = 0; i < orderList.size(); i++) {

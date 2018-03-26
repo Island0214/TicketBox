@@ -7,6 +7,7 @@ import user from './modules/user'
 import balance from './modules/balance'
 import coupon from './modules/coupon'
 import order from './modules/order'
+import statistics from './modules/statistics'
 
 Vue.use(Vuex)
 
@@ -20,7 +21,8 @@ export default new Vuex.Store({
     user,
     balance,
     coupon,
-    order
+    order,
+    statistics
   },
   strict: debug
   // plugins: debug ? [createLogger()] : []

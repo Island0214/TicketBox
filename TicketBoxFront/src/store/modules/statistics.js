@@ -1,4 +1,4 @@
-import * as orderApi from '../../api/order'
+import * as statisticsApi from '../../api/statistics'
 // initial state
 const state = {
 }
@@ -10,8 +10,8 @@ const getters = {
 
 // actions
 const actions = {
-  'createOrder' ({state, commit}, {onSuccess, onError, body}) {
-    orderApi.createOrder((data) => {
+  'getOrderStatistics' ({state, commit}, {onSuccess, onError, username}) {
+    statisticsApi.getOrderStatistics((data) => {
       // console.log(data)
       if (data.error !== undefined) {
         // console.log('error')
@@ -20,10 +20,10 @@ const actions = {
         // console.log('success')
         onSuccess(data)
       }
-    }, body)
+    }, username)
   },
-  'getOrderById' ({state, commit}, {onSuccess, onError, body}) {
-    orderApi.getOrderById((data) => {
+  'getUserStatistics' ({state, commit}, {onSuccess, onError, username}) {
+    statisticsApi.getUserStatistics((data) => {
       // console.log(data)
       if (data.error !== undefined) {
         // console.log('error')
@@ -32,10 +32,10 @@ const actions = {
         // console.log('success')
         onSuccess(data)
       }
-    }, body)
+    }, username)
   },
-  'payOrder' ({state, commit}, {onSuccess, onError, body}) {
-    orderApi.payOrder((data) => {
+  'getVenueOrderStatistic' ({state, commit}, {onSuccess, onError, code}) {
+    statisticsApi.getVenueOrderStatistic((data) => {
       // console.log(data)
       if (data.error !== undefined) {
         // console.log('error')
@@ -44,10 +44,10 @@ const actions = {
         // console.log('success')
         onSuccess(data)
       }
-    }, body)
+    }, code)
   },
-  'cancelOrder' ({state, commit}, {onSuccess, onError, body}) {
-    orderApi.cancelOrder((data) => {
+  'getDayOrderStatistic' ({state, commit}, {onSuccess, onError, code}) {
+    statisticsApi.getDayOrderStatistic((data) => {
       // console.log(data)
       if (data.error !== undefined) {
         // console.log('error')
@@ -56,10 +56,10 @@ const actions = {
         // console.log('success')
         onSuccess(data)
       }
-    }, body)
+    }, code)
   },
-  'refundOrder' ({state, commit}, {onSuccess, onError, body}) {
-    orderApi.refundOrder((data) => {
+  'getVenueRefundOrder' ({state, commit}, {onSuccess, onError, code}) {
+    statisticsApi.getVenueRefundOrder((data) => {
       // console.log(data)
       if (data.error !== undefined) {
         // console.log('error')
@@ -68,10 +68,10 @@ const actions = {
         // console.log('success')
         onSuccess(data)
       }
-    }, body)
+    }, code)
   },
-  'getAllOrders' ({state, commit}, {onSuccess, onError, body}) {
-    orderApi.getAllOrders((data) => {
+  'getFinanceStatistic' ({state, commit}, {onSuccess, onError, code}) {
+    statisticsApi.getFinanceStatistic((data) => {
       // console.log(data)
       if (data.error !== undefined) {
         // console.log('error')
@@ -80,7 +80,7 @@ const actions = {
         // console.log('success')
         onSuccess(data)
       }
-    }, body)
+    }, code)
   }
 }
 

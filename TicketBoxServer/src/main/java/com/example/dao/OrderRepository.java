@@ -1,6 +1,7 @@
 package com.example.dao;
 
 import com.example.bean.DoubleInfoBean;
+import com.example.bean.IntInfoBean;
 import com.example.bean.OrderTypeBean;
 import com.example.model.MyOrder;
 import com.example.model.Order;
@@ -34,4 +35,13 @@ public interface OrderRepository extends JpaSpecificationExecutor<MyOrder>, JpaR
 
     @Query(value = "select o from MyOrder o where o.type = '待付款订单'")
     List<MyOrder> findAllUnpaidOrders();
+
+    @Query(value = "select new com.example.bean.IntInfoBean(" +
+            "substring(o.time, 1, 10), count(o)" +
+            ") from MyOrder o " +
+            "where o.venue = :venue " +
+            "GROUP BY substring(o.time, 1, 10)")
+    List<IntInfoBean> findDailyByVenue(@Param("venue") int venue);
+
+    List<MyOrder> findByVenueAndType(int venue, String type);
 }

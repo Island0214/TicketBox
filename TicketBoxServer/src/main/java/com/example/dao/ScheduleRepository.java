@@ -18,6 +18,8 @@ public interface ScheduleRepository extends JpaSpecificationExecutor<Schedule>, 
     @Query("select s from Schedule s where s.venue = :venue and s.time > :time")
     List<Schedule> findByVenueBefore(@Param("venue") int venue, @Param("time") Date time);
 
+    List<Schedule> findByVenue(int venue);
+
     @Query("select s from Schedule s where s.status = :status and s.time <= :time")
     List<Schedule> findFinishedByStatus(@Param("status") int status, @Param("time") Date time);
 

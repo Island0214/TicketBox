@@ -1,19 +1,16 @@
 package com.example.serviceImpl;
 
-import com.example.dao.AreaRepository;
-import com.example.dao.SeatRepository;
-import com.example.dao.VenueRepository;
-import com.example.model.Area;
-import com.example.model.Seat;
-import com.example.model.Venue;
+import com.example.bean.DoubleInfoBean;
+import com.example.bean.IntInfoBean;
+import com.example.dao.*;
+import com.example.model.*;
+import com.example.service.ScheduleService;
 import com.example.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.DecimalFormat;
+import java.util.*;
 
 /**
  * Created by island on 2018/3/16.
@@ -28,6 +25,15 @@ public class VenueServiceImpl implements VenueService {
 
     @Autowired
     private SeatRepository seatRepository;
+
+    @Autowired
+    private ScheduleRepository scheduleRepository;
+
+    @Autowired
+    private OrderRepository orderRepository;
+
+    @Autowired
+    private BalanceRepository balanceRepository;
 
     @Override
     public Map<Integer, Venue> login(int code, String password) {
@@ -108,5 +114,35 @@ public class VenueServiceImpl implements VenueService {
             map.put("error", seatString + "尚未卖出！");
         }
         return map;
+    }
+
+    @Override
+    public List<DoubleInfoBean> getVenueOrderStatistic(int code) {
+        List<Schedule> scheduleList = scheduleRepository.findByVenue(code);
+
+        List<DoubleInfoBean> list = new ArrayList<>();
+
+        for (int i = 0; i < scheduleList.size(); i++) {
+            double all = seatRepository.getScheduleSeats(scheduleList.get(i).getSchedule_id());
+            double occupied = seatRepository.getOccupaidSeats(scheduleList.get(i).getSchedule_id());
+
+            System.out.println(all);
+            System.out.println(occupied);
+
+            DecimalFormat df = new DecimalFormat("#.00");
+
+            list.add(new DoubleInfoBean(scheduleList.get(i).getSchedule(), Double.parseDouble(df.format(occupied * 100 / all))));
+        }
+        return list;
+    }
+
+    @Override
+    public List<IntInfoBean> getDayOrderStatistic(int code) {
+        return orderRepository.findDailyByVenue(code);
+    }
+
+    @Override
+    public List<Balance> getBalanceByVenue(int code) {
+        return balanceRepository.findByVenue(code);
     }
 }

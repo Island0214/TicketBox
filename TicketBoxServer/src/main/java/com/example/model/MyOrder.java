@@ -29,10 +29,12 @@ public class MyOrder {
 
     private Date time;
 
+    private int venue;
+
     public MyOrder() {
     }
 
-    public MyOrder(String type, double price, String username, int schedule, String area, String seat, Date time) {
+    public MyOrder(String type, double price, String username, int schedule, String area, String seat, Date time, int venue) {
         this.type = type;
         this.price = price;
         this.username = username;
@@ -40,6 +42,15 @@ public class MyOrder {
         this.area = area;
         this.seat = seat;
         this.time = time;
+        this.venue = venue;
+    }
+
+    public int getVenue() {
+        return venue;
+    }
+
+    public void setVenue(int venue) {
+        this.venue = venue;
     }
 
     public int getOrder_id() {

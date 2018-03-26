@@ -1,9 +1,8 @@
 package com.example;
 
-import com.example.bean.PasswordBean;
-import com.example.bean.SeatListBean;
-import com.example.bean.VenueRegisterBean;
+import com.example.bean.*;
 import com.example.model.*;
+import com.example.service.OrderService;
 import com.example.service.ScheduleService;
 import com.example.service.VenueService;
 import net.sf.json.JSONArray;
@@ -29,6 +28,9 @@ public class VenueController {
 
     @Autowired
     private ScheduleService scheduleService;
+
+    @Autowired
+    private OrderService orderService;
 
     @RequestMapping("/")
     String hello() {
@@ -270,4 +272,51 @@ public class VenueController {
         return venueService.checkTicket(seat);
     }
 
+    /**
+     * 获得上座率统计
+     * @return
+     */
+    @RequestMapping(value = "/order/statistic/{code}", method = RequestMethod.GET)
+    List<DoubleInfoBean> getVenueOrderStatistic(@PathVariable int code) {
+        System.out.println("===============");
+        System.out.println("/order/statistic/");
+        System.out.println(code);
+        return venueService.getVenueOrderStatistic(code);
+    }
+
+    /**
+     * 获得场馆所有退订统计
+     * @return
+     */
+    @RequestMapping(value = "/order/refund/{code}", method = RequestMethod.GET)
+    List<MyOrder> getVenueRefundOrder(@PathVariable int code) {
+        System.out.println("===============");
+        System.out.println("/order/refund/");
+        System.out.println(code);
+        return orderService.findByVenueAndType(code);
+    }
+
+    /**
+     * 获得预定统计
+     * @return
+     */
+    @RequestMapping(value = "/day/statistic/{code}", method = RequestMethod.GET)
+    List<IntInfoBean> getDayOrderStatistic(@PathVariable int code) {
+        System.out.println("===============");
+        System.out.println("/day/statistic/");
+        System.out.println(code);
+        return venueService.getDayOrderStatistic(code);
+    }
+
+    /**
+     * 获得财务统计
+     * @return
+     */
+    @RequestMapping(value = "/finance/statistic/{code}", method = RequestMethod.GET)
+    List<Balance> getFinanceStatistic(@PathVariable int code) {
+        System.out.println("===============");
+        System.out.println("/day/statistic/");
+        System.out.println(code);
+        return venueService.getBalanceByVenue(code);
+    }
 }

@@ -1,5 +1,7 @@
 package com.example.dao;
 
+import com.example.bean.DoubleInfoBean;
+import com.example.bean.IntInfoBean;
 import com.example.model.Seat;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -27,4 +29,12 @@ public interface SeatRepository extends JpaSpecificationExecutor<Seat>, JpaRepos
     Seat findByScheduleAndAreaAndRowAndCol(int schedule, String area, int row, int col);
 
     List<Seat> findBySchedule(int schedule);
+
+    @Query("select count(s) from Seat s where s.schedule = :schedule")
+    int getScheduleSeats(@Param("schedule") int schedule);
+
+    @Query("select count(s) from Seat s where s.schedule = :schedule and (s.status = 2 or s.status = 3)")
+    int getOccupaidSeats(@Param("schedule") int schedule);
+
+
 }

@@ -1,6 +1,9 @@
 package com.example.service;
 
+import com.example.bean.DoubleInfoBean;
+import com.example.bean.IntInfoBean;
 import com.example.model.Area;
+import com.example.model.Balance;
 import com.example.model.Seat;
 import com.example.model.Venue;
 import org.springframework.stereotype.Service;
@@ -24,4 +27,10 @@ public interface VenueService {
     boolean saveAreaInfo(Area[] areas);
 
     Map<String, String> checkTicket(Seat seat);
+
+    List<DoubleInfoBean> getVenueOrderStatistic(int code);
+
+    List<IntInfoBean> getDayOrderStatistic(int code);
+
+    List<Balance> getBalanceByVenue(int code);
 }
