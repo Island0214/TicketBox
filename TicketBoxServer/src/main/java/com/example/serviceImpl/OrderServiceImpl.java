@@ -58,7 +58,12 @@ public class OrderServiceImpl implements OrderService {
             seatString += orderCreateBean.getSeats().get(i) + ", ";
         }
         int venue = scheduleRepository.findById(orderCreateBean.getSchedule()).getVenue();
-        seatString = seatString.substring(0, seatString.length() - 2);
+        if (seatString.length() > 2) {
+            seatString = seatString.substring(0, seatString.length() - 2);
+        }
+        if (seatString.equals("")) {
+            seatString = "待分配";
+        }
         MyOrder order = new MyOrder(type, orderCreateBean.getPrice(), orderCreateBean.getUsername(), orderCreateBean.getSchedule(), orderCreateBean.getArea(), seatString, new Date(), venue);
         System.out.println(order.toString());
         order = orderRepository.saveAndFlush(order);

@@ -36,5 +36,5 @@ public interface SeatRepository extends JpaSpecificationExecutor<Seat>, JpaRepos
     @Query("select count(s) from Seat s where s.schedule = :schedule and (s.status = 2 or s.status = 3)")
     int getOccupaidSeats(@Param("schedule") int schedule);
 
-
+    List<Seat> findByScheduleAndStatusAndArea(int schedule, int status, String area);
 }

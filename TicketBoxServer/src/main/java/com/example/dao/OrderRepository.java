@@ -44,4 +44,8 @@ public interface OrderRepository extends JpaSpecificationExecutor<MyOrder>, JpaR
     List<IntInfoBean> findDailyByVenue(@Param("venue") int venue);
 
     List<MyOrder> findByVenueAndType(int venue, String type);
+
+    List<MyOrder> findByScheduleAndSeat(int schedule, String seat);
+
+    List<MyOrder> findByScheduleAndType(int schedule, String type);
 }
