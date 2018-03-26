@@ -81,6 +81,30 @@ const actions = {
         onSuccess(data)
       }
     }, body)
+  },
+  'getOrderStatistics' ({state, commit}, {onSuccess, onError, username}) {
+    orderApi.getOrderStatistics((data) => {
+      // console.log(data)
+      if (data.error !== undefined) {
+        // console.log('error')
+        onError(data.error)
+      } else {
+        // console.log('success')
+        onSuccess(data)
+      }
+    }, username)
+  },
+  'getUserStatistics' ({state, commit}, {onSuccess, onError, username}) {
+    orderApi.getUserStatistics((data) => {
+      // console.log(data)
+      if (data.error !== undefined) {
+        // console.log('error')
+        onError(data.error)
+      } else {
+        // console.log('success')
+        onSuccess(data)
+      }
+    }, username)
   }
 }
 

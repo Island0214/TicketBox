@@ -1,6 +1,7 @@
 package com.example.serviceImpl;
 
 import com.example.bean.ChangePasswordBean;
+import com.example.bean.OrderTypeBean;
 import com.example.bean.UsableCouponBean;
 import com.example.dao.*;
 import com.example.model.*;

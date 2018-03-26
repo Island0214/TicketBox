@@ -113,3 +113,39 @@ export function getAllOrders (callback, body) {
     .catch(function (error) {
     })
 }
+
+export function getOrderStatistics (callback, username) {
+  console.log('getOrderStatistics')
+  // console.log('login')
+  axios.get('/user/order/statistic/' + username + '/',
+    {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+  )
+    .then(function (response) {
+      console.log(response.data)
+      callback(response.data)
+    })
+    .catch(function (error) {
+    })
+}
+
+export function getUserStatistics (callback, username) {
+  console.log('getUserStatistics')
+  // console.log('login')
+  axios.get('/user/consumption/statistic/' + username + '/',
+    {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+  )
+    .then(function (response) {
+      console.log(response.data)
+      callback(response.data)
+    })
+    .catch(function (error) {
+    })
+}

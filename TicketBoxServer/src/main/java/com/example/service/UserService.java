@@ -1,6 +1,7 @@
 package com.example.service;
 
 import com.example.bean.ChangePasswordBean;
+import com.example.bean.OrderTypeBean;
 import com.example.bean.UsableCouponBean;
 import com.example.model.*;
 import org.springframework.stereotype.Service;

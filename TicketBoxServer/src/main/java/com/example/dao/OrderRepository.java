@@ -1,5 +1,7 @@
 package com.example.dao;
 
+import com.example.bean.DoubleInfoBean;
+import com.example.bean.OrderTypeBean;
 import com.example.model.MyOrder;
 import com.example.model.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,4 +21,14 @@ public interface OrderRepository extends JpaSpecificationExecutor<MyOrder>, JpaR
     List<MyOrder> findByUsername(String username);
 
     List<MyOrder> findByUsernameAndType(String username, String type);
+
+    @Query(value = "SELECT new com.example.bean.OrderTypeBean(o.type, count(o)) from MyOrder o where o.username = :username GROUP BY o.type")
+    List<OrderTypeBean> findOrderStatistics(@Param("username") String username);
+
+    @Query(value = "select new com.example.bean.DoubleInfoBean(" +
+            "substring(o.time, 1, 7), sum(o.price)" +
+            ") from MyOrder o " +
+            "where o.username = :username and o.type <> '已退订订单'" +
+            "GROUP BY substring(o.time, 1, 7)")
+    List<DoubleInfoBean> findConsumptionStatistics(@Param("username") String username);
 }

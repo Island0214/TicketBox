@@ -1,7 +1,9 @@
 package com.example.serviceImpl;
 
+import com.example.bean.DoubleInfoBean;
 import com.example.bean.OrderCreateBean;
 import com.example.bean.OrderPayBean;
+import com.example.bean.OrderTypeBean;
 import com.example.dao.*;
 import com.example.model.*;
 import com.example.service.OrderService;
@@ -171,5 +173,16 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<MyOrder> getOrdersByType(String username, String type) {
         return orderRepository.findByUsernameAndType(username, type);
+    }
+
+    @Override
+    public List<OrderTypeBean> getOrderStatistic(String username) {
+        List<DoubleInfoBean> orderTypeBeans = orderRepository.findConsumptionStatistics(username);
+        return orderRepository.findOrderStatistics(username);
+    }
+
+    @Override
+    public List<DoubleInfoBean> getUserStatistic(String username) {
+        return orderRepository.findConsumptionStatistics(username);
     }
 }

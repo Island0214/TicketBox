@@ -350,4 +350,28 @@ public class UserController {
         System.out.println(myOrder.toString());
         return orderService.getOrdersByType(myOrder.getUsername(), myOrder.getType());
     }
+
+    /**
+     * 获得订单统计
+     * @return
+     */
+    @RequestMapping(value = "/order/statistic/{username}", method = RequestMethod.GET)
+    List<OrderTypeBean> getOrderStatistics(@PathVariable String username) {
+        System.out.println("===============");
+        System.out.println("/order/statistic/");
+        System.out.println(username);
+        return orderService.getOrderStatistic(username);
+    }
+
+    /**
+     * 获得消费统计
+     * @return
+     */
+    @RequestMapping(value = "/consumption/statistic/{username}", method = RequestMethod.GET)
+    List<DoubleInfoBean> getUserStatistic(@PathVariable String username) {
+        System.out.println("===============");
+        System.out.println("/order/statistic/");
+        System.out.println(username);
+        return orderService.getUserStatistic(username);
+    }
 }

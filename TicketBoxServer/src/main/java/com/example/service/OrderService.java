@@ -1,7 +1,9 @@
 package com.example.service;
 
+import com.example.bean.DoubleInfoBean;
 import com.example.bean.OrderCreateBean;
 import com.example.bean.OrderPayBean;
+import com.example.bean.OrderTypeBean;
 import com.example.model.MyOrder;
 import com.example.model.Order;
 import org.springframework.stereotype.Service;
@@ -27,4 +29,9 @@ public interface OrderService {
     List<MyOrder> getAllOrders(String username);
 
     List<MyOrder> getOrdersByType(String username, String type);
+
+    List<OrderTypeBean> getOrderStatistic(String username);
+
+    List<DoubleInfoBean> getUserStatistic(String username);
+
 }

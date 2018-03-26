@@ -1,3 +1,10 @@
 .user-statistics-wrapper .info-wrapper {
   padding: 30px 60px 30px 60px;
 }
+
+.user-statistics-wrapper .chart-wrapper {
+  width: 400px;
+  height: 400px;
+  position: relative;
+  display: inline-block;
+}
