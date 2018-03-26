@@ -1,11 +1,9 @@
 package com.example.serviceImpl;
 
 import com.example.bean.DoubleInfoBean;
+import com.example.bean.ManagerFinanceBean;
 import com.example.dao.*;
-import com.example.model.Manager;
-import com.example.model.Schedule;
-import com.example.model.User;
-import com.example.model.Venue;
+import com.example.model.*;
 import com.example.service.ManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +15,7 @@ import java.util.List;
  * Created by island on 2018/3/16.
  */
 @Service
-public class ManagerServiceImpl implements ManagerService{
+public class ManagerServiceImpl implements ManagerService {
     @Autowired
     private ManagerRepository managerRepository;
 
@@ -32,6 +30,9 @@ public class ManagerServiceImpl implements ManagerService{
 
     @Autowired
     private SeatRepository seatRepository;
+
+    @Autowired
+    private BalanceRepository balanceRepository;
 
     @Override
     public boolean login(String username, String password) {
@@ -56,7 +57,7 @@ public class ManagerServiceImpl implements ManagerService{
     @Override
     public boolean approveVenue(Venue venue) {
         Venue targetVenue = venueRepository.findByCode(venue.getCode());
-        if  (targetVenue == null) {
+        if (targetVenue == null) {
             return false;
         } else {
             targetVenue.setStatus(venue.getStatus());
@@ -92,5 +93,22 @@ public class ManagerServiceImpl implements ManagerService{
             }
         }
         return doubleInfoBeans;
+    }
+
+    @Override
+    public ManagerFinanceBean getManagerFinanceStatistics() {
+
+        double total = 0;
+
+        List<Balance> balances = balanceRepository.findAll();
+        for (int i = 0; i < balances.size(); i++) {
+            balances.get(i).setIncome(balances.get(i).getIncome() / 4);
+            total += balances.get(i).getIncome();
+        }
+
+        ManagerFinanceBean managerFinanceBean = new ManagerFinanceBean();
+        managerFinanceBean.setTotal(total);
+        managerFinanceBean.setBalanceList(balances);
+        return managerFinanceBean;
     }
 }

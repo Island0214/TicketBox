@@ -117,6 +117,30 @@ const actions = {
         onSuccess(data)
       }
     })
+  },
+  'getVipStatistics' ({state, commit}, {onSuccess, onError}) {
+    statisticsApi.getVipStatistics((data) => {
+      // console.log(data)
+      if (data.error !== undefined) {
+        // console.log('error')
+        onError(data.error)
+      } else {
+        // console.log('success')
+        onSuccess(data)
+      }
+    })
+  },
+  'getManagerFinanceStatistics' ({state, commit}, {onSuccess, onError}) {
+    statisticsApi.getManagerFinanceStatistics((data) => {
+      // console.log(data)
+      if (data.error !== undefined) {
+        // console.log('error')
+        onError(data.error)
+      } else {
+        // console.log('success')
+        onSuccess(data)
+      }
+    })
   }
 }
 

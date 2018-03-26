@@ -163,3 +163,39 @@ export function getVenueAverageOccupy (callback) {
     .catch(function (error) {
     })
 }
+
+export function getVipStatistics (callback) {
+  console.log('getVipStatistics')
+  // console.log('login')
+  axios.get('/manager/vip/statistics/',
+    {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+  )
+    .then(function (response) {
+      console.log(response.data)
+      callback(response.data)
+    })
+    .catch(function (error) {
+    })
+}
+
+export function getManagerFinanceStatistics (callback) {
+  console.log('getManagerFinanceStatistics')
+  // console.log('login')
+  axios.get('/manager/finance/statistics/',
+    {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+  )
+    .then(function (response) {
+      console.log(response.data)
+      callback(response.data)
+    })
+    .catch(function (error) {
+    })
+}

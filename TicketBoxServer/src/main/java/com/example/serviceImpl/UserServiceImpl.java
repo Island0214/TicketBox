@@ -1,8 +1,6 @@
 package com.example.serviceImpl;
 
-import com.example.bean.ChangePasswordBean;
-import com.example.bean.OrderTypeBean;
-import com.example.bean.UsableCouponBean;
+import com.example.bean.*;
 import com.example.dao.*;
 import com.example.model.*;
 import com.example.service.UserService;
@@ -251,5 +249,28 @@ public class UserServiceImpl implements UserService {
         }
 
         return coupons;
+    }
+
+    @Override
+    public VipStatisticsBean getVipStatistics() {
+        List<User> users = userRepository.findAll();
+        VipStatisticsBean vipStatisticsBean = new VipStatisticsBean();
+        vipStatisticsBean.setTotal_count(users.size());
+
+        List<IntInfoBean> intInfoBeans = new ArrayList<>();
+        List<Discount> discounts = discountRepository.findAll();
+        for (int i = 0; i < discounts.size(); i++) {
+            IntInfoBean intInfoBean = new IntInfoBean();
+            intInfoBean.setName(discounts.get(i).getGrade() + "级");
+            intInfoBean.setValue(0);
+            intInfoBeans.add(intInfoBean);
+        }
+
+        for (int i = 0; i < users.size(); i++) {
+//            long count = intInfoBeans.get(users.get(i).getGrade() - 1).getValue() + 1;
+            intInfoBeans.get(users.get(i).getGrade() - 1).setValue(intInfoBeans.get(users.get(i).getGrade() - 1).getValue() + 1);
+        }
+        vipStatisticsBean.setIntInfoBeans(intInfoBeans);
+        return vipStatisticsBean;
     }
 }

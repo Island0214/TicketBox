@@ -3,6 +3,7 @@ package com.example.service;
 import com.example.bean.ChangePasswordBean;
 import com.example.bean.OrderTypeBean;
 import com.example.bean.UsableCouponBean;
+import com.example.bean.VipStatisticsBean;
 import com.example.model.*;
 import org.springframework.stereotype.Service;
 
@@ -41,4 +42,6 @@ public interface UserService {
     boolean exchangeCoupon(MyCoupon myCoupon);
 
     List<Coupon> getUsableCoupons(UsableCouponBean usableCouponBean);
+
+    VipStatisticsBean getVipStatistics();
 }

@@ -1,9 +1,6 @@
 package com.example;
 
-import com.example.bean.DoubleInfoBean;
-import com.example.bean.IntInfoBean;
-import com.example.bean.PasswordBean;
-import com.example.bean.VipStatisticsBean;
+import com.example.bean.*;
 import com.example.model.*;
 import com.example.service.BalanceService;
 import com.example.service.ManagerService;
@@ -177,7 +174,7 @@ public class ManagerController {
     }
 
     /**
-     * 获得场馆场均收入
+     * 获得场馆平均上座率
      * @return
      */
     @RequestMapping(value = "/venue/occupy/", method = RequestMethod.GET)
@@ -188,7 +185,7 @@ public class ManagerController {
     }
 
     /**
-     * 获得场馆场均收入
+     * 获得会员统计信息
      * @return
      */
     @RequestMapping(value = "/vip/statistics/", method = RequestMethod.GET)
@@ -196,5 +193,16 @@ public class ManagerController {
         System.out.println("===============");
         System.out.println("/vip/statistics/");
         return userService.getVipStatistics();
+    }
+
+    /**
+     * 获得财务统计信息
+     * @return
+     */
+    @RequestMapping(value = "/finance/statistics/", method = RequestMethod.GET)
+    ManagerFinanceBean getManagerFinanceStatistics() {
+        System.out.println("===============");
+        System.out.println("/finance/statistics/");
+        return managerService.getManagerFinanceStatistics();
     }
 }

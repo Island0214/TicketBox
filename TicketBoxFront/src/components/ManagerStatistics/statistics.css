@@ -18,8 +18,17 @@
 .manager-statistics-wrapper h4 {
   border-left: 3px solid #871FCA;
   padding: 3px;
+  padding-left: 15px;
   margin-bottom: 30px;
   text-align: left;
+}
+
+.manager-statistics-wrapper span {
+  color: #871FCA;
+}
+
+.manager-statistics-wrapper .el-table span {
+  color: #666;
 }
 
 .manager-statistics-wrapper .chart-wrapper {
@@ -30,4 +39,20 @@
   display: inline-block;
   overflow: visible;
   margin-left: -20px;
+}
+
+.manager-statistics-wrapper .info-wrapper {
+  width: 90%;
+  margin-left: 5%;
+  position: relative;
+  display: inline-block;
+  text-align: center;
+}
+
+.manager-statistics-wrapper .info-wrapper /deep/ .el-table__header thead tr /deep/ th {
+  text-align: center;
+}
+
+.cell {
+  text-align: center;
 }
