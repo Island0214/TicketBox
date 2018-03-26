@@ -1,15 +1,16 @@
 package com.example.serviceImpl;
 
-import com.example.dao.ManagerRepository;
-import com.example.dao.UserRepository;
-import com.example.dao.VenueRepository;
+import com.example.bean.DoubleInfoBean;
+import com.example.dao.*;
 import com.example.model.Manager;
+import com.example.model.Schedule;
 import com.example.model.User;
 import com.example.model.Venue;
 import com.example.service.ManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,6 +26,12 @@ public class ManagerServiceImpl implements ManagerService{
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ScheduleRepository scheduleRepository;
+
+    @Autowired
+    private SeatRepository seatRepository;
 
     @Override
     public boolean login(String username, String password) {
@@ -64,5 +71,26 @@ public class ManagerServiceImpl implements ManagerService{
         targetUser.setStatus(-1);
         userRepository.save(targetUser);
         return true;
+    }
+
+    @Override
+    public List<DoubleInfoBean> getAverageOccupies() {
+        List<Venue> venues = venueRepository.findAll();
+        List<DoubleInfoBean> doubleInfoBeans = new ArrayList<>();
+
+        for (int i = 0; i < venues.size(); i++) {
+            List<Schedule> schedules = scheduleRepository.findByVenue(venues.get(i).getCode());
+            double average = 0;
+
+            for (int j = 0; j < schedules.size(); j++) {
+                average += (double) seatRepository.getOccupaidSeats(schedules.get(j).getSchedule_id()) * 100
+                        / (double) seatRepository.getScheduleSeats(schedules.get(j).getSchedule_id());
+            }
+
+            if (schedules.size() != 0) {
+                doubleInfoBeans.add(new DoubleInfoBean(venues.get(i).getName(), average / schedules.size()));
+            }
+        }
+        return doubleInfoBeans;
     }
 }

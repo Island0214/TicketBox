@@ -1,11 +1,14 @@
 package com.example.serviceImpl;
 
+import com.example.bean.DoubleInfoBean;
 import com.example.dao.BalanceRepository;
 import com.example.dao.ScheduleRepository;
 import com.example.dao.SeatRepository;
+import com.example.dao.VenueRepository;
 import com.example.model.Balance;
 import com.example.model.Schedule;
 import com.example.model.Seat;
+import com.example.model.Venue;
 import com.example.service.BalanceService;
 import com.example.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +32,9 @@ public class BalanceServiceImpl implements BalanceService {
 
     @Autowired
     private BalanceRepository balanceRepository;
+
+    @Autowired
+    private VenueRepository venueRepository;
 
     @Override
     public List<Balance> getUnpaidSchedules() {
@@ -77,5 +83,24 @@ public class BalanceServiceImpl implements BalanceService {
     public List<Balance> getPaidSchedules() {
 //        List<Balance> = get
         return balanceRepository.findAll();
+    }
+
+    @Override
+    public List<DoubleInfoBean> getVenueAverageIncome() {
+        List<DoubleInfoBean> doubleInfoBeans = new ArrayList<>();
+        List<Venue> venues = venueRepository.findAll();
+
+        for (int i = 0; i < venues.size(); i++) {
+            List<Balance> balances = balanceRepository.findByVenue(venues.get(i).getCode());
+            List<Schedule> schedules = scheduleRepository.findByVenue(venues.get(i).getCode());
+            double totalIncome = 0;
+            for (int j = 0; j < balances.size(); j++) {
+                totalIncome += balances.get(j).getIncome();
+            }
+            if (schedules.size() != 0) {
+                doubleInfoBeans.add(new DoubleInfoBean(venues.get(i).getName(), totalIncome / balances.size()));
+            }
+        }
+        return doubleInfoBeans;
     }
 }

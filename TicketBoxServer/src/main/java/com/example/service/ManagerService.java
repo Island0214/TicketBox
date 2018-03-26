@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.bean.DoubleInfoBean;
 import com.example.model.User;
 import com.example.model.Venue;
 import org.springframework.stereotype.Service;
@@ -18,4 +19,6 @@ public interface ManagerService {
     boolean approveVenue(Venue venue);
 
     boolean banUser(User user);
+
+    List<DoubleInfoBean> getAverageOccupies();
 }

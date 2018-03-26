@@ -108,3 +108,58 @@ export function getFinanceStatistic (callback, code) {
     .catch(function (error) {
     })
 }
+
+export function getScheduleCountByVenue (callback) {
+  console.log('getScheduleCountByVenue')
+  // console.log('login')
+  axios.get('/manager/schedule/count/',
+    {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+  )
+    .then(function (response) {
+      console.log(response.data)
+      callback(response.data)
+    })
+    .catch(function (error) {
+    })
+}
+
+
+export function getVenueAverageIncome (callback) {
+  console.log('getVenueAverageIncome')
+  // console.log('login')
+  axios.get('/manager/venue/income/',
+    {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+  )
+    .then(function (response) {
+      console.log(response.data)
+      callback(response.data)
+    })
+    .catch(function (error) {
+    })
+}
+
+export function getVenueAverageOccupy (callback) {
+  console.log('getVenueAverageOccupy')
+  // console.log('login')
+  axios.get('/manager/venue/occupy/',
+    {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+  )
+    .then(function (response) {
+      console.log(response.data)
+      callback(response.data)
+    })
+    .catch(function (error) {
+    })
+}

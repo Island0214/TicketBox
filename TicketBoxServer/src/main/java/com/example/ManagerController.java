@@ -1,10 +1,14 @@
 package com.example;
 
+import com.example.bean.DoubleInfoBean;
+import com.example.bean.IntInfoBean;
 import com.example.bean.PasswordBean;
+import com.example.bean.VipStatisticsBean;
 import com.example.model.*;
 import com.example.service.BalanceService;
 import com.example.service.ManagerService;
 import com.example.service.ScheduleService;
+import com.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +34,9 @@ public class ManagerController {
 
     @Autowired
     private BalanceService balanceService;
+
+    @Autowired
+    private UserService userService;
 
     @RequestMapping("/")
     String hello() {
@@ -147,4 +154,47 @@ public class ManagerController {
     }
 
 
+    /**
+     * 获得场馆总演出数
+     * @return
+     */
+    @RequestMapping(value = "/schedule/count/", method = RequestMethod.GET)
+    List<IntInfoBean> getScheduleCountByVenue() {
+        System.out.println("===============");
+        System.out.println("/order/statistic/");
+        return scheduleService.countByVenue();
+    }
+
+    /**
+     * 获得场馆场均收入
+     * @return
+     */
+    @RequestMapping(value = "/venue/income/", method = RequestMethod.GET)
+    List<DoubleInfoBean> getVenueAverageIncome() {
+        System.out.println("===============");
+        System.out.println("/venue/income/");
+        return balanceService.getVenueAverageIncome();
+    }
+
+    /**
+     * 获得场馆场均收入
+     * @return
+     */
+    @RequestMapping(value = "/venue/occupy/", method = RequestMethod.GET)
+    List<DoubleInfoBean> getVenueAverageoccupy() {
+        System.out.println("===============");
+        System.out.println("/venue/occupy/");
+        return managerService.getAverageOccupies();
+    }
+
+    /**
+     * 获得场馆场均收入
+     * @return
+     */
+    @RequestMapping(value = "/vip/statistics/", method = RequestMethod.GET)
+    VipStatisticsBean getVipStatistics() {
+        System.out.println("===============");
+        System.out.println("/vip/statistics/");
+        return userService.getVipStatistics();
+    }
 }

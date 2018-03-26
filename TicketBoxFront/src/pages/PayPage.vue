@@ -55,7 +55,7 @@
   }
 </script>
 
-<style>
+<style scoped>
   .page-wrapper {
     padding: 30px;
     width: 100%;

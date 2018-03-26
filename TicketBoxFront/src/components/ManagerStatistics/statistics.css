@@ -1,12 +1,33 @@
 .manager-statistics-wrapper {
-  padding: 30px;
+  padding: 60px;
   position: relative;
   display: inline-block;
+  /*text-align: center;*/
   width: 100%;
+  overflow: visible;
+}
+
+.manager-statistics-wrapper .single-chart-wrapper {
+  width: 33%;
+  position: relative;
+  display: inline-block;
+  overflow: visible;
+  /*display: block;*/
 }
 
 .manager-statistics-wrapper h4 {
   border-left: 3px solid #871FCA;
   padding: 3px;
   margin-bottom: 30px;
+  text-align: left;
+}
+
+.manager-statistics-wrapper .chart-wrapper {
+  padding: 10px;
+  width: 300px;
+  height: 400px;
+  position: relative;
+  display: inline-block;
+  overflow: visible;
+  margin-left: -20px;
 }

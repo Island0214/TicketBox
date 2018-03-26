@@ -1,5 +1,6 @@
 package com.example.dao;
 
+import com.example.bean.IntInfoBean;
 import com.example.model.Schedule;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -34,4 +35,7 @@ public interface ScheduleRepository extends JpaSpecificationExecutor<Schedule>, 
 
     @Query("select s from Schedule s where s.type like %:stype% and s.time >= :start and s.time <= :end and (s.schedule like %:name% or s.artist like %:name% )")
     Page<Schedule> findByParams(Pageable pageable, @Param("name") String name, @Param("stype") String stype, @Param("start") Date start, @Param("end") Date end);
+
+    @Query("select new com.example.bean.IntInfoBean(concat(s.venue, ''), count (s)) from Schedule s group by concat(s.venue, '')")
+    List<IntInfoBean> countByVenue();
 }

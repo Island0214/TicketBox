@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.bean.IntInfoBean;
 import com.example.bean.ScheduleInfoBean;
 import com.example.bean.ScheduleSearchBean;
 import com.example.model.Schedule;
@@ -38,4 +39,6 @@ public interface ScheduleService {
     Page<Schedule> findScheduleByPage(ScheduleSearchBean scheduleSearchBean);
 
     Schedule getScheduleById(int schedule);
+
+    List<IntInfoBean> countByVenue();
 }

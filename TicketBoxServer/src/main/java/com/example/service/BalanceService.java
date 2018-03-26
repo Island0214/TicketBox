@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.bean.DoubleInfoBean;
 import com.example.model.Balance;
 import org.springframework.stereotype.Service;
 
@@ -15,4 +16,6 @@ public interface BalanceService {
     boolean payBalance(Balance balance);
 
     List<Balance> getPaidSchedules();
+
+    List<DoubleInfoBean> getVenueAverageIncome();
 }

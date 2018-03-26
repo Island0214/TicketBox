@@ -81,6 +81,42 @@ const actions = {
         onSuccess(data)
       }
     }, code)
+  },
+  'getScheduleCountByVenue' ({state, commit}, {onSuccess, onError}) {
+    statisticsApi.getScheduleCountByVenue((data) => {
+      // console.log(data)
+      if (data.error !== undefined) {
+        // console.log('error')
+        onError(data.error)
+      } else {
+        // console.log('success')
+        onSuccess(data)
+      }
+    })
+  },
+  'getVenueAverageIncome' ({state, commit}, {onSuccess, onError}) {
+    statisticsApi.getVenueAverageIncome((data) => {
+      // console.log(data)
+      if (data.error !== undefined) {
+        // console.log('error')
+        onError(data.error)
+      } else {
+        // console.log('success')
+        onSuccess(data)
+      }
+    })
+  },
+  'getVenueAverageOccupy' ({state, commit}, {onSuccess, onError}) {
+    statisticsApi.getVenueAverageOccupy((data) => {
+      // console.log(data)
+      if (data.error !== undefined) {
+        // console.log('error')
+        onError(data.error)
+      } else {
+        // console.log('success')
+        onSuccess(data)
+      }
+    })
   }
 }
 

@@ -1,5 +1,6 @@
 package com.example.serviceImpl;
 
+import com.example.bean.IntInfoBean;
 import com.example.bean.ScheduleInfoBean;
 import com.example.bean.ScheduleSearchBean;
 import com.example.dao.ScheduleRepository;
@@ -158,5 +159,17 @@ public class ScheduleServiceImpl implements ScheduleService{
     @Override
     public Schedule getScheduleById(int schedule) {
         return scheduleRepository.findById(schedule);
+    }
+
+    @Override
+    public List<IntInfoBean> countByVenue() {
+        List<IntInfoBean> intInfoBeans = scheduleRepository.countByVenue();
+
+        for (int i = 0; i < intInfoBeans.size(); i++) {
+            intInfoBeans.get(i).setName(
+                    venueRepository.findByCode(Integer.parseInt(intInfoBeans.get(i).getName())).getName()
+            );
+        }
+        return intInfoBeans;
     }
 }
