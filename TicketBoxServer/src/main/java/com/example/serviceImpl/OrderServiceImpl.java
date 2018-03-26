@@ -185,4 +185,21 @@ public class OrderServiceImpl implements OrderService {
     public List<DoubleInfoBean> getUserStatistic(String username) {
         return orderRepository.findConsumptionStatistics(username);
     }
+
+    @Override
+    public List<MyOrder> findAllUnpaidOrders() {
+        return orderRepository.findAllUnpaidOrders();
+    }
+
+    @Override
+    public boolean closeOrder(int id) {
+        MyOrder order = orderRepository.findById(id);
+        if (order != null && order.getType().equals("待付款订单")) {
+            order.setType("已取消订单");
+            orderRepository.save(order);
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

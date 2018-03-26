@@ -31,4 +31,7 @@ public interface OrderRepository extends JpaSpecificationExecutor<MyOrder>, JpaR
             "where o.username = :username and o.type <> '已退订订单'" +
             "GROUP BY substring(o.time, 1, 7)")
     List<DoubleInfoBean> findConsumptionStatistics(@Param("username") String username);
+
+    @Query(value = "select o from MyOrder o where o.type = '待付款订单'")
+    List<MyOrder> findAllUnpaidOrders();
 }

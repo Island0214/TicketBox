@@ -34,4 +34,8 @@ public interface OrderService {
 
     List<DoubleInfoBean> getUserStatistic(String username);
 
+    List<MyOrder> findAllUnpaidOrders();
+
+    boolean closeOrder(int id);
+
 }

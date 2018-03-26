@@ -107,6 +107,17 @@
     },
     watch: {
       orderType: function () {
+        this.getAllOrders({
+          onSuccess: (data) => {
+            this.orders = data.reverse()
+          },
+          onError: () => {
+
+          },
+          body: {
+            username: this.username
+          }
+        })
         console.log(this.orderType)
       }
     },
