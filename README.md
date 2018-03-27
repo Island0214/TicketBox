@@ -1,4 +1,4 @@
-<p align="center" style="width: 100%"><img src="TicketBoxFront/src/assets/title.png"/></p>
+<p align="center" style="width: 100%"><img src="https://github.com/Island0214/TicketBox/blob/master/TicketBoxFront/src/assets/title.png?raw=true"/></p>
 <h1 align="center" style="width: 100%; color: #871FCA;">TicketBox</h1>
 <p align="center" style="width: 100%">一个提供会员、场馆、经理三个入口的在线购票应用。</p>
 <p align="center">
@@ -15,24 +15,50 @@
 
 
 ****
-## 功能详情
-* 会员
-    * 所有演出
-    * 我的订单
-    * 我的信息
-* 场馆
+## Usage
+* 会员模块
+    * 演出搜索
+    * 选座购票
+    * 订单处理
+    * 信息修改
+* 场馆模块
     * 场馆信息
     * 计划发布
-    * 现场事务
+    * 现场购票
+    * 检票入场
     * 票务信息
-* 经理
+* 经理模块
     * 场馆审批
     * 会员封禁
     * 支付结算
     * 统计信息
     
 ****
-##License
+## Setup
+``` bash
+# install dependencies
+npm install
+
+# serve with hot reload at localhost:8080
+npm run dev
+
+# build for production with minification
+npm run build
+
+# build for production and view the bundle analyzer report
+npm run build --report
+```
+
+****
+## Thanks
+- [vue.js](https://github.com/vuejs)
+- [axios](https://www.npmjs.com/package/axios)
+- [element-ui](http://element.eleme.io/#/zh-CN)
+- [echarts](http://echarts.baidu.com)
+
+    
+****
+## License
 
 MIT
 
