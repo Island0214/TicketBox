@@ -24,14 +24,15 @@
         <p>位置选择区域</p>
         <div class="seats-wrapper" v-for="row in rows" :key="row">
           <el-checkbox v-for="col in seats" style="margin-left: 2px;" :key="col"
-                       v-model="seatArray[(row - 1) * seats + col - 1]" :disabled="disableArray[(row - 1) * seats + col - 1]"></el-checkbox>
+                       v-model="seatArray[(row - 1) * seats + col - 1]"
+                       :disabled="disableArray[(row - 1) * seats + col - 1]"></el-checkbox>
         </div>
         <div class="selected-seats-wrapper" v-if="selectedSeats.length !== 0">
           <el-tag v-for="(seat, index) in selectedSeats" :key="index">{{ seat }}</el-tag>
         </div>
       </div>
       <div v-if="showButton">
-        <div  v-if="area !== ''" style="margin-top: 30px">
+        <div v-if="area !== ''" style="margin-top: 30px">
           总价：
           <h4 style="position: relative; display: inline-block;">
             {{ totalPrice }}
@@ -67,14 +68,40 @@
       购买张数：
       <el-input-number v-model="ticket_num" :min="1" :max="20"></el-input-number>
       <br>
-      <el-button @click="immediateBuy" v-if="showButton">立即购买</el-button>
+      <div style="margin-top: 30px">
+        总价：
+        <h4 style="position: relative; display: inline-block;">
+          {{ totalPrice }}
+          <el-tooltip class="item" effect="light" :content="curDiscount" placement="right">
+            <i class="el-icon-question"></i>
+          </el-tooltip>
+        </h4>
+        <br>
+        <br>
+        <br>
+        可用优惠券：
+        <el-select v-model="coupon" placeholder="请选择" no-data-text="无可用优惠券">
+          <el-option
+            v-for="(item, index) in coupons"
+            :key="item.value"
+            :label="item.name"
+            :value="index">
+          </el-option>
+        </el-select>
+        <br>
+        <br>
+        <br>
+        折后价格:
+        <h3 style="position: relative; display: inline-block; color: #871FCA;">{{ discountPrice }}</h3>
+      </div>
+      <el-button @click="immediateBuy" v-if="showButton" style="float: right; margin-top: -50px;">立即购买</el-button>
     </div>
 
   </div>
 </template>
 
 <script>
-  import {mapGetters, mapActions} from 'vuex'
+  import { mapGetters, mapActions } from 'vuex'
 
   export default {
     props: ['showButton', 'schedule'],
@@ -108,7 +135,8 @@
         getUserInfo: 'getUserInfo',
         getVipDiscount: 'getVipDiscount',
         getUsableCoupons: 'getUsableCoupons',
-        createOrder: 'createOrder'
+        createOrder: 'createOrder',
+        getScheduleBasicInfo: 'getScheduleBasicInfo'
       }),
       selectPrice: function (index) {
         this.select_price = index
@@ -193,9 +221,26 @@
         console.log(body)
       },
       immediateBuy: function () {
-        // todo buy
-        let order_id = 1
-        this.$router.push('/pay/' + order_id)
+        let body = {
+          username: this.name,
+          price: this.discountPrice,
+          schedule: this.schedule,
+          area: this.ticket_num + ',' + this.this.price_types[this.select_price],
+          seats: []
+        }
+
+        this.createOrder({
+          onSuccess: (data) => {
+//            console.log(data)
+            this.$router.push('/pay/' + data.order_id)
+          },
+          onError: () => {
+
+          },
+          body: body
+        })
+//        let order_id = 1
+//        this.$router.push('/pay/' + order_id)
       },
       getScheduleInfo: function () {
         this.getScheduleInfoAction({
@@ -206,6 +251,7 @@
               this.price_types.push(prices[i])
             }
             this.setAreas()
+//            this.time = data.time
 
           },
           onError: () => {
@@ -215,7 +261,7 @@
         })
       },
       setAreas: function () {
-        let areas =  eval('(' + this.data['price' + this.price_types[this.select_price]] + ')')
+        let areas = eval('(' + this.data['price' + this.price_types[this.select_price]] + ')')
 //        console.log(areas)
         this.areas = []
         for (let i = 0; i < areas.length; i++) {
@@ -231,6 +277,13 @@
         this.area = ''
         this.initSeatArray()
         this.setAreas()
+        if (!this.canSelectSeat) {
+          if (this.price_types.length === 0) {
+            this.totalPrice = 0
+          } else {
+            this.totalPrice = this.price_types[this.select_price] * this.ticket_num
+          }
+        }
       },
       seatArray: {
         handler: function () {
@@ -320,6 +373,15 @@
       coupon: function () {
 //        console.log(this.coupon)
         this.minusDiscount = this.coupons[this.coupon].discount
+      },
+      ticket_num: function () {
+//        console.log(this.ticket_num)
+//        console.log(this.select_price)
+        if (this.price_types.length === 0) {
+          this.totalPrice = 0
+        } else {
+          this.totalPrice = this.price_types[this.select_price] * this.ticket_num
+        }
       }
     },
     computed: {
@@ -338,6 +400,7 @@
       }
     },
     mounted () {
+
       this.initSeatArray()
       this.getScheduleInfo()
       this.getUserInfo({
@@ -360,8 +423,22 @@
         username: this.name
       })
 
-//      this.
-//      console.log(this.seatArray)
+      this.getScheduleBasicInfo({
+        onSuccess: (data) => {
+          if (this.showButton) {
+//            console.log(- new Date() + data.time)
+//            console.log(1000 * 60 * 60 * 24 * 15)
+            if (data.time - new Date() > 1000 * 60 * 60 * 24 * 14) {
+              this.canSelectSeat = false
+            }
+          }
+        },
+        onError: () => {
+
+        },
+        schedule: this.schedule
+      })
+
     }
   }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div class="pay-area-wrapper">
     <h2 style="margin-bottom: 40px;">您的订单将在<span>{{ countDown }}</span>后关闭, 请及时付款！</h2>
-    <part-title title="支付信息" class="title-wrapper"></part-title>
+    <part-title title="支付信息" class="title-wrapper" style="text-align: left;"></part-title>
     <div class="pay-wrapper">
       <p>请选择您的支付方式：</p>
       <el-radio v-model="pay_way" label="1">网上银行</el-radio>

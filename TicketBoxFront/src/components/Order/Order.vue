@@ -180,6 +180,9 @@
       }
     },
     mounted () {
+      if (this.order.seat === '待分配') {
+        this.order.area = '待分配'
+      }
       this.getScheduleBasicInfo({
         onSuccess: (data) => {
 //          console.log(data)
