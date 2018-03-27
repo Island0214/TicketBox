@@ -1,3 +1,4 @@
+<p align="center" style="width: 100%"><img src="TicketBoxFront/src/assets/title.png"/></p>
 <h1 align="center" style="width: 100%; color: #871FCA;">TicketBox</h1>
 <p align="center" style="width: 100%">一个提供会员、场馆、经理三个入口的在线购票应用。</p>
 <p align="center">
@@ -11,9 +12,6 @@
   <a href="http://echarts.baidu.com"><img src="https://img.shields.io/badge/echarts-v4.0.4-blue.svg" alt="echarts"></a>
 
 </p>
-
-
-![](https://github.com/Island0214/TicketBox/blob/master/TicketBoxFront/src/assets/bg1.png?raw=true)
 
 
 ****
@@ -33,8 +31,9 @@
     * 支付结算
     * 统计信息
     
-    
+****
 ##License
+
 MIT
 
 ISLAND @2018 All Rights Reserved
