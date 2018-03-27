@@ -55,6 +55,8 @@
       top="20%"
     >
       <span>您确定对订单{{ order_id }}进行退款操作吗？</span>
+      <br>
+      <span>当前退款可退回{{ rate }}%金额</span>
       <span slot="footer" class="dialog-footer">
         <el-button @click="showRefund = false">取 消</el-button>
         <el-button type="primary" @click="refundOrder">确 定</el-button>
@@ -77,7 +79,8 @@
         venue: {},
         showCancel: false,
         showRefund: false,
-        order_id: 0
+        order_id: 0,
+        rate: 100
       }
     },
     methods: {
@@ -94,6 +97,20 @@
       confirmRefund: function (id) {
         this.order_id = id
         this.showRefund = true
+
+        let diff = this.schedule.time - new Date()
+
+        if (diff < 24 * 60 * 1000) {
+          this.rate = 60
+        } else if (diff < 5 * 24 * 60 * 1000) {
+          this.rate = 70
+        } else if (diff < 9 * 24 * 60 * 1000) {
+          this.rate = 80
+        } else if (diff < 15 * 24 * 60 * 1000) {
+          this.rate = 90
+        }
+
+
       },
       cancelOrder: function () {
         this.showCancel = false

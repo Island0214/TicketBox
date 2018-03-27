@@ -14,22 +14,6 @@
         </el-col>
       </el-row>
 
-      <!--<el-row :gutte="20">-->
-        <!--<el-col :xs="8" :sm="8" :md="8" :lg="8">-->
-          <!--<h4>总预定数：</h4>-->
-        <!--</el-col>-->
-        <!--<el-col :xs="16" :sm="16" :md="16" :lg="16">-->
-          <!--<h5>{{ statistics.totalReserve }}</h5>-->
-        <!--</el-col>-->
-      <!--</el-row>-->
-      <!--<el-row :gutte="20">-->
-        <!--<el-col :xs="8" :sm="8" :md="8" :lg="8">-->
-          <!--<h4>总退订数：</h4>-->
-        <!--</el-col>-->
-        <!--<el-col :xs="16" :sm="16" :md="16" :lg="16">-->
-          <!--<h5>{{ statistics.totalCancel }}</h5>-->
-        <!--</el-col>-->
-      <!--</el-row>-->
     </div>
 
   </div>
@@ -86,7 +70,7 @@
               visualMap: {
                 show: false,
                 min: 0,
-                max: 5,
+                max: 7,
                 inRange: {
                   colorLightness: [0.3, 0.8]
                 }

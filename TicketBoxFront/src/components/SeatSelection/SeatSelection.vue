@@ -439,6 +439,11 @@
         schedule: this.schedule
       })
 
+      if (this.price_types.length === 0) {
+        this.totalPrice = 0
+      } else {
+        this.totalPrice = this.price_types[this.select_price] * this.ticket_num
+      }
     }
   }
 </script>

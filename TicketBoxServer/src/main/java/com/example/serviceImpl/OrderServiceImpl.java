@@ -152,15 +152,28 @@ public class OrderServiceImpl implements OrderService {
         Map<String, String> result = new HashMap<>();
         MyOrder order = orderRepository.findById(orderPayBean.getOrder_id());
         if (order != null && order.getType().equals("已付款订单")) {
+            Schedule schedule = scheduleRepository.findById(order.getSchedule());
+            long diff = schedule.getTime().getTime() - new Date().getTime();
+            double rate = 1;
+            if (diff < 24 * 60 * 1000) {
+                rate = 0.6;
+            } else if (diff < 5 * 24 * 60 * 1000) {
+                rate = 0.7;
+            } else if (diff < 9 * 24 * 60 * 1000) {
+                rate = 0.8;
+            } else if (diff < 15 * 24 * 60 * 1000) {
+                rate = 0.9;
+            }
+
             MyPay myPay = payRepository.findByOrderid(orderPayBean.getOrder_id());
             if (myPay != null) {
                 if (myPay.getType().equals("网上银行")) {
                     BankAccount bankAccount = bankAccountRepository.findByAccount(myPay.getAccount());
-                    bankAccount.setBalance(bankAccount.getBalance() + order.getPrice());
+                    bankAccount.setBalance(bankAccount.getBalance() + order.getPrice() * rate);
                     bankAccountRepository.save(bankAccount);
                 } else {
                     AliPay aliPay = aliPayRepository.findByAccount(myPay.getAccount());
-                    aliPay.setBalance(aliPay.getBalance() + order.getPrice());
+                    aliPay.setBalance(aliPay.getBalance() + order.getPrice() * rate);
                     aliPayRepository.save(aliPay);
                 }
                 order.setType("已退订订单");
