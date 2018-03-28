@@ -35,7 +35,7 @@
     
 ****
 ## MainPage
-<p align="center" style="width: 100%"><img src="https://github.com/Island0214/ISNOTE/blob/master/src/assets/main.png?raw=true"/></p>
+<p align="center" style="width: 100%"><img src="https://github.com/Island0214/TicketBox/blob/master/TicketBoxFront/src/assets/main.png?raw=true"/></p>
 
 ****
 ## Setup

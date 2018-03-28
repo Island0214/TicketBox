@@ -155,13 +155,13 @@ public class OrderServiceImpl implements OrderService {
             Schedule schedule = scheduleRepository.findById(order.getSchedule());
             long diff = schedule.getTime().getTime() - new Date().getTime();
             double rate = 1;
-            if (diff < 24 * 60 * 1000) {
+            if (diff < 24 * 60 * 60 * 1000) {
                 rate = 0.6;
-            } else if (diff < 5 * 24 * 60 * 1000) {
+            } else if (diff < 5 * 24 * 60 * 60 * 1000) {
                 rate = 0.7;
-            } else if (diff < 9 * 24 * 60 * 1000) {
+            } else if (diff < 9 * 24 * 60 * 60 * 1000) {
                 rate = 0.8;
-            } else if (diff < 15 * 24 * 60 * 1000) {
+            } else if (diff < 15 * 24 * 60 * 60 * 1000) {
                 rate = 0.9;
             }
 
@@ -221,9 +221,11 @@ public class OrderServiceImpl implements OrderService {
             order.setType("已取消订单");
             String[] seats = order.getSeat().split(", ");
             for (int i = 0; i < seats.length; i++) {
-                Seat seat = seatRepository.findByScheduleAndAreaAndRowAndCol(order.getSchedule(), order.getArea(), Integer.parseInt(seats[i].split("排")[0]), Integer.parseInt(seats[i].split("排")[1].split("座")[0]));
-                seat.setStatus(0);
-                seatRepository.save(seat);
+                if (! seats[i].equals("待分配")) {
+                    Seat seat = seatRepository.findByScheduleAndAreaAndRowAndCol(order.getSchedule(), order.getArea(), Integer.parseInt(seats[i].split("排")[0]), Integer.parseInt(seats[i].split("排")[1].split("座")[0]));
+                    seat.setStatus(0);
+                    seatRepository.save(seat);
+                }
             }
             orderRepository.save(order);
             return true;

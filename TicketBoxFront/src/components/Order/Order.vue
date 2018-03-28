@@ -99,17 +99,22 @@
         this.showRefund = true
 
         let diff = this.schedule.time - new Date()
+        console.log(new Date(this.schedule.time).toLocaleString())
+        console.log( new Date().toLocaleString())
 
-        if (diff < 24 * 60 * 1000) {
+        console.log(diff)
+        console.log( 24 * 60 * 1000)
+        console.log(5 * 24 * 60 * 1000)
+//        console.log(diff)
+        if (diff < 24 * 60 * 60 * 1000) {
           this.rate = 60
-        } else if (diff < 5 * 24 * 60 * 1000) {
+        } else if (diff < 5 * 24 * 60 * 60 * 1000) {
           this.rate = 70
-        } else if (diff < 9 * 24 * 60 * 1000) {
+        } else if (diff < 9 * 24 * 60 * 60 * 1000) {
           this.rate = 80
-        } else if (diff < 15 * 24 * 60 * 1000) {
+        } else if (diff < 15 * 24 * 60 * 60 * 1000) {
           this.rate = 90
         }
-
 
       },
       cancelOrder: function () {

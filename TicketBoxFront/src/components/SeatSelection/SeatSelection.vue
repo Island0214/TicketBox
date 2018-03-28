@@ -225,7 +225,7 @@
           username: this.name,
           price: this.discountPrice,
           schedule: this.schedule,
-          area: this.ticket_num + ',' + this.this.price_types[this.select_price],
+          area: this.ticket_num + ',' + this.price_types[this.select_price],
           seats: []
         }
 
