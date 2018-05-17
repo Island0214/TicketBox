@@ -1,0 +1,1 @@
+INSERT INTO javaee.bank_account (account, balance, password) VALUES ('6222021111111111111', 7633, '123456');

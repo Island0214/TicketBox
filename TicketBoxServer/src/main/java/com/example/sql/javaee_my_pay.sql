@@ -1,0 +1,12 @@
+INSERT INTO javaee.my_pay (orderid, account, type) VALUES (3, '6222021111111111111', '网上银行');
+INSERT INTO javaee.my_pay (orderid, account, type) VALUES (4, '6222021111111111111', '网上银行');
+INSERT INTO javaee.my_pay (orderid, account, type) VALUES (6, '6222021111111111111', '网上银行');
+INSERT INTO javaee.my_pay (orderid, account, type) VALUES (7, '6222021111111111111', '网上银行');
+INSERT INTO javaee.my_pay (orderid, account, type) VALUES (8, '6222021111111111111', '网上银行');
+INSERT INTO javaee.my_pay (orderid, account, type) VALUES (12, '6222021111111111111', '网上银行');
+INSERT INTO javaee.my_pay (orderid, account, type) VALUES (13, '6222021111111111111', '网上银行');
+INSERT INTO javaee.my_pay (orderid, account, type) VALUES (14, '6222021111111111111', '网上银行');
+INSERT INTO javaee.my_pay (orderid, account, type) VALUES (16, '6222021111111111111', '网上银行');
+INSERT INTO javaee.my_pay (orderid, account, type) VALUES (17, '6222021111111111111', '网上银行');
+INSERT INTO javaee.my_pay (orderid, account, type) VALUES (18, '6222021111111111111', '网上银行');
+INSERT INTO javaee.my_pay (orderid, account, type) VALUES (20, '6222021111111111111', '网上银行');

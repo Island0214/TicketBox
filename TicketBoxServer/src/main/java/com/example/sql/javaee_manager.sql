@@ -1,0 +1,1 @@
+INSERT INTO javaee.manager (username, password) VALUES ('manager', '123456');
