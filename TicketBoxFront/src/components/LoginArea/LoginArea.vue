@@ -136,70 +136,111 @@
         this.$router.push('/')
       },
       logIn: function () {
-        this.logInAction({
-          onSuccess: (success) => {
-            this.$message({
-              showClose: true,
-              message: '登录成功',
-              type: 'success',
-              customClass: 'message-wrapper'
-            })
-          },
-          onError: (error) => {
-            this.$message({
-              showClose: true,
-              message: error,
-              type: 'error',
-              customClass: 'message-wrapper'
-            })
-          },
-          body: {
-            username: this.username,
-            password: this.password
-          },
-          type: this.loginType
-        })
+
+        if (this.username === '' || this.password === '') {
+          this.$message({
+            showClose: true,
+            message: '请填写完整登陆信息！',
+            type: 'error',
+            customClass: 'message-wrapper'
+          })
+        }
+        else {
+          let loadingInstance = this.$loading({ fullscreen: true });
+          this.logInAction({
+            onSuccess: (success) => {
+              this.$message({
+                showClose: true,
+                message: '登录成功',
+                type: 'success',
+                customClass: 'message-wrapper'
+              })
+              loadingInstance.close()
+            },
+            onError: (error) => {
+              loadingInstance.close()
+              this.$message({
+                showClose: true,
+                message: error,
+                type: 'error',
+                customClass: 'message-wrapper'
+              })
+            },
+            body: {
+              username: this.username,
+              password: this.password
+            },
+            type: this.loginType
+          })
+        }
       },
       userRegister: function () {
-        this.userRegisterAction({
-          onSuccess: () => {
-            this.vipSignSuccess = true
-          },
-          onError: (error) => {
-            this.$message({
-              showClose: true,
-              type: 'error',
-              message: error,
-              customClass: 'message-wrapper'
-            })
-          },
-          body: {
-            username: this.username,
-            email: this.email,
-            password: this.password
-          }
-        })
+        if (this.username === '' || this.password === '' || this.email === '') {
+          this.$message({
+            showClose: true,
+            message: '请填写完整注册信息！',
+            type: 'error',
+            customClass: 'message-wrapper'
+          })
+        }
+        else {
+          let loadingInstance = this.$loading({ fullscreen: true });
+          this.userRegisterAction({
+            onSuccess: () => {
+              this.vipSignSuccess = true
+              loadingInstance.close()
+            },
+            onError: (error) => {
+              loadingInstance.close()
+              this.$message({
+                showClose: true,
+                type: 'error',
+                message: error,
+                customClass: 'message-wrapper'
+              })
+            },
+            body: {
+              username: this.username,
+              email: this.email,
+              password: this.password
+            }
+          })
+        }
 //      this.vipSignSuccess=true
       },
       venueRegister: function () {
-        this.venueRegisterAction({
-          onSuccess: (venue) => {
-            this.arenaSignSuccess = true
-            this.code = venue.code
-          },
-          onError: (error) => {
-            this.$message({
-              showClose: true,
-              type: 'error',
-              message: error
-            })
-          },
-          body: {
-            name: this.placeName,
-            address: this.address,
-            password: this.password
-          }
-        })
+        if (this.username === '' || this.password === '' || this.address === '') {
+          this.$message({
+            showClose: true,
+            message: '请填写完整注册信息！',
+            type: 'error',
+            customClass: 'message-wrapper'
+          })
+        }
+        else {
+          let loadingInstance = this.$loading({ fullscreen: true });
+          this.venueRegisterAction({
+            onSuccess: (venue) => {
+              this.arenaSignSuccess = true
+              this.code = venue.code
+              loadingInstance.close()
+            },
+            onError: (error) => {
+              this.$message({
+                showClose: true,
+                type: 'error',
+                message: error
+              })
+              loadingInstance.close()
+            },
+            body: {
+              name: this.placeName,
+              address: this.address,
+              password: this.password
+            }
+          })
+        }
+
       }
     },
     watch: {
