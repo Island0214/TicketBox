@@ -141,6 +141,7 @@ const mutations = {
   'quitLog'(state, type) {
     state.logStatus = false
     localStorage.clear()
+    state.logType = ''
   },
   'setUsername' (state, username) {
     console.log(username)
