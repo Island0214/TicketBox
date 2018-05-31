@@ -1,72 +1,78 @@
 <template>
-  <div class="vip-info-wrapper">
+  <div class="vip-info-wrapper" style="width: 50%; margin-left: 50%;">
     <!--<p>s</p>-->
-    <part-title title="会员信息"></part-title>
 
-    <el-popover
-      ref="popover1"
-      placement="right"
-      width="400"
-      trigger="hover">
-      <el-table :data="discounts">
-        <el-table-column width="100" label="等级">
-          <template slot-scope="scope">
-            <span>{{ scope.row.grade }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column width="150" label="消费金额">
-          <template slot-scope="scope">
-            <span>¥ {{ scope.row.consumption }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column width="200" property="discount" label="折扣享受">
-          <template slot-scope="scope">
-            <span v-if="scope.row.discount === 100">无折扣</span>
-            <span v-else>{{ scope.row.discount }}折</span>
-          </template>
-        </el-table-column>
-      </el-table>
-    </el-popover>
-    <el-popover
-      ref="popover2"
-      placement="right"
-      width="auto"
-      trigger="hover">
-      距离下一等级需再消费{{ nextLevel }}
-    </el-popover>
+    <el-row :gutte="20">
+      <el-col :xs="24" :sm="24" :md="24" :lg="24">
+        <part-title title="会员信息"></part-title>
 
-    <div class="info-wrapper">
-      <el-row :gutte="20">
-        <el-col :xs="8" :sm="8" :md="8" :lg="8">
-          <h4>当前等级：</h4>
-        </el-col>
-        <el-col :xs="16" :sm="16" :md="16" :lg="16">
-          <h5>{{ info.grade }}
-            <i class="el-icon-question" v-popover:popover1></i>
-          </h5>
-        </el-col>
-      </el-row>
-      <el-row :gutte="20">
-        <el-col :xs="8" :sm="8" :md="8" :lg="8">
-          <h4>当前消费：</h4>
-        </el-col>
-        <el-col :xs="16" :sm="16" :md="16" :lg="16">
-          <h5>{{ info.consumption }}
-            <i class="el-icon-question" v-popover:popover2></i>
-          </h5>
-        </el-col>
-      </el-row>
-      <el-row :gutte="20">
-        <el-col :xs="8" :sm="8" :md="8" :lg="8">
-          <h4>当前积分：</h4>
-        </el-col>
-        <el-col :xs="16" :sm="16" :md="16" :lg="16">
-          <h5>{{ info.integration }}
-            <a @click="showExchange=true">兑换</a>
-          </h5>
-        </el-col>
-      </el-row>
-    </div>
+        <el-popover
+          ref="popover1"
+          placement="right"
+          width="400"
+          trigger="hover">
+          <el-table :data="discounts">
+            <el-table-column width="100" label="等级">
+              <template slot-scope="scope">
+                <span>{{ scope.row.grade }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column width="150" label="消费金额">
+              <template slot-scope="scope">
+                <span>¥ {{ scope.row.consumption }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column width="200" property="discount" label="折扣享受">
+              <template slot-scope="scope">
+                <span v-if="scope.row.discount === 100">无折扣</span>
+                <span v-else>{{ scope.row.discount }}折</span>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-popover>
+        <el-popover
+          ref="popover2"
+          placement="right"
+          width="auto"
+          trigger="hover">
+          距离下一等级需再消费{{ nextLevel }}
+        </el-popover>
+
+        <div class="info-wrapper">
+          <el-row :gutte="20">
+            <el-col :xs="8" :sm="8" :md="8" :lg="8">
+              <h4>当前等级：</h4>
+            </el-col>
+            <el-col :xs="16" :sm="16" :md="16" :lg="16">
+              <h5>{{ info.grade }}
+                <i class="el-icon-question" v-popover:popover1></i>
+              </h5>
+            </el-col>
+          </el-row>
+          <el-row :gutte="20">
+            <el-col :xs="8" :sm="8" :md="8" :lg="8">
+              <h4>当前消费：</h4>
+            </el-col>
+            <el-col :xs="16" :sm="16" :md="16" :lg="16">
+              <h5>{{ info.consumption }}
+                <i class="el-icon-question" v-popover:popover2></i>
+              </h5>
+            </el-col>
+          </el-row>
+          <el-row :gutte="20">
+            <el-col :xs="8" :sm="8" :md="8" :lg="8">
+              <h4>当前积分：</h4>
+            </el-col>
+            <el-col :xs="16" :sm="16" :md="16" :lg="16">
+              <h5>{{ info.integration }}
+                <a @click="showExchange=true">兑换</a>
+              </h5>
+            </el-col>
+          </el-row>
+        </div>
+      </el-col>
+    </el-row>
+
 
     <CouponExchange :showExchange="showExchange" @closeExchange="closeExchange" :integration="info.integration"></CouponExchange>
 

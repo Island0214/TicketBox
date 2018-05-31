@@ -12,7 +12,7 @@
       </div>
 
       <div class="register-buttons-wrapper" v-else>
-        <p @click="$route.push('/info')">{{ name }}</p>
+        <p @click="$router.push('/info')">{{ name }}</p>
         <p @click="quitLogin">退出</p>
       </div>
     </div>

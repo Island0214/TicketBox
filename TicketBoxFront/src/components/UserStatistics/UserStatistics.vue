@@ -43,6 +43,7 @@
       }),
       drawPieChart: function () {
         let charts = echarts.init(document.getElementById('order-chart'))
+        let loadingInstance = this.$loading({ fullscreen: true });
 
         this.getOrderStatistics({
           onSuccess: (data) => {
@@ -116,6 +117,7 @@
                 }
               ]
             })
+            loadingInstance.close()
           },
           onError: () => {
 
@@ -125,6 +127,8 @@
       },
       drawBarChart: function () {
         let charts = echarts.init(document.getElementById('user-chart'))
+        let loadingInstance = this.$loading({ fullscreen: true });
+
         this.getUserStatistics({
           onSuccess: (data) => {
             let xAxisData = []
@@ -204,6 +208,7 @@
                 return idx * 5;
               }
             })
+            loadingInstance.close()
           },
           onError: () => {
 

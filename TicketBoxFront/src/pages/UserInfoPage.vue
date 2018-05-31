@@ -27,5 +27,6 @@
 <style>
   .user-info-page-wrapper {
     padding: 30px;
+    padding-top: 60px;
   }
 </style>

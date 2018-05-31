@@ -1,44 +1,50 @@
 <template>
-  <div class="user-info-wrapper">
+  <div class="user-info-wrapper" style="width: 50%; float: left;">
     <!--<p>s</p>-->
-    <part-title title="用户信息"></part-title>
+    <el-row :gutte="20">
+      <el-col :xs="24" :sm="24" :md="24" :lg="24">
+        <part-title title="用户信息"></part-title>
 
-    <div class="info-wrapper">
-      <el-row :gutte="20">
-        <el-col :xs="8" :sm="8" :md="8" :lg="8">
-          <h4>邮箱</h4>
-        </el-col>
-        <el-col :xs="16" :sm="16" :md="16" :lg="16">
-          <h5>{{ info.email }}</h5>
-        </el-col>
-      </el-row>
-      <el-row :gutte="20">
-        <el-col :xs="8" :sm="8" :md="8" :lg="8">
-          <h4>账户：</h4>
-        </el-col>
-        <el-col :xs="16" :sm="16" :md="16" :lg="16">
-          <h5>{{ name }}
-            <!--<a @click="showChangeUsername=true">修改</a>-->
-          </h5>
-        </el-col>
-      </el-row>
-      <el-row :gutte="20">
-        <el-col :xs="8" :sm="8" :md="8" :lg="8">
-          <h4>密码：</h4>
-        </el-col>
-        <el-col :xs="16" :sm="16" :md="16" :lg="16">
-          <h5>*****
-            <a @click="showChangePassword=true">修改</a>
-          </h5>
-        </el-col>
-      </el-row>
-    </div>
+        <div class="info-wrapper">
+          <el-row :gutte="20">
+            <el-col :xs="8" :sm="8" :md="8" :lg="8">
+              <h4>邮箱</h4>
+            </el-col>
+            <el-col :xs="16" :sm="16" :md="16" :lg="16">
+              <h5>{{ info.email }}</h5>
+            </el-col>
+          </el-row>
+          <el-row :gutte="20">
+            <el-col :xs="8" :sm="8" :md="8" :lg="8">
+              <h4>账户：</h4>
+            </el-col>
+            <el-col :xs="16" :sm="16" :md="16" :lg="16">
+              <h5>{{ name }}
+                <!--<a @click="showChangeUsername=true">修改</a>-->
+              </h5>
+            </el-col>
+          </el-row>
+          <el-row :gutte="20">
+            <el-col :xs="8" :sm="8" :md="8" :lg="8">
+              <h4>密码：</h4>
+            </el-col>
+            <el-col :xs="16" :sm="16" :md="16" :lg="16">
+              <h5>*****
+                <a @click="showChangePassword=true">修改</a>
+              </h5>
+            </el-col>
+          </el-row>
+        </div>
+      </el-col>
+    </el-row>
+
+
 
     <el-dialog
       :visible.sync="showChangePassword"
       width="400px"
       :show-close=false>
-      <part-title title="修改密码"></part-title>
+      <part-title title="修改密码" style="margin-top: -40px; margin-bottom: 30px;"></part-title>
 
       <div class="change-info-wrapper">
         <p>输入原密码</p>
