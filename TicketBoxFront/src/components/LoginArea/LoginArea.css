@@ -49,6 +49,31 @@
   margin-bottom: 10%;
 }
 
+.home-page-wrapper .login-wrapper a {
+  position: absolute;
+  bottom: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  /*text-decoration: underline;*/
+  padding: 2px;
+  border-bottom: 2px solid #871FCA;
+  /*text-align: right;*/
+  right: 10px;
+  width: auto;
+}
+
+.home-page-wrapper .login-wrapper a:hover {
+  text-decoration: none;
+  /*color: #501279;*/
+}
+
+.home-page-wrapper .login-wrapper div {
+  /*position: absolute;*/
+  /*top: 0;*/
+  /*height: 100%;*/
+  /*bottom: 8px;*/
+}
+
 .home-page-wrapper .login-wrapper .el-input {
   width: 60%;
   margin-left: 20%;
@@ -63,7 +88,10 @@
 
 
 .home-page-wrapper .login-wrapper div {
-  position: relative; display: inline-block; width: 100%;
+  display: inline-block;
+  width: 100%;
+  bottom: 8px;
+  top: 0;
 }
 
 .message-wrapper {

@@ -1,5 +1,5 @@
 <template>
-  <div class="order-wrapper">
+  <div class="order-wrapper" v-if="order && schedule.time">
     <div class="order-title-wrapper">
       <el-row :gutter="20" style="margin: 0">
         <el-col :xs="12" :sm="12" :md="12" :lg="12">

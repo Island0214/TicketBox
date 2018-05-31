@@ -7,16 +7,13 @@
 
       <div class="register-buttons-wrapper" v-if="!logStatus">
           <!--<p @click="openPage('/vipSign')">会员注册</p>-->
-        <p @click="showSigninFrame('会员')">会员注册</p>
-        <p @click="showSigninFrame('场馆')">场馆注册</p>
+        <!--<p @click="showSigninFrame('会员')">会员注册</p>-->
+        <!--<p @click="showSigninFrame('场馆')">场馆注册</p>-->
       </div>
 
       <div class="register-buttons-wrapper" v-else>
-        <p>{{ name }}</p>
+        <p @click="$router.push('/info')">{{ name }}</p>
         <p @click="quitLogin">退出</p>
-        <!--<p @click="openPage('/vipSign')">会员注册</p>-->
-        <!--<p @click="showSignin('会员')">会员注册</p>-->
-        <!--<p @click="showSignin('场馆')">场馆注册</p>-->
       </div>
     </div>
     <div class="catalog-wrapper">
