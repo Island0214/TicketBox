@@ -38,7 +38,6 @@
   /*letter-spacing: 10px;*/
 }
 
-
 .footer-wrapper p {
   position: absolute;
   color: #333;
@@ -109,4 +108,15 @@
 
 .footer-wrapper .buttons-wrapper a:hover {
   /*color: #333;*/
+}
+
+.info-wrapper {
+  padding: 10px;
+  /*width: 80%;*/
+  text-align: center;
+}
+
+.logo-wrapper{
+  width: 8%;
+  height: 8%;
 }

@@ -40,6 +40,7 @@
       :visible.sync="showCancel"
       width="30%"
       top="20%"
+      :show-close="false"
       >
       <span>您确定对订单{{ order_id }}进行取消订单操作吗？</span>
       <span slot="footer" class="dialog-footer">
@@ -53,6 +54,7 @@
       :visible.sync="showRefund"
       width="30%"
       top="20%"
+      :show-close="false"
     >
       <span>您确定对订单{{ order_id }}进行退款操作吗？</span>
       <br>
