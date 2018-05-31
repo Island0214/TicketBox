@@ -19,13 +19,16 @@
           <br>
 
           <a :class="{'select-tab' : orderType === '已取消订单'}" @click="selectOrderType('已取消订单')" style="margin-bottom: 0;">已 取 消 订 单</a>
-
         </div>
       </el-col>
       <el-col :xs="18" :sm="18" :md="18" :lg="18">
         <div class="orders-wrapper">
-          <order v-for="order in orders" :order="order" :key="order.order_id"
-                 v-if="order.type === orderType || orderType === '全部订单'" :showButtons="true"></order>
+          <h2 v-if="showNoOrderNotification" class="note">暂无该类订单...</h2>
+
+          <order v-for="order in visibleOrders" :order="order" :key="order.order_id"
+                 :showButtons="true"></order>
+          <!--<order v-for="order in orders" :order="order" :key="order.order_id"-->
+                 <!--v-if="order.type === orderType || orderType === '全部订单'" :showButtons="true"></order>-->
         </div>
       </el-col>
     </el-row>
@@ -89,7 +92,9 @@
             price: '388',
             poster: '../../assets/poster1.jpg'
           }
-        ]
+        ],
+        showNoOrderNotification: false,
+        visibleOrders: []
       }
     },
     methods: {
@@ -107,17 +112,29 @@
     },
     watch: {
       orderType: function () {
-        this.getAllOrders({
-          onSuccess: (data) => {
-            this.orders = data.reverse()
-          },
-          onError: () => {
-
-          },
-          body: {
-            username: this.username
+//        this.getAllOrders({
+//          onSuccess: (data) => {
+//            this.orders = data.reverse()
+//          },
+//          onError: () => {
+//          },
+//          body: {
+//            username: this.username
+//          }
+//        })
+//        if (this.orderType !== '全部订单') {
+        this.visibleOrders = []
+        for (let i = 0; i < this.orders.length; i++) {
+          if (this.orders[i].type === this.orderType || this.orderType === '全部订单') {
+            this.visibleOrders.push(this.orders[i])
           }
-        })
+        }
+        if (this.visibleOrders.length !== 0) {
+          this.showNoOrderNotification = false
+        } else {
+          this.showNoOrderNotification = true
+        }
+        console.log(this.visibleOrders.length)
         console.log(this.orderType)
       }
     },

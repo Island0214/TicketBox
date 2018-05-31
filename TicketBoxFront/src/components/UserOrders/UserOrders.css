@@ -8,8 +8,15 @@
 .user-orders-wrapper .orders-wrapper {
   position: relative;
   width: 100%;
-  min-height: 800px;
+  min-height: 500px;
   text-align: center;
+}
+
+.user-orders-wrapper .orders-wrapper .note {
+  /*position: absolute;*/
+  transform: translateY(250px);
+  color: #871FCA;
+  letter-spacing: 10px;
 }
 
 .user-orders-wrapper .tabs-cur-wrapper {
