@@ -19,6 +19,12 @@
   letter-spacing: 10px;
 }
 
+.user-orders-wrapper .pagination-wrapper {
+  position: relative;
+  width: 100%;
+  text-align: center;
+}
+
 .user-orders-wrapper .tabs-cur-wrapper {
   position: relative;
   display: inline-block;

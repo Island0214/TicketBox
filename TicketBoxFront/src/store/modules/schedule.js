@@ -36,7 +36,7 @@ const actions = {
   },
   'getVenueSchedules' ({state, commit}, {onSuccess, onError, venue}) {
     scheduleApi.getVenueSchedules((data) => {
-      console.log(data)
+      // console.log(data)
       if (data.error !== undefined) {
         // console.log('error')
         onError()
@@ -48,7 +48,7 @@ const actions = {
   },
   'getScheduleInfo' ({state, commit}, {onSuccess, onError, schedule}) {
     scheduleApi.getScheduleInfo((data) => {
-      console.log(data)
+      // console.log(data)
       if (data.error !== undefined) {
         // console.log('error')
         onError()

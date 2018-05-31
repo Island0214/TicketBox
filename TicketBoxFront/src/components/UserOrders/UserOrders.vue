@@ -25,10 +25,21 @@
         <div class="orders-wrapper">
           <h2 v-if="showNoOrderNotification" class="note">暂无该类订单...</h2>
 
-          <order v-for="order in visibleOrders" :order="order" :key="order.order_id"
+          <order v-for="order in curPageOrders" :order="order" :key="order.order_id"
                  :showButtons="true"></order>
           <!--<order v-for="order in orders" :order="order" :key="order.order_id"-->
                  <!--v-if="order.type === orderType || orderType === '全部订单'" :showButtons="true"></order>-->
+        </div>
+
+        <div class="pagination-wrapper" v-if="totalPage !== 0">
+          <el-pagination
+            background
+            layout="prev, pager, next"
+            :page-count="this.totalPage"
+            :current-page="pageCount"
+            @current-change="changePageAction"
+          >
+          </el-pagination>
         </div>
       </el-col>
     </el-row>
@@ -94,7 +105,11 @@
           }
         ],
         showNoOrderNotification: false,
-        visibleOrders: []
+        visibleOrders: [],
+        totalPage: 0,
+        orderCount: 5,
+        pageCount: 1,
+        curPageOrders: []
       }
     },
     methods: {
@@ -103,6 +118,15 @@
       }),
       selectOrderType: function (type) {
         this.orderType = type
+      },
+      changePageAction: function (val) {
+        this.curPageOrders = []
+        for (let i = 0; i < this.orderCount && (val - 1) * this.orderCount + i < this.visibleOrders.length; i++) {
+          this.curPageOrders.push(this.visibleOrders[(val - 1) * this.orderCount + i])
+        }
+        //回到顶部
+        document.documentElement.scrollTop = document.body.scrollTop = 0;
+//        alert(val)
       }
     },
     computed: {
@@ -112,45 +136,51 @@
     },
     watch: {
       orderType: function () {
-//        this.getAllOrders({
-//          onSuccess: (data) => {
-//            this.orders = data.reverse()
-//          },
-//          onError: () => {
-//          },
-//          body: {
-//            username: this.username
-//          }
-//        })
-//        if (this.orderType !== '全部订单') {
+        let loadingInstance = this.$loading({ fullscreen: true });
+
         this.visibleOrders = []
+        //在所有订单中寻找该类订单
         for (let i = 0; i < this.orders.length; i++) {
           if (this.orders[i].type === this.orderType || this.orderType === '全部订单') {
             this.visibleOrders.push(this.orders[i])
           }
         }
+        //判断是否存在该类订单
         if (this.visibleOrders.length !== 0) {
           this.showNoOrderNotification = false
         } else {
           this.showNoOrderNotification = true
         }
-        console.log(this.visibleOrders.length)
+        //总页数
+        this.totalPage = parseInt(this.visibleOrders.length / this.orderCount)
+        if (this.visibleOrders.length % this.orderCount !== 0) {
+          this.totalPage++
+        }
+        this.pageCount = 1
+        this.curPageOrders = []
+        //第一页订单
+        for (let i = 0; i < this.orderCount && i < this.visibleOrders.length; i++) {
+          this.curPageOrders.push(this.visibleOrders[i])
+        }
         console.log(this.orderType)
+        loadingInstance.close()
       }
     },
     mounted () {
-      this.orderType = '全部订单'
+      let loadingInstance = this.$loading({ fullscreen: true });
       this.getAllOrders({
         onSuccess: (data) => {
           this.orders = data.reverse()
+          this.orderType = '全部订单'
+          loadingInstance.close()
         },
         onError: () => {
-
         },
         body: {
           username: this.username
         }
       })
+      document.documentElement.scrollTop = document.body.scrollTop = 0;
 //      console.log(this.orderType)
     }
   }

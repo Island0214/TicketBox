@@ -173,7 +173,7 @@ export function getScheduleBasicInfo (callback, schedule) {
     }
   )
     .then(function (response) {
-      console.log(response.data)
+      // console.log(response.data)
       callback(response.data)
     })
     .catch(function (error) {
@@ -192,7 +192,7 @@ export function findScheduleByPage (callback, body) {
     }
   )
     .then(function (response) {
-      console.log(response.data)
+      // console.log(response.data)
       callback(response.data)
     })
     .catch(function (error) {
