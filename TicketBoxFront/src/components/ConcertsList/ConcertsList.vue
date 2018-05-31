@@ -29,7 +29,7 @@
       </el-date-picker>
     </div>
 
-    <div class="text-wrapper" v-if="concerts.length === 0">
+    <div class="text-wrapper" v-if="showNoConcertsNote">
       <h4>没有相关演出...<br>请修改筛选条件后再次尝试！</h4>
     </div>
 
@@ -38,8 +38,9 @@
       <single-brief-concert v-for="(concert, index) in concerts" :key="index" :info="concert" :size="6" style="margin-top: 40px;"></single-brief-concert>
     </el-row>
 
-    <div class="pagination-wrapper">
+    <div class="pagination-wrapper" v-if="!showNoConcertsNote">
       <el-pagination
+        background
         layout="prev, pager, next"
         :page-count="totalPage"
         :current-page.sync="curPage"
@@ -117,7 +118,8 @@
           start: '',
           end: '',
           page: 0
-        }
+        },
+        showNoConcertsNote: false
       }
     },
     watch: {
@@ -150,11 +152,19 @@
         findScheduleByPageAction: 'findScheduleByPage'
       }),
       findScheduleByPage: function () {
+        let loadingInstance = this.$loading({ fullscreen: true });
+
         this.findScheduleByPageAction({
           onSuccess: (data) => {
 //            console.log(data)
             this.concerts = data.content
             this.totalPage = data.totalPages
+            if (this.concerts.length === 0) {
+              this.showNoConcertsNote = true
+            } else {
+              this.showNoConcertsNote = false
+            }
+            loadingInstance.close()
           },
           onError: () => {
 
