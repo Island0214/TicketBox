@@ -60,7 +60,7 @@
         </div>
 
 
-        <el-button @click="selectSeatBuy" style="float: right; margin-top: -50px;">选座购买</el-button>
+        <el-button @click="selectSeatBuy" :disabled="canClickBuyButton" style="float: right; margin-top: -50px;">选座购买</el-button>
       </div>
     </div>
 
@@ -396,6 +396,11 @@
           return '当前会员等级无折扣'
         } else {
           return '当前会员等级享受' + this.discount * 10 + '折优惠'
+        }
+      },
+      canClickBuyButton: function () {
+        if (this.select_price === -1) {
+          return true
         }
       }
     },

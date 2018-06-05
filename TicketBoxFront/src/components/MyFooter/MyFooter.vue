@@ -26,11 +26,14 @@
     <el-dialog
       title="HELP"
       :visible.sync="helpDialogVisible"
-      width="40%"
+      width="60%"
       center
     :show-close="false">
       <div class="info-wrapper">
         <div>
+          <img src="../../assets/logo.png" class="logo-wrapper"/>
+        </div>
+        <div style="padding-top: 5%">
           <span>关于登录和注册</span>
           <div>1. 注册后，您需要验证邮箱才能使用TicketBox的全部功能</div>
           <div>2. 若您为场馆注册，您需要记住注册后告知的场馆登陆码</div>

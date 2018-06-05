@@ -4,7 +4,7 @@
       <img :src="basicData.poster"/>
     </div>
 
-    <div class="info-wrapper">
+    <div class="info-wrapper" v-if="basicData.time">
       <h1>{{ basicData.schedule }}</h1>
 
       <p>演出者：<span>{{ basicData.artist }}</span></p>
@@ -49,11 +49,26 @@
     computed:{
     },
     mounted () {
+      document.documentElement.scrollTop = document.body.scrollTop = 0;
+
 //      console.log(this.$route.params.id)
+      let loadingInstance = this.$loading({ fullscreen: true });
+
       this.getScheduleBasicInfo({
         onSuccess: (data) => {
           console.log(data)
           this.basicData = data
+
+          this.getSchedulePriceInfo({
+            onSuccess: (data) => {
+              this.location = data.venueName
+              loadingInstance.close()
+            },
+            onError: () => {
+
+            },
+            schedule: this.$route.params.id
+          })
         },
         onError: () => {
 
@@ -61,15 +76,6 @@
         schedule: this.$route.params.id
       })
 
-      this.getSchedulePriceInfo({
-        onSuccess: (data) => {
-          this.location = data.venueName
-        },
-        onError: () => {
-
-        },
-        schedule: this.$route.params.id
-      })
     }
   }
 </script>
