@@ -192,7 +192,7 @@
             this.$message({
               showClose: true,
               type: 'error',
-              message: '信息修改失败，请重试！'
+              message: '场馆不能为空，请添加后重试！'
             })
           },
           body: this.tableData
