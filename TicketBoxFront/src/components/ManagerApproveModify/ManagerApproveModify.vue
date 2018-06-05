@@ -150,7 +150,7 @@
                 },
                 onError: () => {
                   this.$message({
-                    showClose: true,
+                    showClose: false,
                     type: 'error',
                     message: '信息获取失败，请重试！'
                   })
@@ -168,34 +168,57 @@
         })
       },
       setVenueStatus: function (index, code, status) {
-        this.setVenueStatusAction({
-          onSuccess: () => {
-            this.tableData.splice(index, 1)
-            if (status === -3) {
-              this.$message({
-                showClose: true,
-                type: 'success',
-                message: '已拒绝场馆' + code + '注册！',
-                customClass: 'message-wrapper'
-              })
-            }
-            if (status === 1) {
-              this.$message({
-                showClose: true,
-                type: 'success',
-                message: '已通过场馆' + code + '注册！',
-                customClass: 'message-wrapper'
-              })
-            }
-          },
-          onError: () => {
-
-          },
-          body: {
-            code: code,
-            status: status
-          }
-        })
+        if (status === -2) {
+          this.$confirm('此操作将拒绝场馆的信息修改，是否继续？', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning',
+            showClose: false
+          }).then(() => {
+            this.setVenueStatusAction({
+              onSuccess: () => {
+                this.tableData.splice(index, 1)
+                this.$message({
+                  showClose: true,
+                  type: 'success',
+                  message: '已拒绝场馆' + code + '的信息修改！',
+                  customClass: 'message-wrapper'
+                })
+              },
+              onError: () => {
+              },
+              body: {
+                code: code,
+                status: status
+              }
+            })
+          })
+        } else if (status === 2) {
+          this.$confirm('此操作将批准场馆的信息修改，是否继续？', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning',
+            showClose: false
+          }).then(() => {
+            this.setVenueStatusAction({
+              onSuccess: () => {
+                this.tableData.splice(index, 1)
+                this.$message({
+                  showClose: true,
+                  type: 'success',
+                  message: '已通过场馆' + code + '的信息修改！',
+                  customClass: 'message-wrapper'
+                })
+              },
+              onError: () => {
+              },
+              body: {
+                code: code,
+                status: status
+              }
+            })
+          })
+        }
       }
     },
     mounted () {

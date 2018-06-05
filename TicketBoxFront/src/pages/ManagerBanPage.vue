@@ -2,9 +2,9 @@
   <div class="page-wrapper">
     <part-title title="会 员 封 禁"></part-title>
     <!--<div class="tabs-wrapper">-->
-      <!--<a :class="{'select-tab' : !paid}" @click="paid = false">未 结 算 演 出</a>-->
-      <!--&lt;!&ndash;<a>最新演出</a>&ndash;&gt;-->
-      <!--<a :class="{'select-tab' : paid}" @click="paid = true" style="margin-left: 30px;">已 结 算 演 出</a>-->
+    <!--<a :class="{'select-tab' : !paid}" @click="paid = false">未 结 算 演 出</a>-->
+    <!--&lt;!&ndash;<a>最新演出</a>&ndash;&gt;-->
+    <!--<a :class="{'select-tab' : paid}" @click="paid = true" style="margin-left: 30px;">已 结 算 演 出</a>-->
     <!--</div>-->
 
     <div class="manager-info-page">
@@ -60,13 +60,13 @@
 
 <script>
   import PartTitle from '../components/Basic/PartTitle/PartTitle.vue'
-  import { mapActions } from 'vuex'
+  import {mapActions} from 'vuex'
 
   export default {
     components: {
       PartTitle
     },
-    data () {
+    data() {
       return {
         tableData: []
       }
@@ -77,32 +77,40 @@
         banUserAction: 'banUser'
       }),
       banUser: function (index) {
+        this.$confirm('此操作将永远封禁该用户，是否继续？', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+          showClose: false
+        }).then(
+          () => {
+            this.banUserAction({
+              onSuccess: () => {
+                this.tableData[index].status = -1
+                this.$message({
+                  showClose: true,
+                  customClass: 'message-wrapper',
+                  message: '成功封禁用户：' + this.tableData[index].username,
+                  type: 'success'
+                })
+              },
+              onError: () => {
+                this.$message({
+                  showClose: true,
+                  customClass: 'message-wrapper',
+                  message: '用户' + this.tableData[index].username + '不存在',
+                  type: 'error'
+                })
+              },
+              body: this.tableData[index]
+            })
+          }
+        )
 //        console.log(this.tableData[index])
-        this.banUserAction({
-          onSuccess: () => {
-            this.tableData[index].status = -1
-            this.$message({
-              showClose: true,
-              customClass: 'message-wrapper',
-              message: '成功封禁用户：' + this.tableData[index].username,
-              type: 'success'
-            })
-          },
-          onError: () => {
-            this.$message({
-              showClose: true,
-              customClass: 'message-wrapper',
-              message: '用户' + this.tableData[index].username + '不存在',
-              type: 'error'
-            })
-          },
-          body: this.tableData[index]
-        })
       }
     },
-    watch: {
-    },
-    mounted () {
+    watch: {},
+    mounted() {
       this.getAllUsers({
         onSuccess: (data) => {
 //          console.log(data)
