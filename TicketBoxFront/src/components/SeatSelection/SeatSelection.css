@@ -47,6 +47,17 @@
   color: #fff;
 }
 
+.buy-wrapper .el-button.disableButton {
+  border-color: #999;
+  color: #666666;
+}
+
+.buy-wrapper .el-button.disableButton:hover {
+  border-color: #999;
+  color: #666666;
+  background-color: transparent;
+}
+
 .buy-wrapper .el-input-number /deep/ span {
   background: none;
   border: none;
@@ -90,3 +101,4 @@
   background: none;
   margin-top: 20px;
 }
+

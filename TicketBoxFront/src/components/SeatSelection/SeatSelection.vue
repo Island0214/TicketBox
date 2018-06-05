@@ -60,7 +60,7 @@
         </div>
 
 
-        <el-button @click="selectSeatBuy" :disabled="canClickBuyButton" style="float: right; margin-top: -50px;">选座购买</el-button>
+        <el-button @click="selectSeatBuy" :disabled="canClickBuyButton" style="float: right; margin-top: -50px;" :class="[canClickBuyButton ? 'disableButton': '']">选座购买</el-button>
       </div>
     </div>
 
@@ -399,7 +399,7 @@
         }
       },
       canClickBuyButton: function () {
-        if (this.select_price === -1) {
+        if (this.select_price === -1 || this.area === '' || this.selectedSeats.length === 0) {
           return true
         }
       }
