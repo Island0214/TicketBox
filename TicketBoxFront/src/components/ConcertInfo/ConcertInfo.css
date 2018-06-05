@@ -16,7 +16,33 @@
   margin-left: 60px;
 }
 
-.concert-info-wrapper .concert-image-wrapper img {
+.concert-info-wrapper .scroll-image {
+  position: fixed;
+  top: 0;
+  width: 402px;
+  height: 402px;
+  border: 1px solid #999;
+  display: inline-block;
+  /*margin-bottom: 30px;*/
+  margin-left: 60px;
+}
+
+
+.concert-info-wrapper .fix-scroll-image {
+  position: relative;
+  display: inline-block;
+  /*margin-top: 526px;*/
+  /*position: fixed;*/
+  /*top: 0;*/
+  /*width: 402px;*/
+  /*height: 402px;*/
+  /*border: 1px solid #999;*/
+  /*display: inline-block;*/
+  /*margin-bottom: 30px;*/
+  margin-left: 60px;
+}
+
+.concert-info-wrapper img {
   max-width: 400px;
   max-height: 400px;
   position: absolute;

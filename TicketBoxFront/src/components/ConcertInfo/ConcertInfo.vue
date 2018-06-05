@@ -1,10 +1,10 @@
 <template>
   <div class="concert-info-wrapper">
-    <div class="concert-image-wrapper">
+    <div :class="[scrollImage ? 'scroll-image' : 'concert-image-wrapper', {'fix-scroll-image': fixScroll}]" :style="{'margin-left': marginLeft + 'px', 'margin-top': marginTop + 'px'}" id="poster-wrapper">
       <img :src="basicData.poster"/>
     </div>
 
-    <div class="info-wrapper" v-if="basicData.time">
+    <div class="info-wrapper" v-if="basicData.time" id="concert-info-wrapper">
       <h1>{{ basicData.schedule }}</h1>
 
       <p>演出者：<span>{{ basicData.artist }}</span></p>
@@ -37,19 +37,52 @@
       return {
         location: '',
         ticket_num: 1,
-        basicData: {}
+        basicData: {},
+        scrollImage: false,
+        fixScroll: false,
+        marginLeft: 30,
+        marginTop: 0
       }
     },
     methods: {
       ...mapActions({
         getScheduleBasicInfo: 'getScheduleBasicInfo',
         getSchedulePriceInfo: 'getSchedulePriceInfo'
-      })
+      }),
+      handleScroll: function () {
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+//        console.log(scrollTop)
+
+//        console.log(document.getElementsByClassName('info-wrapper').item(0).offsetTop + document.getElementsByClassName('info-wrapper').item(0).clientHeight)
+//        console.log(document.getElementById('concert-info-wrapper').clientHeight + 150 - scrollTop)
+        if (scrollTop > 150 && document.getElementsByClassName('info-wrapper').item(0).clientHeight > 400) {
+//          alert('scroll')
+//          console.log(document.documentElement.scrollLeft)
+          this.scrollImage = true
+          this.marginLeft = 30 - document.documentElement.scrollLeft
+
+          if (document.getElementById('concert-info-wrapper').clientHeight + 150 - scrollTop < 400) {
+            this.fixScroll = true
+            this.marginLeft = 30
+            this.marginTop = document.getElementById('concert-info-wrapper').clientHeight - 400
+          } else {
+            this.fixScroll = false
+            this.marginTop = 0
+          }
+        } else {
+          this.scrollImage = false
+          this.marginLeft = 30
+          this.marginTop = 0
+        }
+      }
     },
     computed:{
     },
+    watch: {
+    },
     mounted () {
       document.documentElement.scrollTop = document.body.scrollTop = 0;
+      window.addEventListener('scroll', this.handleScroll)
 
 //      console.log(this.$route.params.id)
       let loadingInstance = this.$loading({ fullscreen: true });
