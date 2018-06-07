@@ -35,6 +35,7 @@
       })
     },
     mounted () {
+      document.documentElement.scrollTop = document.body.scrollTop = 0;
       this.getOrderById({
         onSuccess: (data) => {
           console.log(data)

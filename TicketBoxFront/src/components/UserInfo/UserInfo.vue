@@ -49,9 +49,9 @@
       <div class="change-info-wrapper">
         <p>输入原密码</p>
         <el-input type="password" v-model="passwords[0]"></el-input>
-        <p>确认原密码</p>
-        <el-input type="password" v-model="passwords[1]"></el-input>
         <p>输入新密码</p>
+        <el-input type="password" v-model="passwords[1]"></el-input>
+        <p>确认新密码</p>
         <el-input type="password" v-model="passwords[2]"></el-input>
       </div>
 
