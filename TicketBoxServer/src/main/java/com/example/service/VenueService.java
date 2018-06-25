@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.bean.AdvertisementBean;
 import com.example.bean.DoubleInfoBean;
 import com.example.bean.IntInfoBean;
 import com.example.model.Area;
@@ -33,4 +34,6 @@ public interface VenueService {
     List<IntInfoBean> getDayOrderStatistic(int code);
 
     List<Balance> getBalanceByVenue(int code);
+
+    List<AdvertisementBean> getAdvertisements();
 }

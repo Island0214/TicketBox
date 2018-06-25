@@ -319,4 +319,13 @@ public class VenueController {
         System.out.println(code);
         return venueService.getBalanceByVenue(code);
     }
+
+    /**
+     * 获得广告信息
+     * @return
+     */
+    @RequestMapping(value = "/ad", method = RequestMethod.GET)
+    List<AdvertisementBean> getAdvertisements() {
+        return venueService.getAdvertisements();
+    }
 }
