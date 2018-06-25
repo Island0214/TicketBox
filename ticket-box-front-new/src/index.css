@@ -1,0 +1,146 @@
+.app {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  height: 0;
+  min-width: 1200px;
+}
+
+html, body, :global(#root) {
+  position: relative;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  min-width: 1280px;
+}
+
+html {
+  box-sizing: border-box;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  /*background-color: #bbe4d2;*/
+  /*background-color: #D5E8D5;*/
+  height: auto;
+  color: #333;
+  background: #fff;
+  text-rendering: optimizelegibility;
+  min-width: 800px;
+  width: 100%;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  font-family: 'Hiragino Sans GB', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, p, ul {
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+a {
+  padding: 0;
+  margin: 0;
+}
+
+p {
+  width: auto;
+  color: #666;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1;
+  font-family: Arial, sans-serif;
+  /*margin: 1.4em 0 0.8em;*/
+  font-weight: 600;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-size: 1.8em;
+}
+
+h2 {
+  font-size: 1.6em;
+}
+
+h3 {
+  font-size: 1.4em;
+}
+
+h4 {
+  font-size: 1.2em;
+}
+
+h5, h6 {
+  font-size: 1em;
+}
+
+/* 现代排版：保证块/段落之间的空白隔行 */
+.typo p, .typo pre, .typo ul, .typo ol, .typo dl, .typo form, .typo hr {
+  margin: 1em 0 0.6em;
+}
+
+.message-wrapper {
+  border-radius: 0;
+  border: 3px solid #871FCA;
+  background-color: #fff;
+  color: #871FCA;
+  font-weight: 600;
+}
+
+.message-wrapper /deep/ p {
+  color: #871FCA;
+}
+
+.el-message--error .el-message__content {
+  color: #333;
+}
+
+.el-message--success .el-message__content {
+  color: #333;
+}
+
+.el-button {
+  border-radius: 80px;
+  color: #ffffff;
+  width: 160px;
+  outline: none;
+  background-color: #906DFF;
+}
+
+.el-button:focus {
+  border-radius: 80px;
+  color: #ffffff;
+  width: 160px;
+  outline: none;
+  background-color: #906DFF;
+}
+
+.el-button:hover {
+  background-color: #7657cf;
+  color: #fff;
+}
+
+a {
+  color: #FEC581;
+  /*text-decoration: underline;*/
+  cursor: pointer;
+  font-weight: 500;
+  border-bottom: 1px solid #FEC581;
+  padding-bottom: 2px;
+}
+
+a:hover {
+  color: #ffb17c;
+  text-decoration: none;
+  border-bottom: 2px solid #FEC581;
+}
