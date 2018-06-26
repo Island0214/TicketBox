@@ -1,0 +1,49 @@
+.card-tabs-wrapper {
+  padding: 0 120px;
+  margin-bottom: 40px;
+}
+
+/deep/ .el-tabs--border-card > .el-tabs__header .el-tabs__item {
+  width: 120px;
+  text-align: center;
+  font-weight: 600;
+  /*font-size: 16px;*/
+  height: 60px;
+  line-height: 60px;
+  font-size: 16px;
+
+}
+
+/deep/ .el-tabs--border-card > .el-tabs__header .el-tabs__item.is-active {
+  border-top: 5px solid #906DFF;
+  /*border-bottom: 5px solid #ffffff;*/
+  height: 64px;
+}
+
+.card-tabs-wrapper .intros-wrapper {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.card-tabs-wrapper .intros-wrapper .intro-wrapper {
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  width: auto;
+  /*border: 1px solid #dcdfe6;*/
+  /*box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12), 0 0 6px 0 rgba(0, 0, 0, 0.04);*/
+  padding: 10px 40px;
+  cursor: pointer;
+}
+
+.card-tabs-wrapper .intros-wrapper .intro-wrapper img {
+  width: 60px;
+}
+
+.card-tabs-wrapper .intros-wrapper .intro-wrapper h1 {
+  /*letter-spacing: 10px;*/
+}
+
+.card-tabs-wrapper .intros-wrapper .intro-wrapper p {
+  margin-top: 10px;
+}

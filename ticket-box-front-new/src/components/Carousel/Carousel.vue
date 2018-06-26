@@ -1,5 +1,5 @@
 <template>
-  <div class="carousel-area-wrapper" v-if="ads.length === 5">
+  <div class="carousel-area-wrapper">
     <el-row :gutter="20" style="margin: 0">
       <el-col :xs="10" :sm="10" :md="10" :lg="10" style="min-height: 100px;">
         <transition name="el-fade-in-linear">
@@ -21,7 +21,7 @@
                      ref="carousel">
           <el-carousel-item v-for="(item, index) in 5" :key="item" style="border-radius: 10px;">
             <!--<h3>{{ item }}</h3>-->
-            <img :src="schedules[index].poster">
+            <img :src="ads[index].poster">
           </el-carousel-item>
         </el-carousel>
       </el-col>
@@ -59,6 +59,7 @@
         getScheduleBasicInfoAction: 'getScheduleBasicInfo'
       }),
       changePic: function (index1, index2) {
+        // console.log(index1)
         this.showInfo = false
         this.curIndex = index1
         setTimeout(() => {
@@ -78,25 +79,10 @@
       }
     },
     mounted() {
-      let that = this
       this.getAds({
         onSuccess: (data) => {
           // console.log(data)
           this.ads = data
-          for (let i = 0; i < data.length; i++) {
-            // console.log(data[i].schedule_id)
-            that.getScheduleBasicInfoAction({
-              onSuccess: (data) => {
-                // console.log('as')
-                // console.log(data)
-                that.schedules.push(data)
-              },
-              onError: () => {
-
-              },
-              schedule: data[i].schedule_id
-            })
-          }
         },
         onError: () => {
 
