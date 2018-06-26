@@ -1,0 +1,81 @@
+.footer-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  height: 60px;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  bottom: 0;
+  margin-bottom: -5px;
+  /*margin-top: 60px;*/
+}
+
+.footer-wrapper img {
+  width: 100%;
+  position: absolute;
+  top: 0;
+}
+
+.footer-wrapper p {
+  position: absolute;
+  /*width: 100%;*/
+  color: #fff;
+  font-weight: 600;
+  padding: 0;
+  margin: 0;
+  margin-top: 30px;
+  text-align: center;
+  left: 120px;
+}
+
+.footer-wrapper .buttons-wrapper {
+  position: absolute;
+  /*width: 100%;*/
+  color: #fff;
+  font-weight: 600;
+  padding: 0;
+  margin: 0;
+  margin-top: 30px;
+  text-align: center;
+  right: 120px;
+}
+
+.footer-wrapper .buttons-wrapper a {
+  position: relative;
+  /*width: 100%;*/
+  white-space: nowrap;
+  display: inline-block;
+  color: #ffffff;
+  cursor: pointer;
+  line-height: 16px;
+  font-size: 16px;
+  width: 90px;
+  font-weight: 600;
+  border: none;
+  text-decoration: none;
+}
+
+.footer-wrapper .buttons-wrapper a:hover {
+  /*color: #333;*/
+  color: #906DFF;
+}
+
+.info-wrapper {
+  padding: 10px;
+  /*width: 80%;*/
+  text-align: center;
+}
+
+.logo-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+
+.logo-wrapper img {
+  width: 100%;
+  position: relative;
+  display: inline-block;
+}
