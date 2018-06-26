@@ -17,3 +17,60 @@
   transform: translate(-50%, -50%);
   object-fit: cover;
 }
+
+.tour-brief-wrapper .intro-wrapper {
+  position: absolute;
+  background-color: #66666690;
+  left: 0;
+  /*top: 0;*/
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+  height: 100%;
+}
+
+.tour-brief-wrapper .invisible-wrapper {
+  position: absolute;
+  /*background-color: #66666650;*/
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.tour-brief-wrapper .intro-wrapper .text-wrapper {
+  width: 120px;
+  height: 120px;
+  border-top: 3px solid #FEC581;
+  border-bottom: 3px solid #FEC581;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.tour-brief-wrapper .intro-wrapper .text-wrapper h1 {
+  width: 100%;
+  color: #FEC581;
+  text-align: center;
+  height: 50px;
+  line-height: 50px;
+}
+
+.tour-brief-wrapper .intro-wrapper .text-wrapper p {
+  color: #FEC581;
+  height: 70px;
+  width: 100%;
+  line-height: 35px;
+  overflow: hidden;
+  /*white-space: ;*/
+  word-break: break-word;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  font-weight: 600;
+  letter-spacing: 1px;
+}

@@ -86,13 +86,13 @@
           title: '演唱会',
           intro: '感受现场音乐的魅力'
         }, {
-          img: require('../../assets/melodrama.png'),
-          title: '音乐剧',
-          intro: '乐享文艺生活的感染'
-        }, {
           img: require('../../assets/drama.png'),
           title: '话剧',
           intro: '参与不可复制的艺术'
+        }, {
+          img: require('../../assets/melodrama.png'),
+          title: '音乐剧',
+          intro: '乐享文艺生活的感染'
         }]
       }
     },
