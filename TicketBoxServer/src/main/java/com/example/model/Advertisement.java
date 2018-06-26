@@ -12,6 +12,7 @@ public class Advertisement {
     private int id;
     private String title;
     private int schedule_id;
+    private String poster;
 
     public Advertisement() {
     }
@@ -41,5 +42,13 @@ public class Advertisement {
 
     public void setSchedule_id(int schedule_id) {
         this.schedule_id = schedule_id;
+    }
+
+    public String getPoster() {
+        return poster;
+    }
+
+    public void setPoster(String poster) {
+        this.poster = poster;
     }
 }
