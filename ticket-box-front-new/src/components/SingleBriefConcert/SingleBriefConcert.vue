@@ -5,10 +5,10 @@
       <div class="img-wrapper">
         <img :src="info.poster">
       </div>
-      <p class="title-p">{{ info.schedule }}</p>
-      <p class="place-p">{{ scheduleInfo.venueName }}</p>
-      <!--<p class="time-p">{{ new Date(info.time).toLocaleString() }}</p>-->
-      <p class="price-p">¥ {{ scheduleInfo.minPrice }} - ¥ {{ scheduleInfo.maxPrice }}</p>
+      <p class="title-p">【{{ info.city }}】{{ info.schedule }}</p>
+      <!--<p class="place-p">{{ info.venueName }}</p>-->
+      <p class="time-p">{{ new Date(info.time).toLocaleString() }}</p>
+      <p class="price-p">{{ info.artist }}</p>
 
     </div>
 
