@@ -7,8 +7,8 @@
     <el-input type="input"></el-input>
     <el-button><i class="el-icon-search"></i></el-button>
     <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal">
-      <el-menu-item index="0">首页</el-menu-item>
-      <el-menu-item index="1">演出</el-menu-item>
+      <el-menu-item index="0" @click="$router.push('/')">首页</el-menu-item>
+      <el-menu-item index="1" @click="$router.push('/shows')">演出</el-menu-item>
       <el-menu-item index="2">订单</el-menu-item>
       <el-submenu index="3">
         <template slot="title">用户</template>
