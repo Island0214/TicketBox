@@ -160,4 +160,40 @@ public class VenueServiceImpl implements VenueService {
         }
         return res;
     }
+
+    @Override
+    public List<Schedule> hotSchedules() {
+        List<Schedule> res = new ArrayList<>();
+        int min = scheduleRepository.minOfScheduleId();
+        int max = scheduleRepository.maxOfScheduleId();
+
+
+        while (res.size()<6){
+            int rand_index = min + new Random().nextInt(max-min);
+
+            Schedule schedule = scheduleRepository.findById(rand_index);
+            if(schedule!=null&&!isIn(res,schedule)){
+                res.add(schedule);
+            }
+        }
+        return res;
+    }
+
+    private boolean isIn(List<Schedule> scheduleList,Schedule schedule){
+        if(schedule.getTourId()==0){
+            for(Schedule s:scheduleList){
+                if(s.getSchedule_id()==schedule.getSchedule_id()){
+                    return true;
+                }
+            }
+            return false;
+        }else {
+            for(Schedule s:scheduleList){
+                if(s.getTourId()==s.getTourId()){
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
 }
