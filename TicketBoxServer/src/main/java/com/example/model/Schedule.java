@@ -35,6 +35,12 @@ public class Schedule {
      */
     private int status;
 
+    /**
+     * 巡演id，此值相同的表示属于同一次巡演
+     * 不为巡演则为-1
+     */
+    private int tourId;
+
     public Schedule() {
     }
 
@@ -108,6 +114,14 @@ public class Schedule {
 
     public void setVenue(int venue) {
         this.venue = venue;
+    }
+
+    public int getTourId() {
+        return tourId;
+    }
+
+    public void setTourId(int tourId) {
+        this.tourId = tourId;
     }
 
     @Override

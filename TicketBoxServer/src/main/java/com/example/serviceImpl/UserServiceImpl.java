@@ -71,7 +71,7 @@ public class UserServiceImpl implements UserService {
             // 设置邮件服务器
             properties.setProperty("mail.smtp.host", host);
 
-            Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
+//            Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
             properties.put("mail.smtp.socketFactory.fallback", "false");
             properties.put("mail.smtp.starttls.enable", "true");
 
