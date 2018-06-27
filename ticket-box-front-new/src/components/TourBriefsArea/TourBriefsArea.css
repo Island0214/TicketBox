@@ -1,0 +1,108 @@
+.tour-briefs-wrapper {
+  position: relative;
+  /*display: inline-block;*/
+  padding: 0 120px;
+  margin-bottom: 40px;
+  height: 550px;
+}
+
+.tour-briefs-wrapper .info-wrapper {
+  position: relative;
+  display: inline-block;
+  /*border: 1px solid #dcdfe6;*/
+  /*box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12), 0 0 6px 0 rgba(0, 0, 0, 0.04);*/
+  /*border: 1px solid #906DFF;*/
+  padding: 0;
+  margin: 0;
+  height: 450px;
+  min-height: 100px;
+  width: 100%;
+}
+
+.tour-briefs-wrapper .info-wrapper .more-concert-button {
+  width: 130px;
+  height: 130px;
+  position: absolute;
+  left: 690px;
+  top: 330px;
+  cursor: pointer;
+  background-color: #906DFF;
+  text-align: center;
+}
+
+.tour-briefs-wrapper .info-wrapper .more-concert-button h1 {
+  position: absolute;
+  color: white;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-top: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+}
+
+.tour-briefs-wrapper .info-wrapper .more-concert-button h2 {
+  position: absolute;
+  color: white;
+}
+
+/deep/ .el-tabs--border-card > .el-tabs__header .el-tabs__item {
+  width: 120px;
+  text-align: center;
+  font-weight: 600;
+  /*font-size: 16px;*/
+  height: 60px;
+  line-height: 60px;
+  font-size: 16px;
+
+}
+
+/deep/ .el-tabs--border-card > .el-tabs__header .el-tabs__item.is-active {
+  border-top: 5px solid #906DFF;
+  /*border-bottom: 5px solid #ffffff;*/
+  height: 64px;
+}
+
+.tour-briefs-wrapper  .chart-wrapper {
+  position: absolute;
+  top: 0px;
+  left: 880px;
+  right: 0px;
+  bottom: 0px;
+  /*background-color: #FEC581;*/
+}
+
+.tour-briefs-wrapper  .chart-wrapper a {
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+  border: none;
+  line-height: 25px;
+  color: #333;
+  margin: 10px 0 2px 0;
+  letter-spacing: 1px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.tour-briefs-wrapper  .chart-wrapper a:hover {
+  /*color: #FEC581;*/
+  /*border-bottom: 2px solid #FEC581;*/
+  color: #FEC581;
+}
+
+.tour-briefs-wrapper  .chart-wrapper a span {
+  position: relative;
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
+  background-color: #eeeeee80;
+  color: #906DFF;
+  text-align: center;
+  margin-right: 10px;
+  border-radius: 4px;
+}

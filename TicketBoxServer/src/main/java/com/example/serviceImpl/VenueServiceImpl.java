@@ -1,5 +1,6 @@
 package com.example.serviceImpl;
 
+import com.example.bean.AdvertisementBean;
 import com.example.bean.DoubleInfoBean;
 import com.example.bean.IntInfoBean;
 import com.example.dao.*;
@@ -34,6 +35,9 @@ public class VenueServiceImpl implements VenueService {
 
     @Autowired
     private BalanceRepository balanceRepository;
+
+    @Autowired
+    private AdvertisementRepository advertisementRepository;
 
     @Override
     public Map<Integer, Venue> login(int code, String password) {
@@ -144,5 +148,16 @@ public class VenueServiceImpl implements VenueService {
     @Override
     public List<Balance> getBalanceByVenue(int code) {
         return balanceRepository.findByVenue(code);
+    }
+
+    @Override
+    public List<AdvertisementBean> getAdvertisements() {
+        List<Advertisement> ads = advertisementRepository.findAll();
+        List<AdvertisementBean> res = new ArrayList<>();
+        int startIndex = new Random().nextInt(ads.size());
+        for(int i=0;i<5;i++){
+            res.add(new AdvertisementBean(ads.get((startIndex + i)%ads.size())));
+        }
+        return res;
     }
 }
