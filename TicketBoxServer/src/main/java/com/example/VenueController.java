@@ -45,19 +45,12 @@ public class VenueController {
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     Map<String, String> login(@RequestBody PasswordBean passwordBean) {
-        System.out.println("===============");
-        System.out.println("/login");
         String username = passwordBean.getUsername();
         String password = passwordBean.getPassword();
-        System.out.println(username);
-        System.out.println(password);
-//
         Map<String, String> result = new HashMap<>();
-//
         Map<Integer, Venue> map = venueService.login(Integer.parseInt(username), password);
 
         for (int key : map.keySet()) {
-            System.out.println(key);
             if (key == -3) {
                 result.put("error", "场馆编号或密码错误");
             } else if (key == 0) {
@@ -77,15 +70,9 @@ public class VenueController {
      */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     Map<String, String> resgiter(@RequestBody VenueRegisterBean venueRegisterBean) {
-        System.out.println("===============");
-        System.out.println("/login");
         String name = venueRegisterBean.getName();
         String password = venueRegisterBean.getPassword();
         String address = venueRegisterBean.getAddress();
-        System.out.println(name);
-        System.out.println(password);
-        System.out.println(address);
-//
         Map<String, String> result = new HashMap<>();
 
         if (name.equals("") || password.equals("") || address.equals("")) {
@@ -106,10 +93,7 @@ public class VenueController {
      */
     @RequestMapping(value = "/info", method = RequestMethod.POST)
     Venue getInfo(@RequestBody Venue venue) {
-        System.out.println("===============");
-        System.out.println("/info");
         int code = venue.getCode();
-        System.out.println(code);
 
         Venue venueInfo = venueService.getVenueInfo(code);
         return venueInfo;
@@ -123,10 +107,7 @@ public class VenueController {
      */
     @RequestMapping(value = "/area", method = RequestMethod.POST)
     List<Area> getAreaInfo(@RequestBody Venue venue) {
-        System.out.println("===============");
-        System.out.println("/area");
         int code = venue.getCode();
-        System.out.println(code);
 
         List<Area> areaList = venueService.getAreaInfo(code);
 
@@ -142,18 +123,12 @@ public class VenueController {
      */
     @RequestMapping(value = "/area/save", method = RequestMethod.POST)
     boolean saveArea(@RequestBody Area[] areas) {
-        System.out.println("===============");
-        System.out.println("/area/save");
         for (int i = 0; i < areas.length; i++) {
             Area area = areas[i];
             int venue = area.getVenue();
             String name = area.getName();
             int row = area.getRow();
             int col = area.getCol();
-            System.out.println(venue);
-            System.out.println(name);
-            System.out.println(row);
-            System.out.println(col);
         }
 
         return venueService.saveAreaInfo(areas);
@@ -167,12 +142,7 @@ public class VenueController {
      */
     @RequestMapping(value = "/schedule/dispatch", method = RequestMethod.POST)
     Schedule saveSchedule(@RequestBody Schedule schedule) {
-        System.out.println("===============");
-        System.out.println("/schedule/dispatch");
-        System.out.println(schedule.toString());
-
         return scheduleService.saveSchedule(schedule);
-//        return venueService.saveAreaInfo(areas);
     }
 
     /**
@@ -183,10 +153,6 @@ public class VenueController {
      */
     @RequestMapping(value = "/schedule/seats", method = RequestMethod.POST)
     boolean setScheduleSeat(@RequestBody SeatListBean seatListBean) {
-        System.out.println("===============");
-        System.out.println("/schedule/seats");
-        System.out.println(seatListBean.toString());
-
         return scheduleService.saveSeatInfo(seatListBean);
     }
 
@@ -198,10 +164,6 @@ public class VenueController {
      */
     @RequestMapping(value = "/schedules/{venue}", method = RequestMethod.GET)
     List<Schedule> getVenueSchedules(@PathVariable int venue) {
-        System.out.println("===============");
-        System.out.println("/schedules");
-//        System.out.println(seatListBean.toString());
-
         return scheduleService.getScheduleByVenue(venue);
     }
 
@@ -213,26 +175,15 @@ public class VenueController {
      */
     @RequestMapping(value = "/schedule/{id}", method = RequestMethod.GET)
     Map<String, String> getScheduleInfo(@PathVariable int id) {
-        System.out.println("===============");
-        System.out.println("/schedules");
-        System.out.println(id);
-//        System.out.println("/schedules");
-//        System.out.println(seatListBean.toString());
         Map<String, String> result = new HashMap<>();
         List<Integer> prices = scheduleService.getAllPricesOfSchedule(id);
         result.put("prices", JSONArray.fromObject(prices).toString());
-        System.out.println(prices.toString());
         for (int i = 0; i < prices.size(); i++) {
-            System.out.println(prices.get(i));
-
             List<String> areas = scheduleService.getAreasByScheduleAndString(id, prices.get(i));
-            System.out.println(areas.toString());
             result.put("price" + prices.get(i), JSONArray.fromObject(areas).toString());
-
 
             for (int j = 0; j < areas.size(); j++) {
                 Seat seat = scheduleService.getSeatByScheduleAndArea(id, areas.get(j));
-                System.out.println(seat.toString());
                 result.put(areas.get(j), JSONObject.fromObject(seat).toString());
             }
         }
@@ -241,10 +192,6 @@ public class VenueController {
 
     @RequestMapping(value = "/seats/{id}/{area}", method = RequestMethod.GET)
     Map<String, String> getSeatsByArea(@PathVariable int id, @PathVariable String area) {
-        System.out.println("===============");
-        System.out.println("/seats");
-        System.out.println(id);
-        System.out.println(area);
         Map<String, String> result = new HashMap<>();
         Seat seat = scheduleService.getSeatByScheduleAndArea(id, area);
         result.put("seat", JSONObject.fromObject(seat).toString());
@@ -264,64 +211,52 @@ public class VenueController {
      */
     @RequestMapping(value = "/seat/check", method = RequestMethod.POST)
     Map<String, String> setScheduleSeat(@RequestBody Seat seat) {
-        System.out.println("===============");
-        System.out.println("/seat/check");
-        System.out.println(seat.toString());
-
-//        return scheduleService.saveSeatInfo(seatListBean);
         return venueService.checkTicket(seat);
     }
 
     /**
      * 获得上座率统计
+     *
      * @return
      */
     @RequestMapping(value = "/order/statistic/{code}", method = RequestMethod.GET)
     List<DoubleInfoBean> getVenueOrderStatistic(@PathVariable int code) {
-        System.out.println("===============");
-        System.out.println("/order/statistic/");
-        System.out.println(code);
         return venueService.getVenueOrderStatistic(code);
     }
 
     /**
      * 获得场馆所有退订统计
+     *
      * @return
      */
     @RequestMapping(value = "/order/refund/{code}", method = RequestMethod.GET)
     List<MyOrder> getVenueRefundOrder(@PathVariable int code) {
-        System.out.println("===============");
-        System.out.println("/order/refund/");
-        System.out.println(code);
         return orderService.findByVenueAndType(code);
     }
 
     /**
      * 获得预定统计
+     *
      * @return
      */
     @RequestMapping(value = "/day/statistic/{code}", method = RequestMethod.GET)
     List<IntInfoBean> getDayOrderStatistic(@PathVariable int code) {
-        System.out.println("===============");
-        System.out.println("/day/statistic/");
-        System.out.println(code);
         return venueService.getDayOrderStatistic(code);
     }
 
     /**
      * 获得财务统计
+     *
      * @return
      */
     @RequestMapping(value = "/finance/statistic/{code}", method = RequestMethod.GET)
     List<Balance> getFinanceStatistic(@PathVariable int code) {
-        System.out.println("===============");
-        System.out.println("/day/statistic/");
-        System.out.println(code);
         return venueService.getBalanceByVenue(code);
     }
 
     /**
      * 获得广告信息
+     *
      * @return
      */
     @RequestMapping(value = "/ad", method = RequestMethod.GET)
@@ -331,6 +266,7 @@ public class VenueController {
 
     /**
      * 获得热门计划
+     *
      * @return
      */
     @RequestMapping(value = "/hotSchedules", method = RequestMethod.GET)
@@ -340,11 +276,32 @@ public class VenueController {
 
     /**
      * 获得即将开始的6个
+     *
      * @return
      */
     @RequestMapping(value = "/comingSchedules", method = RequestMethod.GET)
     List<Schedule> getComingSchedules() {
         return venueService.comingSchedules();
     }
+
+    /**
+     * 获得所有有巡演的城市
+     *
+     * @return
+     */
+    @RequestMapping(value = "/tourCities", method = RequestMethod.GET)
+    List<String> getTourCities() {
+        return scheduleService.getTourCities();
+    }
+
+    /**
+     * 随机获得五个巡演
+     * @return
+     */
+    @RequestMapping(value = "/randomTours", method = RequestMethod.GET)
+    List<TourBean> getRandomFiveTours() {
+        return scheduleService.getFiveTours();
+    }
+
 
 }

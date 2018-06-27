@@ -1,14 +1,13 @@
 package com.example.serviceImpl;
 
-import com.example.bean.IntInfoBean;
-import com.example.bean.ScheduleInfoBean;
-import com.example.bean.ScheduleSearchBean;
+import com.example.bean.*;
 import com.example.dao.ScheduleRepository;
 import com.example.dao.SeatRepository;
+import com.example.dao.TourRepository;
 import com.example.dao.VenueRepository;
 import com.example.model.Schedule;
 import com.example.model.Seat;
-import com.example.bean.SeatListBean;
+import com.example.model.Tour;
 import com.example.model.Venue;
 import com.example.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,7 @@ import java.util.*;
  * Created by island on 2018/3/19.
  */
 @Service
-public class ScheduleServiceImpl implements ScheduleService{
+public class ScheduleServiceImpl implements ScheduleService {
 
     @Autowired
     private ScheduleRepository scheduleRepository;
@@ -33,6 +32,9 @@ public class ScheduleServiceImpl implements ScheduleService{
 
     @Autowired
     private VenueRepository venueRepository;
+
+    @Autowired
+    private TourRepository tourRepository;
 
     @Override
     public Schedule saveSchedule(Schedule schedule) {
@@ -171,5 +173,41 @@ public class ScheduleServiceImpl implements ScheduleService{
             );
         }
         return intInfoBeans;
+    }
+
+    @Override
+    public List<TourBean> getFiveTours() {
+        List<Tour> tours = tourRepository.findAll();
+        List<TourBean> tourBeans = new ArrayList<>();
+        Set<Integer> indexSet = new HashSet<>();
+
+        Random random = new Random();
+        for (int i = 0, j; i < 5; i++) {
+            j = random.nextInt(tours.size());
+            if (!indexSet.contains(j)) {
+                indexSet.add(j);
+                Tour tour = tours.get(j);
+                List<TourCityBean> tourCityBeans = scheduleRepository.findSchedulesByTourId(tour.getTour_id());
+                TourBean tourBean = new TourBean(tour.getTour_id(), tour.getArtist(), tour.getTourName(), tourCityBeans);
+                tourBeans.add(tourBean);
+            } else {
+                i--;
+            }
+        }
+
+        return tourBeans;
+    }
+
+    /**
+     * 获得所有有巡演的城市
+     *
+     * @return
+     */
+    @Override
+    public List<String> getTourCities() {
+        List<TourCityBean> tourCityBeans = scheduleRepository.findTourCity();
+        Set<String> cities = new HashSet<>();
+        tourCityBeans.forEach(tourCityBean -> cities.add(tourCityBean.getCity()));
+        return new ArrayList<>(cities);
     }
 }

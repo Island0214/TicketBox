@@ -41,6 +41,8 @@ public class Schedule {
      */
     private int tourId;
 
+    private String city;
+
     public Schedule() {
     }
 
@@ -122,6 +124,14 @@ public class Schedule {
 
     public void setTourId(int tourId) {
         this.tourId = tourId;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     @Override

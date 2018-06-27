@@ -1,6 +1,7 @@
 package com.example.dao;
 
 import com.example.bean.IntInfoBean;
+import com.example.bean.TourCityBean;
 import com.example.model.Schedule;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -46,4 +47,10 @@ public interface ScheduleRepository extends JpaSpecificationExecutor<Schedule>, 
     int minOfScheduleId();
 
     List<Schedule> findTop6ByTimeAfterOrderByTime(Date date);
+
+    @Query("select new com.example.bean.TourCityBean(s.schedule_id, s.city, s.time) from Schedule s where s.tourId= :tourId order by s.time ASC")
+    List<TourCityBean> findSchedulesByTourId(@Param("tourId") int tourId);
+
+    @Query("select new com.example.bean.TourCityBean(s.schedule_id, s.city, s.time) from Schedule s where s.tourId<>0")
+    List<TourCityBean> findTourCity();
 }
