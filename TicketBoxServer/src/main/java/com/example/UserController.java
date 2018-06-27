@@ -38,12 +38,8 @@ public class UserController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     Map<String, String> login(@RequestBody PasswordBean passwordBean) {
-        System.out.println("===============");
-        System.out.println("/login");
         String username = passwordBean.getUsername();
         String password = passwordBean.getPassword();
-        System.out.println(username);
-        System.out.println(password);
 
         Map<Integer, User> map = userService.logIn(username, password);
 
@@ -78,14 +74,9 @@ public class UserController {
     Map<String, String> signIn(@RequestBody RegisterBean registerBean) {
 //        return userService.logIn(",", ",");
         Map<String, String> result = new HashMap<>();
-        System.out.println("===============");
-        System.out.println("/register");
         String username = registerBean.getUsername();
         String password = registerBean.getPassword();
         String email = registerBean.getEmail();
-        System.out.println(username);
-        System.out.println(password);
-        System.out.println(email);
 
         if (userService.register(username, email, password)) {
             result.put("success", "注册成功");
@@ -130,9 +121,6 @@ public class UserController {
      */
     @RequestMapping(value = "/buyTicket/offline", method = RequestMethod.POST)
     boolean buyTicketOffline(@RequestBody Order order) {
-        System.out.println("===============");
-        System.out.println("/buyTicket/offline");
-        System.out.println(order.toString());
         return userService.buyTicketOffline(order);
     }
 
@@ -161,9 +149,6 @@ public class UserController {
      */
     @RequestMapping(value = "/password/change", method = RequestMethod.POST)
     Map<String, String> changePassword(@RequestBody ChangePasswordBean changePasswordBean) {
-        System.out.println("===============");
-        System.out.println("/password/change");
-        System.out.println(changePasswordBean.toString());
         return userService.changePassword(changePasswordBean);
     }
 
@@ -192,9 +177,6 @@ public class UserController {
      */
     @RequestMapping(value = "/coupon/exchange", method = RequestMethod.POST)
     boolean exchangeCoupon(@RequestBody MyCoupon myCoupon) {
-        System.out.println("===============");
-        System.out.println("/coupon/exchange");
-        System.out.println(myCoupon.toString());
         return userService.exchangeCoupon(myCoupon);
     }
 
@@ -223,9 +205,6 @@ public class UserController {
      */
     @RequestMapping(value = "/schedule/info/{schedule}", method = RequestMethod.GET)
     ScheduleInfoBean getScheduleInfo(@PathVariable int schedule) {
-        System.out.println("===============");
-        System.out.println("/schedule/info/");
-        System.out.println(schedule);
         return scheduleService.getScheduleInfo(schedule);
     }
 
@@ -236,9 +215,6 @@ public class UserController {
      */
     @RequestMapping(value = "/schedule/basic/{schedule}", method = RequestMethod.GET)
     Schedule getScheduleBasicInfo(@PathVariable int schedule) {
-        System.out.println("===============");
-        System.out.println("/schedule/basic/");
-        System.out.println(schedule);
         return scheduleService.getScheduleById(schedule);
     }
 
@@ -248,9 +224,6 @@ public class UserController {
      */
     @RequestMapping(value = "/schedule/all/", method = RequestMethod.POST)
     Page<Schedule> findScheduleByPage(@RequestBody ScheduleSearchBean scheduleSearchBean) {
-        System.out.println("===============");
-        System.out.println("/schedule/all/");
-        System.out.println(scheduleSearchBean.toString());
         return scheduleService.findScheduleByPage(scheduleSearchBean);
     }
 
@@ -260,9 +233,6 @@ public class UserController {
      */
     @RequestMapping(value = "/coupon/usable/", method = RequestMethod.POST)
     List<Coupon> getUsableCoupons(@RequestBody UsableCouponBean usableCouponBean) {
-        System.out.println("===============");
-        System.out.println("/schedule/all/");
-        System.out.println(usableCouponBean.toString());
         return userService.getUsableCoupons(usableCouponBean);
     }
 
@@ -272,9 +242,6 @@ public class UserController {
      */
     @RequestMapping(value = "/order/create/", method = RequestMethod.POST)
     MyOrder createOrder(@RequestBody OrderCreateBean orderCreateBean) {
-        System.out.println("===============");
-        System.out.println("/order/create/");
-        System.out.println(orderCreateBean.toString());
         return orderService.createOrder(orderCreateBean);
     }
 
@@ -284,9 +251,6 @@ public class UserController {
      */
     @RequestMapping(value = "/order/info/", method = RequestMethod.POST)
     MyOrder getOrderById(@RequestBody MyOrder myOrder) {
-        System.out.println("===============");
-        System.out.println("/order/create/");
-        System.out.println(myOrder.toString());
         return orderService.getOrderById(myOrder);
     }
 
@@ -297,9 +261,6 @@ public class UserController {
      */
     @RequestMapping(value = "/order/pay/", method = RequestMethod.POST)
     Map<String, String> payOrder(@RequestBody OrderPayBean orderPayBean) {
-        System.out.println("===============");
-        System.out.println("/order/pay/");
-        System.out.println(orderPayBean.toString());
         return orderService.payOrder(orderPayBean);
     }
 
@@ -309,9 +270,6 @@ public class UserController {
      */
     @RequestMapping(value = "/order/refund/", method = RequestMethod.POST)
     Map<String, String> refundOrder(@RequestBody OrderPayBean orderPayBean) {
-        System.out.println("===============");
-        System.out.println("/order/refund/");
-        System.out.println(orderPayBean.toString());
         return orderService.refundOrder(orderPayBean);
     }
 
@@ -321,9 +279,6 @@ public class UserController {
      */
     @RequestMapping(value = "/order/cancel/", method = RequestMethod.POST)
     Map<String, String> cancelOrder(@RequestBody OrderPayBean orderPayBean) {
-        System.out.println("===============");
-        System.out.println("/order/cancel/");
-        System.out.println(orderPayBean.toString());
         return orderService.cancelOrder(orderPayBean);
     }
 
@@ -333,9 +288,6 @@ public class UserController {
      */
     @RequestMapping(value = "/order/all/", method = RequestMethod.POST)
     List<MyOrder> getAllOrders(@RequestBody MyOrder myOrder) {
-        System.out.println("===============");
-        System.out.println("/order/all/");
-        System.out.println(myOrder.toString());
         return orderService.getAllOrders(myOrder.getUsername());
     }
 
@@ -345,9 +297,6 @@ public class UserController {
      */
     @RequestMapping(value = "/order/status/", method = RequestMethod.POST)
     List<MyOrder> getOrdersByType(@RequestBody MyOrder myOrder) {
-        System.out.println("===============");
-        System.out.println("/order/status/");
-        System.out.println(myOrder.toString());
         return orderService.getOrdersByType(myOrder.getUsername(), myOrder.getType());
     }
 
@@ -357,9 +306,6 @@ public class UserController {
      */
     @RequestMapping(value = "/order/statistic/{username}", method = RequestMethod.GET)
     List<OrderTypeBean> getOrderStatistics(@PathVariable String username) {
-        System.out.println("===============");
-        System.out.println("/order/statistic/");
-        System.out.println(username);
         return orderService.getOrderStatistic(username);
     }
 
@@ -369,9 +315,8 @@ public class UserController {
      */
     @RequestMapping(value = "/consumption/statistic/{username}", method = RequestMethod.GET)
     List<DoubleInfoBean> getUserStatistic(@PathVariable String username) {
-        System.out.println("===============");
-        System.out.println("/order/statistic/");
-        System.out.println(username);
         return orderService.getUserStatistic(username);
     }
+
+
 }

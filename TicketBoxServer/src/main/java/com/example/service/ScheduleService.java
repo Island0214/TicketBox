@@ -1,11 +1,8 @@
 package com.example.service;
 
-import com.example.bean.IntInfoBean;
-import com.example.bean.ScheduleInfoBean;
-import com.example.bean.ScheduleSearchBean;
+import com.example.bean.*;
 import com.example.model.Schedule;
 import com.example.model.Seat;
-import com.example.bean.SeatListBean;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
@@ -41,4 +38,12 @@ public interface ScheduleService {
     Schedule getScheduleById(int schedule);
 
     List<IntInfoBean> countByVenue();
+
+    List<TourBean> getFiveTours();
+
+    /**
+     * 获得所有有巡演的城市
+     * @return
+     */
+    List<String> getTourCities();
 }
