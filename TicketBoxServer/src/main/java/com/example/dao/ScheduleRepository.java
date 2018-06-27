@@ -51,6 +51,6 @@ public interface ScheduleRepository extends JpaSpecificationExecutor<Schedule>, 
     @Query("select new com.example.bean.TourCityBean(s.schedule_id, s.city, s.time) from Schedule s where s.tourId= :tourId order by s.time ASC")
     List<TourCityBean> findSchedulesByTourId(@Param("tourId") int tourId);
 
-    @Query("select new com.example.bean.TourCityBean(s.schedule_id, s.city, s.time) from Schedule s where s.tourId<>0")
+    @Query("select new com.example.bean.TourCityBean(s.schedule_id, s.city, s.time) from Schedule s")
     List<TourCityBean> findTourCity();
 }

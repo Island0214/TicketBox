@@ -285,7 +285,7 @@ public class VenueController {
     }
 
     /**
-     * 获得所有有巡演的城市
+     * 获得所有城市
      *
      * @return
      */
@@ -296,6 +296,7 @@ public class VenueController {
 
     /**
      * 随机获得五个巡演
+     *
      * @return
      */
     @RequestMapping(value = "/randomTours", method = RequestMethod.GET)
@@ -303,5 +304,23 @@ public class VenueController {
         return scheduleService.getFiveTours();
     }
 
+    /**
+     * 获得5个热门戏剧，一段时间内要保持相同
+     *
+     * @return
+     */
+    @RequestMapping(value = "/hotOperas", method = RequestMethod.GET)
+    List<TourBean> getHotOperas() {
+        return null;
+    }
 
+    /**
+     * 获得5个热门音乐会，一段时间内要保持相同
+     *
+     * @return
+     */
+    @RequestMapping(value = "/hotConcerts", method = RequestMethod.GET)
+    List<TourBean> getHotConcerts() {
+        return null;
+    }
 }
