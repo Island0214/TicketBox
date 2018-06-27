@@ -9,12 +9,14 @@ public class TourBean {
     private int tourId;
     private String artist;
     private String tourName;
+    private String poster;
     private List<TourCityBean> cities;
 
-    public TourBean(int tourId, String artist, String tourName, List<TourCityBean> cities) {
+    public TourBean(int tourId, String artist, String tourName, String poster, List<TourCityBean> cities) {
         this.tourId = tourId;
         this.artist = artist;
         this.tourName = tourName;
+        this.poster = poster;
         this.cities = cities;
     }
 
@@ -50,13 +52,11 @@ public class TourBean {
         this.cities = cities;
     }
 
-    @Override
-    public String toString() {
-        return "TourBean{" +
-                "tourId=" + tourId +
-                ", artist='" + artist + '\'' +
-                ", tourName='" + tourName + '\'' +
-                ", cities=" + cities +
-                '}';
+    public String getPoster() {
+        return poster;
+    }
+
+    public void setPoster(String poster) {
+        this.poster = poster;
     }
 }

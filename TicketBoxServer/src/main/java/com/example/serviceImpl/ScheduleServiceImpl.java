@@ -188,7 +188,7 @@ public class ScheduleServiceImpl implements ScheduleService {
                 indexSet.add(j);
                 Tour tour = tours.get(j);
                 List<TourCityBean> tourCityBeans = scheduleRepository.findSchedulesByTourId(tour.getTour_id());
-                TourBean tourBean = new TourBean(tour.getTour_id(), tour.getArtist(), tour.getTourName(), tourCityBeans);
+                TourBean tourBean = new TourBean(tour.getTour_id(), tour.getArtist(), tour.getTourName(), tour.getPoster(), tourCityBeans);
                 tourBeans.add(tourBean);
             } else {
                 i--;

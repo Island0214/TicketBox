@@ -18,6 +18,8 @@ public class Tour {
 
     private String tourName;
 
+    private String poster;
+
     public Tour() {
     }
 
@@ -43,5 +45,13 @@ public class Tour {
 
     public void setTourName(String tourName) {
         this.tourName = tourName;
+    }
+
+    public String getPoster() {
+        return poster;
+    }
+
+    public void setPoster(String poster) {
+        this.poster = poster;
     }
 }
