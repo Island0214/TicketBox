@@ -1,6 +1,6 @@
 <template>
   <div class="home-page-wrapper">
-    <img src="../assets/bg.png">
+    <!--<img src="../assets/bg.png">-->
     <!--<my-nav-bar></my-nav-bar>-->
     <carousel></carousel>
     <card-tabs></card-tabs>

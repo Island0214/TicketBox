@@ -115,6 +115,7 @@ h5, h6 {
   width: 160px;
   outline: none;
   background-color: #906DFF;
+  border: none;
 }
 
 .el-button:focus {
