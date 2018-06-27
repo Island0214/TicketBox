@@ -3,10 +3,7 @@ package com.example.service;
 import com.example.bean.AdvertisementBean;
 import com.example.bean.DoubleInfoBean;
 import com.example.bean.IntInfoBean;
-import com.example.model.Area;
-import com.example.model.Balance;
-import com.example.model.Seat;
-import com.example.model.Venue;
+import com.example.model.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,4 +33,16 @@ public interface VenueService {
     List<Balance> getBalanceByVenue(int code);
 
     List<AdvertisementBean> getAdvertisements();
+
+    /**
+     * 6个热门演出(目前使用随机算法)
+     * @return
+     */
+    List<Schedule> hotSchedules();
+
+    /**
+     * 6个最近的演出
+     * @return
+     */
+    List<Schedule> comingSchedules();
 }

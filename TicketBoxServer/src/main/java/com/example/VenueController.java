@@ -328,4 +328,23 @@ public class VenueController {
     List<AdvertisementBean> getAdvertisements() {
         return venueService.getAdvertisements();
     }
+
+    /**
+     * 获得热门计划
+     * @return
+     */
+    @RequestMapping(value = "/hotSchedules", method = RequestMethod.GET)
+    List<Schedule> getHotSchedules() {
+        return venueService.hotSchedules();
+    }
+
+    /**
+     * 获得即将开始的6个
+     * @return
+     */
+    @RequestMapping(value = "/comingSchedules", method = RequestMethod.GET)
+    List<Schedule> getComingSchedules() {
+        return venueService.comingSchedules();
+    }
+
 }

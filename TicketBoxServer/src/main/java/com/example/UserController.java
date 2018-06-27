@@ -237,7 +237,7 @@ public class UserController {
     @RequestMapping(value = "/schedule/basic/{schedule}", method = RequestMethod.GET)
     Schedule getScheduleBasicInfo(@PathVariable int schedule) {
         System.out.println("===============");
-        System.out.println("/schedule/info/");
+        System.out.println("/schedule/basic/");
         System.out.println(schedule);
         return scheduleService.getScheduleById(schedule);
     }

@@ -5,7 +5,6 @@ import com.example.bean.DoubleInfoBean;
 import com.example.bean.IntInfoBean;
 import com.example.dao.*;
 import com.example.model.*;
-import com.example.service.ScheduleService;
 import com.example.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -159,5 +158,46 @@ public class VenueServiceImpl implements VenueService {
             res.add(new AdvertisementBean(ads.get((startIndex + i)%ads.size())));
         }
         return res;
+    }
+
+    @Override
+    public List<Schedule> hotSchedules() {
+        List<Schedule> res = new ArrayList<>();
+        int min = scheduleRepository.minOfScheduleId();
+        int max = scheduleRepository.maxOfScheduleId();
+
+
+        while (res.size()<6){
+            int rand_index = min + new Random().nextInt(max-min);
+
+            Schedule schedule = scheduleRepository.findById(rand_index);
+            if(schedule!=null&&!isIn(res,schedule)){
+                res.add(schedule);
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public List<Schedule> comingSchedules() {
+        return scheduleRepository.findTop6ByTimeAfterOrderByTime(new Date());
+    }
+
+    private boolean isIn(List<Schedule> scheduleList,Schedule schedule){
+        if(schedule.getTourId()==0){
+            for(Schedule s:scheduleList){
+                if(s.getSchedule_id()==schedule.getSchedule_id()){
+                    return true;
+                }
+            }
+            return false;
+        }else {
+            for(Schedule s:scheduleList){
+                if(s.getTourId()==s.getTourId()){
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

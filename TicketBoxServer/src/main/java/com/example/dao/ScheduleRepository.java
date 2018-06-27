@@ -38,4 +38,12 @@ public interface ScheduleRepository extends JpaSpecificationExecutor<Schedule>, 
 
     @Query("select new com.example.bean.IntInfoBean(concat(s.venue, ''), count (s)) from Schedule s group by concat(s.venue, '')")
     List<IntInfoBean> countByVenue();
+
+    @Query("select max(s.schedule_id) from Schedule s")
+    int maxOfScheduleId();
+
+    @Query("select min(s.schedule_id) from Schedule s")
+    int minOfScheduleId();
+
+    List<Schedule> findTop6ByTimeAfterOrderByTime(Date date);
 }

@@ -27,6 +27,8 @@ public class Venue {
 
     private String address;
 
+    private String city;
+
     public Venue() {
     }
 
@@ -35,6 +37,14 @@ public class Venue {
         this.name = name;
         this.status = status;
         this.address = address;
+    }
+
+    public Venue(int code, String name, int status, String address, String city) {
+        this.code = code;
+        this.name = name;
+        this.status = status;
+        this.address = address;
+        this.city = city;
     }
 
     public int getCode() {
@@ -77,6 +87,14 @@ public class Venue {
         this.address = address;
     }
 
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
     @Override
     public String toString() {
         return "Venue{" +
@@ -85,6 +103,7 @@ public class Venue {
                 ", password='" + password + '\'' +
                 ", status=" + status +
                 ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
                 '}';
     }
 }
