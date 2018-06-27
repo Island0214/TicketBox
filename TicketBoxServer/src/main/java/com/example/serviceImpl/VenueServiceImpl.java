@@ -5,7 +5,6 @@ import com.example.bean.DoubleInfoBean;
 import com.example.bean.IntInfoBean;
 import com.example.dao.*;
 import com.example.model.*;
-import com.example.service.ScheduleService;
 import com.example.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -177,6 +176,11 @@ public class VenueServiceImpl implements VenueService {
             }
         }
         return res;
+    }
+
+    @Override
+    public List<Schedule> comingSchedules() {
+        return scheduleRepository.findTop6ByTimeAfterOrderByTime(new Date());
     }
 
     private boolean isIn(List<Schedule> scheduleList,Schedule schedule){

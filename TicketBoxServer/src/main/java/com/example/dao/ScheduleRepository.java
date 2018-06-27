@@ -44,4 +44,6 @@ public interface ScheduleRepository extends JpaSpecificationExecutor<Schedule>, 
 
     @Query("select min(s.schedule_id) from Schedule s")
     int minOfScheduleId();
+
+    List<Schedule> findTop6ByTimeAfterOrderByTime(Date date);
 }

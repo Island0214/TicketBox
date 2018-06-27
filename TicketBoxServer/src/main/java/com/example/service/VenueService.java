@@ -39,4 +39,10 @@ public interface VenueService {
      * @return
      */
     List<Schedule> hotSchedules();
+
+    /**
+     * 6个最近的演出
+     * @return
+     */
+    List<Schedule> comingSchedules();
 }
