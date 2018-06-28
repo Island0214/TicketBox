@@ -1,6 +1,7 @@
 package com.example.dao;
 
 import com.example.bean.IntInfoBean;
+import com.example.bean.ScheduleBriefBean;
 import com.example.bean.TourCityBean;
 import com.example.model.Schedule;
 import org.springframework.data.domain.Page;
@@ -53,4 +54,7 @@ public interface ScheduleRepository extends JpaSpecificationExecutor<Schedule>, 
 
     @Query("select new com.example.bean.TourCityBean(s.schedule_id, s.city, s.time) from Schedule s")
     List<TourCityBean> findTourCity();
+
+    @Query("select new com.example.bean.ScheduleBriefBean(s.schedule_id,s.schedule) from Schedule s where s.type=:type and s.time>:date order by s.time")
+    List<ScheduleBriefBean> findSchedulesByType(@Param("type") String type, @Param("date") Date date);
 }

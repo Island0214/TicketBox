@@ -43,7 +43,23 @@ public interface ScheduleService {
 
     /**
      * 获得所有有巡演的城市
+     *
      * @return
      */
     List<String> getTourCities();
+
+    /**
+     * 获得热门戏剧
+     *
+     * @return
+     */
+    List<ScheduleBriefBean> getHotOperas();
+
+    /**
+     * 获得热门音乐会
+     *
+     * @return
+     */
+    List<ScheduleBriefBean> getHotConcerts();
+
 }

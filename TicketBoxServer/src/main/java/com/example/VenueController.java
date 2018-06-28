@@ -310,8 +310,8 @@ public class VenueController {
      * @return
      */
     @RequestMapping(value = "/hotOperas", method = RequestMethod.GET)
-    List<TourBean> getHotOperas() {
-        return null;
+    List<ScheduleBriefBean> getHotOperas() {
+        return scheduleService.getHotOperas();
     }
 
     /**
@@ -320,7 +320,7 @@ public class VenueController {
      * @return
      */
     @RequestMapping(value = "/hotConcerts", method = RequestMethod.GET)
-    List<TourBean> getHotConcerts() {
-        return null;
+    List<ScheduleBriefBean> getHotConcerts() {
+        return scheduleService.getHotConcerts();
     }
 }

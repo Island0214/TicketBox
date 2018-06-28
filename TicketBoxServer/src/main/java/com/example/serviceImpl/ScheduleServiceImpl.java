@@ -210,4 +210,26 @@ public class ScheduleServiceImpl implements ScheduleService {
         tourCityBeans.forEach(tourCityBean -> cities.add(tourCityBean.getCity()));
         return new ArrayList<>(cities);
     }
+
+    /**
+     * 获得热门戏剧
+     *
+     * @return
+     */
+    @Override
+    public List<ScheduleBriefBean> getHotOperas() {
+        List<ScheduleBriefBean> scheduleBriefBeans = scheduleRepository.findSchedulesByType("戏剧", new Date());
+        return scheduleBriefBeans.subList(0, 5);
+    }
+
+    /**
+     * 获得热门音乐会
+     *
+     * @return
+     */
+    @Override
+    public List<ScheduleBriefBean> getHotConcerts() {
+        List<ScheduleBriefBean> scheduleBriefBeans = scheduleRepository.findSchedulesByType("音乐会", new Date());
+        return scheduleBriefBeans.subList(0, 5);
+    }
 }
