@@ -35,7 +35,7 @@ public interface VenueService {
     List<AdvertisementBean> getAdvertisements();
 
     /**
-     * 6个热门演出(目前使用随机算法)
+     * 12个热门演出(目前使用随机算法)
      * @return
      */
     List<Schedule> hotSchedules();

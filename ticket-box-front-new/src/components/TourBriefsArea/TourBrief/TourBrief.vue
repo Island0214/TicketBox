@@ -5,7 +5,7 @@
     @mouseenter="setInfoStatus(true)"
     @mouseout="setInfoStatus(false)"
   >
-    <img src="../../../assets/poster1.jpg">
+    <img :src="tour.poster">
     <div>
       <transition name="el-fade-in">
         <div v-show="showInfo">
@@ -13,7 +13,7 @@
             class="intro-wrapper"
           >
             <div class="text-wrapper">
-              <h1>郭顶</h1>
+              <h1>{{ tour.artist }}</h1>
               <p>asdfdghggdasfdghjgdfsdafghfsdghvcxzdafsgdfhj</p>
             </div>
 
@@ -32,7 +32,7 @@
 
 <script>
   export default {
-    props: ['width', 'height', 'left', 'top'],
+    props: ['width', 'height', 'left', 'top', 'tour'],
     name: "TourBrief",
     data () {
       return {

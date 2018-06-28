@@ -118,6 +118,7 @@
   /*margin-top: -100px;*/
   transform: translateY(-100px);
   left: 0;
+  color: #906DFF;
 }
 
 .info-wrapper .el-range-editor /deep/ .el-range-input:nth-child(4) {

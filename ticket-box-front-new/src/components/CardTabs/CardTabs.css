@@ -48,3 +48,42 @@
 .card-tabs-wrapper .intros-wrapper .intro-wrapper p {
   margin-top: 10px;
 }
+
+.select-wrapper {
+  width: 100%;
+  text-align: center;
+}
+
+.select-wrapper ul {
+  position: relative;
+  display: inline;
+  margin-top: 42px;
+}
+
+.select-wrapper li {
+  /*width: auto;*/
+  position: relative;
+  display: inline;
+  /*width: 20px;*/
+}
+
+.el-carousel__button {
+  position: relative;
+  display: inline;
+  background-color: #FEC581;
+  opacity: 1;
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  line-height: 50px;
+  margin: 0 5px;
+}
+
+.el-carousel__button.is-active {
+  background-color: #906DFF;
+}
+
+.el-carousel__button:hover {
+  background-color: #906DFF;
+}
+

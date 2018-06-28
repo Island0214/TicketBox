@@ -211,6 +211,12 @@ public class ScheduleServiceImpl implements ScheduleService {
         return new ArrayList<>(cities);
     }
 
+
+    @Override
+    public List<Schedule> get3SchedulesByCity(String city) {
+        return scheduleRepository.findTop3ByCityAndTimeAfter(city,new Date());
+    }
+
     /**
      * 获得热门戏剧
      *

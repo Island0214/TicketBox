@@ -43,10 +43,16 @@ public interface ScheduleService {
 
     /**
      * 获得所有有巡演的城市
-     *
      * @return
      */
     List<String> getTourCities();
+
+    /**
+     * 获取一个城市的3个热门计划
+     * @param city
+     * @return
+     */
+    List<Schedule> get3SchedulesByCity(String city);
 
     /**
      * 获得热门戏剧
@@ -61,5 +67,4 @@ public interface ScheduleService {
      * @return
      */
     List<ScheduleBriefBean> getHotConcerts();
-
 }

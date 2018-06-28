@@ -323,4 +323,14 @@ public class VenueController {
     List<ScheduleBriefBean> getHotConcerts() {
         return scheduleService.getHotConcerts();
     }
+
+    /**
+     * 根据城市获取3个演出
+     *
+     * @return
+     */
+    @RequestMapping(value = "/citySchedules", method = RequestMethod.GET)
+    List<Schedule> getCitySchedule(String city) {
+        return scheduleService.get3SchedulesByCity(city);
+    }
 }

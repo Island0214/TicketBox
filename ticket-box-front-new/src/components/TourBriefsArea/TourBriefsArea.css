@@ -66,9 +66,10 @@
 .tour-briefs-wrapper  .chart-wrapper {
   position: absolute;
   top: 0px;
-  left: 880px;
+  left: 875px;
   right: 0px;
   bottom: 0px;
+  height: 265px;
   /*background-color: #FEC581;*/
 }
 
@@ -79,7 +80,7 @@
   border: none;
   line-height: 25px;
   color: #333;
-  margin: 10px 0 2px 0;
+  margin: 2px 0 1px 0;
   letter-spacing: 1px;
   font-weight: 600;
   white-space: nowrap;
