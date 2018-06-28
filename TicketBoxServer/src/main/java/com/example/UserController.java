@@ -218,14 +218,7 @@ public class UserController {
         return scheduleService.getScheduleById(schedule);
     }
 
-    /**
-     * 获得最新三个演出
-     * @return
-     */
-    @RequestMapping(value = "/schedule/all/", method = RequestMethod.POST)
-    Page<Schedule> findScheduleByPage(@RequestBody ScheduleSearchBean scheduleSearchBean) {
-        return scheduleService.findScheduleByPage(scheduleSearchBean);
-    }
+
 
     /**
      * 获得最新三个演出
@@ -318,5 +311,12 @@ public class UserController {
         return orderService.getUserStatistic(username);
     }
 
-
+    /**
+     * 演出搜索
+     * @return
+     */
+    @RequestMapping(value = "/schedule/search/", method = RequestMethod.POST)
+    Page<Schedule> findScheduleByPage(@RequestBody ScheduleSearchBean scheduleSearchBean) {
+        return scheduleService.findScheduleByPage(scheduleSearchBean);
+    }
 }

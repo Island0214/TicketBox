@@ -6,66 +6,80 @@ import java.util.Date;
  * Created by island on 2018/3/22.
  */
 public class ScheduleSearchBean {
-    private String name;
+    private String city;
+    private String category;
+    private Date startTime;
+    private Date endTime;
+    private String userInput;
+    private int pageNum;
+    private int pageSize;
 
-    private String type;
-
-    private int page;
-
-    private Date start;
-
-    private Date end;
-
-    public int getPage() {
-        return page;
-    }
-
-    public void setPage(int page) {
-        this.page = page;
+    public ScheduleSearchBean(String city, String category, Date startTime, Date endTime, String userInput, int pageNum, int pageSize) {
+        this.city = city;
+        this.category = category;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.userInput = userInput;
+        this.pageNum = pageNum;
+        this.pageSize = pageSize;
     }
 
     public ScheduleSearchBean() {
     }
 
-    public String getName() {
-        return name;
+    public String getCity() {
+        return city;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCity(String city) {
+        this.city = city;
     }
 
-    public String getType() {
-        return type;
+    public String getCategory() {
+        return category;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
-    public Date getStart() {
-        return start;
+    public Date getStartTime() {
+        return startTime;
     }
 
-    public void setStart(Date start) {
-        this.start = start;
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
     }
 
-    public Date getEnd() {
-        return end;
+    public Date getEndTime() {
+        return endTime;
     }
 
-    public void setEnd(Date end) {
-        this.end = end;
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
     }
 
-    @Override
-    public String toString() {
-        return "ScheduleSearchBean{" +
-                "name='" + name + '\'' +
-                ", type='" + type + '\'' +
-                ", start=" + start +
-                ", end=" + end +
-                '}';
+    public int getPageNum() {
+        return pageNum;
+    }
+
+    public void setPageNum(int pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public String getUserInput() {
+        return userInput;
+    }
+
+    public void setUserInput(String userInput) {
+        this.userInput = userInput;
     }
 }

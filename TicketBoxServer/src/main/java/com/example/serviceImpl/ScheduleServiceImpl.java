@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -144,18 +145,44 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public Page<Schedule> findScheduleByPage(ScheduleSearchBean scheduleSearchBean) {
-        Pageable pageable = new PageRequest(scheduleSearchBean.getPage(), 9);
-        Date now = new Date();
-        if (scheduleSearchBean.getStart().before(now)) {
-            scheduleSearchBean.setStart(now);
+    public Page<Schedule> findScheduleByPage(ScheduleSearchBean search) {
+        Sort sort = new Sort(Sort.Direction.ASC, "time");
+        Pageable pageable = new PageRequest(search.getPageNum() - 1, search.getPageSize(), sort);
+        Calendar calendar = Calendar.getInstance();
+        Date today = new Date();
+        calendar.setTime(today);
+        int year = calendar.get(Calendar.YEAR);
+
+        Date startTime = search.getStartTime();
+        Date endTime = search.getEndTime();
+        String city = search.getCity();
+        String category = search.getCategory();
+        String userInput = search.getUserInput();
+
+        if (city == null || city.equals("")) {
+            city = "";
+        }
+        if (category == null || category.equals("")) {
+            category = "";
+        }
+        if (userInput == null || userInput.equals("")) {
+            userInput = "";
         }
 
-        if (scheduleSearchBean.getEnd().before(now)) {
-            scheduleSearchBean.setEnd(now);
+        if (startTime == null && endTime == null) {
+            startTime = today;
+            calendar.set(Calendar.YEAR, year + 5);
+            endTime = calendar.getTime();
+        } else if (startTime != null && endTime != null) {
+            if (startTime.before(today)) {
+                startTime = today;
+            }
+            if (endTime.before(today)) {
+                endTime = today;
+            }
         }
-        Page<Schedule> schedulePage = scheduleRepository.findByParams(pageable, scheduleSearchBean.getName(), scheduleSearchBean.getType(), scheduleSearchBean.getStart(), scheduleSearchBean.getEnd());
-        return schedulePage;
+
+        return scheduleRepository.searchSchedules(pageable, city, category, startTime, endTime,userInput);
     }
 
     @Override
@@ -214,7 +241,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public List<Schedule> get3SchedulesByCity(String city) {
-        return scheduleRepository.findTop3ByCityAndTimeAfter(city,new Date());
+        return scheduleRepository.findTop3ByCityAndTimeAfter(city, new Date());
     }
 
     /**
