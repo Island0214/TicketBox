@@ -167,7 +167,7 @@ public class VenueServiceImpl implements VenueService {
         int max = scheduleRepository.maxOfScheduleId();
 
 
-        while (res.size()<6){
+        while (res.size()<12){
             int rand_index = min + new Random().nextInt(max-min);
 
             Schedule schedule = scheduleRepository.findById(rand_index);

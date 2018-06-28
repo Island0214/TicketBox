@@ -210,4 +210,10 @@ public class ScheduleServiceImpl implements ScheduleService {
         tourCityBeans.forEach(tourCityBean -> cities.add(tourCityBean.getCity()));
         return new ArrayList<>(cities);
     }
+
+    @Override
+    public List<Schedule> get3SchedulesByCity(String city) {
+
+        return scheduleRepository.findTop3ByCityAndTimeAfter(city,new Date());
+    }
 }

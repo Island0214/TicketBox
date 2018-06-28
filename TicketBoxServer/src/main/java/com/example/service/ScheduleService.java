@@ -46,4 +46,11 @@ public interface ScheduleService {
      * @return
      */
     List<String> getTourCities();
+
+    /**
+     * 获取一个城市的3个热门计划
+     * @param city
+     * @return
+     */
+    List<Schedule> get3SchedulesByCity(String city);
 }

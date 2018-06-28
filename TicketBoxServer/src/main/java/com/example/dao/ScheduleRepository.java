@@ -53,4 +53,6 @@ public interface ScheduleRepository extends JpaSpecificationExecutor<Schedule>, 
 
     @Query("select new com.example.bean.TourCityBean(s.schedule_id, s.city, s.time) from Schedule s")
     List<TourCityBean> findTourCity();
+
+    List<Schedule> findTop3ByCityAndTimeAfter(String city,Date time);
 }
