@@ -1,9 +1,13 @@
 import * as advertisementApi from '../../api/advertisement'
 // initial state
-const state = {}
+const state = {
+  searchContent: '21421424'
+}
 
 // getters
-const getters = {}
+const getters = {
+  searchContent: state => state.searchContent
+}
 
 // actions
 const actions = {

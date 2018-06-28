@@ -1,10 +1,10 @@
 <template>
   <div class="show-list-nav-wrapper">
     <h3>演出城市</h3>
-    <p v-if="locate !== ''" @click="curCity = cities.indexOf(locate)"><i class="el-icon-location"></i>推荐进入<span>{{ locate }}</span>站
+    <p v-if="locate !== ''" @click="setCity()"><i class="el-icon-location"></i>推荐进入<span>{{ locate }}</span>站
     </p>
     <div class="city-wrapper">
-      <div class="info-wrapper" :style="{height: cityWrapperHeight }">
+      <div class="info-wrapper" :style="{ height: cityWrapperHeight }">
         <button v-for="(city, index) in cities"
                 :key="index"
                 :class="[{'is-active': index === curCity}]"
@@ -63,13 +63,14 @@
 
 <script>
   import BMap from 'BMap'
+  import { mapActions } from 'vuex'
 
   export default {
     name: "ShowListNav",
     data() {
       return {
         locate: '',
-        cities: ['全部', '南京', '上海', '廣州', '深圳', '北京', '杭州', '香港', '台灣'],
+        cities: ['全部'],
         types: ['全部', '演唱会', '话剧', '音乐剧'],
         times: ['全部', '最近一周', '最近一个月'],
         cityWrapperHeight: '60px',
@@ -81,6 +82,9 @@
       }
     },
     methods: {
+      ...mapActions({
+        getTourCities: 'getTourCities'
+      }),
       setCityWrapperHeight: function () {
         if (this.arrowType === '更多') {
           this.cityWrapperHeight = 'auto'
@@ -88,6 +92,12 @@
         } else {
           this.cityWrapperHeight = '60px'
           this.arrowType = '更多'
+        }
+      },
+      setCity: function () {
+        this.curCity = this.cities.indexOf(this.locate)
+        if (this.curCity > 7) {
+          this.setCityWrapperHeight()
         }
       }
     },
@@ -144,6 +154,16 @@
 
       let myCity = new BMap.LocalCity();
       myCity.get(myFun);
+
+      this.getTourCities({
+        onSuccess: (data) => {
+          this.cities = this.cities.concat(data)
+          // console.log(this.cities)
+        },
+        onError: () => {
+
+        }
+      })
 
       // 初试时间
       // let now = new Date()

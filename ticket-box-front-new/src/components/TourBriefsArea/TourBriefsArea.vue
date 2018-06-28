@@ -27,7 +27,7 @@
           <el-tab-pane label="热门戏剧" style="height: 168px;">
             <ul>
               <li v-for="(drama, index) in dramas" :key="index">
-                <a><span>{{ index + 1}}</span>{{ drama.title }}</a>
+                <a><span>{{ index + 1}}</span>{{ drama.scheduleName }}</a>
               </li>
             </ul>
           </el-tab-pane>
@@ -38,7 +38,7 @@
           <el-tab-pane label="热门音乐剧" style="height: 170px;">
             <ul>
               <li v-for="(drama, index) in dramas" :key="index">
-                <a><span>{{ index + 1}}</span>{{ drama.title }}</a>
+                <a><span>{{ index + 1}}</span>{{ drama.scheduleName }}</a>
               </li>
             </ul>
           </el-tab-pane>
@@ -59,17 +59,7 @@
     name: "TourBriefsArea",
     data() {
       return {
-        dramas: [{
-          title: 'sadasdasdasdasdsafsafsafsfsaf'
-        }, {
-          title: 'sadasdasdasdasd'
-        }, {
-          title: 'sadasdasdasdasd'
-        }, {
-          title: 'sadasdasdasdasd'
-        }, {
-          title: 'sadasdasdasdasd'
-        }],
+        dramas: [],
         tours: [],
         melodramas: []
       }
@@ -98,7 +88,7 @@
       this.getHotOperas({
         onSuccess: (data) => {
           this.dramas = data
-          console.log(data)
+          // console.log(data)
         },
         onError: () => {
 
@@ -108,7 +98,7 @@
       this.getHotConcerts({
         onSuccess: (data) => {
           this.melodramas = data
-          console.log(data)
+          // console.log(data)
         },
         onError: () => {
 

@@ -81,12 +81,13 @@
   line-height: 25px;
   color: #333;
   margin: 2px 0 1px 0;
-  letter-spacing: 1px;
+  /*letter-spacing: 1px;*/
   font-weight: 600;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   width: 100%;
+  font-size: 14px;
 }
 
 .tour-briefs-wrapper  .chart-wrapper a:hover {

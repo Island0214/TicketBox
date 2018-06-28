@@ -11,14 +11,14 @@
         <el-carousel indicator-position="none" arrow="never" :autoplay="false" ref="carousel">
           <el-carousel-item>
             <el-row :gutter="20" style="margin: 0">
-              <el-col :xs="4" :sm="4" :md="4" :lg="4" v-for="(concert, index) in hots" :key="index">
+              <el-col :xs="4" :sm="4" :md="4" :lg="4" v-for="(concert, index) in hots" :key="index" v-if="index >= 6">
                 <single-brief-concert :info="concert"></single-brief-concert>
               </el-col>
             </el-row>
           </el-carousel-item>
           <el-carousel-item>
             <el-row :gutter="20" style="margin: 0">
-              <el-col :xs="4" :sm="4" :md="4" :lg="4" v-for="(concert, index) in hots" :key="6 + index">
+              <el-col :xs="4" :sm="4" :md="4" :lg="4" v-for="(concert, index) in hots" :key="6 + index" v-if="index < 6">
                 <single-brief-concert :info="concert"></single-brief-concert>
               </el-col>
             </el-row>
@@ -100,16 +100,10 @@
     mounted() {
       this.getHotSchedules({
         onSuccess: (data) => {
-          // console.log(data)
+          console.log(data)
           this.hots = data
         }
       })
-      // this.getComingSchedules({
-      //   onSuccess: (data) => {
-      //     // console.log(data)
-      //     this.comings = data
-      //   }
-      // })
     }
   }
 </script>
