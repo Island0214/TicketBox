@@ -43,6 +43,8 @@ public class Schedule {
 
     private String city;
 
+    private int hotValue;
+
     public Schedule() {
     }
 
@@ -132,6 +134,14 @@ public class Schedule {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public int getHotValue() {
+        return hotValue;
+    }
+
+    public void setHotValue(int hotValue) {
+        this.hotValue = hotValue;
     }
 
     @Override

@@ -11,15 +11,18 @@ public class ScheduleSearchBean {
     private Date startTime;
     private Date endTime;
     private String userInput;
+    // latest, newest, hottest
+    private String sort;
     private int pageNum;
     private int pageSize;
 
-    public ScheduleSearchBean(String city, String category, Date startTime, Date endTime, String userInput, int pageNum, int pageSize) {
+    public ScheduleSearchBean(String city, String category, Date startTime, Date endTime, String userInput, String sort, int pageNum, int pageSize) {
         this.city = city;
         this.category = category;
         this.startTime = startTime;
         this.endTime = endTime;
         this.userInput = userInput;
+        this.sort = sort;
         this.pageNum = pageNum;
         this.pageSize = pageSize;
     }
@@ -81,5 +84,13 @@ public class ScheduleSearchBean {
 
     public void setUserInput(String userInput) {
         this.userInput = userInput;
+    }
+
+    public String getSort() {
+        return sort;
+    }
+
+    public void setSort(String sort) {
+        this.sort = sort;
     }
 }
