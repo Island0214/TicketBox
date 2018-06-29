@@ -146,7 +146,15 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public Page<Schedule> findScheduleByPage(ScheduleSearchBean search) {
-        Sort sort = new Sort(Sort.Direction.ASC, "time");
+        String sortWay = search.getSort();
+        Sort sort = null;
+        if (sortWay == null || sortWay.equals("") || sortWay.equals("hottest")) {
+            sort = new Sort(Sort.Direction.DESC, "hotValue");
+        } else if (sortWay.equals("newest")) {
+            sort = new Sort(Sort.Direction.DESC, "schedule_id");
+        } else {
+            sort = new Sort(Sort.Direction.ASC, "time");
+        }
         Pageable pageable = new PageRequest(search.getPageNum() - 1, search.getPageSize(), sort);
         Calendar calendar = Calendar.getInstance();
         Date today = new Date();
@@ -158,6 +166,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         String city = search.getCity();
         String category = search.getCategory();
         String userInput = search.getUserInput();
+
 
         if (city == null || city.equals("")) {
             city = "";
@@ -182,7 +191,7 @@ public class ScheduleServiceImpl implements ScheduleService {
             }
         }
 
-        return scheduleRepository.searchSchedules(pageable, city, category, startTime, endTime,userInput);
+        return scheduleRepository.searchSchedules(pageable, city, category, startTime, endTime, userInput);
     }
 
     @Override
