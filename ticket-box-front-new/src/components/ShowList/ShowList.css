@@ -2,12 +2,22 @@
   position: relative;
   display: inline-block;
   top: 0;
-  left: 20px;
+  left: 320px;
   right: 270px;
   width: 610px;
   height: auto;
+  margin-bottom: 30px;
+  /*min-height: 800px;*/
   /*width: 90%;*/
   /*overflow: visible;*/
+}
+
+.show-list-content-wrapper .card-tabs-wrapper {
+  /*min-height: 800px;*/
+}
+
+.el-tabs--border-card {
+  /*min-height: 1000px;*/
 }
 
 /deep/ .el-tabs--border-card > .el-tabs__header .el-tabs__item {
@@ -48,4 +58,77 @@
   position: relative;
   display: inline-block;
   width: 100%;
+}
+
+.transition-box {
+  color: #906DFF;
+  letter-spacing: 2px;
+  font-weight: 600;
+  box-sizing: border-box;
+  border-bottom: 1px solid #dcdfe6;
+  padding: 10px;
+  padding-top: 0;
+}
+
+.transition-box i {
+  color: #FEC581;
+  margin-right: 20px;
+}
+
+.show-list-content-wrapper .pagination-wrapper {
+  padding: 20px;
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+}
+
+.el-carousel /deep/ .el-carousel__container {
+  height: 630px;
+}
+.select-wrapper {
+  width: 100%;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.select-wrapper ul {
+  position: relative;
+  display: inline;
+  margin-top: 42px;
+}
+
+.select-wrapper li {
+  /*width: auto;*/
+  position: relative;
+  display: inline;
+  /*width: 20px;*/
+}
+
+.el-carousel__button {
+  position: relative;
+  display: inline;
+  background-color: #FEC581;
+  opacity: 1;
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  line-height: 50px;
+  margin: 0 5px;
+}
+
+.el-carousel__button.is-active {
+  background-color: #906DFF;
+}
+
+.el-carousel__button:hover {
+  background-color: #906DFF;
+}
+
+.ad-wrapper {
+  padding: 20px 0 0 0;
+}
+
+.ad-wrapper h1 {
+
 }

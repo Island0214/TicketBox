@@ -1,17 +1,19 @@
 .show-wrapper {
   position: relative;
-  display: inline-block;
+  /*display: inline-;*/
+  display:  -webkit-box;
   border-bottom: 1px solid #dcdfe6;
-  padding: 10px;
+  padding: 20px;
   width: 100%;
 }
 
 .show-wrapper .img-wrapper{
   position: relative;
-  display: inline-block;
+  /*display: inline-block;*/
   width: 110px;
   height: 150px;
-  margin-top: 5px;
+  /*margin-top: 5px;*/
+  cursor: pointer;
 }
 
 .show-wrapper .img-wrapper img {
@@ -21,3 +23,50 @@
   transform: translate(-50%, -50%);
   width: 100%;height: 100%;
 }
+
+.show-wrapper .info-wrapper {
+  position: relative;
+  /*display: inline;*/
+  width: 450px;
+  /*background-color: #906DFF;*/
+  height: 150px;
+  padding: 0 10px;
+}
+
+.show-wrapper .info-wrapper h5 {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  font-size: 18px;
+  line-height: 20px;
+  height: 40px;
+  overflow: hidden;
+  /*white-space: ;*/
+  word-break: break-all;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  cursor: pointer;
+}
+
+.show-wrapper .info-wrapper h5:hover {
+  color: #FEC581;
+}
+
+.show-wrapper .info-wrapper i {
+  color: #FEC581;
+  font-weight: 600;
+  margin-right: 10px;
+}
+
+.show-wrapper .info-wrapper p {
+  font-size: 12px;
+  line-height: 20px;
+}
+
+.show-wrapper .info-wrapper h6{
+  color: #FEC581;
+  margin-top: 15px;
+}
+

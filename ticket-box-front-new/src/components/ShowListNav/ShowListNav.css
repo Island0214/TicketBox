@@ -8,6 +8,8 @@
   padding-bottom: 0;
   min-width: 300px;
   margin-bottom: 20px;
+  position: fixed;
+  width: 300px;
 }
 
 .show-list-nav-wrapper p {
