@@ -9,6 +9,7 @@ import coupon from './modules/coupon'
 import order from './modules/order'
 import statistics from './modules/statistics'
 import advertisement from './modules/advertisement'
+import show from './modules/show'
 
 Vue.use(Vuex)
 
@@ -24,7 +25,8 @@ export default new Vuex.Store({
         coupon,
         order,
         statistics,
-        advertisement
+        advertisement,
+      show
     },
     strict: debug
     // plugins: debug ? [createLogger()] : []

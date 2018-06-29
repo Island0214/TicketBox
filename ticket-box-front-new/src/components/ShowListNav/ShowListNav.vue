@@ -63,7 +63,7 @@
 
 <script>
   import BMap from 'BMap'
-  import { mapActions } from 'vuex'
+  import {mapGetters, mapMutations, mapActions} from 'vuex'
 
   export default {
     name: "ShowListNav",
@@ -81,7 +81,16 @@
         time: []
       }
     },
+    computed: {
+      ...mapGetters({
+        searchContent: 'searchContent',
+        type: 'type'
+      })
+    },
     methods: {
+      ...mapMutations({
+        setSearchParams: 'setSearchParams'
+      }),
       ...mapActions({
         getTourCities: 'getTourCities'
       }),
@@ -99,6 +108,21 @@
         if (this.curCity > 7) {
           this.setCityWrapperHeight()
         }
+      },
+      modifyParams: function () {
+        let start = ''
+        let end = ''
+        if (this.curTime !== 0) {
+          start = this.time[0]
+          end = this.time[1]
+        }
+        this.setSearchParams({
+          searchContent: this.searchContent,
+          city: this.cities[this.curCity],
+          type: this.types[this.curType],
+          startTime: start,
+          endTime: end
+        })
       }
     },
     watch: {
@@ -114,13 +138,11 @@
               this.curTime = -1
             }
           }
-        }
+          this.modifyParams()
+        },
+        deep: true
       },
       curTime: function () {
-        // if (this.curTime === -1) {
-        //   this.time = []
-        //   return
-        // }
         let start = new Date();
         let end = new Date();
         switch (this.curTime) {
@@ -128,18 +150,22 @@
             this.time = []
             break;
           case 1:
-            // console.log(1)
             end.setTime(end.getTime() + 3600 * 1000 * 24 * 7)
             this.time = [start, end]
             break;
           case 2:
-            // console.log(2)
             end.setTime(end.getTime() + 3600 * 1000 * 24 * 30);
             this.time = [start, end]
             break;
-          // monthLayer.setWe(monthLayer.getWeak() + 1)
-          // this.time.push(monthLayer)
         }
+
+        this.modifyParams()
+      },
+      curCity: function () {
+        this.modifyParams()
+      },
+      curType: function () {
+        this.modifyParams()
       }
     },
     mounted() {
@@ -165,12 +191,12 @@
         }
       })
 
-      // 初试时间
-      // let now = new Date()
-      // this.time.push(now)
-      // let monthLayer = new Date()
-      // monthLayer.setMonth(monthLayer.getMonth()+1)
-      // this.time.push(monthLayer)
+      if (this.types.indexOf(this.type) !== -1) {
+        this.curType = this.types.indexOf(this.type)
+      } else {
+        this.curType = 0
+      }
+      document.documentElement.scrollTop = document.body.scrollTop = 0;
     }
   }
 </script>

@@ -3,8 +3,11 @@
     <div class="card-tabs-wrapper">
       <el-tabs type="border-card">
         <el-tab-pane label="最近开场">
-          <div class="search-content-wrapper">
+          <div class="search-content-wrapper" v-if="searchContent !== ''">
             <h4>“ <span>{{ searchContent }}</span> ”的搜索结果：</h4>
+          </div>
+          <div class="shows-wrapper">
+            <brief-show></brief-show>
           </div>
         </el-tab-pane>
         <el-tab-pane label="最新上架">
@@ -18,9 +21,13 @@
 
 <script>
   import {mapGetters} from 'vuex'
+  import BriefShow from './BriefShow/BriefShow'
 
   export default {
     name: "ShowList",
+    components: {
+      BriefShow
+    },
     computed: {
       ...mapGetters({
         searchContent: 'searchContent'

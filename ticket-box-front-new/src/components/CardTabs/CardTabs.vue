@@ -46,7 +46,7 @@
     <div class="intros-wrapper">
       <el-row :gutter="20" style="margin: 0">
         <el-col :xs="8" :sm="8" :md="8" :lg="8" v-for="(intro, index) in intros" :key="index" style="padding: 0">
-          <div class="intro-wrapper">
+          <div class="intro-wrapper" @click="toAllShows(intro.title)">
             <img :src="intro.img"/>
             <h1>{{ intro.title.split('').join('   ') }}</h1>
             <p>{{ intro.intro }}</p>
@@ -58,7 +58,7 @@
 </template>
 
 <script>
-  import {mapActions} from 'vuex'
+  import { mapMutations, mapActions } from 'vuex'
   import SingleBriefConcert from '../SingleBriefConcert/SingleBriefConcert'
 
   /* eslint-disable */
@@ -88,6 +88,9 @@
       }
     },
     methods: {
+      ...mapMutations({
+        setSearchParams: 'setSearchParams'
+      }),
       ...mapActions({
         getHotSchedules: 'getHotSchedules',
         getComingSchedules: 'getComingSchedules'
@@ -95,6 +98,17 @@
       selectPage: function (item) {
         this.curIndex = item
         this.$refs.carousel.setActiveItem(item - 1)
+      },
+      toAllShows: function (type) {
+        this.setSearchParams({
+          searchContent: '',
+          city: '',
+          type: type,
+          startTime: '',
+          endTime: ''
+        })
+        window.open('/#/shows', '__blank')
+        // this.$router.push('/shows', '')
       }
     },
     mounted() {

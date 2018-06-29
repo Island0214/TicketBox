@@ -5,11 +5,11 @@
         <transition name="el-fade-in-linear">
           <div class="welcome-wrapper" v-show="showInfo">
             <h1>用票盒<span style="color: #906DFF;">即刻购票</span></h1>
-            <h1>{{ ads[curIndex].title  }}</h1>
+            <h1>{{ ads[curIndex].title }}</h1>
             <!--<h1><span style="color: #FEC581;">{{ schedules[curIndex].artist  }}</span>与您相约</h1>-->
             <h1><span style="color: #FEC581;">TICKET BOX</span>与您相约</h1>
             <el-button class="el-button">立即购票</el-button>&nbsp;&nbsp;&nbsp;或&nbsp;&nbsp;
-            <a>查看更多</a>
+            <a @click="toAllShows()">查看更多</a>
           </div>
         </transition>
       </el-col>
@@ -40,7 +40,7 @@
 </template>
 
 <script>
-  import {mapActions} from 'vuex'
+  import { mapMutations, mapActions } from 'vuex'
 
   /* eslint-disable */
   export default {
@@ -54,6 +54,9 @@
       }
     },
     methods: {
+      ...mapMutations({
+        setSearchParams: 'setSearchParams'
+      }),
       ...mapActions({
         getAds: 'getAds',
         getScheduleBasicInfoAction: 'getScheduleBasicInfo'
@@ -76,6 +79,17 @@
       },
       next: function () {
         this.$refs.carousel.next()
+      },
+      toAllShows: function () {
+        this.setSearchParams({
+          searchContent: '',
+          city: '',
+          type: '',
+          startTime: '',
+          endTime: ''
+        })
+        window.open('/#/shows', '__blank')
+        // this.$router.push('/shows', '')
       }
     },
     mounted() {

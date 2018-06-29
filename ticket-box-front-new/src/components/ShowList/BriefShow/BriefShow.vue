@@ -1,5 +1,9 @@
 <template>
-
+  <div class="show-wrapper">
+    <div class="img-wrapper">
+      <img src="../../../assets/poster1.jpg">
+    </div>
+  </div>
 </template>
 
 <script>

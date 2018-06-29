@@ -1,13 +1,13 @@
 .show-list-content-wrapper {
-  position: absolute;
+  position: relative;
   display: inline-block;
   top: 0;
-  left: 320px;
+  left: 20px;
   right: 270px;
-  /*height: 200px;*/
-  /*border: 1px solid #dcdfe6;*/
-  /*box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12), 0 0 6px 0 rgba(0, 0, 0, 0.04);*/
-  background-color: white;
+  width: 610px;
+  height: auto;
+  /*width: 90%;*/
+  /*overflow: visible;*/
 }
 
 /deep/ .el-tabs--border-card > .el-tabs__header .el-tabs__item {
@@ -42,4 +42,10 @@
 .show-list-content-wrapper .search-content-wrapper h4 span {
   color: #FEC581;
   font-size: 26px;
+}
+
+.show-list-content-wrapper .shows-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
 }
