@@ -94,6 +94,18 @@ const actions = {
         onSuccess(data)
       }
     })
+  },
+  'getCitySchedule'({state, commit}, {onSuccess, onError, city}) {
+    advertisementApi.getCitySchedule((data) => {
+      // console.log(data)
+      if (data.error !== undefined) {
+        // console.log('error')
+        onError()
+      } else {
+        // console.log('success')
+        onSuccess(data)
+      }
+    }, city)
   }
 }
 

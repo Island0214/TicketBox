@@ -127,3 +127,22 @@ export function getTourCities (callback) {
     .catch(function (error) {
     })
 }
+
+export function getCitySchedule (callback, city) {
+  console.log('getCitySchedule')
+  // console.log('login')
+  // console.log('/venue/citySchedules?city=' + city)
+  axios.get('/venue/citySchedules?city=' + city,
+    {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+  )
+    .then(function (response) {
+      // console.log(response.data)
+      callback(response.data)
+    })
+    .catch(function (error) {
+    })
+}

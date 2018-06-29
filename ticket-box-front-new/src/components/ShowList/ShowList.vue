@@ -1,23 +1,32 @@
 <template>
-    <div class="show-list-content-wrapper">
-      <div class="card-tabs-wrapper">
-        <el-tabs type="border-card">
-          <el-tab-pane label="特别推荐">
+  <div class="show-list-content-wrapper">
+    <div class="card-tabs-wrapper">
+      <el-tabs type="border-card">
+        <el-tab-pane label="最近开场">
+          <div class="search-content-wrapper">
+            <h4>“ <span>{{ searchContent }}</span> ”的搜索结果：</h4>
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="最新上架">
 
-          </el-tab-pane>
-          <el-tab-pane label="即将开演">
+        </el-tab-pane>
+      </el-tabs>
 
-          </el-tab-pane>
-        </el-tabs>
-
-      </div>
     </div>
+  </div>
 </template>
 
 <script>
-    export default {
-        name: "ShowList"
+  import {mapGetters} from 'vuex'
+
+  export default {
+    name: "ShowList",
+    computed: {
+      ...mapGetters({
+        searchContent: 'searchContent'
+      })
     }
+  }
 </script>
 
 <style scoped src="./ShowList.css">

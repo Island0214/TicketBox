@@ -155,7 +155,7 @@ export function getSchedulePriceInfo (callback, schedule) {
     }
   )
     .then(function (response) {
-      console.log(response.data)
+      // console.log(response.data)
       callback(response.data)
     })
     .catch(function (error) {

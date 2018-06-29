@@ -14,7 +14,7 @@
           >
             <div class="text-wrapper">
               <h1>{{ tour.artist }}</h1>
-              <p>asdfdghggdasfdghjgdfsdafghfsdghvcxzdafsgdfhj</p>
+              <p>{{ cities }}</p>
             </div>
 
           </div>
@@ -34,15 +34,24 @@
   export default {
     props: ['width', 'height', 'left', 'top', 'tour'],
     name: "TourBrief",
-    data () {
+    data() {
       return {
-        showInfo: false
+        showInfo: false,
+        cities: ''
       }
     },
     methods: {
-      setInfoStatus (status) {
+      setInfoStatus(status) {
         this.showInfo = status
       }
+    },
+    mounted() {
+      for (let i = 0; i < this.tour.cities.length; i++) {
+        console.log(this.tour.cities[i].city)
+        this.cities = this.cities + this.tour.cities[i].city + '、'
+      }
+      // this.cities.
+      this.cities = this.cities.substring(0, this.cities.length - 1)
     }
   }
 </script>

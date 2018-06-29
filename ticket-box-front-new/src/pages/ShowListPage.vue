@@ -9,6 +9,8 @@
       </el-col>
       <el-col :xs="6" :sm="6" :md="4" :lg="4" style="padding: 0;">
         <!--<show-list-nav></show-list-nav>-->
+        <advertisement-carousel></advertisement-carousel>
+        <advertisement-list-right></advertisement-list-right>
       </el-col>
     </el-row>
 
@@ -18,12 +20,16 @@
 <script>
   import ShowListNav from '../components/ShowListNav/ShowListNav'
   import ShowList from '../components/ShowList/ShowList'
+  import AdvertisementListRight from '../components/AdvertisementListRight/AdvertisementListRight'
+  import AdvertisementCarousel from '../components/AdvertisementCarousel/AdvertisementCarousel'
 
   export default {
     name: "ShowListPage",
     components: {
       ShowListNav,
-      ShowList
+      ShowList,
+      AdvertisementListRight,
+      AdvertisementCarousel
     }
   }
 </script>
@@ -32,7 +38,7 @@
   .show-list-wrapper {
     width: 100%;
     padding: 0 120px;
-    min-height: 800px;
+    min-height: 900px;
     margin-top: 70px;
   }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="carousel-area-wrapper">
+  <div class="carousel-area-wrapper" v-if="this.ads.length === 5">
     <el-row :gutter="20" style="margin: 0">
       <el-col :xs="10" :sm="10" :md="10" :lg="10" style="min-height: 100px;">
         <transition name="el-fade-in-linear">
