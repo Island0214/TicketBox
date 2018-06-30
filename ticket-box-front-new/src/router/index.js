@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import HomePage from '../pages/HomePage.vue'
 import ShowListPage from '../pages/ShowListPage.vue'
+import ShowPage from '../pages/ShowPage.vue'
 
 Vue.use(Router)
 
@@ -16,6 +17,11 @@ export default new Router({
       path: '/shows',
       name: 'ShowListPage',
       component: ShowListPage
+    },
+    {
+      path: '/show/:id',
+      name: 'ShowPage',
+      component: ShowPage
     }
   ]
 })

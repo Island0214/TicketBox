@@ -47,7 +47,7 @@
     },
     mounted() {
       for (let i = 0; i < this.tour.cities.length; i++) {
-        console.log(this.tour.cities[i].city)
+        // console.log(this.tour.cities[i].city)
         this.cities = this.cities + this.tour.cities[i].city + '、'
       }
       // this.cities.

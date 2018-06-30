@@ -52,11 +52,15 @@
         this.$router.push('/shows')
       },
       setActiveIndex: function (path) {
-        switch (path) {
-          case '/':
+        let p = path.split('/')[1]
+        switch (p) {
+          case '':
             this.activeIndex = '0'
             break;
-          case '/shows':
+          case 'shows':
+            this.activeIndex = '1'
+            break;
+          case 'show':
             this.activeIndex = '1'
             break;
         }

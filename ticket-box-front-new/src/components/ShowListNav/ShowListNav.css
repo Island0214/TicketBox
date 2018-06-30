@@ -136,3 +136,20 @@
   left: 0;
 
 }
+
+.show-list-nav-wrapper .breadcrumb-wrapper {
+  padding: 10px 20px;
+  background-color: #f5f7fa;
+  border-bottom: 1px solid #dcdfe6;
+  margin: -20px;
+  margin-bottom: 20px;
+}
+
+.show-list-nav-wrapper .breadcrumb-wrapper .el-breadcrumb {
+  font-size: 16px;
+}
+
+
+.show-list-nav-wrapper .breadcrumb-wrapper a {
+  border-bottom: 0;
+}

@@ -1,10 +1,10 @@
 <template>
   <div class="show-wrapper" v-if="schedule !== ''">
-    <div class="img-wrapper">
+    <div class="img-wrapper" @click="openShow">
       <img :src="show.poster">
     </div>
     <div class="info-wrapper">
-      <h5>【{{ show.city }}】{{ show.schedule }}</h5>
+      <h5 @click="openShow">【{{ show.city }}】{{ show.schedule }}</h5>
       <p><i class="el-icon-service"></i>演出者：{{ show.artist }}</p>
       <p><i class="el-icon-news"></i>演出类型：{{ show.type }}</p>
       <p><i class="el-icon-location-outline"></i>演出地点：{{ schedule.venueName }}</p>
@@ -27,7 +27,10 @@
     methods: {
       ...mapActions({
         getSchedulePriceInfo: 'getSchedulePriceInfo'
-      })
+      }),
+      openShow: function () {
+        window.open('/#/show/' + this.show.schedule_id, '__blank')
+      }
     },
     mounted () {
       this.getSchedulePriceInfo({

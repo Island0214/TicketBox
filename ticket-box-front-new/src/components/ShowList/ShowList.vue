@@ -9,7 +9,7 @@
               <!--<div class="transition-box">el-collapse-transition</div>-->
             </div>
           </el-collapse-transition>
-          <div class="search-content-wrapper" v-if="searchContent !== ''">
+          <div class="search-content-wrapper" v-if="searchContent !== '' && !showLoading">
             <h4>“ <span>{{ searchContent }}</span> ”的搜索结果：</h4>
           </div>
           <div class="shows-wrapper">
@@ -31,7 +31,7 @@
             >
             </el-pagination>
           </div>
-          <div class="ad-wrapper" v-if="shows.length < 6">
+          <div class="ad-wrapper" v-if="hots.length > 0">
             <h3>为您推荐更多其他演出</h3>
             <el-carousel indicator-position="none" arrow="never" :autoplay="false" ref="carousel">
               <el-carousel-item>

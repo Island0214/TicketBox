@@ -10,7 +10,7 @@
           <p>{{ item.title }}</p>
 
         </div>
-        <div class="invisible-wrapper">
+        <div class="invisible-wrapper" @click="openShow(item.schedule_id)">
 
         </div>
       </el-carousel-item>
@@ -46,12 +46,23 @@
       changePic: function (index1, index2) {
         // console.log(index1)
         // this.showInfo = false
+        // if (index1 === ) {
+
+        // }
+        if (index1 === 0) {
+          index1 = 5
+        }
         this.curIndex = index1
+        // console.log(index1)
       },
       selectPic: function (item) {
         this.curIndex = item
         this.$refs.carousel.setActiveItem(item)
         // console.log(item)
+      },
+      openShow: function (id) {
+        console.log(id)
+        window.open('/#/show/' + id, '__blank')
       }
     },
     mounted() {

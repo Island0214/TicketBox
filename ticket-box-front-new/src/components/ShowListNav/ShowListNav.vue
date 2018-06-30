@@ -1,5 +1,11 @@
 <template>
   <div class="show-list-nav-wrapper">
+    <div class="breadcrumb-wrapper">
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item>演出</el-breadcrumb-item>
+      </el-breadcrumb>
+    </div>
+
     <h3>演出城市</h3>
     <p v-if="locate !== ''" @click="setCity()"><i class="el-icon-location"></i>推荐进入<span>{{ locate }}</span>站
     </p>

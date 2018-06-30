@@ -1,0 +1,195 @@
+.show-info-wrapper {
+  position: relative;
+  /*display:  -webkit-box;*/
+  /*width: 100%;*/
+  /*height: 100px;*/
+  border: 1px solid #dcdfe6;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12), 0 0 6px 0 rgba(0, 0, 0, 0.04);
+  top: 0;
+  left: 0;
+  /*right: 270px;*/
+  width: 930px;
+  height: auto;
+  /*margin-bottom: 30px;*/
+  background-color: white;
+  /*min-height: 800px;*/
+  padding: 20px;
+}
+
+/deep/ .el-tabs--border-card > .el-tabs__header .el-tabs__item {
+  width: 100%;
+  text-align: center;
+  font-weight: 600;
+  /*font-size: 16px;*/
+  height: 60px;
+  line-height: 60px;
+  font-size: 16px;
+
+}
+
+/deep/ .el-tabs--border-card > .el-tabs__header .el-tabs__item.is-active {
+  border-top: 5px solid #906DFF;
+  /*border-bottom: 5px solid #ffffff;*/
+  height: 64px;
+}
+
+.breadcrumb-wrapper {
+  padding: 20px 20px;
+  background-color: #f5f7fa;
+  border-bottom: 1px solid #dcdfe6;
+  margin: -20px;
+  margin-bottom: 20px;
+  /*width: 100%;*/
+}
+
+.breadcrumb-wrapper .el-breadcrumb {
+  font-size: 16px;
+
+}
+
+
+.breadcrumb-wrapper a {
+  border-bottom: 0;
+}
+
+.show-info-wrapper .body-wrapper {
+  position: relative;
+  width: 100%;
+  display:  -webkit-box;
+}
+
+.show-info-wrapper .body-wrapper  .img-wrapper{
+  position: relative;
+  /*display: inline-block;*/
+  width: 270px;
+  height: 380px;
+  /*margin-top: 5px;*/
+  /*background-color: #FEC581;*/
+  cursor: pointer;
+}
+
+.show-info-wrapper .body-wrapper  .img-wrapper img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;height: 100%;
+}
+
+.show-info-wrapper .body-wrapper  .info-wrapper {
+  position: relative;
+  /*display: inline;*/
+  width: 630px;
+  /*background-color: #906DFF;*/
+  /*height: 150px;*/
+  padding: 0 10px;
+}
+
+.show-info-wrapper .body-wrapper  .info-wrapper i {
+  color: #FEC581;
+  font-weight: 600;
+  margin-right: 20px;
+}
+
+.show-info-wrapper .body-wrapper  .info-wrapper i img {
+  width: 16px;
+}
+
+.show-info-wrapper .body-wrapper  .info-wrapper h1 {
+  height: 60px;
+  line-height: 30px;
+  letter-spacing: 1px;
+  margin: 0 20px;
+}
+
+.show-info-wrapper .body-wrapper  .info-wrapper p {
+  margin: 15px;
+}
+
+.show-info-wrapper .body-wrapper  .info-wrapper .price-button {
+  border-radius: 0;
+  font-size: 16px;
+  margin-right: 10px;
+  padding: 5px 20px;
+  background-color: white;
+  border: 1px solid #eee;
+  width: 100px;
+  cursor: pointer;
+  outline: none;
+  margin-top: -10px;
+  color: #666666;
+  /*margin-top: 5px;*/
+}
+
+.show-info-wrapper .body-wrapper  .info-wrapper .price-button.is-active {
+  border: 2px solid #FEC581;
+}
+
+.show-info-wrapper .body-wrapper  .info-wrapper .price-button:hover {
+  color: #FEC581;
+}
+
+.show-info-wrapper .body-wrapper  .info-wrapper .warning-wrapper {
+  padding: 0 15px;
+  margin-top: 30px;
+}
+
+.show-info-wrapper .body-wrapper  .info-wrapper .warning-wrapper i {
+  font-size: 20px;
+  margin: 0;
+  color: #906DFF;
+}
+
+.show-info-wrapper .body-wrapper  .info-wrapper .warning-wrapper h4 {
+  position: relative;
+  display: inline-block;
+}
+
+.intro-wrapper {
+  position: relative;
+  display: inline-block;
+  border: 1px solid #dcdfe6;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12), 0 0 6px 0 rgba(0, 0, 0, 0.04);
+  padding: 20px;
+  /*border-top: 1px solid #dcdfe6;*/
+  margin-top: 20px;
+  /*padding: 10px;*/
+  /*width: 100%;*/
+  word-break: break-all;
+  width: 930px;
+  margin-bottom: 20px;
+}
+
+.intro-wrapper pre {
+  margin-top: 20px;
+  width: 100%;
+  /*word-break: break-all;*/
+  overflow: auto;
+  white-space: pre-wrap;
+  background-color: #fff;
+  border: none;
+}
+
+.el-steps .el-step /deep/ .el-step__head.is-success, /deep/ .el-step__main .el-step__title.is-success {
+  color: #333333;
+  border-color: #333;
+  font-weight: 600;
+}
+
+.el-steps .el-step /deep/ .el-step__head.is-process, /deep/ .el-step__main .el-step__title.is-process {
+  color: #906DFF;
+  border-color: #906DFF;
+  font-weight: 600;
+}
+
+.show-info-wrapper .body-wrapper  .info-wrapper .el-button {
+  margin-left: 15px;
+}
+/deep/ .el-breadcrumb__item {
+  font-size: 18px;
+}
+
+/deep/ .el-breadcrumb__item:last-child .el-breadcrumb__inner, .el-breadcrumb__item:last-child .el-breadcrumb__inner:hover, .el-breadcrumb__item:last-child .el-breadcrumb__inner a, .el-breadcrumb__item:last-child .el-breadcrumb__inner a:hover {
+  color: #906DFF;
+  font-weight: 600;
+}
