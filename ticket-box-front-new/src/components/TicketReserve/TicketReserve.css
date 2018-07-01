@@ -1,0 +1,73 @@
+.el-dialog__wrapper /deep/  .el-dialog /deep/ .el-dialog__header {
+  /*background-color: #eee;*/
+  /*padding: 20px;*/
+  padding: 10px 20px;
+  background-color: #f5f7fa;
+  border-bottom: 1px solid #dcdfe6;
+}
+
+.el-dialog__wrapper /deep/  .el-dialog /deep/ .el-dialog__header i {
+  font-size: 20px;
+  position: absolute;
+  right: 0;
+  top: -5px;
+  margin: 0;
+}
+
+.el-dialog__wrapper /deep/ .el-dialog /deep/ .el-dialog__body {
+  padding-bottom: 0;
+}
+
+.ticket-reserve-wrapper {
+}
+
+.ticket-reserve-wrapper p {
+  margin-bottom: 15px;
+}
+
+.ticket-reserve-wrapper p span {
+  color: #FEC581;
+  font-size: 20px;
+}
+
+.type-wrapper {
+  border: 1px solid #dcdfe6;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12), 0 0 6px 0 rgba(0, 0, 0, 0.04);
+  width: 600px;
+  /*height: 20px;*/
+  padding: 10px;
+  margin-bottom: 15px;
+  /*margin: 10px;*/
+  margin-top: 0;
+}
+
+.type-wrapper span {
+  line-height: 40px;
+  font-size: 16px;
+}
+
+.price-button {
+  border-radius: 0;
+  font-size: 16px;
+  margin-right: 10px;
+  padding: 5px 20px;
+  background-color: white;
+  border: 1px solid #eee;
+  width: 90px;
+  cursor: pointer;
+  outline: none;
+  margin-top: -10px;
+  color: #666666;
+  /*margin-top: 5px;*/
+}
+
+.price-button.is-active {
+  border: 2px solid #FEC581;
+}
+
+.dialog-footer p {
+  position: absolute;
+  left: 15px;
+  bottom: 5px;
+  font-size: 14px;
+}

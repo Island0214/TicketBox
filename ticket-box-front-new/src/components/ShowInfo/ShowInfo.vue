@@ -8,7 +8,7 @@
           <el-breadcrumb-item>演出详情</el-breadcrumb-item>
         </el-breadcrumb>
       </div>
-      <div class="body-wrapper">
+      <div class="body-wrapper" v-if="basicData.time">
         <div class="img-wrapper">
           <img :src="basicData.poster">
         </div>
@@ -36,7 +36,13 @@
           </p>
 
           <el-button v-if="activeStep === 0">立即预定</el-button>
+          <el-tooltip class="item" effect="light" content="距演出开场一个月以上只能先进行预购，开票后优先分配座位！" placement="right" v-if="activeStep === 0">
+            <i class="el-icon-question" style="font-size: 20px; color: #999; position: absolute; margin-top: 9px; margin-left: 9px;"></i>
+          </el-tooltip>
           <el-button v-if="activeStep === 1">选座购买</el-button>
+          <el-tooltip class="item" effect="light" content="距演出开场一个月内可进行选座购票！" placement="right" v-if="activeStep === 1">
+            <i class="el-icon-question" style="font-size: 20px; color: #999; position: absolute; margin-top: 9px; margin-left: 9px;"></i>
+          </el-tooltip>
           <!--<el-button v-if="activeStep === 2">选座购买</el-button>-->
           <div v-if="activeStep === 2" class="warning-wrapper">
             <i class="el-icon-warning"></i>
@@ -70,23 +76,32 @@
       <pre>{{ basicData.intro }}</pre>
 
     </div>
+
+    <ticket-reserve :reserveTicket="reserveTicket" :prices="prices" :time="basicData.time" :curPrice="curPrice"></ticket-reserve>
   </div>
 </template>
 
 <script>
   import {mapActions} from 'vuex'
+  import TicketReserve from '../TicketReserve/TicketReserve'
 
   export default {
     name: "ShowInfo",
+    components: {
+      TicketReserve
+    },
     data() {
       return {
-        basicData: {},
-        prices: [80, 180, 280, 380, 880],
+        basicData: {
+          tourId: 0
+        },
+        prices: [280, 380, 680, 980, 1280],
         curPrice: 0,
         activeStep: 1,
         venueName: '',
         curTour: 2,
-        tours: [1, 2, 3, 4, 5]
+        tours: [1, 2, 3, 4, 5],
+        reserveTicket: true
       }
     },
     methods: {
@@ -101,27 +116,26 @@
     },
     mounted() {
       document.documentElement.scrollTop = document.body.scrollTop = 0;
-      window.addEventListener('scroll', this.handleScroll)
+      // window.addEventListener('scroll', this.handleScroll)
 
       let that = this
-      this.getScheduleInfo({
-        onSuccess: (data) => {
-          // that.prices = eval('(' + data.prices + ')')
-        },
-        onError: () => {
-
-        },
-        schedule: that.$route.params.id
-      })
+      // this.getScheduleInfo({
+      //   onSuccess: (data) => {
+      //     // that.prices = eval('(' + data.prices + ')')
+      //   },
+      //   onError: () => {
+      //
+      //   },
+      //   schedule: that.$route.params.id
+      // })
 
       this.getScheduleBasicInfo({
         onSuccess: (data) => {
-          console.log(data)
           that.basicData = data
 
-          if (that.basicData.time - new Date() < 0) {
+          if (that.basicData.time - new Date().getTime() < 0) {
             this.activeStep = 2
-          } else if (that.basicData.time - new Date() > 30 * 24 * 60 * 1000) {
+          } else if (that.basicData.time - new Date() > 30 * 24 * 60 * 60 * 1000) {
             this.activeStep = 0
           } else {
             this.activeStep = 1
@@ -129,7 +143,6 @@
 
           this.getSchedulePriceInfo({
             onSuccess: (data) => {
-              console.log(data)
               that.venueName = data.venueName
             },
             onError: () => {

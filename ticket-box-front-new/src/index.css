@@ -131,6 +131,11 @@ h5, h6 {
   color: #fff;
 }
 
+.el-button.is-disabled {
+ border:1px solid #eeeeee;
+
+}
+
 a {
   color: #FEC581;
   /*text-decoration: underline;*/

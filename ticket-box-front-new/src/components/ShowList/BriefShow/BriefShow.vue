@@ -29,7 +29,7 @@
         getSchedulePriceInfo: 'getSchedulePriceInfo'
       }),
       openShow: function () {
-        window.open('/#/show/' + this.show.schedule_id, '__blank')
+        window.open('/#/show/' + this.show.schedule_id, '_blank')
       }
     },
     mounted () {
