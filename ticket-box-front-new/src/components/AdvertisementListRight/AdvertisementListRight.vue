@@ -1,7 +1,7 @@
 <template>
   <div class="advertisement-list-wrapper">
     <h5>根据您所在地向您推荐</h5>
-    <div class="advertisement-wrapper" v-for="item in advertisements">
+    <div class="advertisement-wrapper" v-for="item in advertisements" @click="openShow(item.schedule_id)">
       <div class="img-wrapper">
         <img :src="item.poster">
       </div>
@@ -31,7 +31,10 @@
       ...mapActions({
         getCitySchedule: 'getCitySchedule',
         getSchedulePriceInfo: 'getSchedulePriceInfo'
-      })
+      }),
+      openShow: function (id) {
+        window.open('/#/show/' + id, '_blank')
+      }
     },
     mounted () {
       let point = new BMap.Point(116.331398, 39.897445);

@@ -107,8 +107,11 @@
           startTime: '',
           endTime: ''
         })
-        window.open('/#/shows', '__blank')
+        window.open('/#/shows')
         // this.$router.push('/shows', '')
+      },
+      openShow: function (id) {
+        window.open('/#/show/' + id, '_blank')
       }
     },
     mounted() {

@@ -4,15 +4,15 @@
       <el-carousel-item v-for="(item, index) in ads" :key="index">
         <!--<h3>{{ item }}</h3>-->
         <div class="img-wrapper">
-          <img :src="item.poster"/>
+          <img :src="item.poster" @click="openShow(item.schedule_id)"/>
         </div>
-        <div class="info-wrapper">
+        <div class="info-wrapper" @click="openShow(item.schedule_id)">
           <p>{{ item.title }}</p>
 
         </div>
-        <div class="invisible-wrapper" @click="openShow(item.schedule_id)">
+        <!--<div class="invisible-wrapper" @click="openShow(item.schedule_id)">-->
 
-        </div>
+        <!--</div>-->
       </el-carousel-item>
     </el-carousel>
 
@@ -61,8 +61,7 @@
         // console.log(item)
       },
       openShow: function (id) {
-        console.log(id)
-        window.open('/#/show/' + id, '__blank')
+        window.open('/#/show/' + id, '_blank')
       }
     },
     mounted() {

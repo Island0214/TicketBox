@@ -1,7 +1,7 @@
 <template>
   <el-col :xs="size" :sm="size" :md="size" :lg="size" style="text-align: center">
 
-    <div class="single-brief-concert-wrapper" @click="pushToInfo">
+    <div class="single-brief-concert-wrapper" @click="openShow">
       <div class="img-wrapper">
         <img :src="info.poster">
       </div>
@@ -32,8 +32,8 @@
       ...mapActions({
         getSchedulePriceInfo: 'getSchedulePriceInfo'
       }),
-      pushToInfo: function () {
-
+      openShow: function () {
+        window.open('/#/show/' + this.info.schedule_id, '_blank')
       }
     },
     mounted() {

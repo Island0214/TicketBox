@@ -8,7 +8,7 @@
             <h1>{{ ads[curIndex].title }}</h1>
             <!--<h1><span style="color: #FEC581;">{{ schedules[curIndex].artist  }}</span>与您相约</h1>-->
             <h1><span style="color: #FEC581;">TICKET BOX</span>与您相约</h1>
-            <el-button class="el-button">立即购票</el-button>&nbsp;&nbsp;&nbsp;或&nbsp;&nbsp;
+            <el-button class="el-button" @click="openShow(ads[curIndex].schedule_id)">立即购票</el-button>&nbsp;&nbsp;&nbsp;或&nbsp;&nbsp;
             <a @click="toAllShows()">查看更多</a>
           </div>
         </transition>
@@ -21,7 +21,7 @@
                      ref="carousel">
           <el-carousel-item v-for="(item, index) in 5" :key="item" style="border-radius: 10px;">
             <!--<h3>{{ item }}</h3>-->
-            <img :src="ads[index].poster">
+            <img :src="ads[index].poster" @click="openShow(ads[index].schedule_id)">
           </el-carousel-item>
         </el-carousel>
       </el-col>
@@ -88,8 +88,11 @@
           startTime: '',
           endTime: ''
         })
-        window.open('/#/shows', '__blank')
+        window.open('/#/shows', '_blank')
         // this.$router.push('/shows', '')
+      },
+      openShow: function (id) {
+        window.open('/#/show/' + id, '_blank')
       }
     },
     mounted() {

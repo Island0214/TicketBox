@@ -27,7 +27,7 @@
           <el-tab-pane label="热门戏剧" style="height: 168px;">
             <ul>
               <li v-for="(drama, index) in dramas" :key="index">
-                <a><span>{{ index + 1}}</span>{{ drama.scheduleName }}</a>
+                <a @click="openShow(drama.sheduleId)"><span>{{ index + 1}}</span>{{ drama.scheduleName }}</a>
               </li>
             </ul>
           </el-tab-pane>
@@ -38,7 +38,7 @@
           <el-tab-pane label="热门音乐剧" style="height: 170px;">
             <ul>
               <li v-for="(drama, index) in melodramas" :key="index">
-                <a><span>{{ index + 1}}</span>{{ drama.scheduleName }}</a>
+                <a @click="openShow(drama.sheduleId)"><span>{{ index + 1}}</span>{{ drama.scheduleName }}</a>
               </li>
             </ul>
           </el-tab-pane>
@@ -72,6 +72,9 @@
       }),
       openPage: function (path) {
         window.open(path, '__blank')
+      },
+      openShow: function (id) {
+        window.open('/#/show/' + id, '_blank')
       }
     },
     mounted () {

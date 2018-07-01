@@ -104,6 +104,7 @@
 
 .show-info-wrapper .body-wrapper  .info-wrapper p {
   margin: 15px;
+  white-space: nowrap;
 }
 
 .show-info-wrapper .body-wrapper  .info-wrapper .price-button {
@@ -113,7 +114,7 @@
   padding: 5px 20px;
   background-color: white;
   border: 1px solid #eee;
-  width: 100px;
+  width: 90px;
   cursor: pointer;
   outline: none;
   margin-top: -10px;
@@ -161,13 +162,14 @@
 }
 
 .intro-wrapper pre {
-  margin-top: 20px;
+  /*margin-top: 20px;*/
   width: 100%;
   /*word-break: break-all;*/
   overflow: auto;
   white-space: pre-wrap;
   background-color: #fff;
   border: none;
+  padding: 0;
 }
 
 .el-steps .el-step /deep/ .el-step__head.is-success, /deep/ .el-step__main .el-step__title.is-success {
@@ -192,4 +194,71 @@
 /deep/ .el-breadcrumb__item:last-child .el-breadcrumb__inner, .el-breadcrumb__item:last-child .el-breadcrumb__inner:hover, .el-breadcrumb__item:last-child .el-breadcrumb__inner a, .el-breadcrumb__item:last-child .el-breadcrumb__inner a:hover {
   color: #906DFF;
   font-weight: 600;
+}
+
+.tour-wrapper {
+  margin-top: 20px;
+}
+
+.tour-wrapper h3{
+  margin-bottom: 10px;
+}
+
+.tour-wrapper .el-steps .el-step {
+  cursor: pointer;
+}
+
+.tour-wrapper .is-process /deep/ .el-step__icon-inner {
+  color: #906DFF;
+}
+
+.tour-wrapper .el-steps .el-step /deep/ .el-step__head.is-success, /deep/ .el-step__main .el-step__title.is-success, /deep/ .el-step__description.is-success {
+  color: #999;
+  border-color: #333;
+  font-weight: 500;
+}
+
+.tour-wrapper .el-steps .el-step /deep/ .el-step__description.is-success {
+  /*color: #333333;*/
+  border-color: #333;
+  font-weight: 500;
+  color: #999;
+}
+
+.tour-wrapper .el-steps .el-step /deep/ .el-step__head.is-process, .tour-wrapper /deep/ .el-step__main .el-step__title.is-process {
+  color: #906DFF;
+  border-color: #906DFF;
+  font-weight: 600;
+}
+
+.tour-wrapper .el-steps .el-step /deep/ .el-step__description.is-process {
+  /*color: #333333;*/
+  border-color: #333;
+  font-weight: 500;
+  color: #906DFF;
+}
+
+.tour-wrapper .el-steps .el-step /deep/ .el-step__head.is-process /deep/ i {
+  color: #906DFF;
+}
+
+.tour-wrapper .el-steps .el-step /deep/  .el-step__head.is-process, /deep/ .el-step__main .el-step__title.is-wait {
+  border-color: #333;
+  font-weight: 500;
+  color: #333;
+}
+
+.tour-wrapper .el-steps .el-step /deep/ .el-step__description.is-wait {
+  /*color: #333333;*/
+  border-color: #333;
+  font-weight: 500;
+  color: #333;
+}
+
+.tour-wrapper .el-steps .el-step /deep/ .el-step__head.is-wait /deep/ i {
+  color: #333;
+}
+
+.tour-wrapper  /deep/ .el-step.is-horizontal .el-step__line {
+  background-color: #333;
 }
