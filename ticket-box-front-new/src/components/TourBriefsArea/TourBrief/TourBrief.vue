@@ -4,6 +4,7 @@
     :style="[{'width': width + 'px'}, {'height': height + 'px'}, {'left': left + 'px'}, {'top': top + 'px'}]"
     @mouseenter="setInfoStatus(true)"
     @mouseout="setInfoStatus(false)"
+    @click="openShow"
   >
     <img :src="tour.poster">
     <div>
@@ -31,18 +32,27 @@
 </template>
 
 <script>
+  import {mapActions} from 'vuex'
   export default {
     props: ['width', 'height', 'left', 'top', 'tour'],
     name: "TourBrief",
     data() {
       return {
         showInfo: false,
-        cities: ''
+        cities: '',
+        schedule: 0
       }
     },
     methods: {
+      ...mapActions({
+        getTourScheduleById: 'getTourScheduleById'
+      }),
       setInfoStatus(status) {
         this.showInfo = status
+      },
+      openShow: function () {
+        window.open('/#/show/' + this.schedule, '_blank')
+        // alert(this.schedule)
       }
     },
     mounted() {
@@ -52,6 +62,22 @@
       }
       // this.cities.
       this.cities = this.cities.substring(0, this.cities.length - 1)
+
+      this.getTourScheduleById({
+        onSuccess: (data) => {
+          // console.log(data)
+          // this.tours = data
+          for (let i = 0; i < data.length; i++) {
+            if (data[i].time >= new Date().getTime()) {
+              this.schedule = data[i].scheduleId
+              break;
+            }
+          }
+        },
+        onError: () => {
+        },
+        tour: this.tour.tourId
+      })
     }
   }
 </script>

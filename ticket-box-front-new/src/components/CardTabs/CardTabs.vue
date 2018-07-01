@@ -117,7 +117,7 @@
     mounted() {
       this.getHotSchedules({
         onSuccess: (data) => {
-          console.log(data)
+          // console.log(data)
           this.hots = data
         }
       })

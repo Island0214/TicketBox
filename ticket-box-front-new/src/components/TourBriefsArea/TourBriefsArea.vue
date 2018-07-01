@@ -12,7 +12,7 @@
           <!--<tour-brief :width="130" :height="130" :left="495" :top="25"></tour-brief>-->
           <!--<tour-brief :width="180" :height="240" :left="640" :top="25"></tour-brief>-->
           <!--<tour-brief :width="180" :height="180" :left="640" :top="280"></tour-brief>-->
-          <div class="more-concert-button" @click="openPage('/shows')">
+          <div class="more-concert-button" @click="openPage('/#/shows')">
             <h1>MORE</h1>
             <h2 style="left: 0; top: 0;">更</h2>
             <h2 style="right: 0; top: 0;">多</h2>
@@ -61,6 +61,7 @@
       return {
         dramas: [],
         tours: [],
+        shows: [],
         melodramas: []
       }
     },
@@ -71,7 +72,7 @@
         getHotConcerts: 'getHotConcerts'
       }),
       openPage: function (path) {
-        window.open(path, '__blank')
+        window.open(path, '_blank')
       },
       openShow: function (id) {
         window.open('/#/show/' + id, '_blank')
