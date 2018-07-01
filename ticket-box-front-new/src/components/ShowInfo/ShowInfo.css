@@ -243,22 +243,28 @@
 }
 
 .tour-wrapper .el-steps .el-step /deep/  .el-step__head.is-process, /deep/ .el-step__main .el-step__title.is-wait {
-  border-color: #333;
+  border-color: #333333;
+  font-weight: 500;
+  color: #333;
+}
+
+.tour-wrapper .el-steps .el-step /deep/.el-step__head.is-wait {
+  border-color: #333333;
   font-weight: 500;
   color: #333;
 }
 
 .tour-wrapper .el-steps .el-step /deep/ .el-step__description.is-wait {
   /*color: #333333;*/
-  border-color: #333;
+  border-color: #333333;
   font-weight: 500;
   color: #333;
 }
 
 .tour-wrapper .el-steps .el-step /deep/ .el-step__head.is-wait /deep/ i {
-  color: #333;
+  color: #333333;
 }
 
 .tour-wrapper  /deep/ .el-step.is-horizontal .el-step__line {
-  background-color: #333;
+  /*background-color: #333;*/
 }

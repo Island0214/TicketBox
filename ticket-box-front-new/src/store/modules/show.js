@@ -27,16 +27,16 @@ const getters = {
 // actions
 const actions = {
   'searchScheduleByPage' ({state, commit}, {onSuccess, onError}) {
-    console.log({
-      city: state.city,
-      category: state.type,
-      startTime: state.startTime,
-      endTime: state.endTime,
-      userInput: state.searchContent,
-      pageSize: state.pageSize,
-      pageNum: state.page,
-      sort: state.sort
-    })
+    // console.log({
+    //   city: state.city,
+    //   category: state.type,
+    //   startTime: state.startTime,
+    //   endTime: state.endTime,
+    //   userInput: state.searchContent,
+    //   pageSize: state.pageSize,
+    //   pageNum: state.page,
+    //   sort: state.sort
+    // })
     console.log('searchScheduleByPage')
     showApi.searchScheduleByPage((data) => {
       // console.log(data)
@@ -57,6 +57,20 @@ const actions = {
       pageNum: state.page,
       sort: state.sort
     })
+  },
+  'getTourScheduleById' ({state, commit}, {onSuccess, onError, tour}) {
+    console.log(tour)
+    console.log('searchScheduleByPage')
+    showApi.getTourScheduleById((data) => {
+      // console.log(data)
+      if (data.error !== undefined) {
+        // console.log('error')
+        onError(data.error)
+      } else {
+        // console.log('success')
+        onSuccess(data)
+      }
+    }, tour)
   }
 }
 

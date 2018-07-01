@@ -6,8 +6,10 @@
       :show-close=true
       title="预售"
       :close-on-click-modal="false"
+      @close="closeDialog"
     >
       <!--<part-title title="修改密码" style="margin-top: -40px; margin-bottom: 30px;"></part-title>-->
+      <p>演出：<span style="color: #333; font-size: 16px;">{{schedule}}</span></p>
       <p>价位：
         <!--<el-button class="time-button">{{ new Date(basicData.time).toLocaleString() }}</el-button>-->
         <!--<span>{{ new Date(basicData.time).toLocaleString() }}</span>-->
@@ -46,11 +48,10 @@
 
 <script>
   export default {
-    props: ['reserveTicket', 'prices', 'curPrice', 'time'],
+    props: ['reserveTicket', 'prices', 'curPrice', 'time', 'schedule'],
     name: "TicketReserve",
     data() {
       return {
-        curPrice: 0,
         selectPrices: [],
         nums: [1, 1, 1, 1, 1]
       }
@@ -66,6 +67,13 @@
         return total
       }
     },
+    watch: {
+      reserveTicket: function () {
+        if (this.selectPrices.indexOf(this.curPrice) === -1) {
+          this.selectPrices.push(this.curPrice)
+        }
+      }
+    },
     methods: {
       setPrice: function (index) {
         if (this.selectPrices.indexOf(index) !== -1) {
@@ -74,6 +82,9 @@
           this.selectPrices.push(index)
         }
         console.log(this.selectPrices)
+      },
+      closeDialog: function () {
+        this.$emit('close')
       }
     },
     mounted() {

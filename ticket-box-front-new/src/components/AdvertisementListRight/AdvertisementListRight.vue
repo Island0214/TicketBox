@@ -1,14 +1,14 @@
 <template>
   <div class="advertisement-list-wrapper">
-    <h5>根据您所在地向您推荐</h5>
+    <h5>根据您的所在地向您推荐</h5>
     <div class="advertisement-wrapper" v-for="item in advertisements" @click="openShow(item.schedule_id)">
       <div class="img-wrapper">
         <img :src="item.poster">
       </div>
       <div class="info-wrapper">
-        <p class="title-p">{{ item.schedule  }}</p>
-        <p class="body-p">{{ item.venueName }}</p>
-        <p class="body-p" style="margin-bottom: 0px">{{ new Date(item.time).toLocaleString() }}</p>
+        <p class="title-p">【{{ item.city  }}】{{ item.schedule  }}</p>
+        <!--<p class="body-p">{{ item.venueName }}</p>-->
+        <p class="body-p">{{ new Date(item.time).toLocaleString() }}</p>
         <p class="price-p"><span>¥ {{item.minPrice}} - ¥ {{item.maxPrice}}</span></p>
       </div>
     </div>

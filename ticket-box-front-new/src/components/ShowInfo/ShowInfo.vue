@@ -35,7 +35,7 @@
             </button>
           </p>
 
-          <el-button v-if="activeStep === 0">立即预定</el-button>
+          <el-button v-if="activeStep === 0" @click="reserveTicket = true">立即预定</el-button>
           <el-tooltip class="item" effect="light" content="距演出开场一个月以上只能先进行预购，开票后优先分配座位！" placement="right" v-if="activeStep === 0">
             <i class="el-icon-question" style="font-size: 20px; color: #999; position: absolute; margin-top: 9px; margin-left: 9px;"></i>
           </el-tooltip>
@@ -55,13 +55,10 @@
       <div class="tour-wrapper" v-if="basicData.tourId !== 0">
         <h3>该轮巡演更多场次</h3>
         <el-steps :active="curTour" finish-status="success">
-          <el-step status="success" :title="basicData.city" :description="new Date(basicData.time).toLocaleString().split(' ')[0]" icon="el-icon-time" v-for="(tour, index) in tours" :key="index" v-if="index < curTour"></el-step>
-          <el-step status="process" :title="basicData.city" :description="new Date(basicData.time).toLocaleString().split(' ')[0]" icon="el-icon-time" v-for="(tour, index) in tours" :key="index" v-if="index === curTour"></el-step>
-          <el-step status="wait" :title="basicData.city" :description="new Date(basicData.time).toLocaleString().split(' ')[0]" icon="el-icon-time" v-for="(tour, index) in tours" :key="index" v-if="index > curTour"></el-step>
-          <!--<el-step title="步骤 1" icon="el-icon-time"></el-step>-->
-          <!--<el-step title="步骤 1" icon="el-icon-time"></el-step>-->
-          <!--<el-step title="步骤 2"></el-step>-->
-          <!--<el-step title="步骤 3"></el-step>-->
+          <el-step @click.native="openShow(tour.scheduleId)" status="success" :title="tour.city" :description="new Date(tour.time).toLocaleString().split(' ')[0]" icon="el-icon-time" v-for="(tour, index) in tours" :key="index" v-if="index <= finishTour"></el-step>
+          <el-step @click.native="openShow(tour.scheduleId)" status="wait" :title="tour.city" :description="new Date(tour.time).toLocaleString().split(' ')[0]" icon="el-icon-time" v-for="(tour, index) in tours" :key="index" v-if="index > finishTour && index < curTour"></el-step>
+          <el-step @click.native="openShow(tour.scheduleId)" status="process" :title="tour.city" :description="new Date(tour.time).toLocaleString().split(' ')[0]" icon="el-icon-time" v-for="(tour, index) in tours" :key="index" v-if="index === curTour && curTour > finishTour"></el-step>
+          <el-step @click.native="openShow(tour.scheduleId)" status="wait" :title="tour.city" :description="new Date(tour.time).toLocaleString().split(' ')[0]" icon="el-icon-time" v-for="(tour, index) in tours" :key="index" v-if="index > curTour"></el-step>
         </el-steps>
       </div>
     </div>
@@ -77,7 +74,14 @@
 
     </div>
 
-    <ticket-reserve :reserveTicket="reserveTicket" :prices="prices" :time="basicData.time" :curPrice="curPrice"></ticket-reserve>
+    <ticket-reserve
+      :reserveTicket="reserveTicket"
+      :prices="prices"
+      :time="basicData.time"
+      :curPrice="curPrice"
+      :schedule="basicData.schedule"
+      @close="reserveTicket = false"
+    ></ticket-reserve>
   </div>
 </template>
 
@@ -99,39 +103,34 @@
         curPrice: 0,
         activeStep: 1,
         venueName: '',
-        curTour: 2,
-        tours: [1, 2, 3, 4, 5],
-        reserveTicket: true
+        curTour: 0,
+        finishTour: -1,
+        tours: [],
+        reserveTicket: false
       }
     },
     methods: {
       ...mapActions({
         getScheduleBasicInfo: 'getScheduleBasicInfo',
         getSchedulePriceInfo: 'getSchedulePriceInfo',
-        getScheduleInfo: 'getScheduleInfo'
+        getScheduleInfo: 'getScheduleInfo',
+        getTourScheduleById: 'getTourScheduleById'
       }),
       setPrice: function (index) {
         this.curPrice = index
+      },
+      openShow: function (id) {
+        window.open('/#/show/' + id, '_blank')
       }
     },
     mounted() {
       document.documentElement.scrollTop = document.body.scrollTop = 0;
-      // window.addEventListener('scroll', this.handleScroll)
 
       let that = this
-      // this.getScheduleInfo({
-      //   onSuccess: (data) => {
-      //     // that.prices = eval('(' + data.prices + ')')
-      //   },
-      //   onError: () => {
-      //
-      //   },
-      //   schedule: that.$route.params.id
-      // })
-
       this.getScheduleBasicInfo({
         onSuccess: (data) => {
           that.basicData = data
+          console.log(data)
 
           if (that.basicData.time - new Date().getTime() < 0) {
             this.activeStep = 2
@@ -150,12 +149,37 @@
             },
             schedule: that.$route.params.id
           })
+
+          // console.log(that.basicData.tourId)
+          if (data.tourId !== 0) {
+            this.getTourScheduleById({
+              onSuccess: (data) => {
+                console.log(data)
+                this.tours = data
+                for (let i = 0; i < data.length; i++) {
+                  if (data[i].time < new Date().getTime()) {
+                    this.finishTour = i
+                  }
+                  if (data[i].city === that.basicData.city) {
+                    this.curTour = i
+                  }
+                }
+                // that.venueName = data.venueName
+              },
+              onError: () => {
+
+              },
+              tour: data.tourId
+            })
+          }
         },
         onError: () => {
 
         },
         schedule: that.$route.params.id
       })
+
+
     }
   }
 </script>

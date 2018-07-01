@@ -17,3 +17,22 @@ export function searchScheduleByPage (callback, body) {
     .catch(function (error) {
     })
 }
+
+export function getTourScheduleById (callback, tour) {
+  // console.log(tour)
+  console.log('getTourScheduleById')
+  // console.log('login')
+  axios.get('/venue/tourSchedule/' + tour,
+    {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+  )
+    .then(function (response) {
+      callback(response.data)
+    })
+    .catch(function (error) {
+    })
+}
+

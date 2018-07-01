@@ -1,5 +1,6 @@
 <template>
   <div class="advertisement-carousel-wrapper">
+    <h5>特别推荐</h5>
     <el-carousel height="290px" indicator-position="none" arrow="never" @change="changePic" ref="carousel">
       <el-carousel-item v-for="(item, index) in ads" :key="index">
         <!--<h3>{{ item }}</h3>-->

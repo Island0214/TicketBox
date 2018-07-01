@@ -12,6 +12,18 @@
   min-height: 20px;
 }
 
+.advertisement-carousel-wrapper h5 {
+  color: #906DFF;
+  background-color: #f5f7fa;
+  /*margin: -10px;*/
+  padding: 10px;
+  border-bottom: 1px solid #dcdfe6;
+  padding-top: 15px;
+  margin: -20px;
+  margin-bottom: 10px;
+}
+
+
 .advertisement-carousel-wrapper .img-wrapper {
    width: 200px;
    height: 350px;

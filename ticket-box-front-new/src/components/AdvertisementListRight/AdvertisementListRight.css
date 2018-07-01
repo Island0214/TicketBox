@@ -10,7 +10,7 @@
   /*height: 100px;*/
   position: absolute;
   right: 0;
-  top: 375px;
+  top: 410px;
 }
 
 .advertisement-list-wrapper h5 {
@@ -82,12 +82,14 @@
   display: inline-block;
   color: #666;
   font-size: 12px;
-  line-height: 16px;
-  height: 16px;
+  line-height: 20px;
+  height: 40px;
   overflow: hidden;
-  white-space: nowrap;
+  /*white-space: nowrap;*/
   text-overflow: ellipsis;
+  /*margin-bottom: -2px;*/
   margin-bottom: -8px;
+  margin-top: 8px;
 }
 
 .advertisement-list-wrapper .advertisement-wrapper .info-wrapper .price-p {
