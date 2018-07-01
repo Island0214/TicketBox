@@ -150,3 +150,37 @@ a:hover {
   text-decoration: none;
   border-bottom: 2px solid #FEC581;
 }
+
+.el-checkbox {
+  width: 90px;
+}
+
+.el-checkbox.is-bordered {
+  border-radius: 0;
+  border: 2px solid #eee;
+}
+
+.el-checkbox.is-bordered.is-checked {
+  border: 2px solid #FEC581;
+  height: 40px;
+}
+
+.el-checkbox__input.is-checked + .el-checkbox__label {
+  color: #666;
+}
+
+.el-checkbox__input.is-checked .el-checkbox__inner {
+  border-color: #FEC581;
+  background-color: #FEC581;
+}
+
+.el-checkbox__input.is-checked .el-checkbox__inner:target {
+  border-color: #FEC581;
+}
+
+.el-checkbox__input.is-focus .el-checkbox__inner{
+  border-color: #FEC581;
+}
+
+
+

@@ -1,0 +1,64 @@
+.seat-wrapper {
+  position: relative;
+  display: inline-block;
+  height: 27px;
+  margin-top: -3px;
+  cursor: pointer;
+}
+
+.is-sold {
+  cursor: default;
+}
+
+.is-selected {
+  cursor: default;
+}
+
+.seat-wrapper p {
+  position: relative;
+  display: inline-block;
+  font-size: 12px;
+  line-height: 27px;
+  top: -7px;
+}
+
+.seat-icon {
+  width: 24px;
+  height: 17px;
+  color: #999;
+  background-color: transparent;
+  margin: 2px 0;
+  line-height: 27px;
+  margin-top: 5px;
+}
+
+.selected-seat-icon {
+  width: 24px;
+  height: 17px;
+  color: #FEC581;
+  /*background-color: transparent;*/
+  margin: 2px 0;
+  line-height: 27px;
+  margin-top: 5px;
+  background-color: #999;
+}
+
+.check-icon {
+  width: 14px;
+  /* height: 13px; */
+  cursor: pointer;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  color: #fff;
+  font-weight: 600;
+}
+
+.select-area {
+  /*background-color: #906DFF;*/
+  background-color: #e6e6e6;
+  /*box-shadow: 10px 10px 5px #888888;*/
+  /*border: 1px solid #906DFF;*/
+
+}
+
