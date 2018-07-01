@@ -304,6 +304,11 @@ public class VenueController {
         return scheduleService.getFiveTours();
     }
 
+    @RequestMapping(value = "/tourSchedule/{tourId}",method = RequestMethod.GET)
+    List<TourCityBean> getTourScheduleById(@PathVariable int tourId){
+        return scheduleService.getTourScheduleByTourId(tourId);
+    }
+
     /**
      * 获得5个热门戏剧，一段时间内要保持相同
      *

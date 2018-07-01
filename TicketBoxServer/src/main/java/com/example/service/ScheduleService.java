@@ -41,6 +41,8 @@ public interface ScheduleService {
 
     List<TourBean> getFiveTours();
 
+    List<TourCityBean> getTourScheduleByTourId(int tourId);
+
     /**
      * 获得所有有巡演的城市
      * @return

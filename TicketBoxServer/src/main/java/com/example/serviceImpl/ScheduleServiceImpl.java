@@ -234,6 +234,12 @@ public class ScheduleServiceImpl implements ScheduleService {
         return tourBeans;
     }
 
+
+    @Override
+    public List<TourCityBean> getTourScheduleByTourId(int tourId) {
+        return scheduleRepository.findSchedulesByTourId(tourId);
+    }
+
     /**
      * 获得所有有巡演的城市
      *
