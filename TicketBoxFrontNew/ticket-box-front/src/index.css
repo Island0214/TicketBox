@@ -1,0 +1,211 @@
+
+html, body, :global(#root) {
+  position: relative;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  min-width: 1280px;
+}
+
+html {
+  box-sizing: border-box;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  /*background-color: #bbe4d2;*/
+  /*background-color: #D5E8D5;*/
+  height: auto;
+  color: #333;
+  background: #fff;
+  text-rendering: optimizelegibility;
+  min-width: 800px;
+  width: 100%;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  font-family: 'Hiragino Sans GB', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, p, ul {
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+a {
+  padding: 0;
+  margin: 0;
+}
+
+p {
+  width: auto;
+  color: #666;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1;
+  font-family: Arial, sans-serif;
+  /*margin: 1.4em 0 0.8em;*/
+  font-weight: 600;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-size: 1.8em;
+}
+
+h2 {
+  font-size: 1.6em;
+}
+
+h3 {
+  font-size: 1.4em;
+}
+
+h4 {
+  font-size: 1.2em;
+}
+
+h5, h6 {
+  font-size: 1em;
+}
+
+/* 现代排版：保证块/段落之间的空白隔行 */
+.typo p, .typo pre, .typo ul, .typo ol, .typo dl, .typo form, .typo hr {
+  margin: 1em 0 0.6em;
+}
+
+/*.breadcrumb-wrapper {*/
+  /*position: relative;*/
+  /*display: inline-block;*/
+  /*margin-top: 30px;*/
+  /*!*width: 90%;*!*/
+  /*!*margin-left: 5%;*!*/
+  /*margin-left: 30px;*/
+/*}*/
+
+/*.breadcrumb-wrapper i {*/
+  /*cursor: pointer;*/
+  /*margin-left: 10px;*/
+  /*outline: none;*/
+/*}*/
+
+/deep/ .el-input {
+  border-radius: 0;
+  border: none;
+  outline: none;
+  padding-bottom: 2px;
+  /*border-bottom: 2px solid #999;*/
+  z-index: 0;
+  /*font-family:  Menlo, "Songti SC", PingFang SC, Verdana, Helvetica Neue, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif;*/
+}
+
+/deep/ .el-input input {
+  border: none;
+  font-size: 1.2em;
+  height: auto;
+  background: none;
+  border-bottom: 2px solid #333;
+  border-radius: 0;
+  z-index: 0;
+  padding: 2px;
+}
+
+/deep/ .el-input input:focus {
+  border-bottom: 2px solid #871FCA;
+}
+
+/*/deep/ .el-input input:focus {*/
+  /*border-bottom: 2px solid #a7d7d6;*/
+/*}*/
+
+/*/deep/ .el-select /deep/ .el-input.is-focus /deep/ .el-input__inner {*/
+  /*border-bottom: 2px solid #a7d7d6;*/
+/*}*/
+
+/*/deep/ .el-select /deep/ .el-input.is-focus /deep/ .el-input__inner {*/
+  /*border-bottom: 2px solid #a7d7d6;*/
+/*}*/
+
+/*/deep/ .el-select-dropdown__item.selected {*/
+  /*color: #111111;*/
+/*}*/
+
+/deep/ .el-button {
+  background: none;
+  border-radius: 0;
+  border: 2px solid #333;
+  color: #333;
+  /*color: #871FCA;*/
+  /*border: 2px solid #871FCA;*/
+  width: 80px;
+  outline: none;
+}
+
+/deep/ .el-button:focus {
+  outline: none;
+}
+
+/deep/ .el-button:hover {
+  color: #871FCA;
+  border: 2px solid #871FCA;
+  /*background-color: #871FCA;*/
+}
+
+/deep/ .el-row {
+  margin-bottom: 30px;
+}
+
+i {
+  color: #999;
+  cursor: pointer;
+  outline: none;
+}
+
+a {
+  color: #871FCA;
+  cursor: pointer;
+}
+
+.tabs-wrapper .select-tab {
+  color: #333;
+  border-bottom: 3px solid #871FCA;
+}
+
+.tabs-wrapper a {
+  font-size: 1.4em;
+  margin-right: 20px;
+  color: #999;
+  padding-bottom: 4px;
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+/deep/ .el-input-number /deep/ span {
+  background: none;
+  border: none;
+}
+
+/deep/ .el-message {
+  border-radius: 0;
+  border: 1px solid #871FCA;
+}
+
+/deep/ .el-message--error {
+  border: 1px solid #871FCA;
+}
+
+/deep/ .message-wrapper {
+  border-radius: 0;
+}
+
+/deep/ .el-notification {
+  border-radius: 0;
+}

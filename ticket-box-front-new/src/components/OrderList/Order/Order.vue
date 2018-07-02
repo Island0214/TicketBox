@@ -7,7 +7,7 @@
             <p>订单编号：<span>{{ order.orderId }}</span></p>
           </el-col>
           <el-col :xs="12" :sm="12" :md="12" :lg="12">
-            <h5>{{ order.type }}</h5>
+            <h5>{{ type }}</h5>
           </el-col>
         </el-row>
       </div>
@@ -27,9 +27,9 @@
       </div>
       <div class="order-footer-wrapper">
         <div class="buttons-wrapper" v-if="showButtons">
-          <el-button v-if="order.type === '已付款订单'" @click="confirmRefund(order.order_id)">退款</el-button>
-          <el-button v-if="order.type === '待付款订单'" @click="$router.push('/pay/' + order.order_id)">付款</el-button>
-          <el-button v-if="order.type === '待付款订单'" @click="confirmCancel(order.order_id)">取消</el-button>
+          <el-button v-if="order.type === '已付款订单'" @click="confirmRefund(order.orderId)">退款</el-button>
+          <el-button v-if="order.type === '待付款订单'" @click="$router.push('/pay/' + order.orderId)">付款</el-button>
+          <el-button v-if="order.type === '待付款订单'" @click="confirmCancel(order.orderId)">取消</el-button>
         </div>
         <p> 创建时间：{{ new Date(order.orderTime).toLocaleString() }}</p>
         <!--<img :src="url"/>-->
@@ -39,11 +39,11 @@
     <el-dialog
       title="提示"
       :visible.sync="showCancel"
-      width="30%"
+      width="400px"
       top="20%"
       :show-close="false"
       >
-      <span>您确定对订单{{ order_id }}进行取消订单操作吗？</span>
+      <span>您确定对订单{{ order.orderId }}进行取消订单操作吗？</span>
       <span slot="footer" class="dialog-footer">
         <el-button @click="showCancel = false">取 消</el-button>
         <el-button type="primary" @click="cancelOrder">确 定</el-button>
@@ -53,11 +53,11 @@
     <el-dialog
       title="提示"
       :visible.sync="showRefund"
-      width="30%"
+      width="400px"
       top="20%"
       :show-close="false"
     >
-      <span>您确定对订单{{ order_id }}进行退款操作吗？</span>
+      <span>您确定对订单{{ order.orderId }}进行退款操作吗？</span>
       <br>
       <span>当前退款可退回{{ rate }}%金额</span>
       <span slot="footer" class="dialog-footer">
@@ -82,8 +82,8 @@
         venue: {},
         showCancel: false,
         showRefund: false,
-        order_id: 0,
-        rate: 100
+        rate: 100,
+        type: ''
       }
     },
     methods: {
@@ -93,12 +93,10 @@
         cancelOrderAction: 'cancelOrder',
         refundOrderAction: 'refundOrder'
       }),
-      confirmCancel: function (id) {
-        this.order_id = id
+      confirmCancel: function () {
         this.showCancel = true
       },
-      confirmRefund: function (id) {
-        this.order_id = id
+      confirmRefund: function () {
         this.showRefund = true
 
         let diff = this.schedule.time - new Date()
@@ -130,7 +128,7 @@
               type: 'success',
               customClass: 'message-wrapper'
             })
-            this.order.type = "已取消订单"
+            this.type = "已取消订单"
           },
           onError: (error) => {
             this.$message({
@@ -141,7 +139,7 @@
             })
           },
           body: {
-            order_id: this.order_id
+            order_id: this.order.orderId
           }
         })
 //        location.reload()
@@ -157,7 +155,7 @@
               type: 'success',
               customClass: 'message-wrapper'
             })
-            this.order.type = "已退订订单"
+            this.type = "已退订订单"
           },
           onError: (error) => {
             this.$message({
@@ -168,7 +166,7 @@
             })
           },
           body: {
-            order_id: this.order_id
+            order_id: this.order.orderId
           }
         })
       }
@@ -206,6 +204,9 @@
     },
     mounted () {
       console.log(this.order)
+      // this.order_id = this.order.orderId
+      this.type = this.order.type
+      console.log(this.order.scheduleId)
 //       if (this.order.seat === '待分配') {
 //         this.order.area = '待分配'
 //       }
@@ -231,7 +232,7 @@
         onError: () => {
 
         },
-        schedule: parseInt(this.order.scheduleId)
+        schedule: this.order.scheduleId
       })
     }
   }

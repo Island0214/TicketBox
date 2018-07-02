@@ -1,7 +1,7 @@
 <template>
   <div class="order-list-wrapper">
     <!--<p>sad</p>-->
-    <el-tabs type="border-card">
+    <el-tabs type="border-card" style="min-height: 250px;">
       <el-tab-pane :label="type">
         <el-collapse-transition>
           <div v-show="showLoading">
@@ -11,7 +11,15 @@
         </el-collapse-transition>
         <!--<el-collapse-transition>-->
         <!--</el-collapse-transition>-->
-        <order v-for="(order, index) in orders" :key="index" :order="order" :showButtons="true"></order>
+        <div v-if="totalPage === 0 && !showLoading">
+          <div class="transition-box" style="padding-bottom: 100px; padding-top: 70px;" v-if="orderType !== ''">
+            <i class="el-icon-warning"></i>暂无该类订单！
+          </div>
+          <div class="transition-box" style="padding-bottom: 100px; padding-top: 70px;" v-if="orderType === ''">
+            <i class="el-icon-warning"></i>暂无订单，快去下单吧！
+          </div>
+        </div>
+        <order v-for="(order, index) in orders" :key="index" :order="order" :showButtons="true" v-if="order.type === orderType || orderType === ''"></order>
         <div class="pagination-wrapper" v-if="totalPage !== 0">
           <el-pagination
             background
@@ -41,8 +49,8 @@
         type: '全部订单',
         orders: [],
         showLoading: false,
-        totalPage: 1,
-        curPage: 1
+        totalPage: 0,
+        curPage: 0
       }
     },
     computed: {
@@ -66,15 +74,23 @@
       ...mapActions({
         getAllOrders: 'getAllOrders'
       }),
-      changePage: function () {
-
+      changePage: function (page) {
+        this.curPage = page
+        this.setPage(page)
+        this.getOrdersByPage(page)
       },
       getOrdersByPage: function (page) {
         this.showLoading = true
         this.getAllOrders({
           onSuccess: (data) => {
             console.log(data)
-            this.orders = data
+            this.orders = data.orders
+            this.totalPage = data.total
+            if (data.total === 0) {
+              this.curPage = 0
+            } else {
+              this.curPage = 1
+            }
             this.showLoading = false
           },
           onError: () => {

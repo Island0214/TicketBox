@@ -222,7 +222,7 @@ public class OrderServiceImpl implements OrderService {
                     aliPay.setBalance(aliPay.getBalance() + order.getPrice() * rate);
                     aliPayRepository.save(aliPay);
                 }
-                order.setType("已退订订单");
+                order.setType("已取消订单");
                 orderRepository.save(order);
                 result.put("success", "退款成功！");
             } else {

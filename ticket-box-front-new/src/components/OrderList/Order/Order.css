@@ -115,3 +115,10 @@
   padding: 0;
   width: 60px;
 }
+
+.dialog-footer .el-button {
+  height: 26px;
+  line-height: 26px;
+  padding: 0;
+  width: 60px;
+}
