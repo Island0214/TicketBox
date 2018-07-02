@@ -23,9 +23,7 @@ public class MyOrder {
 
     private int schedule;
 
-    private String area;
-
-    private String seat;
+    private String seatIds;
 
     private Date time;
 
@@ -34,13 +32,17 @@ public class MyOrder {
     public MyOrder() {
     }
 
-    public MyOrder(String type, double price, String username, int schedule, String area, String seat, Date time, int venue) {
+    public MyOrder(String type, String seatIds) {
+        this.type = type;
+        this.seatIds = seatIds;
+    }
+
+    public MyOrder(String type, double price, String username, int schedule, String seatIds, Date time, int venue) {
         this.type = type;
         this.price = price;
         this.username = username;
         this.schedule = schedule;
-        this.area = area;
-        this.seat = seat;
+        this.seatIds = seatIds;
         this.time = time;
         this.venue = venue;
     }
@@ -101,33 +103,25 @@ public class MyOrder {
         this.time = time;
     }
 
-    public String getSeat() {
-        return seat;
+    public String getSeatIds() {
+        return seatIds;
     }
 
-    public void setSeat(String seat) {
-        this.seat = seat;
-    }
-
-    public String getArea() {
-        return area;
-    }
-
-    public void setArea(String area) {
-        this.area = area;
+    public void setSeatIds(String seatIds) {
+        this.seatIds = seatIds;
     }
 
     @Override
     public String toString() {
-        return "Order{" +
+        return "MyOrder{" +
                 "order_id=" + order_id +
                 ", type='" + type + '\'' +
                 ", price=" + price +
                 ", username='" + username + '\'' +
                 ", schedule=" + schedule +
-                ", area='" + area + '\'' +
-                ", seat='" + seat + '\'' +
+                ", seatIds='" + seatIds + '\'' +
                 ", time=" + time +
+                ", venue=" + venue +
                 '}';
     }
 }

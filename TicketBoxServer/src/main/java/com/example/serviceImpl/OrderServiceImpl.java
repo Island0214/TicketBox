@@ -41,30 +41,53 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public MyOrder createOrder(OrderCreateBean orderCreateBean) {
-        String type = "待付款订单";
-//        String seatString = orderCreateBean.getArea() + ": ";
-        String seatString = "";
-//        orderCreateBean.getCoupon();
-//        myCouponRepository.
-        for (int i = 0; i < orderCreateBean.getSeats().size(); i++) {
-            Seat seat = seatRepository.findByScheduleAndAreaAndRowAndCol(
-                    orderCreateBean.getSchedule(),
-                    orderCreateBean.getArea(),
-                    Integer.parseInt(orderCreateBean.getSeats().get(i).split("排")[0]),
-                    Integer.parseInt(orderCreateBean.getSeats().get(i).split("排")[1].split("座")[0]));
-            System.out.println(seat.toString());
-            seat.setStatus(1);
-            seatRepository.save(seat);
-            seatString += orderCreateBean.getSeats().get(i) + ", ";
+        List<String> seatIdList = new ArrayList<>(orderCreateBean.getSeats().size());
+        List<String> seatOrderedList = new ArrayList<>(orderCreateBean.getSeats().size());
+        boolean hasOrdered = false;
+        for(Seat s:orderCreateBean.getSeats()){
+            Seat seat = seatRepository.findByScheduleAndAreaAndRowAndCol(orderCreateBean.getSchedule(),s.getArea(),s.getRow(),s.getCol());
+            if(seat.getStatus()!=1) {
+                seat.setStatus(1);
+            }else {
+                hasOrdered = true;
+                seatOrderedList.add(String.valueOf(seat.getRow())+"排"+String.valueOf(seat.getCol())+"列");
+            }
+            s = seat;
+            seatIdList.add(String.valueOf(seat.getSeat_id()));
+        }
+        if(hasOrdered){
+            return new MyOrder(null,String.join(",",seatOrderedList));
+        }
+        else {
+            for(Seat s:orderCreateBean.getSeats()){
+                seatRepository.save(s);
+            }
         }
         int venue = scheduleRepository.findById(orderCreateBean.getSchedule()).getVenue();
-        if (seatString.length() > 2) {
-            seatString = seatString.substring(0, seatString.length() - 2);
-        }
-        if (seatString.equals("")) {
-            seatString = "待分配";
-        }
-        MyOrder order = new MyOrder(type, orderCreateBean.getPrice(), orderCreateBean.getUsername(), orderCreateBean.getSchedule(), orderCreateBean.getArea(), seatString, new Date(), venue);
+        MyOrder order = new MyOrder("待付款订单",orderCreateBean.getPrice(),orderCreateBean.getUsername(),orderCreateBean.getSchedule(),String.join(",",seatIdList),new Date(),venue);
+
+
+//        String type = "待付款订单";
+////        String seatString = orderCreateBean.getArea() + ": ";
+//
+//        for (int i = 0; i < orderCreateBean.getSeats().size(); i++) {
+//            Seat seat = seatRepository.findByScheduleAndAreaAndRowAndCol(
+//                    orderCreateBean.getSchedule(),
+//                    Integer.parseInt(orderCreateBean.getSeats().get(i).split("排")[0]),
+//                    Integer.parseInt(orderCreateBean.getSeats().get(i).split("排")[1].split("座")[0]));
+//            System.out.println(seat.toString());
+//            seat.setStatus(1);
+//            seatRepository.save(seat);
+//            seatString += orderCreateBean.getSeats().get(i) + ", ";
+//        }
+//
+//        if (seatString.length() > 2) {
+//            seatString = seatString.substring(0, seatString.length() - 2);
+//        }
+//        if (seatString.equals("")) {
+//            seatString = "待分配";
+//        }
+//        MyOrder order = new MyOrder(type, orderCreateBean.getPrice(), orderCreateBean.getUsername(), orderCreateBean.getSchedule(), orderCreateBean.getArea(), seatString, new Date(), venue);
         System.out.println(order.toString());
         order = orderRepository.saveAndFlush(order);
 
@@ -74,12 +97,6 @@ public class OrderServiceImpl implements OrderService {
                 System.out.println("-------设定要指定任务--------");
             }
         }, 15000);// 设定指定的时间time,此处为2000毫秒
-
-        if (orderCreateBean.getCoupon() != 0) {
-            MyCoupon myCoupon = myCouponRepository.findByCouponAndUsernameAndUsed(orderCreateBean.getCoupon(), orderCreateBean.getUsername(), false).get(0);
-            myCoupon.setUsed(true);
-            myCouponRepository.save(myCoupon);
-        }
 
         return order;
     }
@@ -216,22 +233,23 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean closeOrder(int id) {
-        MyOrder order = orderRepository.findById(id);
-        if (order != null && order.getType().equals("待付款订单")) {
-            order.setType("已取消订单");
-            String[] seats = order.getSeat().split(", ");
-            for (int i = 0; i < seats.length; i++) {
-                if (! seats[i].equals("待分配")) {
-                    Seat seat = seatRepository.findByScheduleAndAreaAndRowAndCol(order.getSchedule(), order.getArea(), Integer.parseInt(seats[i].split("排")[0]), Integer.parseInt(seats[i].split("排")[1].split("座")[0]));
-                    seat.setStatus(0);
-                    seatRepository.save(seat);
-                }
-            }
-            orderRepository.save(order);
-            return true;
-        } else {
-            return false;
-        }
+//        MyOrder order = orderRepository.findById(id);
+//        if (order != null && order.getType().equals("待付款订单")) {
+//            order.setType("已取消订单");
+//            String[] seats = order.getSeat().split(", ");
+//            for (int i = 0; i < seats.length; i++) {
+//                if (! seats[i].equals("待分配")) {
+//                    Seat seat = seatRepository.findByScheduleAndAreaAndRowAndCol(order.getSchedule(), order.getArea(), Integer.parseInt(seats[i].split("排")[0]), Integer.parseInt(seats[i].split("排")[1].split("座")[0]));
+//                    seat.setStatus(0);
+//                    seatRepository.save(seat);
+//                }
+//            }
+//            orderRepository.save(order);
+//            return true;
+//        } else {
+//            return false;
+//        }
+        return false;
     }
 
     @Override

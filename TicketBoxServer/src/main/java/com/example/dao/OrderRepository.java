@@ -45,7 +45,5 @@ public interface OrderRepository extends JpaSpecificationExecutor<MyOrder>, JpaR
 
     List<MyOrder> findByVenueAndType(int venue, String type);
 
-    List<MyOrder> findByScheduleAndSeat(int schedule, String seat);
-
     List<MyOrder> findByScheduleAndType(int schedule, String type);
 }

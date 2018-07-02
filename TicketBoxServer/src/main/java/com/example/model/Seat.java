@@ -44,6 +44,12 @@ public class Seat {
         this.status = status;
     }
 
+    public Seat(String area, int row, int col) {
+        this.area = area;
+        this.row = row;
+        this.col = col;
+    }
+
     public int getSeat_id() {
         return seat_id;
     }
