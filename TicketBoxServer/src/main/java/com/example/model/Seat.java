@@ -108,14 +108,6 @@ public class Seat {
 
     @Override
     public String toString() {
-        return "Seat{" +
-                "seat_id=" + seat_id +
-                ", schedule=" + schedule +
-                ", area='" + area + '\'' +
-                ", row=" + row +
-                ", col=" + col +
-                ", price=" + price +
-                ", status=" + status +
-                '}';
+        return area + row + "排" + col + "座";
     }
 }

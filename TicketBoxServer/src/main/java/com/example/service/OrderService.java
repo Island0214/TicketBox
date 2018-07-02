@@ -1,11 +1,9 @@
 package com.example.service;
 
-import com.example.bean.DoubleInfoBean;
-import com.example.bean.OrderCreateBean;
-import com.example.bean.OrderPayBean;
-import com.example.bean.OrderTypeBean;
+import com.example.bean.*;
 import com.example.model.MyOrder;
 import com.example.model.Order;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,4 +37,11 @@ public interface OrderService {
     boolean closeOrder(int id);
 
     List<MyOrder> findByVenueAndType(int code);
+
+    /**
+     * 根据用户名和订单状态搜索订单
+     * @param searchBean
+     * @return
+     */
+    List<OrderInfoBean> findOrdersByUsernameAndStatus(OrderSearchBean searchBean);
 }

@@ -5,6 +5,8 @@ import com.example.bean.IntInfoBean;
 import com.example.bean.OrderTypeBean;
 import com.example.model.MyOrder;
 import com.example.model.Order;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -46,4 +48,7 @@ public interface OrderRepository extends JpaSpecificationExecutor<MyOrder>, JpaR
     List<MyOrder> findByVenueAndType(int venue, String type);
 
     List<MyOrder> findByScheduleAndType(int schedule, String type);
+
+    @Query("select o from MyOrder o where o.type like %:status% and o.username = :username order by o.time DESC ")
+    Page<MyOrder> searchOrders(Pageable pageable, @Param("username") String username, @Param("status") String status);
 }

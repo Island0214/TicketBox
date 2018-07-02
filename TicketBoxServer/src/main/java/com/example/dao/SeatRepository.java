@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by island on 2018/3/19.
  */
-public interface SeatRepository extends JpaSpecificationExecutor<Seat>, JpaRepository<Seat, Long> {
+public interface SeatRepository extends JpaSpecificationExecutor<Seat>, JpaRepository<Seat, Integer> {
     @Query("select distinct s.price from Seat s where s.schedule = :schedule order by s.price")
     List<Integer> findPricesBySchedule(@Param("schedule") int schedule);
 

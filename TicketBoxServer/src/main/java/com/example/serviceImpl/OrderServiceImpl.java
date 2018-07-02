@@ -1,17 +1,18 @@
 package com.example.serviceImpl;
 
-import com.example.bean.DoubleInfoBean;
-import com.example.bean.OrderCreateBean;
-import com.example.bean.OrderPayBean;
-import com.example.bean.OrderTypeBean;
+import com.example.bean.*;
 import com.example.dao.*;
 import com.example.model.*;
 import com.example.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by island on 2018/3/23.
@@ -44,27 +45,26 @@ public class OrderServiceImpl implements OrderService {
         List<String> seatIdList = new ArrayList<>(orderCreateBean.getSeats().size());
         List<String> seatOrderedList = new ArrayList<>(orderCreateBean.getSeats().size());
         boolean hasOrdered = false;
-        for(Seat s:orderCreateBean.getSeats()){
-            Seat seat = seatRepository.findByScheduleAndAreaAndRowAndCol(orderCreateBean.getSchedule(),s.getArea(),s.getRow(),s.getCol());
-            if(seat.getStatus()!=1) {
+        for (Seat s : orderCreateBean.getSeats()) {
+            Seat seat = seatRepository.findByScheduleAndAreaAndRowAndCol(orderCreateBean.getSchedule(), s.getArea(), s.getRow(), s.getCol());
+            if (seat.getStatus() != 1) {
                 seat.setStatus(1);
-            }else {
+            } else {
                 hasOrdered = true;
-                seatOrderedList.add(String.valueOf(seat.getRow())+"排"+String.valueOf(seat.getCol())+"列");
+                seatOrderedList.add(String.valueOf(seat.getRow()) + "排" + String.valueOf(seat.getCol()) + "列");
             }
             s = seat;
             seatIdList.add(String.valueOf(seat.getSeat_id()));
         }
-        if(hasOrdered){
-            return new MyOrder(null,String.join(",",seatOrderedList));
-        }
-        else {
-            for(Seat s:orderCreateBean.getSeats()){
+        if (hasOrdered) {
+            return new MyOrder(null, String.join(",", seatOrderedList));
+        } else {
+            for (Seat s : orderCreateBean.getSeats()) {
                 seatRepository.save(s);
             }
         }
         int venue = scheduleRepository.findById(orderCreateBean.getSchedule()).getVenue();
-        MyOrder order = new MyOrder("待付款订单",orderCreateBean.getPrice(),orderCreateBean.getUsername(),orderCreateBean.getSchedule(),String.join(",",seatIdList),new Date(),venue);
+        MyOrder order = new MyOrder("待付款订单", orderCreateBean.getPrice(), orderCreateBean.getUsername(), orderCreateBean.getSchedule(), String.join(",", seatIdList), new Date(), venue);
 
 
 //        String type = "待付款订单";
@@ -233,27 +233,51 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean closeOrder(int id) {
-//        MyOrder order = orderRepository.findById(id);
-//        if (order != null && order.getType().equals("待付款订单")) {
-//            order.setType("已取消订单");
-//            String[] seats = order.getSeat().split(", ");
-//            for (int i = 0; i < seats.length; i++) {
-//                if (! seats[i].equals("待分配")) {
-//                    Seat seat = seatRepository.findByScheduleAndAreaAndRowAndCol(order.getSchedule(), order.getArea(), Integer.parseInt(seats[i].split("排")[0]), Integer.parseInt(seats[i].split("排")[1].split("座")[0]));
-//                    seat.setStatus(0);
-//                    seatRepository.save(seat);
-//                }
-//            }
-//            orderRepository.save(order);
-//            return true;
-//        } else {
-//            return false;
-//        }
         return false;
     }
 
     @Override
     public List<MyOrder> findByVenueAndType(int code) {
         return orderRepository.findByVenueAndType(code, "已退订订单");
+    }
+
+    /**
+     * 根据用户名和订单状态搜索订单
+     *
+     * @param searchBean
+     * @return
+     */
+    @Override
+    public List<OrderInfoBean> findOrdersByUsernameAndStatus(OrderSearchBean searchBean) {
+        Pageable pageable = new PageRequest(searchBean.getPageNum() - 1, searchBean.getPageSize(), null);
+        Page<MyOrder> myOrders = orderRepository.searchOrders(pageable, searchBean.getUsername(), searchBean.getStatus());
+        List<OrderInfoBean> orders = new ArrayList<>();
+
+        myOrders.getContent().forEach(myOrder -> {
+            OrderInfoBean orderInfoBean = new OrderInfoBean();
+            orderInfoBean.setOrderId(myOrder.getOrder_id());
+            orderInfoBean.setType(myOrder.getType());
+            orderInfoBean.setPrice(myOrder.getPrice());
+            orderInfoBean.setUsername(myOrder.getUsername());
+            orderInfoBean.setScheduleId(myOrder.getSchedule());
+            orderInfoBean.setOrderTime(myOrder.getTime());
+
+            Schedule schedule = scheduleRepository.findById(myOrder.getSchedule());
+            orderInfoBean.setScheduleName(schedule.getSchedule());
+            orderInfoBean.setScheduleTime(schedule.getTime());
+            orderInfoBean.setPoster(schedule.getPoster());
+
+            List<Integer> seatIds = Arrays.stream(myOrder.getSeatIds().split(",")).map(Integer::parseInt).collect(Collectors.toList());
+            List<String> seatsInfo = new ArrayList<>();
+            seatIds.forEach(seatId -> {
+                Seat seat = seatRepository.findOne(seatId);
+                seatsInfo.add(seat.toString());
+            });
+
+            orderInfoBean.setSeatsInfo(seatsInfo);
+            orders.add(orderInfoBean);
+        });
+
+        return orders;
     }
 }

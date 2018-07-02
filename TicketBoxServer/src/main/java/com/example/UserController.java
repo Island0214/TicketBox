@@ -106,6 +106,7 @@ public class UserController {
 
     /**
      * 获得用户对应折扣
+     *
      * @param grade
      * @return
      */
@@ -116,6 +117,7 @@ public class UserController {
 
     /**
      * 线下购票
+     *
      * @param order
      * @return
      */
@@ -126,6 +128,7 @@ public class UserController {
 
     /**
      * 获得所有用户
+     *
      * @return
      */
     @RequestMapping(value = "/all", method = RequestMethod.GET)
@@ -135,6 +138,7 @@ public class UserController {
 
     /**
      * 获得所有等级折扣
+     *
      * @return
      */
     @RequestMapping(value = "/discounts", method = RequestMethod.GET)
@@ -144,6 +148,7 @@ public class UserController {
 
     /**
      * 修改密码
+     *
      * @param
      * @return
      */
@@ -154,6 +159,7 @@ public class UserController {
 
     /**
      * 获得所有优惠券
+     *
      * @return
      */
     @RequestMapping(value = "/coupon/all", method = RequestMethod.GET)
@@ -163,6 +169,7 @@ public class UserController {
 
     /**
      * 获得用户所有优惠券
+     *
      * @return
      */
     @RequestMapping(value = "/coupon/my/{username}", method = RequestMethod.GET)
@@ -172,6 +179,7 @@ public class UserController {
 
     /**
      * 修改密码
+     *
      * @param myCoupon
      * @return
      */
@@ -182,6 +190,7 @@ public class UserController {
 
     /**
      * 获得最近三个演出
+     *
      * @return
      */
     @RequestMapping(value = "/schedule/close", method = RequestMethod.GET)
@@ -191,6 +200,7 @@ public class UserController {
 
     /**
      * 获得最新三个演出
+     *
      * @return
      */
     @RequestMapping(value = "/schedule/new", method = RequestMethod.GET)
@@ -200,6 +210,7 @@ public class UserController {
 
     /**
      * 获得计划相应信息
+     *
      * @param schedule
      * @return
      */
@@ -210,6 +221,7 @@ public class UserController {
 
     /**
      * 获得计划基础相应信息
+     *
      * @param schedule
      * @return
      */
@@ -219,9 +231,9 @@ public class UserController {
     }
 
 
-
     /**
      * 获得最新三个演出
+     *
      * @return
      */
     @RequestMapping(value = "/coupon/usable/", method = RequestMethod.POST)
@@ -231,6 +243,7 @@ public class UserController {
 
     /**
      * 创建订单
+     *
      * @return
      */
     @RequestMapping(value = "/order/create/", method = RequestMethod.POST)
@@ -240,6 +253,7 @@ public class UserController {
 
     /**
      * 根据订单id获得id
+     *
      * @return
      */
     @RequestMapping(value = "/order/info/", method = RequestMethod.POST)
@@ -250,6 +264,7 @@ public class UserController {
 
     /**
      * 付款
+     *
      * @return
      */
     @RequestMapping(value = "/order/pay/", method = RequestMethod.POST)
@@ -259,6 +274,7 @@ public class UserController {
 
     /**
      * 退款
+     *
      * @return
      */
     @RequestMapping(value = "/order/refund/", method = RequestMethod.POST)
@@ -268,6 +284,7 @@ public class UserController {
 
     /**
      * 取消订单
+     *
      * @return
      */
     @RequestMapping(value = "/order/cancel/", method = RequestMethod.POST)
@@ -277,6 +294,7 @@ public class UserController {
 
     /**
      * 获得所有订单
+     *
      * @return
      */
     @RequestMapping(value = "/order/all/", method = RequestMethod.POST)
@@ -286,6 +304,7 @@ public class UserController {
 
     /**
      * 根据状态获得订单
+     *
      * @return
      */
     @RequestMapping(value = "/order/status/", method = RequestMethod.POST)
@@ -295,6 +314,7 @@ public class UserController {
 
     /**
      * 获得订单统计
+     *
      * @return
      */
     @RequestMapping(value = "/order/statistic/{username}", method = RequestMethod.GET)
@@ -304,6 +324,7 @@ public class UserController {
 
     /**
      * 获得消费统计
+     *
      * @return
      */
     @RequestMapping(value = "/consumption/statistic/{username}", method = RequestMethod.GET)
@@ -313,10 +334,21 @@ public class UserController {
 
     /**
      * 演出搜索
+     *
      * @return
      */
     @RequestMapping(value = "/schedule/search/", method = RequestMethod.POST)
     Page<Schedule> findScheduleByPage(@RequestBody ScheduleSearchBean scheduleSearchBean) {
         return scheduleService.findScheduleByPage(scheduleSearchBean);
+    }
+
+    /**
+     * 订单搜索
+     * @param orderSearchBean
+     * @return
+     */
+    @RequestMapping(value = "/order", method = RequestMethod.POST)
+    List<OrderInfoBean> findOrdersByUsernameAndStatus(@RequestBody OrderSearchBean orderSearchBean) {
+        return orderService.findOrdersByUsernameAndStatus(orderSearchBean);
     }
 }
