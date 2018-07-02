@@ -1,11 +1,12 @@
 import * as orderApi from '../../api/order'
 // initial state
 const state = {
+  orderType: ''
 }
 
 // getters
 const getters = {
-  // showLogin: state => state.showLogin
+  orderType: state => state.orderType
 }
 
 // actions
@@ -86,6 +87,11 @@ const actions = {
 
 // mutations
 const mutations = {
+  'setOrderType' (state, type) {
+    // console.log(username)
+    state.orderType = type
+    console.log(state.orderType)
+  }
 }
 
 export default {

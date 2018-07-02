@@ -1,39 +1,43 @@
 <template>
-  <div class="show-wrapper">
+  <div class="order-page">
     <el-row :gutter="20" style="margin: 0;">
-      <el-col :xs="16" :sm="16" :md="16" :lg="18" style="padding: 0;">
-        <!--<show-list-nav></show-list-nav>-->
-        <show-info></show-info>
-        <!--<advertisement-recommendation></advertisement-recommendation>-->
+      <el-col :xs="6" :sm="6" :md="6" :lg="6" style="padding: 0;">
+        <order-nav></order-nav>
       </el-col>
-      <el-col :xs="4" :sm="4" :md="4" :lg="4" style="padding: 0;">
-        <!--<show-list-nav></show-list-nav>-->
+      <el-col :xs="6" :sm="6" :md="14" :lg="14" style="padding: 0;">
+        <order-list></order-list>
+        <advertisement-recommendation></advertisement-recommendation>
+      </el-col>
+      <el-col :xs="6" :sm="6" :md="4" :lg="4" style="padding: 0;">
         <advertisement-carousel></advertisement-carousel>
         <advertisement-list-right></advertisement-list-right>
       </el-col>
     </el-row>
+
   </div>
 </template>
 
 <script>
+  import OrderNav from '../components/OrderNav/OrderNav'
+  import OrderList from '../components/OrderList/OrderList'
   import AdvertisementListRight from '../components/AdvertisementListRight/AdvertisementListRight'
   import AdvertisementCarousel from '../components/AdvertisementCarousel/AdvertisementCarousel'
   import AdvertisementRecommendation from '../components/AdvertisementRecommendation/AdvertisementRecommendation'
-  import ShowInfo from '../components/ShowInfo/ShowInfo'
 
   export default {
-    name: "ShowPage",
+    name: "OrderPage",
     components: {
-      AdvertisementRecommendation,
       AdvertisementListRight,
       AdvertisementCarousel,
-      ShowInfo
+      OrderNav,
+      AdvertisementRecommendation,
+      OrderList
     }
   }
 </script>
 
 <style scoped>
-  .show-wrapper {
+  .order-page {
     width: 100%;
     padding: 0 120px;
     min-height: 900px;

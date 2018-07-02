@@ -84,7 +84,7 @@
 
       <span slot="footer" class="dialog-footer">
         <p style="margin-left: 5px;"><i class="el-icon-warning"></i> 单次最多选择6个座位！</p>
-        <el-button :disabled="selectedSeats.length === 0">确认购买</el-button>
+        <el-button :disabled="selectedSeats.length === 0" @click="buy">确认购买</el-button>
         <!--<el-button @click="showChangePassword = false">取 消</el-button>-->
         <!--<el-button @click="changePassword">确 定</el-button>-->
       </span>
@@ -141,7 +141,8 @@
     },
     methods: {
       ...mapActions({
-        getScheduleInfo: 'getScheduleInfo'
+        getScheduleInfo: 'getScheduleInfo',
+        createOrder: 'createOrder'
       }),
       setPrice: function (index) {
 
@@ -159,7 +160,24 @@
           }
         }
         this.selectedSeats.push(data)
+      },
+      buy: function () {
+        this.createOrder({
+          onSuccess: (data) => {
+            console.log(data)
+          },
+          onError: () => {
+            this.$message({
+              showClose: true,
+              type: 'error',
+              message: '发生网络错误，请重试！',
+              customClass: 'message-wrapper'
+            })
+          },
+          body: {
 
+          }
+        })
       }
     },
     mounted() {
