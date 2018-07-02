@@ -8,7 +8,11 @@ import 'element-ui/lib/theme-chalk/index.css';
 import './element-variables.scss'
 import Vuex from 'vuex'
 import store from './store/index'
+import 'vue-awesome/icons'
+import Icon from 'vue-awesome/components/Icon'
 
+// 全局注册（在 `main .js` 文件中）
+Vue.component('icon', Icon)
 Vue.use(ElementUI);
 Vue.config.productionTip = false
 Vue.use(Vuex)

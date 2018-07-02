@@ -3,6 +3,7 @@
     <el-dialog
       :visible.sync="reserveTicket"
       width="640px"
+      top="90px"
       :show-close=true
       title="预售"
       :close-on-click-modal="false"
@@ -13,23 +14,26 @@
       <p>价位：
         <!--<el-button class="time-button">{{ new Date(basicData.time).toLocaleString() }}</el-button>-->
         <!--<span>{{ new Date(basicData.time).toLocaleString() }}</span>-->
-        <button v-for="(price, index) in prices" :key="price"
-                :class="['price-button', {'is-active':selectPrices.indexOf(index) !== -1}]" @click="setPrice(index)">{{
-          price }}
-        </button>
-      </p>
-      <p v-if="this.selectPrices.length > 0">您选择了：</p>
 
-      <div class="type-wrapper" v-for="(item, index) in selectPrices" :key="index">
+        <el-checkbox
+          v-for="(price, index) in prices" :key="price"
+          v-model="selectPrices[index]" label="备选项1" border>
+          {{ price }}
+        </el-checkbox>
+
+      </p>
+      <p v-if="selected">您选择了：</p>
+
+      <div class="type-wrapper" v-for="(item, index) in selectPrices" :key="index" v-if="selectPrices[index]">
         <el-row :gutter="20" style="margin: 0;">
           <el-col :xs="8" :sm="8" :md="8" :lg="10">
             <span>{{ new Date(time).toLocaleString() }}</span>
           </el-col>
           <el-col :xs="8" :sm="8" :md="8" :lg="6">
-            <span>¥ {{ prices[item] }}</span>
+            <span>¥ {{ prices[index] }}</span>
           </el-col>
           <el-col :xs="8" :sm="8" :md="8" :lg="8">
-            <el-input-number v-model="nums[item]" :min="1" :max="6" label="描述文字"></el-input-number>
+            <el-input-number v-model="nums[index]" :min="1" :max="6" label="描述文字"></el-input-number>
           </el-col>
         </el-row>
       </div>
@@ -38,7 +42,7 @@
 
       <span slot="footer" class="dialog-footer">
         <p><i class="el-icon-warning"></i> 每种价位预售票单次最多可购买6张</p>
-        <el-button :disabled="this.selectPrices.length === 0">确认购买</el-button>
+        <el-button :disabled="!selected">确认购买</el-button>
         <!--<el-button @click="showChangePassword = false">取 消</el-button>-->
         <!--<el-button @click="changePassword">确 定</el-button>-->
       </span>
@@ -52,7 +56,7 @@
     name: "TicketReserve",
     data() {
       return {
-        selectPrices: [],
+        selectPrices: [false, false, false, false, false],
         nums: [1, 1, 1, 1, 1]
       }
     },
@@ -60,26 +64,37 @@
       totalPrice: function () {
         let total = 0
         for (let i = 0; i < this.prices.length; i++) {
-          if (i in this.selectPrices) {
+          if (this.selectPrices[i]) {
             total += this.prices[i] * this.nums[i]
           }
         }
         return total
+      },
+      selected: function () {
+        let select = false
+        for (let i = 0; i < this.selectPrices.length; i++) {
+          if (this.selectPrices[i]) {
+            return true
+          }
+        }
+        return false
       }
     },
     watch: {
-      reserveTicket: function () {
-        if (this.selectPrices.indexOf(this.curPrice) === -1) {
-          this.selectPrices.push(this.curPrice)
-        }
+      reserveTicket: {
+        handler: function () {
+          this.selectPrices = this.curPrice
+        },
+         deep: true
       }
     },
     methods: {
       setPrice: function (index) {
-        if (this.selectPrices.indexOf(index) !== -1) {
-          this.selectPrices.splice(this.selectPrices.indexOf(index), 1)
+        console.log(this.selectPrices)
+        if (this.selectPrices[index] === false) {
+          this.selectPrices[index] = true
         } else {
-          this.selectPrices.push(index)
+          this.selectPrices[index] = false
         }
         console.log(this.selectPrices)
       },
@@ -88,7 +103,7 @@
       }
     },
     mounted() {
-      this.selectPrices.push(this.curPrice)
+      this.selectPrices = this.curPrice
     }
   }
 </script>

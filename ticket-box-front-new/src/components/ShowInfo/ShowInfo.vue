@@ -30,16 +30,21 @@
           <p><i><img src="../../assets/price.png"></i>价格：
             <!--<el-button class="time-button">{{ new Date(basicData.time).toLocaleString() }}</el-button>-->
             <!--<span>{{ new Date(basicData.time).toLocaleString() }}</span>-->
-            <button v-for="(price, index) in prices" :key="price"
-                    :class="['price-button', {'is-active':index === curPrice}]" @click="setPrice(index)">{{ price }}
-            </button>
+            <!--<button v-for="(price, index) in prices" :key="price"-->
+                    <!--:class="['price-button', {'is-active':index === curPrice}]" @click="setPrice(index)">{{ price }}-->
+            <!--</button>-->
+            <el-checkbox
+              v-for="(price, index) in prices" :key="price"
+              v-model="selectPrices[index]" label="备选项1" border>
+              {{ price }}
+            </el-checkbox>
           </p>
 
           <el-button v-if="activeStep === 0" @click="reserveTicket = true">立即预定</el-button>
           <el-tooltip class="item" effect="light" content="距演出开场一个月以上只能先进行预购，开票后优先分配座位！" placement="right" v-if="activeStep === 0">
             <i class="el-icon-question" style="font-size: 20px; color: #999; position: absolute; margin-top: 9px; margin-left: 9px;"></i>
           </el-tooltip>
-          <el-button v-if="activeStep === 1">选座购买</el-button>
+          <el-button v-if="activeStep === 1" @click="buyTicket = true">选座购买</el-button>
           <el-tooltip class="item" effect="light" content="距演出开场一个月内可进行选座购票！" placement="right" v-if="activeStep === 1">
             <i class="el-icon-question" style="font-size: 20px; color: #999; position: absolute; margin-top: 9px; margin-left: 9px;"></i>
           </el-tooltip>
@@ -78,21 +83,32 @@
       :reserveTicket="reserveTicket"
       :prices="prices"
       :time="basicData.time"
-      :curPrice="curPrice"
+      :curPrice="selectPrices"
       :schedule="basicData.schedule"
       @close="reserveTicket = false"
     ></ticket-reserve>
+
+    <ticket-select-seat
+      :buyTicket="buyTicket"
+      :prices="prices"
+      :time="basicData.time"
+      :curPrice="selectPrices"
+      :schedule="basicData.schedule"
+      @close="buyTicket = false"
+    ></ticket-select-seat>
   </div>
 </template>
 
 <script>
   import {mapActions} from 'vuex'
   import TicketReserve from '../TicketReserve/TicketReserve'
+  import TicketSelectSeat from '../TicketSelectSeat/TicketSelectSeat'
 
   export default {
     name: "ShowInfo",
     components: {
-      TicketReserve
+      TicketReserve,
+      TicketSelectSeat
     },
     data() {
       return {
@@ -100,13 +116,15 @@
           tourId: 0
         },
         prices: [280, 380, 680, 980, 1280],
+        selectPrices: [false, false, false, false, false],
         curPrice: 0,
         activeStep: 1,
         venueName: '',
         curTour: 0,
         finishTour: -1,
         tours: [],
-        reserveTicket: false
+        reserveTicket: false,
+        buyTicket: false
       }
     },
     methods: {
