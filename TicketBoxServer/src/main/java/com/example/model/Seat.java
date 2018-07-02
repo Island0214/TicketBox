@@ -44,6 +44,12 @@ public class Seat {
         this.status = status;
     }
 
+    public Seat(String area, int row, int col) {
+        this.area = area;
+        this.row = row;
+        this.col = col;
+    }
+
     public int getSeat_id() {
         return seat_id;
     }
@@ -102,14 +108,6 @@ public class Seat {
 
     @Override
     public String toString() {
-        return "Seat{" +
-                "seat_id=" + seat_id +
-                ", schedule=" + schedule +
-                ", area='" + area + '\'' +
-                ", row=" + row +
-                ", col=" + col +
-                ", price=" + price +
-                ", status=" + status +
-                '}';
+        return area + row + "排" + col + "座";
     }
 }

@@ -25,6 +25,8 @@ public interface ScheduleService {
 
     Seat getSeatByScheduleAndArea(int schedule, String area);
 
+    Seat getSeatByScheduleAndAreaAndRowAndCol(int schedule, String area,int row,int col);
+
     List<Boolean> getSeatsInArea(int schedule, String area);
 
     List<Schedule> getThreeClosestSchedule();

@@ -1,5 +1,7 @@
 package com.example.bean;
 
+import com.example.model.Seat;
+
 import java.util.List;
 
 /**
@@ -11,13 +13,9 @@ public class OrderCreateBean {
 
     private double price;
 
-    private int coupon;
-
     private int schedule;
 
-    private String area;
-
-    private List<String> seats;
+    private List<Seat> seats;
 
     public OrderCreateBean() {
     }
@@ -38,14 +36,6 @@ public class OrderCreateBean {
         this.price = price;
     }
 
-    public int getCoupon() {
-        return coupon;
-    }
-
-    public void setCoupon(int coupon) {
-        this.coupon = coupon;
-    }
-
     public int getSchedule() {
         return schedule;
     }
@@ -54,19 +44,11 @@ public class OrderCreateBean {
         this.schedule = schedule;
     }
 
-    public String getArea() {
-        return area;
-    }
-
-    public void setArea(String area) {
-        this.area = area;
-    }
-
-    public List<String> getSeats() {
+    public List<Seat> getSeats() {
         return seats;
     }
 
-    public void setSeats(List<String> seats) {
+    public void setSeats(List<Seat> seats) {
         this.seats = seats;
     }
 
@@ -75,9 +57,7 @@ public class OrderCreateBean {
         return "OrderCreateBean{" +
                 "username='" + username + '\'' +
                 ", price=" + price +
-                ", coupon=" + coupon +
                 ", schedule=" + schedule +
-                ", area='" + area + '\'' +
                 ", seats=" + seats +
                 '}';
     }
