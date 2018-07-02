@@ -338,4 +338,10 @@ public class VenueController {
     List<Schedule> getCitySchedule(String city) {
         return scheduleService.get3SchedulesByCity(city);
     }
+
+
+    @RequestMapping(value = "/getSeatByPosition",method = RequestMethod.POST)
+    Seat getSeatByPosition(int scheduleId,String area,int row,int col){
+        return scheduleService.getSeatByScheduleAndAreaAndRowAndCol(scheduleId,area,row,col);
+    }
 }

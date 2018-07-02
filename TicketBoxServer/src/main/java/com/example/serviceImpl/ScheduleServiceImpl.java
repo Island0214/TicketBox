@@ -90,6 +90,11 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
+    public Seat getSeatByScheduleAndAreaAndRowAndCol(int schedule, String area, int row, int col) {
+        return seatRepository.findByScheduleAndAreaAndRowAndCol(schedule,area,row,col);
+    }
+
+    @Override
     public List<Boolean> getSeatsInArea(int schedule, String area) {
         List<Seat> seatList = seatRepository.findSeatsByScheduleAndArea(schedule, area);
         List<Boolean> result = new ArrayList<>();
