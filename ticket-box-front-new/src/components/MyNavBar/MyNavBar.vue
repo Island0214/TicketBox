@@ -8,15 +8,15 @@
     <el-input type="input" v-model="input"></el-input>
     <el-button @click="toAllShows(input)"><i class="el-icon-search"></i></el-button>
     <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal">
-      <el-menu-item :index="0" @click="$router.push('/')">首页</el-menu-item>
-      <el-menu-item :index="1" @click="toAllShows('')">演出</el-menu-item>
+      <el-menu-item index="0" @click="$router.push('/')">首页</el-menu-item>
+      <el-menu-item index="1" @click="toAllShows('')">演出</el-menu-item>
       <!--<el-menu-item index="2" @click="$router.push('/order')">订单</el-menu-item>-->
-      <el-submenu :index="2" v-if="name === ''" @click="clickSubmenu">
+      <el-submenu index="2" v-if="name === ''" @click="clickSubmenu">
         <template slot="title">用户</template>
         <el-menu-item index="2-1" @click="login = true">登陆</el-menu-item>
         <el-menu-item index="2-2" @click="signin = true">注册</el-menu-item>
       </el-submenu>
-      <el-submenu :index="2" v-if="name !== ''">
+      <el-submenu index="2" v-if="name !== ''">
         <template slot="title">{{ name }}</template>
         <el-menu-item index="2-1" @click="$router.push('/info')">个人信息</el-menu-item>
         <el-menu-item index="2-2" @click="$router.push('/order')">我的订单</el-menu-item>
@@ -84,7 +84,7 @@
     name: "MyNavBar",
     data() {
       return {
-        activeIndex: 0,
+        activeIndex: '0',
         input: '',
         login: false,
         username: '',
@@ -154,13 +154,13 @@
           // that.setActiveIndex(path)
           switch (p) {
             case '':
-              that.activeIndex = 0
+              that.activeIndex = '0'
               break;
             case 'shows':
-              that.activeIndex = 1
+              that.activeIndex = '1'
               break;
             case 'show':
-              that.activeIndex = 1
+              that.activeIndex = '1'
               break;
             case 'order':
               that.activeIndex = '2-2'

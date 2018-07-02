@@ -141,14 +141,14 @@ a {
   /*text-decoration: underline;*/
   cursor: pointer;
   font-weight: 500;
-  border-bottom: 1px solid #FEC581;
+  border-bottom: 2px solid #FEC581;
   padding-bottom: 2px;
 }
 
 a:hover {
   color: #ffb17c;
   text-decoration: none;
-  border-bottom: 2px solid #FEC581;
+  /*border-bottom: 2px solid #FEC581;*/
 }
 
 .el-checkbox {
