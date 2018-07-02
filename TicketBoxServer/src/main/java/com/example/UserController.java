@@ -358,7 +358,7 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/order", method = RequestMethod.POST)
-    List<OrderInfoBean> findOrdersByUsernameAndStatus(@RequestBody OrderSearchBean orderSearchBean) {
+    OrderSearchResultBean findOrdersByUsernameAndStatus(@RequestBody OrderSearchBean orderSearchBean) {
         return orderService.findOrdersByUsernameAndStatus(orderSearchBean);
     }
 }

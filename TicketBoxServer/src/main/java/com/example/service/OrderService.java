@@ -45,5 +45,5 @@ public interface OrderService {
      * @param searchBean
      * @return
      */
-    List<OrderInfoBean> findOrdersByUsernameAndStatus(OrderSearchBean searchBean);
+    OrderSearchResultBean findOrdersByUsernameAndStatus(OrderSearchBean searchBean);
 }

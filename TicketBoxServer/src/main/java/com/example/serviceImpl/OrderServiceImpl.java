@@ -103,20 +103,20 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public MyOrder createPreorder(PreorderCreateBean preorderCreateBean) {
-        List<Seat> emptySeats = seatRepository.findByScheduleAndPriceAndStatus(preorderCreateBean.schedule,preorderCreateBean.unitPrice,0);
-        if(emptySeats.size()<preorderCreateBean.num){
-            return new MyOrder(null,"该价格剩余座位不足");
+        List<Seat> emptySeats = seatRepository.findByScheduleAndPriceAndStatus(preorderCreateBean.schedule, preorderCreateBean.unitPrice, 0);
+        if (emptySeats.size() < preorderCreateBean.num) {
+            return new MyOrder(null, "该价格剩余座位不足");
         }
 
         List<String> seatIdList = new ArrayList<>(preorderCreateBean.num);
-        for(int i=0;i<preorderCreateBean.num;i++){
+        for (int i = 0; i < preorderCreateBean.num; i++) {
             seatIdList.add(String.valueOf(emptySeats.get(i).getSeat_id()));
             emptySeats.get(i).setStatus(1);
             seatRepository.save(emptySeats.get(i));
         }
 
         int venue = scheduleRepository.findById(preorderCreateBean.schedule).getVenue();
-        MyOrder order = new MyOrder("待付款订单", preorderCreateBean.unitPrice*preorderCreateBean.num, preorderCreateBean.username, preorderCreateBean.num, String.join(",", seatIdList), new Date(), venue);
+        MyOrder order = new MyOrder("待付款订单", preorderCreateBean.unitPrice * preorderCreateBean.num, preorderCreateBean.username, preorderCreateBean.num, String.join(",", seatIdList), new Date(), venue);
         System.out.println(order.toString());
         order = orderRepository.saveAndFlush(order);
 
@@ -277,7 +277,7 @@ public class OrderServiceImpl implements OrderService {
      * @return
      */
     @Override
-    public List<OrderInfoBean> findOrdersByUsernameAndStatus(OrderSearchBean searchBean) {
+    public OrderSearchResultBean findOrdersByUsernameAndStatus(OrderSearchBean searchBean) {
         Pageable pageable = new PageRequest(searchBean.getPageNum() - 1, searchBean.getPageSize(), null);
         Page<MyOrder> myOrders = orderRepository.searchOrders(pageable, searchBean.getUsername(), searchBean.getStatus());
         List<OrderInfoBean> orders = new ArrayList<>();
@@ -306,7 +306,6 @@ public class OrderServiceImpl implements OrderService {
             orderInfoBean.setSeatsInfo(seatsInfo);
             orders.add(orderInfoBean);
         });
-
-        return orders;
+        return new OrderSearchResultBean(orders, searchBean.getPageNum(), myOrders.getTotalPages(), searchBean.getPageSize());
     }
 }
