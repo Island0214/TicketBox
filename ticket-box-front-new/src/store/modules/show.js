@@ -8,7 +8,7 @@ const state = {
   startTime: '',
   endTime: '',
   page: 1,
-  sort: 'latest',
+  sort: 'hottest',
   pageSize: 15
 }
 

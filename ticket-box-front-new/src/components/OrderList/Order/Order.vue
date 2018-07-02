@@ -216,7 +216,7 @@
 
           this.getVenueInfo({
             onSuccess: (data) => {
-             console.log(data)
+             // console.log(data)
               this.venue = data
             },
             onError: () => {

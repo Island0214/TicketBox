@@ -4,6 +4,7 @@
       <el-col :xs="16" :sm="16" :md="16" :lg="18" style="padding: 0;">
         <!--<show-list-nav></show-list-nav>-->
         <show-info></show-info>
+        <!--<advertisement-recommendation></advertisement-recommendation>-->
       </el-col>
       <el-col :xs="4" :sm="4" :md="4" :lg="4" style="padding: 0;">
         <!--<show-list-nav></show-list-nav>-->
@@ -17,11 +18,13 @@
 <script>
   import AdvertisementListRight from '../components/AdvertisementListRight/AdvertisementListRight'
   import AdvertisementCarousel from '../components/AdvertisementCarousel/AdvertisementCarousel'
+  import AdvertisementRecommendation from '../components/AdvertisementRecommendation/AdvertisementRecommendation'
   import ShowInfo from '../components/ShowInfo/ShowInfo'
 
   export default {
     name: "ShowPage",
     components: {
+      AdvertisementRecommendation,
       AdvertisementListRight,
       AdvertisementCarousel,
       ShowInfo

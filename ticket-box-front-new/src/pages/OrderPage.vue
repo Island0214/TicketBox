@@ -6,6 +6,7 @@
       </el-col>
       <el-col :xs="6" :sm="6" :md="14" :lg="14" style="padding: 0;">
         <order-list></order-list>
+        <advertisement-recommendation></advertisement-recommendation>
       </el-col>
       <el-col :xs="6" :sm="6" :md="4" :lg="4" style="padding: 0;">
         <advertisement-carousel></advertisement-carousel>
@@ -21,6 +22,7 @@
   import OrderList from '../components/OrderList/OrderList'
   import AdvertisementListRight from '../components/AdvertisementListRight/AdvertisementListRight'
   import AdvertisementCarousel from '../components/AdvertisementCarousel/AdvertisementCarousel'
+  import AdvertisementRecommendation from '../components/AdvertisementRecommendation/AdvertisementRecommendation'
 
   export default {
     name: "OrderPage",
@@ -28,6 +30,7 @@
       AdvertisementListRight,
       AdvertisementCarousel,
       OrderNav,
+      AdvertisementRecommendation,
       OrderList
     }
   }
