@@ -252,6 +252,16 @@ public class UserController {
     }
 
     /**
+     * 创建订单
+     *
+     * @return
+     */
+    @RequestMapping(value = "/order/preorder/", method = RequestMethod.POST)
+    MyOrder createOrder(@RequestBody PreorderCreateBean preorderCreateBean) {
+        return orderService.createPreorder(preorderCreateBean);
+    }
+
+    /**
      * 根据订单id获得id
      *
      * @return

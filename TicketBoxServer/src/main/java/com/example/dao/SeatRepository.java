@@ -37,4 +37,6 @@ public interface SeatRepository extends JpaSpecificationExecutor<Seat>, JpaRepos
     int getOccupaidSeats(@Param("schedule") int schedule);
 
     List<Seat> findByScheduleAndStatusAndArea(int schedule, int status, String area);
+
+    List<Seat> findByScheduleAndPriceAndStatus(int schedule, int price,int status);
 }

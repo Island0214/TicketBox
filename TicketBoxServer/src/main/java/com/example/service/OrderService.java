@@ -16,6 +16,8 @@ import java.util.Map;
 public interface OrderService {
     MyOrder createOrder(OrderCreateBean orderCreateBean);
 
+    MyOrder createPreorder(PreorderCreateBean preorderCreateBean);
+
     MyOrder getOrderById(MyOrder myOrder);
 
     Map<String, String> payOrder(OrderPayBean orderPayBean);

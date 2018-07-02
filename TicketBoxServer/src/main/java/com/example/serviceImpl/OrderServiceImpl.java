@@ -102,6 +102,35 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public MyOrder createPreorder(PreorderCreateBean preorderCreateBean) {
+        List<Seat> emptySeats = seatRepository.findByScheduleAndPriceAndStatus(preorderCreateBean.schedule,preorderCreateBean.unitPrice,0);
+        if(emptySeats.size()<preorderCreateBean.num){
+            return new MyOrder(null,"该价格剩余座位不足");
+        }
+
+        List<String> seatIdList = new ArrayList<>(preorderCreateBean.num);
+        for(int i=0;i<preorderCreateBean.num;i++){
+            seatIdList.add(String.valueOf(emptySeats.get(i).getSeat_id()));
+            emptySeats.get(i).setStatus(1);
+            seatRepository.save(emptySeats.get(i));
+        }
+
+        int venue = scheduleRepository.findById(preorderCreateBean.schedule).getVenue();
+        MyOrder order = new MyOrder("待付款订单", preorderCreateBean.unitPrice*preorderCreateBean.num, preorderCreateBean.username, preorderCreateBean.num, String.join(",", seatIdList), new Date(), venue);
+        System.out.println(order.toString());
+        order = orderRepository.saveAndFlush(order);
+
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            public void run() {
+                System.out.println("-------设定要指定任务--------");
+            }
+        }, 15000);// 设定指定的时间time,此处为2000毫秒
+
+        return order;
+    }
+
+    @Override
     public MyOrder getOrderById(MyOrder myOrder) {
         return orderRepository.findById(myOrder.getOrder_id());
     }
