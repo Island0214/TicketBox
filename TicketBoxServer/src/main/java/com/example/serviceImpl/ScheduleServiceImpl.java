@@ -276,6 +276,17 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     /**
+     * 根据id获得seat
+     *
+     * @param seatId
+     * @return
+     */
+    @Override
+    public Seat getSeatById(int seatId) {
+        return seatRepository.findOne(seatId);
+    }
+
+    /**
      * 获得热门音乐会
      *
      * @return
