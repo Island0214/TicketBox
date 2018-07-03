@@ -341,8 +341,8 @@ public class VenueController {
 
 
     @RequestMapping(value = "/getSeatByPosition",method = RequestMethod.POST)
-    Seat getSeatByPosition(int scheduleId,String area,int row,int col){
-        return scheduleService.getSeatByScheduleAndAreaAndRowAndCol(scheduleId,area,row,col);
+    Seat getSeatByPosition(@RequestBody SeatSearchBean seatSearchBean){
+        return scheduleService.getSeatByScheduleAndAreaAndRowAndCol(seatSearchBean.getScheduleId(),seatSearchBean.getArea(),seatSearchBean.getRow(),seatSearchBean.getCol());
     }
 
     @RequestMapping(value = "/getSeatById",method = RequestMethod.POST)

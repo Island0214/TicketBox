@@ -1,12 +1,14 @@
 import axios from 'axios'
 
-export function getSeatById (callback) {
+export function getSeatById (callback, body) {
   console.log('getSeatById')
   // console.log('login')
-  axios.get('/venue/ad',
+  console.log(body)
+  axios.post('/venue/getSeatById',
+    body,
     {
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/x-www-form-urlencoded'
       }
     }
   )

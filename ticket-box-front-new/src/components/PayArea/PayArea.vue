@@ -58,33 +58,6 @@
 
       </div>
     </div>
-
-    <!--<div class="pay-wrapper">-->
-      <!--<p>请选择您的支付方式：</p>-->
-      <!--<el-radio v-model="pay_way" label="1">网上银行</el-radio>-->
-      <!--&lt;!&ndash;<el-radio v-model="pay_way" label="2">微信支付</el-radio>&ndash;&gt;-->
-      <!--<div v-if="pay_way === '1'" class="pay-info-wrapper">-->
-        <!--卡号:-->
-        <!--<el-input v-model="code"></el-input>-->
-        <!--<br>-->
-        <!--<br>-->
-        <!--<br>-->
-        <!--密码:-->
-        <!--<el-input type="password" v-model="password"></el-input>-->
-      <!--</div>-->
-      <!--<el-radio v-model="pay_way" label="2">支付宝</el-radio>-->
-      <!--<div v-if="pay_way === '2'" class="pay-info-wrapper">-->
-        <!--账号:-->
-        <!--<el-input v-model="code"></el-input>-->
-        <!--<br>-->
-        <!--<br>-->
-        <!--<br>-->
-        <!--密码:-->
-        <!--<el-input type="password" v-model="password"></el-input>-->
-      <!--</div>-->
-
-      <!--<el-button @click="payOrder">立即支付</el-button>-->
-    <!--</div>-->
   </div>
 </template>
 
@@ -116,7 +89,8 @@
         payOrderAction: 'payOrder',
         getOrderById: 'getOrderById',
         getScheduleBasicInfo: 'getScheduleBasicInfo',
-        getVenueInfo: 'getVenueInfo'
+        getVenueInfo: 'getVenueInfo',
+        getSeatById: 'getSeatById'
       }),
       MillisecondToDate: function (msd) {
         let time = parseFloat(msd) / 1000
@@ -202,6 +176,17 @@
             console.log(seats)
 
             for (let i = 0; i < seats.length; i++) {
+              that.getSeatById({
+                onSuccess: (data) => {
+                  console.log(data)
+                },
+                onError: () => {
+
+                },
+                body: {
+                  seatId: parseInt(seats[i])
+                }
+              })
 
             }
 
