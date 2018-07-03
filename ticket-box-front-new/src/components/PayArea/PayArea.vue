@@ -33,7 +33,7 @@
           时间：<span>{{ new Date(schedule.time).toLocaleString() }}</span></p>
         <!--<p>地点：<span>{{ order.name }}</span></p>-->
         <!--<p>区域：<span>{{ order.area }}</span></p>-->
-        <p><icon name="couch"></icon>座位：<span>{{ seatsInfo.join(', ') }}</span></p>
+        <p><icon name="couch" style="margin-right: 15px;"></icon>座位：<span>{{ seatsInfo.join(', ') }}</span></p>
 
         <h3>您的订单将在<span>{{ countDown }}</span>后关闭, 请及时付款！</h3>
 
@@ -179,6 +179,7 @@
               that.getSeatById({
                 onSuccess: (data) => {
                   console.log(data)
+                  that.seatsInfo.push(data.area + ' ' + data.row + '排' + data.col + '座')
                 },
                 onError: () => {
 

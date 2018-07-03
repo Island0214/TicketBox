@@ -4,8 +4,7 @@ export function getSeatById (callback, body) {
   console.log('getSeatById')
   // console.log('login')
   console.log(body)
-  axios.post('/venue/getSeatById',
-    body,
+  axios.get('/venue/getSeatById?seatId=' + body.seatId,
     {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
