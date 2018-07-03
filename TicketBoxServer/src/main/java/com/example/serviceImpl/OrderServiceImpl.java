@@ -4,6 +4,7 @@ import com.example.bean.*;
 import com.example.dao.*;
 import com.example.model.*;
 import com.example.service.OrderService;
+import org.hibernate.validator.constraints.URL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.data.domain.Page;
@@ -39,6 +40,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private ScheduleRepository scheduleRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public MyOrder createOrder(OrderCreateBean orderCreateBean) {
@@ -106,13 +110,13 @@ public class OrderServiceImpl implements OrderService {
         List<String> seatIdList = new ArrayList<>();
         List<Seat> orderedSeats = new ArrayList<>();
         int sumPrice = 0;
-        for(PreOrderPriceNumBean pn:preorderCreateBean.priceNums){
-            sumPrice += pn.price*pn.num;
-            List<Seat> emptySeats = seatRepository.findByScheduleAndPriceAndStatus(preorderCreateBean.schedule,pn.price,0);
-            if(emptySeats.size()<pn.num){
-                return new MyOrder(null,String.valueOf(pn.price)+"元的剩余座位不足");
+        for (PreOrderPriceNumBean pn : preorderCreateBean.priceNums) {
+            sumPrice += pn.price * pn.num;
+            List<Seat> emptySeats = seatRepository.findByScheduleAndPriceAndStatus(preorderCreateBean.schedule, pn.price, 0);
+            if (emptySeats.size() < pn.num) {
+                return new MyOrder(null, String.valueOf(pn.price) + "元的剩余座位不足");
             }
-            for(int i=0;i<pn.num;i++){
+            for (int i = 0; i < pn.num; i++) {
                 seatIdList.add(String.valueOf(emptySeats.get(i).getSeat_id()));
                 emptySeats.get(i).setStatus(1);
                 orderedSeats.add(emptySeats.get(i));
@@ -143,56 +147,43 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    /**
+     * 将订单设为已付款订单状态，，变更会员等级和总消费
+     */
     public Map<String, String> payOrder(OrderPayBean orderPayBean) {
-        MyOrder order = orderRepository.findById(orderPayBean.getOrder_id());
+        MyOrder order = orderRepository.findById(orderPayBean.getOrderId());
         Map<String, String> result = new HashMap<>();
+        result.put("success", "支付成功!");
 
-        if (orderPayBean.getType().equals("网上银行")) {
-            BankAccount bankAccount = bankAccountRepository.findByAccountAndPassword(orderPayBean.getCode(), orderPayBean.getPassword());
-            if (bankAccount == null) {
-                result.put("error", "支付账号或密码错误！");
-            } else {
-                if (bankAccount.getBalance() < order.getPrice()) {
-                    result.put("error", "余额不足！");
-                } else {
-                    bankAccount.setBalance(bankAccount.getBalance() - order.getPrice());
-                    order.setType("已付款订单");
-                    orderRepository.save(order);
-                    bankAccountRepository.save(bankAccount);
-//                    Pay pay = new Pay();
-                    MyPay myPay = new MyPay(order.getOrder_id(), orderPayBean.getCode(), orderPayBean.getType());
-                    payRepository.save(myPay);
-                    result.put("success", "支付成功！");
-                }
-            }
-        } else {
-            AliPay aliPay = aliPayRepository.findByAccountAndPassword(orderPayBean.getCode(), orderPayBean.getPassword());
-            if (aliPay == null) {
-                result.put("error", "支付账号或密码错误！");
-            } else {
-                if (aliPay.getBalance() < order.getPrice()) {
-                    result.put("error", "余额不足！");
-                } else {
-                    aliPay.setBalance(aliPay.getBalance() - order.getPrice());
-                    order.setType("已付款订单");
-                    orderRepository.save(order);
-                    aliPayRepository.save(aliPay);
-                    MyPay myPay = new MyPay(order.getOrder_id(), orderPayBean.getCode(), orderPayBean.getType());
-                    payRepository.save(myPay);
-                    result.put("success", "支付成功！");
-                }
-            }
-        }
+        order.setType("已付款订单");
+        orderRepository.save(order);
+
+        User user = userRepository.findByUsername(order.getUsername());
+        user.setConsumption(user.getConsumption() + order.getPrice());
+        user.setIntegration(user.getIntegration() + order.getPrice() / 10);
+
+        user.setGrade(getUserGrade(user.getIntegration()));
+        userRepository.save(user);
         return result;
     }
 
     @Override
+    /**
+     * 将订单设为已取消订单状态，同时将相关座位状态设为0
+     */
     public Map<String, String> cancelOrder(OrderPayBean orderPayBean) {
         Map<String, String> result = new HashMap<>();
-        MyOrder order = orderRepository.findById(orderPayBean.getOrder_id());
+        MyOrder order = orderRepository.findById(orderPayBean.getOrderId());
         if (order != null && order.getType().equals("待付款订单")) {
             order.setType("已取消订单");
             orderRepository.save(order);
+
+            List<Integer> seatIds = Arrays.stream(order.getSeatIds().split(",")).map(Integer::parseInt).collect(Collectors.toList());
+            seatIds.forEach(seatId -> {
+                Seat seat = seatRepository.findOne(seatId);
+                seat.setStatus(0);
+                seatRepository.save(seat);
+            });
             result.put("success", "取消成功");
         } else {
             result.put("error", "取消失败");
@@ -201,40 +192,29 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    /**
+     * 订单设为已取消订单状态，同时将相关座位状态设为0，变更会员等级和总消费
+     */
     public Map<String, String> refundOrder(OrderPayBean orderPayBean) {
         Map<String, String> result = new HashMap<>();
-        MyOrder order = orderRepository.findById(orderPayBean.getOrder_id());
+        MyOrder order = orderRepository.findById(orderPayBean.getOrderId());
         if (order != null && order.getType().equals("已付款订单")) {
-            Schedule schedule = scheduleRepository.findById(order.getSchedule());
-            long diff = schedule.getTime().getTime() - new Date().getTime();
-            double rate = 1;
-            if (diff < 24 * 60 * 60 * 1000) {
-                rate = 0.6;
-            } else if (diff < 5 * 24 * 60 * 60 * 1000) {
-                rate = 0.7;
-            } else if (diff < 9 * 24 * 60 * 60 * 1000) {
-                rate = 0.8;
-            } else if (diff < 15 * 24 * 60 * 60 * 1000) {
-                rate = 0.9;
-            }
+            order.setType("已取消订单");
+            orderRepository.save(order);
 
-            MyPay myPay = payRepository.findByOrderid(orderPayBean.getOrder_id());
-            if (myPay != null) {
-                if (myPay.getType().equals("网上银行")) {
-                    BankAccount bankAccount = bankAccountRepository.findByAccount(myPay.getAccount());
-                    bankAccount.setBalance(bankAccount.getBalance() + order.getPrice() * rate);
-                    bankAccountRepository.save(bankAccount);
-                } else {
-                    AliPay aliPay = aliPayRepository.findByAccount(myPay.getAccount());
-                    aliPay.setBalance(aliPay.getBalance() + order.getPrice() * rate);
-                    aliPayRepository.save(aliPay);
-                }
-                order.setType("已退订订单");
-                orderRepository.save(order);
-                result.put("success", "退款成功！");
-            } else {
-                result.put("error", "退款失败！");
-            }
+            List<Integer> seatIds = Arrays.stream(order.getSeatIds().split(",")).map(Integer::parseInt).collect(Collectors.toList());
+            seatIds.forEach(seatId -> {
+                Seat seat = seatRepository.findOne(seatId);
+                seat.setStatus(0);
+                seatRepository.save(seat);
+            });
+
+            User user = userRepository.findByUsername(order.getUsername());
+            user.setConsumption(user.getConsumption() - order.getPrice());
+            user.setIntegration(user.getIntegration() - order.getPrice() / 10);
+            user.setGrade(getUserGrade(user.getIntegration()));
+            userRepository.save(user);
+            result.put("success", "退款成功！");
         } else {
             result.put("error", "订单状态错误！");
         }
@@ -314,5 +294,17 @@ public class OrderServiceImpl implements OrderService {
             orders.add(orderInfoBean);
         });
         return new OrderSearchResultBean(orders, searchBean.getPageNum(), myOrders.getTotalPages(), searchBean.getPageSize());
+    }
+
+    private int getUserGrade(double integration) {
+        if (integration >= 1000) {
+            return 5;
+        } else if (integration >= 800) {
+            return 4;
+        } else if (integration >= 600) {
+            return 3;
+        } else if (integration >= 400) {
+            return 2;
+        } else return 1;
     }
 }
