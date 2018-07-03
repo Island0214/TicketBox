@@ -284,7 +284,7 @@ public class OrderServiceImpl implements OrderService {
      * @return
      */
     @Override
-    public List<OrderInfoBean> findOrdersByUsernameAndStatus(OrderSearchBean searchBean) {
+    public OrderSearchResultBean findOrdersByUsernameAndStatus(OrderSearchBean searchBean) {
         Pageable pageable = new PageRequest(searchBean.getPageNum() - 1, searchBean.getPageSize(), null);
         Page<MyOrder> myOrders = orderRepository.searchOrders(pageable, searchBean.getUsername(), searchBean.getStatus());
         List<OrderInfoBean> orders = new ArrayList<>();
@@ -313,7 +313,6 @@ public class OrderServiceImpl implements OrderService {
             orderInfoBean.setSeatsInfo(seatsInfo);
             orders.add(orderInfoBean);
         });
-
-        return orders;
+        return new OrderSearchResultBean(orders, searchBean.getPageNum(), myOrders.getTotalPages(), searchBean.getPageSize());
     }
 }

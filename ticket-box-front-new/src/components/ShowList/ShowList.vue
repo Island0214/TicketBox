@@ -33,7 +33,7 @@
           </div>
           <div class="ad-wrapper" v-if="hots.length > 0">
             <h3>为您推荐更多其他演出</h3>
-            <el-carousel indicator-position="none" arrow="never" :autoplay="false" ref="carousel">
+            <el-carousel indicator-position="none" arrow="never" :autoplay="false" ref="recommandCarousel">
               <el-carousel-item>
                 <el-row :gutter="20" style="margin: 0">
                   <el-col :xs="8" :sm="8" :md="8" :lg="8" v-for="(concert, index) in hots" :key="index"
@@ -134,7 +134,7 @@
       }),
       selectPage: function (item) {
         this.curIndex = item
-        this.$refs.carousel.setActiveItem(item - 1)
+        this.$refs.recommandCarousel.setActiveItem(item - 1)
       },
       changeTab: function (item) {
         // console.log(item.label)

@@ -1,0 +1,66 @@
+.advertisement-recommendation-wrapper {
+  padding: 10px;
+  position: relative;
+  display: inline-block;
+  /*top: 0;*/
+  left: 320px;
+  right: 270px;
+  width: 610px;
+  height: auto;
+  margin-bottom: 30px;
+  border: 1px solid #dcdfe6;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12), 0 0 6px 0 rgba(0, 0, 0, 0.04);
+  /*min-height: 800px;*/
+}
+
+.advertisement-recommendation-wrapper h5 {
+  color: #906DFF;
+  background-color: #f5f7fa;
+  margin: -10px;
+  padding: 10px;
+  border-bottom: 1px solid #dcdfe6;
+  margin-bottom: 0px;
+  padding-top: 15px;
+}
+
+.el-carousel /deep/ .el-carousel__container {
+  height: 630px;
+}
+.select-wrapper {
+  width: 100%;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.select-wrapper ul {
+  position: relative;
+  display: inline;
+  margin-top: 42px;
+}
+
+.select-wrapper li {
+  /*width: auto;*/
+  position: relative;
+  display: inline;
+  /*width: 20px;*/
+}
+
+.el-carousel__button {
+  position: relative;
+  display: inline;
+  background-color: #FEC581;
+  opacity: 1;
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  line-height: 50px;
+  margin: 0 5px;
+}
+
+.el-carousel__button.is-active {
+  background-color: #906DFF;
+}
+
+.el-carousel__button:hover {
+  background-color: #906DFF;
+}

@@ -81,6 +81,7 @@
   display: inline-block;
   text-align: center;
   width: 100%;
+  padding-bottom: 0;
 }
 
 .el-carousel /deep/ .el-carousel__container {

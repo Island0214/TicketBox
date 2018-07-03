@@ -1,0 +1,28 @@
+.order-nav-wrapper {
+  border: 1px solid #dcdfe6;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12), 0 0 6px 0 rgba(0, 0, 0, 0.04);
+  background-color: white;
+  /*padding: 20px;*/
+  padding-bottom: 0;
+  min-width: 300px;
+  margin-bottom: 20px;
+  position: fixed;
+  width: 300px;
+}
+
+.order-nav-wrapper .breadcrumb-wrapper {
+  padding: 10px 20px;
+  background-color: #f5f7fa;
+  border-bottom: 1px solid #dcdfe6;
+  /*margin: -20px;*/
+  /*margin-bottom: 20px;*/
+}
+
+.order-nav-wrapper .breadcrumb-wrapper .el-breadcrumb {
+  font-size: 16px;
+}
+
+
+.order-nav-wrapper .breadcrumb-wrapper a {
+  border-bottom: 0;
+}

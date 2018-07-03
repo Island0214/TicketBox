@@ -97,8 +97,8 @@ export function refundOrder (callback, body) {
 
 export function getAllOrders (callback, body) {
   console.log('getAllOrders')
-  // console.log('login')
-  axios.post('/user/order/all/',
+  // console.log(body)
+  axios.post('/user/order/',
     JSON.parse(JSON.stringify(body)),
     {
       headers: {
@@ -107,7 +107,7 @@ export function getAllOrders (callback, body) {
     }
   )
     .then(function (response) {
-      console.log(response.data)
+      // console.log(response.data)
       callback(response.data)
     })
     .catch(function (error) {

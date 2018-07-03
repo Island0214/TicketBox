@@ -42,7 +42,7 @@
     components: {
       PartTitle
     },
-    data () {
+    data() {
       return {
         countDown: '',
         pay_way: '0',
@@ -59,7 +59,7 @@
         var time = parseFloat(msd) / 1000
         if (null != time && '' != time) {
           if (time < 14 * 60) {
-            time = (14 - parseInt(time / 60.0)) + '分钟' +  parseInt(60 - ((parseFloat(time / 60.0) -
+            time = (14 - parseInt(time / 60.0)) + '分钟' + parseInt(60 - ((parseFloat(time / 60.0) -
               parseInt(time / 60.0))) * 60) + '秒'
           } else if (time >= 14 * 60 && time < 15 * 60) {
             time = parseInt(60 - ((parseFloat(time / 60.0) -
@@ -124,7 +124,7 @@
         })
       }
     },
-    mounted () {
+    mounted() {
 //      console.log(this.order.time)
 //      console.log(new Date().getTime())
 

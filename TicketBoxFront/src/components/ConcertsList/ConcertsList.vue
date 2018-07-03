@@ -35,7 +35,8 @@
 
 
     <el-row :gutter="20" style="margin: 0">
-      <single-brief-concert v-for="(concert, index) in concerts" :key="index" :info="concert" :size="6" style="margin-top: 40px;"></single-brief-concert>
+      <single-brief-concert v-for="(concert, index) in concerts" :key="index" :info="concert" :size="6"
+                            style="margin-top: 40px;"></single-brief-concert>
     </el-row>
 
     <div class="pagination-wrapper" v-if="!showNoConcertsNote">
@@ -53,12 +54,13 @@
 <script>
   import SingleBriefConcert from '../../components/SingleBriefConcert/SingleBriefConcert.vue'
   import {mapActions} from 'vuex'
+
   export default {
     components: {
       SingleBriefConcert
     },
     name: 'HelloWorld',
-    data () {
+    data() {
       return {
         recent: true,
         types: [
@@ -152,7 +154,7 @@
         findScheduleByPageAction: 'findScheduleByPage'
       }),
       findScheduleByPage: function () {
-        let loadingInstance = this.$loading({ fullscreen: true });
+        let loadingInstance = this.$loading({fullscreen: true});
 
         this.findScheduleByPageAction({
           onSuccess: (data) => {
@@ -176,12 +178,12 @@
         this.searchBody.name = this.searchInput
       }
     },
-    mounted () {
+    mounted() {
       this.findScheduleByPage(0)
       let now = new Date()
       this.time.push(now)
       let monthLayer = new Date()
-      monthLayer.setMonth(monthLayer.getMonth()+1)
+      monthLayer.setMonth(monthLayer.getMonth() + 1)
       this.time.push(monthLayer)
       console.log(this.time)
     }
