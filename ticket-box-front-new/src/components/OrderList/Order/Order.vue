@@ -12,11 +12,11 @@
         </el-row>
       </div>
       <div class="order-info-wrapper">
-        <div class="img-box">
+        <div class="img-box" @click="openShow()">
           <img :src="order.poster"/>
         </div>
         <div class="info-wrapper">
-          <p><icon name="bullhorn"></icon>演出：<span>{{ order.scheduleName }}</span></p>
+          <p><icon name="bullhorn"></icon>演出：<span style="cursor: pointer;" @click="openShow()">{{ order.scheduleName }}</span></p>
           <p><icon name="map-marker-alt" style="margin-left: 2px; margin-right: 12px;"></icon>地点：<span>【{{ schedule.city }}】{{ venue.name }}</span></p>
           <p><icon name="clock"></icon>时间：<span>{{ new Date(order.scheduleTime).toLocaleString() }}</span></p>
           <!--<p>地点：<span>{{ order.name }}</span></p>-->
@@ -27,9 +27,9 @@
       </div>
       <div class="order-footer-wrapper">
         <div class="buttons-wrapper" v-if="showButtons">
-          <el-button v-if="order.type === '已付款订单'" @click="confirmRefund(order.orderId)">退款</el-button>
-          <el-button v-if="order.type === '待付款订单'" @click="$router.push('/pay/' + order.orderId)">付款</el-button>
-          <el-button v-if="order.type === '待付款订单'" @click="confirmCancel(order.orderId)">取消</el-button>
+          <el-button v-if="type === '已付款订单'" @click="confirmRefund(order.orderId)">退款</el-button>
+          <el-button v-if="type === '待付款订单'" @click="$router.push('/pay/' + order.orderId)">付款</el-button>
+          <el-button v-if="type === '待付款订单'" @click="confirmCancel(order.orderId)">取消</el-button>
         </div>
         <p> 创建时间：{{ new Date(order.orderTime).toLocaleString() }}</p>
         <!--<img :src="url"/>-->
@@ -96,6 +96,10 @@
       confirmCancel: function () {
         this.showCancel = true
       },
+      openShow: function () {
+        // console.log(this.scheduleId)
+        window.open('/#/show/' + this.order.scheduleId, '_blank')
+      },
       confirmRefund: function () {
         this.showRefund = true
 
@@ -139,7 +143,7 @@
             })
           },
           body: {
-            order_id: this.order.orderId
+            orderId: this.order.orderId
           }
         })
 //        location.reload()
@@ -155,7 +159,7 @@
               type: 'success',
               customClass: 'message-wrapper'
             })
-            this.type = "已退订订单"
+            this.type = "已取消订单"
           },
           onError: (error) => {
             this.$message({
@@ -166,7 +170,7 @@
             })
           },
           body: {
-            order_id: this.order.orderId
+            orderId: this.order.orderId
           }
         })
       }

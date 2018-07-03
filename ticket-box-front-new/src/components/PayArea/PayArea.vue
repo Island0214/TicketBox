@@ -37,18 +37,18 @@
 
         <h3>您的订单将在<span>{{ countDown }}</span>后关闭, 请及时付款！</h3>
 
-        <el-tabs type="border-card" style="height: 295px;">
+        <el-tabs type="border-card" style="height: 295px;" @tab-click="changeTab">
           <el-tab-pane label="网上银行">
-            <el-radio v-model="pay_way" label="1"><img src="../../assets/pay/bank1.jpg"></el-radio>
-            <el-radio v-model="pay_way" label="2"><img src="../../assets/pay/bank2.jpg"></el-radio>
-            <el-radio v-model="pay_way" label="3"><img src="../../assets/pay/bank3.jpg" style="height: 60px; margin-top: 13px"></el-radio>
-            <el-radio v-model="pay_way" label="4"><img src="../../assets/pay/bank4.jpg" style="height: 60px; margin-top: 13px"></el-radio>
+            <el-radio v-model="bank" label="1"><img src="../../assets/pay/bank1.jpg"></el-radio>
+            <el-radio v-model="bank" label="2"><img src="../../assets/pay/bank2.jpg"></el-radio>
+            <el-radio v-model="bank" label="3"><img src="../../assets/pay/bank3.jpg" style="height: 60px; margin-top: 13px"></el-radio>
+            <el-radio v-model="bank" label="4"><img src="../../assets/pay/bank4.jpg" style="height: 60px; margin-top: 13px"></el-radio>
 
             <el-button @click="payOrder">立即支付</el-button>
           </el-tab-pane>
           <el-tab-pane label="支付平台">
-            <el-radio v-model="pay_way" label="1"><img src="../../assets/pay/pay1.png"></el-radio>
-            <el-radio v-model="pay_way" label="2"><img src="../../assets/pay/pay2.png"></el-radio>
+            <el-radio v-model="pay" label="1"><img src="../../assets/pay/pay1.png"></el-radio>
+            <el-radio v-model="pay" label="2"><img src="../../assets/pay/pay2.png"></el-radio>
             <el-button @click="payOrder">立即支付</el-button>
           </el-tab-pane>
           <!--<el-tab-pane label="最新上架">-->
@@ -69,14 +69,16 @@
     data() {
       return {
         countDown: '',
-        pay_way: '0',
         countInterval: '',
         password: '',
         code: '',
         order: {},
         schedule: {},
         venue: {},
-        seatsInfo: []
+        seatsInfo: [],
+        bank: '0',
+        pay: '0',
+        pay_way: 0
       }
     },
     computed: {
@@ -117,21 +119,38 @@
         }
         return time
       },
+      changeTab: function (item) {
+        // console.log(item.label)
+        switch (item.label) {
+          case '网上银行':
+            this.pay_way = 0
+            break;
+          case '支付平台':
+            this.pay_way = 1
+            break;
+        }
+      },
       payOrder: function () {
-        let type = ''
-        if (this.pay_way === '0') {
+        console.log(this.pay_way)
+
+        if (this.pay_way === 0 && this.bank === '0') {
           this.$message({
             showClose: true,
             type: 'error',
-            message: '请选择一种支付方式！',
+            message: '请选择一个网上银行进行支付！',
             customClass: 'message-wrapper'
           })
           return
         }
-        if (this.pay_way === '1') {
-          type = '网上银行'
-        } else {
-          type = '支付宝'
+
+        if (this.pay_way === 1 && this.pay === '0') {
+          this.$message({
+            showClose: true,
+            type: 'error',
+            message: '请选择一个支付平台进行支付！',
+            customClass: 'message-wrapper'
+          })
+          return
         }
         this.payOrderAction({
           onSuccess: (data) => {
@@ -153,10 +172,7 @@
             })
           },
           body: {
-            order_id: this.order.order_id,
-            code: this.code,
-            password: this.password,
-            type: type
+            orderId: this.order.order_id
           }
         })
       }

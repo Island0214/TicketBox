@@ -146,10 +146,10 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.findById(myOrder.getOrder_id());
     }
 
-    @Override
     /**
      * 将订单设为已付款订单状态，，变更会员等级和总消费
      */
+    @Override
     public Map<String, String> payOrder(OrderPayBean orderPayBean) {
         MyOrder order = orderRepository.findById(orderPayBean.getOrderId());
         Map<String, String> result = new HashMap<>();
