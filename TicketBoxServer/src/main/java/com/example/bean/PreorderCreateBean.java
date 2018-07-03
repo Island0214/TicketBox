@@ -1,5 +1,7 @@
 package com.example.bean;
 
+import java.util.List;
+
 /**
  * @author qianzhihao
  * @version 2018/7/2
@@ -7,9 +9,8 @@ package com.example.bean;
 public class PreorderCreateBean {
     public String username;
 
-    public int unitPrice;
+    public List<PreOrderPriceNumBean> priceNums;
 
     public int schedule;
 
-    public int num;
 }
