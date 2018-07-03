@@ -345,7 +345,7 @@ public class VenueController {
         return scheduleService.getSeatByScheduleAndAreaAndRowAndCol(seatSearchBean.getScheduleId(),seatSearchBean.getArea(),seatSearchBean.getRow(),seatSearchBean.getCol());
     }
 
-    @RequestMapping(value = "/getSeatById",method = RequestMethod.POST)
+    @RequestMapping(value = "/getSeatById",method = RequestMethod.GET)
     Seat getSeatById(int seatId){
         return scheduleService.getSeatById(seatId);
     }
