@@ -71,4 +71,11 @@ public interface ScheduleService {
      * @return
      */
     List<ScheduleBriefBean> getHotConcerts();
+
+    /**
+     * 根据id获得seat
+     * @param seatId
+     * @return
+     */
+    Seat getSeatById(int seatId);
 }

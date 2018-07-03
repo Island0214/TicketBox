@@ -344,4 +344,9 @@ public class VenueController {
     Seat getSeatByPosition(int scheduleId,String area,int row,int col){
         return scheduleService.getSeatByScheduleAndAreaAndRowAndCol(scheduleId,area,row,col);
     }
+
+    @RequestMapping(value = "/getSeatById",method = RequestMethod.POST)
+    Seat getSeatById(int seatId){
+        return scheduleService.getSeatById(seatId);
+    }
 }
