@@ -10,24 +10,26 @@ import order from './modules/order'
 import statistics from './modules/statistics'
 import advertisement from './modules/advertisement'
 import show from './modules/show'
+import seat from './modules/seat'
 
 Vue.use(Vuex)
 
 const debug = process.env.NODE_ENV !== 'production'
 
 export default new Vuex.Store({
-    modules: {
-        global,
-        venue,
-        schedule,
-        user,
-        balance,
-        coupon,
-        order,
-        statistics,
-        advertisement,
-      show
-    },
-    strict: debug
-    // plugins: debug ? [createLogger()] : []
+  modules: {
+    global,
+    venue,
+    schedule,
+    user,
+    balance,
+    coupon,
+    order,
+    statistics,
+    advertisement,
+    show,
+    seat
+  },
+  strict: debug
+  // plugins: debug ? [createLogger()] : []
 })

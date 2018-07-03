@@ -24,6 +24,9 @@
       AdvertisementListRight,
       AdvertisementCarousel,
       PayArea
+    },
+    created () {
+      this.$loading({fullscreen: true}).close()
     }
   }
 </script>

@@ -31,7 +31,7 @@
             <!--<el-button class="time-button">{{ new Date(basicData.time).toLocaleString() }}</el-button>-->
             <!--<span>{{ new Date(basicData.time).toLocaleString() }}</span>-->
             <!--<button v-for="(price, index) in prices" :key="price"-->
-                    <!--:class="['price-button', {'is-active':index === curPrice}]" @click="setPrice(index)">{{ price }}-->
+            <!--:class="['price-button', {'is-active':index === curPrice}]" @click="setPrice(index)">{{ price }}-->
             <!--</button>-->
             <el-checkbox
               v-for="(price, index) in prices" :key="price"
@@ -41,12 +41,15 @@
           </p>
 
           <el-button v-if="activeStep === 0" @click="reserveTicket = true">立即预定</el-button>
-          <el-tooltip class="item" effect="light" content="距演出开场一个月以上只能先进行预购，开票后优先分配座位！" placement="right" v-if="activeStep === 0">
-            <i class="el-icon-question" style="font-size: 20px; color: #999; position: absolute; margin-top: 9px; margin-left: 9px;"></i>
+          <el-tooltip class="item" effect="light" content="距演出开场一个月以上只能先进行预购，开票后优先分配座位！" placement="right"
+                      v-if="activeStep === 0">
+            <i class="el-icon-question"
+               style="font-size: 20px; color: #999; position: absolute; margin-top: 9px; margin-left: 9px;"></i>
           </el-tooltip>
-          <el-button v-if="activeStep === 1" @click="buyTicket = true">选座购买</el-button>
+          <el-button v-if="activeStep === 1" @click="buyTicketAction">选座购买</el-button>
           <el-tooltip class="item" effect="light" content="距演出开场一个月内可进行选座购票！" placement="right" v-if="activeStep === 1">
-            <i class="el-icon-question" style="font-size: 20px; color: #999; position: absolute; margin-top: 9px; margin-left: 9px;"></i>
+            <i class="el-icon-question"
+               style="font-size: 20px; color: #999; position: absolute; margin-top: 9px; margin-left: 9px;"></i>
           </el-tooltip>
           <!--<el-button v-if="activeStep === 2">选座购买</el-button>-->
           <div v-if="activeStep === 2" class="warning-wrapper">
@@ -60,10 +63,19 @@
       <div class="tour-wrapper" v-if="basicData.tourId !== 0">
         <h3>该轮巡演更多场次</h3>
         <el-steps :active="curTour" finish-status="success">
-          <el-step @click.native="openShow(tour.scheduleId)" status="success" :title="tour.city" :description="new Date(tour.time).toLocaleString().split(' ')[0]" icon="el-icon-time" v-for="(tour, index) in tours" :key="index" v-if="index <= finishTour"></el-step>
-          <el-step @click.native="openShow(tour.scheduleId)" status="wait" :title="tour.city" :description="new Date(tour.time).toLocaleString().split(' ')[0]" icon="el-icon-time" v-for="(tour, index) in tours" :key="index" v-if="index > finishTour && index < curTour"></el-step>
-          <el-step @click.native="openShow(tour.scheduleId)" status="process" :title="tour.city" :description="new Date(tour.time).toLocaleString().split(' ')[0]" icon="el-icon-time" v-for="(tour, index) in tours" :key="index" v-if="index === curTour && curTour > finishTour"></el-step>
-          <el-step @click.native="openShow(tour.scheduleId)" status="wait" :title="tour.city" :description="new Date(tour.time).toLocaleString().split(' ')[0]" icon="el-icon-time" v-for="(tour, index) in tours" :key="index" v-if="index > curTour"></el-step>
+          <el-step @click.native="openShow(tour.scheduleId)" status="success" :title="tour.city"
+                   :description="new Date(tour.time).toLocaleString().split(' ')[0]" icon="el-icon-time"
+                   v-for="(tour, index) in tours" :key="index" v-if="index <= finishTour"></el-step>
+          <el-step @click.native="openShow(tour.scheduleId)" status="wait" :title="tour.city"
+                   :description="new Date(tour.time).toLocaleString().split(' ')[0]" icon="el-icon-time"
+                   v-for="(tour, index) in tours" :key="index" v-if="index > finishTour && index < curTour"></el-step>
+          <el-step @click.native="openShow(tour.scheduleId)" status="process" :title="tour.city"
+                   :description="new Date(tour.time).toLocaleString().split(' ')[0]" icon="el-icon-time"
+                   v-for="(tour, index) in tours" :key="index"
+                   v-if="index === curTour && curTour > finishTour"></el-step>
+          <el-step @click.native="openShow(tour.scheduleId)" status="wait" :title="tour.city"
+                   :description="new Date(tour.time).toLocaleString().split(' ')[0]" icon="el-icon-time"
+                   v-for="(tour, index) in tours" :key="index" v-if="index > curTour"></el-step>
         </el-steps>
       </div>
     </div>
@@ -96,7 +108,8 @@
       :curPrice="selectPrices"
       :schedule="basicData.schedule"
       :id="basicData.schedule_id"
-      @close="buyTicket = false"
+      @close="closeBuyTicket"
+      @closeLoding="closeLoading"
     ></ticket-select-seat>
   </div>
 </template>
@@ -126,7 +139,9 @@
         finishTour: -1,
         tours: [],
         reserveTicket: false,
-        buyTicket: false
+        buyTicket: false,
+        showLoading: false,
+        loadingInstance: ''
       }
     },
     methods: {
@@ -136,6 +151,20 @@
         getScheduleInfo: 'getScheduleInfo',
         getTourScheduleById: 'getTourScheduleById'
       }),
+      buyTicketAction: function () {
+        this.$loading({fullscreen: true})
+        let that = this
+        setTimeout(() => {
+          that.buyTicket = true
+        }, 100)
+      },
+      closeBuyTicket: function () {
+        this.buyTicket = false
+        this.$loading({fullscreen: true}).close()
+      },
+      closeLoading: function () {
+        this.$loading({fullscreen: true}).close()
+      },
       setPrice: function (index) {
         this.curPrice = index
       },

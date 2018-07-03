@@ -19,6 +19,25 @@ export function createOrder (callback, body) {
     })
 }
 
+export function reserveOrder (callback, body) {
+  console.log('reserveOrder')
+  // console.log('login')
+  axios.post('/user/order/preorder/',
+    JSON.parse(JSON.stringify(body)),
+    {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+  )
+    .then(function (response) {
+      console.log(response.data)
+      callback(response.data)
+    })
+    .catch(function (error) {
+    })
+}
+
 export function getOrderById (callback, body) {
   console.log('getOrderById')
   // console.log('login')

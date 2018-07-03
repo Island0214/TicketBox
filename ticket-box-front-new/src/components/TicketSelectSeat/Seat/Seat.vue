@@ -1,24 +1,30 @@
 <template>
   <div class="seat-wrapper" :class="[{'select-area': selectedArea}, {'is-sold': content === '已售出'}, {'is-sold': content === '已选中'}]" @click="selectSeat">
-    <icon name="couch" :class="['seat-icon']" :style="{'color': color}" v-if="!selected && content !== '已选中'"></icon>
-    <icon name="couch" :class="['selected-seat-icon']" v-if="selected || content === '已选中'"></icon>
+    <icon name="couch" :class="['seat-icon']" :style="{'color': color}" v-if=" (!selected && content !== '已选中') && !sold"></icon>
+    <icon name="couch" :class="['selected-seat-icon']" v-if="(selected || content === '已选中') && !sold"></icon>
+    <icon name="couch" :class="['seat-icon']" style="color: #999999; cursor: default;" v-if="sold"></icon>
     <icon name="check" class="check-icon" v-if="selected || content === '已选中'"></icon>
     <p v-if="content !== ''">{{ content }}</p>
   </div>
 </template>
 
 <script>
+  import {mapActions} from 'vuex'
   export default {
-    props: ['color', 'area', 'row', 'col', 'selectedArea', 'price', 'count', 'tagClose', 'content'],
+    props: ['color', 'area', 'row', 'col', 'selectedArea', 'price', 'count', 'tagClose', 'content', 'schedule'],
     name: "Seat",
     data () {
       return {
-        selected: false
+        selected: false,
+        sold: false
       }
     },
     computed: {
     },
     methods: {
+      ...mapActions({
+        getSeatByPosition: 'getSeatByPosition'
+      }),
       selectSeat: function () {
         // console.log('select')
         if (this.content !== '') {
@@ -55,10 +61,29 @@
       }
     },
     mounted () {
-      console.log(this.area)
-      console.log(this.row)
-      console.log(this.col)
-      console.log(this.selectedArea)
+      console.log({
+        scheduleId: this.schedule,
+        area: this.area,
+        row: this.row,
+        col: this.col
+      })
+      this.getSeatByPosition({
+        onSuccess: (data) => {
+          // console.log(data)
+          if (data.status !== 0) {
+            this.sold = true
+          }
+        },
+        onError: () => {
+
+        },
+        body: {
+          scheduleId: this.schedule,
+          area: this.area,
+          row: this.row,
+          col: this.col
+        }
+      })
     }
   }
 </script>
