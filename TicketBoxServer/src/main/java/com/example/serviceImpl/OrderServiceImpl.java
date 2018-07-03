@@ -103,20 +103,27 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public MyOrder createPreorder(PreorderCreateBean preorderCreateBean) {
-        List<Seat> emptySeats = seatRepository.findByScheduleAndPriceAndStatus(preorderCreateBean.schedule, preorderCreateBean.unitPrice, 0);
-        if (emptySeats.size() < preorderCreateBean.num) {
-            return new MyOrder(null, "该价格剩余座位不足");
+        List<String> seatIdList = new ArrayList<>();
+        List<Seat> orderedSeats = new ArrayList<>();
+        int sumPrice = 0;
+        for(PreOrderPriceNumBean pn:preorderCreateBean.priceNums){
+            sumPrice += pn.price*pn.num;
+            List<Seat> emptySeats = seatRepository.findByScheduleAndPriceAndStatus(preorderCreateBean.schedule,pn.price,0);
+            if(emptySeats.size()<pn.num){
+                return new MyOrder(null,String.valueOf(pn.price)+"元的剩余座位不足");
+            }
+            for(int i=0;i<pn.num;i++){
+                seatIdList.add(String.valueOf(emptySeats.get(i).getSeat_id()));
+                emptySeats.get(i).setStatus(1);
+                orderedSeats.add(emptySeats.get(i));
+            }
         }
 
-        List<String> seatIdList = new ArrayList<>(preorderCreateBean.num);
-        for (int i = 0; i < preorderCreateBean.num; i++) {
-            seatIdList.add(String.valueOf(emptySeats.get(i).getSeat_id()));
-            emptySeats.get(i).setStatus(1);
-            seatRepository.save(emptySeats.get(i));
-        }
+        orderedSeats.forEach(seat -> seatRepository.save(seat));
+
 
         int venue = scheduleRepository.findById(preorderCreateBean.schedule).getVenue();
-        MyOrder order = new MyOrder("待付款订单", preorderCreateBean.unitPrice * preorderCreateBean.num, preorderCreateBean.username, preorderCreateBean.num, String.join(",", seatIdList), new Date(), venue);
+        MyOrder order = new MyOrder("待付款订单", sumPrice, preorderCreateBean.username, preorderCreateBean.schedule, String.join(",", seatIdList), new Date(), venue);
         System.out.println(order.toString());
         order = orderRepository.saveAndFlush(order);
 
@@ -222,7 +229,7 @@ public class OrderServiceImpl implements OrderService {
                     aliPay.setBalance(aliPay.getBalance() + order.getPrice() * rate);
                     aliPayRepository.save(aliPay);
                 }
-                order.setType("已取消订单");
+                order.setType("已退订订单");
                 orderRepository.save(order);
                 result.put("success", "退款成功！");
             } else {
