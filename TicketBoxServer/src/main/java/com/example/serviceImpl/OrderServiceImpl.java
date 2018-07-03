@@ -162,7 +162,7 @@ public class OrderServiceImpl implements OrderService {
         user.setConsumption(user.getConsumption() + order.getPrice());
         user.setIntegration(user.getIntegration() + order.getPrice() / 10);
 
-        user.setGrade(getUserGrade(user.getIntegration()));
+        user.setGrade(getUserGrade(user.getConsumption()));
         userRepository.save(user);
         return result;
     }
@@ -297,13 +297,15 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private int getUserGrade(double integration) {
-        if (integration >= 1000) {
+        if (integration >= 8000) {
+            return 6;
+        } else if (integration >= 4000) {
             return 5;
-        } else if (integration >= 800) {
+        } else if (integration >= 2000) {
             return 4;
-        } else if (integration >= 600) {
+        } else if (integration >= 1000) {
             return 3;
-        } else if (integration >= 400) {
+        } else if (integration >= 500) {
             return 2;
         } else return 1;
     }

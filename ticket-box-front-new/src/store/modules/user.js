@@ -1,11 +1,12 @@
 import * as userApi from '../../api/user'
 // initial state
 const state = {
+  infoType: '基本信息'
 }
 
 // getters
 const getters = {
-  // showLogin: state => state.showLogin
+  infoType: state => state.infoType
 }
 
 // actions
@@ -98,6 +99,10 @@ const actions = {
 
 // mutations
 const mutations = {
+  'setInfoType' (state, infoType) {
+    console.log(infoType)
+    state.infoType = infoType
+  }
 }
 
 export default {

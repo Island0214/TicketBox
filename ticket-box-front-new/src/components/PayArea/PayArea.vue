@@ -2,7 +2,7 @@
   <div class="pay-area-wrapper">
     <div class="breadcrumb-wrapper">
       <el-breadcrumb separator="/">
-        <el-breadcrumb-item :to="{ path: '/order' }">订单</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/order' }">我的订单</el-breadcrumb-item>
         <el-breadcrumb-item>支付</el-breadcrumb-item>
       </el-breadcrumb>
     </div>

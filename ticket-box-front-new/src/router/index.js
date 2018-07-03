@@ -5,6 +5,7 @@ import ShowListPage from '../pages/ShowListPage.vue'
 import ShowPage from '../pages/ShowPage.vue'
 import OrderPage from '../pages/OrderPage.vue'
 import PayPage from '../pages/PayPage.vue'
+import InfoPage from '../pages/InfoPage.vue'
 
 Vue.use(Router)
 
@@ -34,6 +35,11 @@ export default new Router({
       path: '/pay/:id',
       name: 'PayPage',
       component: PayPage
+    },
+    {
+      path: '/info',
+      name: 'InfoPage',
+      component: InfoPage
     }
   ]
 })

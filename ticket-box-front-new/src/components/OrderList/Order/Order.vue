@@ -37,7 +37,7 @@
 
     </div>
     <el-dialog
-      title="提示"
+      title="取消订单"
       :visible.sync="showCancel"
       width="400px"
       top="20%"
@@ -51,15 +51,15 @@
     </el-dialog>
 
     <el-dialog
-      title="提示"
+      title="退款"
       :visible.sync="showRefund"
       width="400px"
       top="20%"
       :show-close="false"
     >
       <span>您确定对订单{{ order.orderId }}进行退款操作吗？</span>
-      <br>
-      <span>当前退款可退回{{ rate }}%金额</span>
+      <!--<br>-->
+      <!--<span>当前退款可退回{{ rate }}%金额</span>-->
       <span slot="footer" class="dialog-footer">
         <el-button @click="showRefund = false">取 消</el-button>
         <el-button type="primary" @click="refundOrder">确 定</el-button>

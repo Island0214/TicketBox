@@ -138,7 +138,6 @@
     watch: {
       showChangePassword: function () {
         this.passwords = ['', '', '']
-
       }
     },
     mounted () {

@@ -1,0 +1,127 @@
+.info-content-wrapper {
+  position: relative;
+  display: inline-block;
+  top: 0;
+  left: 20px;
+  right: 270px;
+  width: 610px;
+  height: auto;
+  margin-bottom: 30px;
+}
+
+/deep/ .el-tabs--border-card > .el-tabs__header .el-tabs__item {
+  width: 120px;
+  text-align: center;
+  font-weight: 600;
+  /*font-size: 16px;*/
+  height: 60px;
+  line-height: 60px;
+  font-size: 16px;
+
+}
+
+/deep/ .el-tabs--border-card > .el-tabs__header .el-tabs__item.is-active {
+  border-top: 5px solid #906DFF;
+  /*border-bottom: 5px solid #ffffff;*/
+  height: 64px;
+}
+
+/deep/ .el-tabs--border-card > .el-tabs__content {
+  position: relative;
+  display: inline-block;
+  height: 600px;
+  text-align: center;
+  width: 100%;
+  padding-top: 40px;
+  /*background-color: #eee;*/
+}
+
+.info-content-wrapper .head-img-wrapper {
+  width: 150px;
+  border-radius: 100px;
+  border: 1px solid #dcdfe6;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12), 0 0 6px 0 rgba(0, 0, 0, 0.04);
+  height: 150px;
+  position: relative;
+  display: inline-block;
+  object-fit: cover;
+  overflow: hidden;
+  /*opacity: 0.6;*/
+}
+
+.info-content-wrapper .head-img-wrapper img {
+  position: absolute;
+  width: 100%;
+  /*height: 100%;*/
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.info-content-wrapper h2 {
+  padding: 5px 10px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 40px;
+  margin-bottom: 20px;
+}
+
+.single-info-wrapper {
+  text-align: left;
+  padding: 5px;
+}
+
+.single-info-wrapper span {
+  display: inline-block;
+  width: 80px;
+  /*letter-spacing: 2px;*/
+  text-align: right;
+  font-weight: 400;
+  color: #999999;
+}
+
+.single-info-wrapper p {
+  position: relative;
+  display: inline-block;
+  text-align: left;
+  /*width: 80px;*/
+  /*letter-spacing: 2px;*/
+  padding-left: 20px;
+  height: 40px;
+  line-height: 40px;
+  /*text-align: right;*/
+}
+
+.single-info-wrapper p a {
+  margin-left: 20px;
+  font-size: 14px;
+}
+
+
+.single-info-wrapper p /deep/ .el-input .el-input__inner{
+  border-radius: 100px;
+  width: 220px;
+}
+
+.single-info-wrapper p i {
+  margin-left: 20px;
+  color: #999;
+  cursor: pointer;
+}
+
+.change-password-wrapper p {
+  margin: 20px;
+}
+
+.change-password-wrapper {
+  padding-top: 20px;
+}
+
+.change-password-wrapper /deep/ .el-input .el-input__inner {
+  border-radius: 100px;
+  width: 300px;
+  margin-bottom: 10px;
+}
+
+.change-password-wrapper .el-button {
+  margin-top: 60px;
+}
