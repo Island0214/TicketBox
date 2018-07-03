@@ -42,7 +42,7 @@
 
       <span slot="footer" class="dialog-footer">
         <p><i class="el-icon-warning"></i> 每种价位预售票单次最多可购买6张</p>
-        <el-button :disabled="!selected">确认购买</el-button>
+        <el-button :disabled="!selected" @click="buy">确认购买</el-button>
         <!--<el-button @click="showChangePassword = false">取 消</el-button>-->
         <!--<el-button @click="changePassword">确 定</el-button>-->
       </span>
@@ -51,8 +51,9 @@
 </template>
 
 <script>
+  import {mapGetters, mapActions} from 'vuex'
   export default {
-    props: ['reserveTicket', 'prices', 'curPrice', 'time', 'schedule'],
+    props: ['reserveTicket', 'prices', 'curPrice', 'time', 'schedule', 'id'],
     name: "TicketReserve",
     data() {
       return {
@@ -61,6 +62,9 @@
       }
     },
     computed: {
+      ...mapGetters({
+        username: 'name'
+      }),
       totalPrice: function () {
         let total = 0
         for (let i = 0; i < this.prices.length; i++) {
@@ -89,6 +93,9 @@
       }
     },
     methods: {
+      ...mapActions({
+        reserveOrder: 'reserveOrder'
+      }),
       setPrice: function (index) {
         console.log(this.selectPrices)
         if (this.selectPrices[index] === false) {
@@ -100,6 +107,44 @@
       },
       closeDialog: function () {
         this.$emit('close')
+      },
+      buy: function () {
+        let priceNums = []
+        for (let i = 0; i < this.prices.length; i++) {
+          if (this.selectPrices[i]) {
+            priceNums.push({
+              price: this.prices[i],
+              num: this.nums[i]
+            })
+          }
+        }
+        // console.log({
+        //   username: this.username,
+        //   priceNums: priceNums,
+        //   schedule: this.id
+        // })
+        this.reserveOrder({
+          onSuccess: (data) => {
+            // console.log(data)
+            if (isNaN(parseInt(data.seatIds.split(',')[0]))) {
+              this.$message({
+                message: data.seatIds,
+                type: 'error',
+                showClose: true,
+                customClass: 'message-wrapper'
+              })
+            } else {
+              this.$router.push('/pay/' + data.order_id)
+            }
+          },
+          onError: () => {
+          },
+          body: {
+            username: this.username,
+            priceNums: priceNums,
+            schedule: this.id
+          }
+        })
       }
     },
     mounted() {

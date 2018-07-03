@@ -30,12 +30,12 @@
       <div class="seats-wrapper">
         <div class="left-wrapper">
           <div v-for="item in 7" :key="'C1' + item">
-            <seat v-for="index in 7" :key="'C1' + 'index' + index" color="#f9ab37" area="C1" :row="item" :col="index"
+            <seat v-for="index in 7" :key="'C1' + 'index' + index" color="#f9ab37" area="C1区" :row="item" :col="index"
                   :selectedArea="selectPrices[2]" :price="prices[2]" :count="selectedSeats.length" :tagClose="tagClose"
                   content="" @selectSeat="selectSeat"></seat>
           </div>
           <div v-for="item in 7" :key="'E1' + item">
-            <seat v-for="index in 7" :key="'E1' + 'index' + index" color="#80bec3" area="E1" :row="item" :col="index"
+            <seat v-for="index in 7" :key="'E1' + 'index' + index" color="#80bec3" area="E1区" :row="item" :col="index"
                   :selectedArea="selectPrices[0]" :price="prices[0]" :count="selectedSeats.length" :tagClose="tagClose"
                   content="" @selectSeat="selectSeat"></seat>
           </div>
@@ -43,29 +43,29 @@
         <div class="center-wrapper">
           <!--<font-awesome-icon :icon="['fas','couch']"/>-->
           <div v-for="item in 5" :key="'A' + item">
-            <seat v-for="index in 15" :key="'A' + 'index' + index" color="#E6494F" area="A" :row="item" :col="index"
+            <seat v-for="index in 15" :key="'A' + 'index' + index" color="#E6494F" area="A区" :row="item" :col="index"
                   :selectedArea="selectPrices[4]" :price="prices[4]" :count="selectedSeats.length" :tagClose="tagClose"
                   content="" @selectSeat="selectSeat"></seat>
           </div>
           <div v-for="item in 4" :key="'B' + item">
-            <seat v-for="index in 15" :key="'B' + 'index' + index" color="#A3A9FF" area="B" :row="item" :col="index"
+            <seat v-for="index in 15" :key="'B' + 'index' + index" color="#A3A9FF" area="B区" :row="item" :col="index"
                   :selectedArea="selectPrices[3]" :price="prices[3]" :count="selectedSeats.length" :tagClose="tagClose"
                   content="" @selectSeat="selectSeat"></seat>
           </div>
           <div v-for="item in 5" :key="'D' + item">
-            <seat v-for="index in 15" :key="'D' + 'index' + index" color="#a3d841" area="D" :row="item" :col="index"
+            <seat v-for="index in 15" :key="'D' + 'index' + index" color="#a3d841" area="D区" :row="item" :col="index"
                   :selectedArea="selectPrices[1]" :price="prices[1]" :count="selectedSeats.length" :tagClose="tagClose"
                   content="" @selectSeat="selectSeat"></seat>
           </div>
         </div>
         <div class="right-wrapper">
           <div v-for="item in 7" :key="'C2' + item">
-            <seat v-for="index in 7" :key="'C2' + 'index' + index" color="#f9ab37" area="C2" :row="item" :col="index"
+            <seat v-for="index in 7" :key="'C2' + 'index' + index" color="#f9ab37" area="C2区" :row="item" :col="index"
                   :selectedArea="selectPrices[2]" :price="prices[2]" :count="selectedSeats.length" :tagClose="tagClose"
                   content="" @selectSeat="selectSeat"></seat>
           </div>
           <div v-for="item in 7" :key="'E2' + item">
-            <seat v-for="index in 7" :key="'E2' + 'index' + index" color="#80bec3" area="E2" :row="item" :col="index"
+            <seat v-for="index in 7" :key="'E2' + 'index' + index" color="#80bec3" area="E2区" :row="item" :col="index"
                   :selectedArea="selectPrices[0]" :price="prices[0]" :count="selectedSeats.length" :tagClose="tagClose"
                   content="" @selectSeat="selectSeat"></seat>
           </div>
@@ -94,10 +94,10 @@
 
 <script>
   import Seat from './Seat/Seat'
-  import {mapActions} from 'vuex'
+  import {mapGetters, mapActions} from 'vuex'
 
   export default {
-    props: ['buyTicket', 'prices', 'curPrice', 'time', 'schedule'],
+    props: ['buyTicket', 'prices', 'curPrice', 'time', 'schedule', 'id'],
     name: "TicketSelectSeat",
     components: {
       Seat
@@ -114,6 +114,9 @@
       }
     },
     computed: {
+      ...mapGetters({
+        name: 'name'
+      }),
       totalPrice: function () {
         let total = 0
         for (let i = 0; i < this.selectedSeats.length; i++) {
@@ -162,9 +165,17 @@
         this.selectedSeats.push(data)
       },
       buy: function () {
+        console.log({
+          username: this.name,
+          price: this.totalPrice,
+          schedule: this.id,
+          seats: this.selectedSeats
+        })
+        // this.closeDialog()
         this.createOrder({
           onSuccess: (data) => {
-            console.log(data)
+            // console.log(data)
+            this.$router.push('/pay/' + data.order_id)
           },
           onError: () => {
             this.$message({
@@ -175,7 +186,10 @@
             })
           },
           body: {
-
+            username: this.name,
+            price: this.totalPrice,
+            schedule: this.id,
+            seats: this.selectedSeats
           }
         })
       }
