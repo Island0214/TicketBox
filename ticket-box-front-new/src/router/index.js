@@ -4,6 +4,7 @@ import HomePage from '../pages/HomePage.vue'
 import ShowListPage from '../pages/ShowListPage.vue'
 import ShowPage from '../pages/ShowPage.vue'
 import OrderPage from '../pages/OrderPage.vue'
+import PayPage from '../pages/PayPage.vue'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/order',
       name: 'OrderPage',
       component: OrderPage
+    },
+    {
+      path: '/pay/:id',
+      name: 'PayPage',
+      component: PayPage
     }
   ]
 })

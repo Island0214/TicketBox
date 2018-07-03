@@ -206,10 +206,7 @@
       console.log(this.order)
       // this.order_id = this.order.orderId
       this.type = this.order.type
-      console.log(this.order.scheduleId)
-//       if (this.order.seat === '待分配') {
-//         this.order.area = '待分配'
-//       }
+
       this.getScheduleBasicInfo({
         onSuccess: (data) => {
 //          console.log(data)

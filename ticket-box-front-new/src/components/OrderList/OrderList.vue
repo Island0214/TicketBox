@@ -97,7 +97,7 @@
 
           },
           body: {
-            pageSize: 15,
+            pageSize: 10,
             pageNum: page,
             username: this.name,
             status: this.orderType

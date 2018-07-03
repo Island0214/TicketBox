@@ -85,6 +85,7 @@
       :time="basicData.time"
       :curPrice="selectPrices"
       :schedule="basicData.schedule"
+      :id="basicData.schedule_id"
       @close="reserveTicket = false"
     ></ticket-reserve>
 
@@ -94,6 +95,7 @@
       :time="basicData.time"
       :curPrice="selectPrices"
       :schedule="basicData.schedule"
+      :id="basicData.schedule_id"
       @close="buyTicket = false"
     ></ticket-select-seat>
   </div>

@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export function createOrder (callback, body) {
-  console.log('exchangeCoupon')
+  console.log('createOrder')
   // console.log('login')
   axios.post('/user/order/create/',
     JSON.parse(JSON.stringify(body)),
