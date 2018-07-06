@@ -77,7 +77,7 @@
       return {
         locate: '',
         cities: ['全部'],
-        types: ['全部', '演唱会', '戏剧', '音乐剧'],
+        types: ['全部', '演唱会', '戏剧', '音乐会'],
         times: ['全部', '最近一周', '最近一个月'],
         cityWrapperHeight: '60px',
         arrowType: '更多',
@@ -112,7 +112,9 @@
       setCity: function () {
         this.curCity = this.cities.indexOf(this.locate)
         if (this.curCity > 7) {
-          this.setCityWrapperHeight()
+          // this.setCityWrapperHeight()
+          this.cityWrapperHeight = 'auto'
+          this.arrowType = '收起'
         }
       },
       modifyParams: function () {

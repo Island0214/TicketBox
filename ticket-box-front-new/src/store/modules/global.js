@@ -123,9 +123,8 @@ const mutations = {
     state.showLogin = false
     // alert(state.largeSize)
   },
-  'showSignin' (state, type) {
+  'showSignin' (state) {
     state.showSignin = true
-    state.signinType = type
   },
   'hideSignin' (state) {
     state.showSignin = false

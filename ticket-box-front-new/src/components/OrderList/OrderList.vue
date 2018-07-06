@@ -75,11 +75,13 @@
         getAllOrders: 'getAllOrders'
       }),
       changePage: function (page) {
+        console.log(page)
         this.curPage = page
-        this.setPage(page)
+        // this.setPage(page)
         this.getOrdersByPage(page)
       },
       getOrdersByPage: function (page) {
+        document.documentElement.scrollTop = document.body.scrollTop = 0
         this.showLoading = true
         this.getAllOrders({
           onSuccess: (data) => {
@@ -88,8 +90,6 @@
             this.totalPage = data.total
             if (data.total === 0) {
               this.curPage = 0
-            } else {
-              this.curPage = 1
             }
             this.showLoading = false
           },
@@ -97,7 +97,7 @@
 
           },
           body: {
-            pageSize: 10,
+            pageSize: 5,
             pageNum: page,
             username: this.name,
             status: this.orderType

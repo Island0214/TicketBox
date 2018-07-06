@@ -31,37 +31,38 @@
             >
             </el-pagination>
           </div>
-          <div class="ad-wrapper" v-if="hots.length > 0">
-            <h3>为您推荐更多其他演出</h3>
-            <el-carousel indicator-position="none" arrow="never" :autoplay="false" ref="recommandCarousel">
-              <el-carousel-item>
-                <el-row :gutter="20" style="margin: 0">
-                  <el-col :xs="8" :sm="8" :md="8" :lg="8" v-for="(concert, index) in hots" :key="index"
-                          v-if="index >= 6">
-                    <single-brief-concert :info="concert"></single-brief-concert>
-                  </el-col>
-                </el-row>
-              </el-carousel-item>
-              <el-carousel-item>
-                <el-row :gutter="20" style="margin: 0">
-                  <el-col :xs="8" :sm="8" :md="8" :lg="8" v-for="(concert, index) in hots" :key="6 + index"
-                          v-if="index < 6">
-                    <single-brief-concert :info="concert"></single-brief-concert>
-                  </el-col>
-                </el-row>
-              </el-carousel-item>
-            </el-carousel>
-
-            <div class="select-wrapper">
-              <ul>
-                <li v-for="item in 2" :key="item">
-                  <button :class="['el-carousel__button', {'is-active': curIndex === item}]"
-                          @mouseover="selectPage(item)"></button>
-                </li>
-              </ul>
-            </div>
-          </div>
         </el-tab-pane>
+
+        <div class="ad-wrapper" v-if="hots.length > 0 && shows.length < 5">
+          <h3>为您推荐更多其他演出</h3>
+          <el-carousel indicator-position="none" arrow="never" :autoplay="false" ref="carousel">
+            <el-carousel-item>
+              <el-row :gutter="20" style="margin: 0">
+                <el-col :xs="8" :sm="8" :md="8" :lg="8" v-for="(concert, index) in hots" :key="index"
+                        v-if="index < 6">
+                  <single-brief-concert :info="concert"></single-brief-concert>
+                </el-col>
+              </el-row>
+            </el-carousel-item>
+            <el-carousel-item>
+              <el-row :gutter="20" style="margin: 0">
+                <el-col :xs="8" :sm="8" :md="8" :lg="8" v-for="(concert, index) in hots" :key="6 + index"
+                        v-if="index >= 6">
+                  <single-brief-concert :info="concert"></single-brief-concert>
+                </el-col>
+              </el-row>
+            </el-carousel-item>
+          </el-carousel>
+
+          <div class="select-wrapper">
+            <ul>
+              <li v-for="item in 2" :key="item">
+                <button :class="['el-carousel__button', {'is-active': curIndex === item}]"
+                        @mouseover="selectPage(item)"></button>
+              </li>
+            </ul>
+          </div>
+        </div>
         <!--<el-tab-pane label="最新上架">-->
 
         <!--</el-tab-pane>-->
@@ -134,7 +135,8 @@
       }),
       selectPage: function (item) {
         this.curIndex = item
-        this.$refs.recommandCarousel.setActiveItem(item - 1)
+        console.log(this.$refs.carousel)
+        this.$refs.carousel.setActiveItem(item - 1)
       },
       changeTab: function (item) {
         // console.log(item.label)

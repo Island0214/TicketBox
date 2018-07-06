@@ -127,7 +127,7 @@
         info: {},
         modify: false,
         gender: '男',
-        phone: 13151059368,
+        phone: 13151051111,
         birthday: 'Fri Feb 14 1997 00:00:00 GMT+0800',
         discounts: [
           {grade: 1, consumption: 0},

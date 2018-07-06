@@ -50,9 +50,9 @@ public class ScheduleServiceImpl implements ScheduleService {
 
         for (int i = 0; i < areas.size(); i++) {
             Seat area = areas.get(i);
-            System.out.println(area.getRow());
-            System.out.println(area.getCol());
-            for (int j = 0; j < area.getRow(); j++) {
+//            System.out.println(area.getSeat_row());
+//            System.out.println(area.getCol());
+            for (int j = 0; j < area.getSeat_row(); j++) {
                 for (int k = 0; k < area.getCol(); k++) {
                     seatList.add(new Seat(seatListBean.getSchedule(), area.getArea(), j + 1, k + 1, area.getPrice(), 0));
                 }
@@ -91,7 +91,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public Seat getSeatByScheduleAndAreaAndRowAndCol(int schedule, String area, int row, int col) {
-        return seatRepository.findByScheduleAndAreaAndRowAndCol(schedule,area,row,col);
+        return seatRepository.findByScheduleAndAreaAndSeat_rowAndCol(schedule,area,row,col);
     }
 
     @Override
@@ -132,17 +132,17 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public ScheduleInfoBean getScheduleInfo(int scheduleId) {
-        System.out.println(scheduleId);
+//        System.out.println(scheduleId);
         ScheduleInfoBean scheduleInfoBean = new ScheduleInfoBean();
         scheduleInfoBean.setScheduleId(scheduleId);
 
         Schedule schedule = scheduleRepository.findById(scheduleId);
-        System.out.println(schedule);
+//        System.out.println(schedule);
         Venue venue = venueRepository.findByCode(schedule.getVenue());
         scheduleInfoBean.setVenueName(venue.getName());
 
         List<Integer> prices = seatRepository.findPricesBySchedule(scheduleId);
-        System.out.println(prices.size());
+//        System.out.println(prices.size());
         scheduleInfoBean.setMaxPrice(Collections.max(prices));
         scheduleInfoBean.setMinPrice(Collections.min(prices));
 

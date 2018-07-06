@@ -104,7 +104,7 @@
             time = parseInt(60 - ((parseFloat(time / 60.0) -
               parseInt(time / 60.0))) * 60) + '秒'
           } else {
-            // this.$router.push('/')
+            this.$router.push('/')
             this.$message({
               showClose: true,
               type: 'error',
@@ -115,7 +115,7 @@
             time = '0秒'
           }
         } else {
-          // this.$router.push('/')
+          this.$router.push('/')
         }
         return time
       },
@@ -195,7 +195,7 @@
               that.getSeatById({
                 onSuccess: (data) => {
                   console.log(data)
-                  that.seatsInfo.push(data.area + ' ' + data.row + '排' + data.col + '座')
+                  that.seatsInfo.push(data.area + ' ' + data.seat_row + '排' + data.col + '座')
                 },
                 onError: () => {
 

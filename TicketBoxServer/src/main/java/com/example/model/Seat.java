@@ -1,9 +1,6 @@
 package com.example.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by island on 2018/3/19.
@@ -18,7 +15,8 @@ public class Seat {
 
     private String area;
 
-    private int row;
+    @Column(name = "seat_row")
+    private int seat_row;
 
     private int col;
 
@@ -35,18 +33,18 @@ public class Seat {
     public Seat() {
     }
 
-    public Seat(int schedule, String area, int row, int col, int price, int status) {
+    public Seat(int schedule, String area, int seat_row, int col, int price, int status) {
         this.schedule = schedule;
         this.area = area;
-        this.row = row;
+        this.seat_row = seat_row;
         this.col = col;
         this.price = price;
         this.status = status;
     }
 
-    public Seat(String area, int row, int col) {
+    public Seat(String area, int seat_row, int col) {
         this.area = area;
-        this.row = row;
+        this.seat_row = seat_row;
         this.col = col;
     }
 
@@ -74,12 +72,12 @@ public class Seat {
         this.area = area;
     }
 
-    public int getRow() {
-        return row;
+    public int getSeat_row() {
+        return seat_row;
     }
 
-    public void setRow(int row) {
-        this.row = row;
+    public void setSeat_row(int row) {
+        this.seat_row = row;
     }
 
     public int getCol() {
@@ -108,6 +106,19 @@ public class Seat {
 
     @Override
     public String toString() {
-        return area + row + "排" + col + "座";
+        return area + seat_row + "排" + col + "座";
     }
+
+//    @Override
+//    public String toString() {
+//        return "Seat{" +
+//                "seatId=" + seatId +
+//                ", schedule=" + schedule +
+//                ", area='" + area + '\'' +
+//                ", row=" + row +
+//                ", col=" + col +
+//                ", price=" + price +
+//                ", status=" + status +
+//                '}';
+//    }
 }

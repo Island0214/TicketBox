@@ -103,10 +103,10 @@ public class VenueServiceImpl implements VenueService {
 
     @Override
     public Map<String, String> checkTicket(Seat seat) {
-        Seat seat1 = seatRepository.findByScheduleAndAreaAndRowAndCol(seat.getSchedule(), seat.getArea(), seat.getRow(), seat.getCol());
+        Seat seat1 = seatRepository.findByScheduleAndAreaAndSeat_rowAndCol(seat.getSchedule(), seat.getArea(), seat.getSeat_row(), seat.getCol());
         System.out.println(seat1.toString());
         Map<String, String> map = new HashMap<>();
-        String seatString = seat.getRow() + "排" + seat.getCol() + "座";
+        String seatString = seat.getSeat_row() + "排" + seat.getCol() + "座";
         if (seat1.getStatus() == 2) {
             seat1.setStatus(3);
             seatRepository.save(seat1);

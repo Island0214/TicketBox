@@ -3,7 +3,7 @@ import axios from 'axios'
 export function getSeatById (callback, body) {
   console.log('getSeatById')
   // console.log('login')
-  console.log(body)
+  // console.log(body)
   axios.get('/venue/getSeatById?seatId=' + body.seatId,
     {
       headers: {

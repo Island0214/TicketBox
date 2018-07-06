@@ -20,13 +20,14 @@ public interface SeatRepository extends JpaSpecificationExecutor<Seat>, JpaRepos
     @Query("select distinct s.area from Seat s where s.schedule = :schedule and s.price = :price")
     List<String> findAreasByScheduleAndPrice(@Param("schedule") int schedule, @Param("price") int price);
 
-    @Query("select distinct s from Seat s where s.schedule = :schedule and s.area = :area order by s.row desc, s.col desc")
+    @Query("select distinct s from Seat s where s.schedule = :schedule and s.area = :area order by s.seat_row desc, s.col desc")
     List<Seat> findRowAndCodeByScheduleAndArea(@Param("schedule") int schedule, @Param("area") String area);
 
-    @Query("select distinct s from Seat s where s.schedule = :schedule and s.area = :area order by s.row, s.col")
+    @Query("select distinct s from Seat s where s.schedule = :schedule and s.area = :area order by s.seat_row, s.col")
     List<Seat> findSeatsByScheduleAndArea(@Param("schedule") int schedule, @Param("area") String area);
 
-    Seat findByScheduleAndAreaAndRowAndCol(int schedule, String area, int row, int col);
+    @Query("select distinct s from Seat s where s.schedule = :schedule and s.area = :area and s.seat_row = :seat_row and s.col = :col")
+    Seat findByScheduleAndAreaAndSeat_rowAndCol(@Param("schedule") int schedule, @Param("area") String area, @Param("seat_row") int seat_row, @Param("col") int col);
 
     List<Seat> findBySchedule(int schedule);
 

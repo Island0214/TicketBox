@@ -158,7 +158,7 @@ public class UserServiceImpl implements UserService {
             int row = Integer.parseInt(seat.split("排")[0]);
             int col = Integer.parseInt(seat.split("排")[1].split("座")[0]);
 
-            Seat seatObject = seatRepository.findByScheduleAndAreaAndRowAndCol(order.getSchedule(), order.getArea(), row, col);
+            Seat seatObject = seatRepository.findByScheduleAndAreaAndSeat_rowAndCol(order.getSchedule(), order.getArea(), row, col);
             seatObject.setStatus(2);
             seatRepository.save(seatObject);
             System.out.println(seatObject.toString());

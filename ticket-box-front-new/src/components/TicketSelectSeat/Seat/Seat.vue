@@ -1,8 +1,9 @@
 <template>
   <div class="seat-wrapper" :class="[{'select-area': selectedArea}, {'is-sold': content === '已售出'}, {'is-sold': content === '已选中'}]" @click="selectSeat">
     <icon name="couch" :class="['seat-icon']" :style="{'color': color}" v-if=" (!selected && content !== '已选中') && !sold"></icon>
-    <icon name="couch" :class="['selected-seat-icon']" v-if="(selected || content === '已选中') && !sold"></icon>
-    <icon name="couch" :class="['seat-icon']" style="color: #999999; cursor: default;" v-if="sold"></icon>
+    <icon name="couch" class="selected-seat-icon" v-if="(selected || content === '已选中') && !sold"></icon>
+    <icon name="couch" :class="['seat-icon']" style="color: #999999; cursor: default;" v-if="sold && content !== '已选中'"></icon>
+    <icon name="couch" class="selected-seat-icon" v-if="content === '已选中' && sold"></icon>
     <icon name="check" class="check-icon" v-if="selected || content === '已选中'"></icon>
     <p v-if="content !== ''">{{ content }}</p>
   </div>
@@ -27,7 +28,7 @@
       }),
       selectSeat: function () {
         // console.log('select')
-        if (this.content !== '') {
+        if (this.content !== '' || this.sold === true) {
           return
         }
 
@@ -42,7 +43,7 @@
           this.selected = !this.selected
           this.$emit('selectSeat', {
             area: this.area,
-            row: this.row,
+            seat_row: this.row,
             col: this.col,
             price: this.price
           })
@@ -53,7 +54,7 @@
       tagClose: {
         handler: function () {
           // console.log(this.tagClose)
-          if (this.tagClose.area === this.area && this.tagClose.row === this.row && this.tagClose.col === this.col) {
+          if (this.tagClose.area === this.area && this.tagClose.seat_row === this.row && this.tagClose.col === this.col) {
             this.selectSeat()
           }
         },
@@ -61,12 +62,12 @@
       }
     },
     mounted () {
-      console.log({
-        scheduleId: this.schedule,
-        area: this.area,
-        row: this.row,
-        col: this.col
-      })
+      // console.log({
+      //   scheduleId: this.schedule,
+      //   area: this.area,
+      //   seat_row: this.row,
+      //   col: this.col
+      // })
       this.getSeatByPosition({
         onSuccess: (data) => {
           // console.log(data)

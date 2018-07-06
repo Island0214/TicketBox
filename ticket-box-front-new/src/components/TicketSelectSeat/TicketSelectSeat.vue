@@ -22,7 +22,7 @@
 
         <span>
           <seat color="#999999" content="已售出" style="top: 5px; cursor: default;"></seat>
-          <seat color="#999999" content="已选中" style="top: 5px"></seat>
+          <seat color="#FEC581" content="已选中" style="top: 5px"></seat>
         </span>
 
       </p>
@@ -75,8 +75,8 @@
       <p v-if="selectedSeats.length !== 0">您选择了：</p>
 
       <div class="selected-seats-wrapper" v-if="selectedSeats.length !== 0">
-        <el-tag v-for="(seat, index) in selectedSeats" :key="index" closable @close="tagClose = seat">{{ seat.area }}区&nbsp;{{
-          seat.row }}排{{ seat.col }}座
+        <el-tag v-for="(seat, index) in selectedSeats" :key="index" closable @close="tagClose = seat">{{ seat.area }}&nbsp;{{
+          seat.seat_row }}排{{ seat.col }}座
         </el-tag>
       </div>
       <p>总价：<span>¥ {{totalPrice}}</span></p>
@@ -115,7 +115,8 @@
     },
     computed: {
       ...mapGetters({
-        name: 'name'
+        name: 'name',
+        logStatus: 'logStatus'
       }),
       totalPrice: function () {
         let total = 0
@@ -156,7 +157,7 @@
       selectSeat: function (data) {
         // console.log(data in this.selectedSeats)
         for (let i = 0; i < this.selectedSeats.length; i++) {
-          if (data.area === this.selectedSeats[i].area && data.row === this.selectedSeats[i].row && data.col === this.selectedSeats[i].col) {
+          if (data.area === this.selectedSeats[i].area && data.seat_row === this.selectedSeats[i].seat_row && data.col === this.selectedSeats[i].col) {
             this.selectedSeats.splice(i, 1)
             return
           }
@@ -164,12 +165,12 @@
         this.selectedSeats.push(data)
       },
       buy: function () {
-        console.log({
-          username: this.name,
-          price: this.totalPrice,
-          schedule: this.id,
-          seats: this.selectedSeats
-        })
+        // console.log({
+        //   username: this.name,
+        //   price: this.totalPrice,
+        //   schedule: this.id,
+        //   seats: this.selectedSeats
+        // })
         // this.closeDialog()
         this.createOrder({
           onSuccess: (data) => {
@@ -199,11 +200,13 @@
     mounted() {
       let that = this
       this.selectPrices = this.curPrice
+      this.$emit('closeLoading')
+
       this.getScheduleInfo({
         onSuccess: (data) => {
-          console.log(data)
-          // this.$emit('closeLoading')
-          this.$loading.close()
+          // console.log(data)
+          that.$emit('closeLoading')
+          // this.$loading.close()
 
         },
         onError: () => {

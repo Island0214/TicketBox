@@ -13,8 +13,8 @@
       <!--<el-menu-item index="2" @click="$router.push('/order')">订单</el-menu-item>-->
       <el-submenu index="2" v-if="name === ''" @click="clickSubmenu">
         <template slot="title">用户</template>
-        <el-menu-item index="2-1" @click="login = true">登陆</el-menu-item>
-        <el-menu-item index="2-2" @click="signin = true">注册</el-menu-item>
+        <el-menu-item index="2-1" @click="showLoginMutation">登陆</el-menu-item>
+        <el-menu-item index="2-2" @click="showSigninMutation">注册</el-menu-item>
       </el-submenu>
       <el-submenu index="2" v-if="name !== ''">
         <template slot="title">{{ name }}</template>
@@ -26,7 +26,7 @@
 
     <div class="log-wrapper">
       <el-dialog
-        :visible.sync="login"
+        :visible.sync="showLogin"
         width="400px"
         top="150px"
         :show-close=true
@@ -43,11 +43,11 @@
 
         <el-button @click="logIn">登 录</el-button>
 
-        <a>注册 > </a>
+        <a @click="goSignin">注册 > </a>
       </el-dialog>
 
       <el-dialog
-        :visible.sync="signin"
+        :visible.sync="showSignin"
         width="400px"
         top="150px"
         :show-close=true
@@ -68,9 +68,9 @@
            v-model="password"
         ></i>
 
-        <el-button @click="logIn">注 册</el-button>
+        <el-button>注 册</el-button>
 
-        <a>登陆 > </a>
+        <a @click="goLogin">登陆 > </a>
       </el-dialog>
     </div>
 
@@ -86,11 +86,9 @@
       return {
         activeIndex: '0',
         input: '',
-        login: false,
         username: '',
         password: '',
-        showPassword: false,
-        signin: false
+        showPassword: false
       }
     },
     watch: {
@@ -102,12 +100,13 @@
           that.setActiveIndex(path)
         }, 100)
       },
-      login: function () {
+      showLogin: function () {
         this.username = ''
         this.password = ''
         // this.setActiveIndex(this.$route.path)
       },
-      signin: function () {
+      showSignin: function () {
+        let that = this
         this.username = ''
         this.password = ''
         if (this.signin === false) {
@@ -123,18 +122,38 @@
     },
     computed: {
       ...mapGetters({
-        name: 'name'
+        name: 'name',
+        showLogin: 'showLogin',
+        showSignin: 'showSignin'
       })
     },
     methods: {
       ...mapMutations({
         setSearchParams: 'setSearchParams',
-        quitLog: 'quitLog'
+        quitLog: 'quitLog',
+        showLoginMutation: 'showLogin',
+        hideLoginMutation: 'hideLogin',
+        showSigninMutation: 'showSignin',
+        hideSigninMutation: 'hideSignin'
       }),
       ...mapActions({
         logInAction: 'logInAction',
         userRegisterAction: 'userRegisterAction'
       }),
+      goLogin: function () {
+        let that = this
+        this.hideSigninMutation()
+        setTimeout(() => {
+          that.showLoginMutation()
+        }, 50)
+      },
+      goSignin: function () {
+        let that = this
+        this.hideLoginMutation()
+        setTimeout(() => {
+          that.showSigninMutation()
+        }, 50)
+      },
       toAllShows: function (content) {
         this.setSearchParams({
           searchContent: content,
@@ -148,6 +167,8 @@
       setActiveIndex: function (path) {
         // alert('sa')
         // this.activeIndex = '0'
+        this.hideLoginMutation()
+        this.hideSigninMutation()
         let that = this
         let p = path.split('/')[1]
         setTimeout(() => {
@@ -177,7 +198,7 @@
       },
       clickSubmenu: function () {
         // alert(2)
-        this.activeIndex = 2
+        this.activeIndex = '2'
       },
       logIn: function () {
         if (this.username === '' || this.password === '') {
@@ -224,7 +245,7 @@
           this.$router.push('/')
         }
         this.quitLog()
-        this.setActiveIndex()
+        this.setActiveIndex(this.$route.path)
       }
     },
     mounted() {

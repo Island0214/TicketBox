@@ -4,9 +4,7 @@ import com.example.bean.*;
 import com.example.dao.*;
 import com.example.model.*;
 import com.example.service.OrderService;
-import org.hibernate.validator.constraints.URL;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -48,22 +46,27 @@ public class OrderServiceImpl implements OrderService {
     public MyOrder createOrder(OrderCreateBean orderCreateBean) {
         List<String> seatIdList = new ArrayList<>(orderCreateBean.getSeats().size());
         List<String> seatOrderedList = new ArrayList<>(orderCreateBean.getSeats().size());
+        List<Seat> seats = new ArrayList<>();
         boolean hasOrdered = false;
         for (Seat s : orderCreateBean.getSeats()) {
-            Seat seat = seatRepository.findByScheduleAndAreaAndRowAndCol(orderCreateBean.getSchedule(), s.getArea(), s.getRow(), s.getCol());
+            Seat seat = seatRepository.findByScheduleAndAreaAndSeat_rowAndCol(orderCreateBean.getSchedule(), s.getArea(), s.getSeat_row(), s.getCol());
+            System.out.println(s.toString());
+            System.out.println(orderCreateBean.toString());
             if (seat.getStatus() != 1) {
                 seat.setStatus(1);
             } else {
                 hasOrdered = true;
-                seatOrderedList.add(String.valueOf(seat.getRow()) + "排" + String.valueOf(seat.getCol()) + "列");
+                seatOrderedList.add(String.valueOf(seat.getSeat_row()) + "排" + String.valueOf(seat.getCol()) + "列");
             }
-            s = seat;
+//            s = seat;
+            seats.add(seat);
             seatIdList.add(String.valueOf(seat.getSeat_id()));
         }
         if (hasOrdered) {
             return new MyOrder(null, String.join(",", seatOrderedList));
         } else {
-            for (Seat s : orderCreateBean.getSeats()) {
+            for (Seat s : seats) {
+                System.out.println(s.toString());
                 seatRepository.save(s);
             }
         }

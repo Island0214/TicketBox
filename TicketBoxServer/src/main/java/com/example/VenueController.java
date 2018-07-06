@@ -342,6 +342,7 @@ public class VenueController {
 
     @RequestMapping(value = "/getSeatByPosition",method = RequestMethod.POST)
     Seat getSeatByPosition(@RequestBody SeatSearchBean seatSearchBean){
+        System.out.println(seatSearchBean.toString());
         return scheduleService.getSeatByScheduleAndAreaAndRowAndCol(seatSearchBean.getScheduleId(),seatSearchBean.getArea(),seatSearchBean.getRow(),seatSearchBean.getCol());
     }
 

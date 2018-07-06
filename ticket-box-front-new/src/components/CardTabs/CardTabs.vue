@@ -81,7 +81,7 @@
           intro: '参与不可复制的艺术'
         }, {
           img: require('../../assets/melodrama.png'),
-          title: '音乐剧',
+          title: '音乐会',
           intro: '乐享文艺生活的感染'
         }],
         curIndex: 1
@@ -97,6 +97,7 @@
       }),
       selectPage: function (item) {
         this.curIndex = item
+        console.log(this.$refs.carousel)
         this.$refs.carousel.setActiveItem(item - 1)
       },
       toAllShows: function (type) {
@@ -107,8 +108,8 @@
           startTime: '',
           endTime: ''
         })
-        window.open('/#/shows')
-        // this.$router.push('/shows', '')
+        // ('/#/shows')
+        this.$router.push('/shows')
       },
       openShow: function (id) {
         window.open('/#/show/' + id, '_blank')

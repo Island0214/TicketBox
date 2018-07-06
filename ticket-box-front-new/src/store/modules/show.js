@@ -9,7 +9,7 @@ const state = {
   endTime: '',
   page: 1,
   sort: 'hottest',
-  pageSize: 15
+  pageSize: 8
 }
 
 // getters

@@ -8,7 +8,7 @@
           <el-breadcrumb-item>演出详情</el-breadcrumb-item>
         </el-breadcrumb>
       </div>
-      <div class="body-wrapper" v-if="basicData.time">
+      <div class="body-wrapper" v-if="basicData.time" v-loading="loading">
         <div class="img-wrapper">
           <img :src="basicData.poster">
         </div>
@@ -40,7 +40,7 @@
             </el-checkbox>
           </p>
 
-          <el-button v-if="activeStep === 0" @click="reserveTicket = true">立即预定</el-button>
+          <el-button v-if="activeStep === 0" @click="reserveTicketAction">立即预定</el-button>
           <el-tooltip class="item" effect="light" content="距演出开场一个月以上只能先进行预购，开票后优先分配座位！" placement="right"
                       v-if="activeStep === 0">
             <i class="el-icon-question"
@@ -109,13 +109,13 @@
       :schedule="basicData.schedule"
       :id="basicData.schedule_id"
       @close="closeBuyTicket"
-      @closeLoding="closeLoading"
+      @closeLoading="closeLoading"
     ></ticket-select-seat>
   </div>
 </template>
 
 <script>
-  import {mapActions} from 'vuex'
+  import {mapGetters, mapMutations, mapActions} from 'vuex'
   import TicketReserve from '../TicketReserve/TicketReserve'
   import TicketSelectSeat from '../TicketSelectSeat/TicketSelectSeat'
 
@@ -141,29 +141,56 @@
         reserveTicket: false,
         buyTicket: false,
         showLoading: false,
-        loadingInstance: ''
+        loadingInstance: '',
+        loading: false
       }
     },
+    computed: {
+      ...mapGetters({
+        logStatus: 'logStatus'
+      })
+    },
     methods: {
+      ...mapMutations({
+        showLogin: 'showLogin'
+      }),
       ...mapActions({
         getScheduleBasicInfo: 'getScheduleBasicInfo',
         getSchedulePriceInfo: 'getSchedulePriceInfo',
         getScheduleInfo: 'getScheduleInfo',
         getTourScheduleById: 'getTourScheduleById'
       }),
+      reserveTicketAction: function () {
+        if (!this.logStatus) {
+          this.showLogin()
+        } else {
+          // this.$loading({fullscreen: true})
+          // let that = this
+          // setTimeout(() => {
+          this.reserveTicket = true
+          // }, 100)
+        }
+      },
       buyTicketAction: function () {
-        this.$loading({fullscreen: true})
-        let that = this
-        setTimeout(() => {
-          that.buyTicket = true
-        }, 100)
+        if (!this.logStatus) {
+          this.showLogin()
+        } else {
+          // this.$loading({fullscreen: true})
+          this.loading = true
+          let that = this
+          setTimeout(() => {
+            that.buyTicket = true
+          }, 1000)
+        }
       },
       closeBuyTicket: function () {
         this.buyTicket = false
-        this.$loading({fullscreen: true}).close()
+        this.loading = false
+        // this.$loading({fullscreen: true}).close()
       },
       closeLoading: function () {
-        this.$loading({fullscreen: true}).close()
+        console.log('close')
+        this.loading = false
       },
       setPrice: function (index) {
         this.curPrice = index
@@ -203,7 +230,7 @@
           if (data.tourId !== 0) {
             this.getTourScheduleById({
               onSuccess: (data) => {
-                console.log(data)
+                // console.log(data)
                 this.tours = data
                 for (let i = 0; i < data.length; i++) {
                   if (data[i].time < new Date().getTime()) {

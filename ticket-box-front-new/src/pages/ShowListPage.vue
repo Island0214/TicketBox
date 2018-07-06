@@ -10,7 +10,7 @@
       <el-col :xs="6" :sm="6" :md="4" :lg="4" style="padding: 0;">
         <!--<show-list-nav></show-list-nav>-->
         <advertisement-carousel></advertisement-carousel>
-        <!--<advertisement-list-right></advertisement-list-right>-->
+        <advertisement-list-right></advertisement-list-right>
       </el-col>
     </el-row>
 
